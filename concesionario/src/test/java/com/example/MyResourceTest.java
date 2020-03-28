@@ -10,7 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import concesionario.cliente.Main;
+import concesionario.servidor.Main;
 
 import static org.junit.Assert.assertEquals;
 

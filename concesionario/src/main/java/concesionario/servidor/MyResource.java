@@ -1,4 +1,4 @@
-package concesionario.cliente;
+package concesionario.servidor;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

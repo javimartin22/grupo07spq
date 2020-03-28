@@ -69,7 +69,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>concesionario.cliente.Main</mainClass>
+                    <mainClass>concesionario.servidor.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
