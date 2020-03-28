@@ -10,8 +10,8 @@ public class Mecanico extends Empleado{
 	
 	
 	
-	public Mecanico(String nickname, String contrasenya, int tipo, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String direccion, String nSS, String numeroCuenta, int sueldo, String numeroTelefono, int tipoEmpleado, ArrayList<CocheMatriculado> coches, int horas) {
-		super(nickname, contrasenya, tipo, nombre, apellido, sexo, email, ciudad, codigoPostal, direccion, nSS, numeroCuenta, sueldo, numeroTelefono, tipoEmpleado);
+	public Mecanico(String DNI,String nickname, String contrasenya, int tipo, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String direccion, String nSS, String numeroCuenta, int sueldo, String numeroTelefono, int tipoEmpleado, ArrayList<CocheMatriculado> coches, int horas) {
+		super(DNI, nickname, contrasenya, tipo, nombre, apellido, sexo, email, ciudad, codigoPostal, direccion, nSS, numeroCuenta, sueldo, numeroTelefono, tipoEmpleado);
 		this.coches = coches;
 		this.horas = horas;
 	}
@@ -28,6 +28,4 @@ public class Mecanico extends Empleado{
 	public void setHoras(int horas) {
 		this.horas = horas;
 	}
-	
-	
 }

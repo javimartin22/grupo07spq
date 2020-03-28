@@ -2,6 +2,7 @@ package concesionario.servidor.datos;
 
 public class Empleado extends Usuario{
 
+	private String DNI;
 	private String Nombre;
 	private String Apellido;
 	private String Sexo;
@@ -17,8 +18,9 @@ public class Empleado extends Usuario{
 	
 	
 
-	public Empleado(String nickname, String contrasenya, int tipo, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String direccion, String nSS, String numeroCuenta, int sueldo, String numeroTelefono, int tipoEmpleado) {
+	public Empleado(String dni, String nickname, String contrasenya, int tipo, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String direccion, String nSS, String numeroCuenta, int sueldo, String numeroTelefono, int tipoEmpleado) {
 		super(nickname, contrasenya, tipo);
+		this.DNI = dni;
 		this.Nombre = nombre;
 		this.Apellido = apellido;
 		this.Sexo = sexo;
@@ -31,6 +33,16 @@ public class Empleado extends Usuario{
 		this.Sueldo = sueldo;
 		this.NumeroTelefono = numeroTelefono;
 		this.TipoEmpleado = tipoEmpleado;
+	}
+
+	
+	
+	public String getDNI() {
+		return DNI;
+	}
+
+	public void setDNI(String dNI) {
+		DNI = dNI;
 	}
 
 	public String getSexo() {
