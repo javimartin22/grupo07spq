@@ -36,7 +36,7 @@ public class BD {
 	private static final String TABLA_COCHES_VENDIDOS = "CochesVendidos";
 	private static final String COLUMNAS_TABLA_COCHES_VENDIDOS = "(codigoVenta string PRIMARY KEY, nombreVendedor string, dniComprador string , marca string, modelo string)";	
 	private static final String TABLA_TALLER = "Taller";
-	private static final String COLUMNAS_TABLA_TALLER = "(matriculaCoche string PRIMARY KEY, mecanico String, dniCliente string, coste double, estado int)";
+	private static final String COLUMNAS_TABLA_TALLER = "(matriculaCoche string PRIMARY KEY, marca string, modelo string, mecanico String, dniCliente string, coste double, estado int)";
 	
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
@@ -168,7 +168,7 @@ public class BD {
 	public static boolean usuariosInsert(Statement st, String nombre, String contrasenia, int tipo) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into usuarios values ('" + secu(nombre) + "', '" + contrasenia + "', " + tipo + ")";
+			sentSQL = "insert into " + TABLA_USUARIO + " values ('" + secu(nombre) + "', '" + contrasenia + "', " + tipo + ")";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -185,7 +185,7 @@ public class BD {
 	public static boolean clientesInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String matriculaCoche) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into usuarios values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + matriculaCoche +"')";
+			sentSQL = "insert into " + TABLA_CLIENTE + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + matriculaCoche +"')";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -202,7 +202,7 @@ public class BD {
 	public static boolean empleadosInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String NSS, String numeroCuenta, int sueldo, int tipoEmpleado) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into usuarios values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + tipoEmpleado +")";
+			sentSQL = "insert into " + TABLA_EMPLEADO + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + tipoEmpleado +")";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -219,7 +219,7 @@ public class BD {
 	public static boolean comercialesInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String NSS, String numeroCuenta, int sueldo, int cochesVendidos, int importeObtenido, int horas) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into usuarios values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + cochesVendidos + ", " + importeObtenido + ", " + horas  +")";
+			sentSQL = "insert into " + TABLA_COMERCIAL + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + cochesVendidos + ", " + importeObtenido + ", " + horas  +")";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -236,7 +236,7 @@ public class BD {
 	public static boolean mecanicosInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String NSS, String numeroCuenta, int sueldo, int horas) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into usuarios values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + horas  +")";
+			sentSQL = "insert into " + TABLA_MECANICO + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + horas  +")";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -253,7 +253,7 @@ public class BD {
 	public static boolean piezasInsert(Statement st, String codigo, String nombre, int stock) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into usuarios values ('" + secu(codigo) + "', '" + nombre + "', " + stock + ")";
+			sentSQL = "insert into " + TABLA_PIEZAS + " values ('" + secu(codigo) + "', '" + nombre + "', " + stock + ")";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -270,7 +270,7 @@ public class BD {
 	public static boolean cochesInsert(Statement st, String modelo, String marca, int unidades) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into usuarios values ('" + secu(modelo) + "', '" + marca + "', " + unidades + ")";
+			sentSQL = "insert into" + TABLA_COCHES + "values ('" + secu(modelo) + "', '" + marca + "', " + unidades + ")";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -287,7 +287,24 @@ public class BD {
 	public static boolean cochesVendidodsInsert(Statement st, String codigoVenta, String nombreVendedor, String dniComprador, String marca, String modelo) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into usuarios values ('" + secu(codigoVenta) + "', '" + nombreVendedor + "', '" + dniComprador + "', '" + marca + "', '" + modelo + "')";
+			sentSQL = "insert into " + TABLA_COCHES_VENDIDOS + " values ('" + secu(codigoVenta) + "', '" + nombreVendedor + "', '" + dniComprador + "', '" + marca + "', '" + modelo + "')";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+		}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	//Tabla TALLER:
+	public static boolean cocheTallerInsert(Statement st, String matriculaCoche, String marca, String modelo, String mecanico, String dniCliente, double coste, int estado) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into " + TABLA_TALLER + " values ('" + secu(matriculaCoche) + "', '" + marca + "', '" + modelo + "', '" + mecanico + "', '" + dniCliente + "', " + coste + ", " + estado + ")";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -344,7 +361,7 @@ public class BD {
 			String sentSQL = "";
 			ResultSet rs = null;
 			try {
-				sentSQL = "select * from " + TABLA_COCHES + " where codigo= '" + codigo + "'";
+				sentSQL = "select * from " + TABLA_PIEZAS + " where codigo= '" + codigo + "'";
 				rs = st.executeQuery(sentSQL);
 			} catch (Exception e) {
 				lastError = e;
@@ -396,6 +413,34 @@ public class BD {
 			return rs;
 		}
 			
+	//Tabla TALLER: 
+		//Todos:
+		public static ResultSet cochesTallerSelect(Statement st) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				sentSQL = "select * from " + TABLA_TALLER;
+				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}
+		
+		//Busqueda mediante MECANICO:
+		public static ResultSet cochesTallerMecanicoSelect(Statement st, String mecanico) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				sentSQL = "select * from " + TABLA_TALLER + " where mecanico= '" + mecanico + "'";
+				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}
 
 //METODOS DELETE:
 
