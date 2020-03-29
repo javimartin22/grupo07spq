@@ -23,13 +23,17 @@ public class BD {
 	private static final String TABLA_EMPLEADO = "Empleados";
 	private static final String COLUMNAS_TABLA_EMPLEADO = "(dni string PRIMARY KEY, nickname string, contrasenia string, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string, NSS string, numeroCuenta string, sueldo int, tipoEmpleado int)";
 	private static final String TABLA_COMERCIAL = "Comerciales";
-	private static final String COLUMNAS_TABLA_COMERCIAL = "(dni string PRIMARY KEY, nickname string, contrasenia string, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string, NSS string, numeroCuenta string, sueldo int, cochesVendidos int, importeObtenido int, horas int, tipoEmpleado int)";
+	private static final String COLUMNAS_TABLA_COMERCIAL = "(dni string PRIMARY KEY, nickname string, contrasenia string, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string, NSS string, numeroCuenta string, sueldo int, cochesVendidos int, importeObtenido int, horas int)";
 	private static final String TABLA_MECANICO = "Mecanicos";
-	private static final String COLUMNAS_TABLA_MECANICO = "(dni string PRIMARY KEY, nickname string, contrasenia string, tipoUsuario int, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string, NSS string, numeroCuenta string, sueldo int, horas int, tipoEmpleado int)";
+	private static final String COLUMNAS_TABLA_MECANICO = "(dni string PRIMARY KEY, nickname string, contrasenia string, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string, NSS string, numeroCuenta string, sueldo int, horas int)";
 	private static final String TABLA_PIEZAS = "Piezas"; 
 	private static final String COLUMNAS_TABLA_PIEZAS = "(codigo string PRIMARY KEY, nombre string, stock int)";
+	private static final String TABLA_COCHES = "Coches";
+	private static final String COLUMNAS_TABLA_COCHES = "(modelo string PRIMARY KEY, marca string, unidades int)";	
 	private static final String TABLA_COCHES_VENDIDOS = "CochesVendidos";
 	private static final String COLUMNAS_TABLA_COCHES_VENDIDOS = "(codigoVenta string PRIMARY KEY, nombreVendedor string, dniComprador string , marca string, modelo string)";	
+	
+	
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
 	 * 
@@ -86,6 +90,7 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_MECANICO + COLUMNAS_TABLA_MECANICO);
 				statement.executeUpdate("create table " + TABLA_COMERCIAL + COLUMNAS_TABLA_COMERCIAL);
 				statement.executeUpdate("create table " + TABLA_PIEZAS + COLUMNAS_TABLA_PIEZAS);
+				statement.executeUpdate("create table " + TABLA_COCHES + COLUMNAS_TABLA_COCHES);
 				statement.executeUpdate("create table " + TABLA_COCHES_VENDIDOS + COLUMNAS_TABLA_COCHES_VENDIDOS);
 				
 			} catch (SQLException e) {
@@ -116,6 +121,7 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_MECANICO);
 			statement.executeUpdate("drop table if exists " + TABLA_COMERCIAL);
 			statement.executeUpdate("drop table if exists " + TABLA_PIEZAS);
+			statement.executeUpdate("drop table if exists " + TABLA_COCHES);
 			statement.executeUpdate("drop table if exists " + TABLA_COCHES_VENDIDOS);
 			return usarCrearTablasBD(con);
 		} catch (SQLException e) {
@@ -174,7 +180,7 @@ public class BD {
 	public static boolean clientesInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String matriculaCoche) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into usuarios values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + matriculaCoche +"')";
+			sentSQL = "insert into usuarios values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + matriculaCoche +"')";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -187,6 +193,108 @@ public class BD {
 		}
 	}
 	
+	//Tabla EMPLEADO:
+	public static boolean empleadosInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String NSS, String numeroCuenta, int sueldo, int tipoEmpleado) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into usuarios values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + tipoEmpleado +")";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+			}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	//Tabla COMERCIAL:
+	public static boolean comercialesInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String NSS, String numeroCuenta, int sueldo, int cochesVendidos, int importeObtenido, int horas) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into usuarios values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + cochesVendidos + ", " + importeObtenido + ", " + horas  +")";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+			}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	//Tabla COMERCIAL:
+	public static boolean mecanicosInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String NSS, String numeroCuenta, int sueldo, int horas) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into usuarios values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + horas  +")";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+		}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	//Tabla PIEZAS:
+	public static boolean piezasInsert(Statement st, String codigo, String nombre, int stock) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into usuarios values ('" + secu(codigo) + "', '" + nombre + "', " + stock + ")";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+		}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}	
+	
+	//Tabla COCHES
+	public static boolean cochesInsert(Statement st, String modelo, String marca, int unidades) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into usuarios values ('" + secu(modelo) + "', '" + marca + "', " + unidades + ")";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+		}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	//Tabla COCHES_VENDIDOS:
+	public static boolean cochesVendidodsInsert(Statement st, String codigoVenta, String nombreVendedor, String dniComprador, String marca, String modelo) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into usuarios values ('" + secu(codigoVenta) + "', '" + nombreVendedor + "', '" + dniComprador + "', '" + marca + "', '" + modelo + "')";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+		}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+		
 
 //METODOS SELECT:
 
@@ -212,26 +320,7 @@ public class BD {
 //	}
 
 	
-				
-//METODOS UPDATE:	
-
-	// Tabla USUARIOS CONTRASENYA:
-	public static boolean usuariosUpdate(Statement st, String nombre, String contrasenia) {
-		String sentSQL = "";
-		try {
-			sentSQL = "update usuarios set nombre= '" + nombre + "' where contrasenia='" + contrasenia + "'";
-			int val = st.executeUpdate(sentSQL);
-			if (val != 1) { // Se tiene que modificar 1 - error si no
-				return false;
-			}
-			return true;
-		} catch (SQLException e) {
-			lastError = e;
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
+			
 
 //METODOS DELETE:
 
