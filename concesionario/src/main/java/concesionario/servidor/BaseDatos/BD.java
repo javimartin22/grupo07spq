@@ -35,7 +35,8 @@ public class BD {
 	private static final String COLUMNAS_TABLA_COCHES = "(modelo string PRIMARY KEY, marca string, unidades int)";	
 	private static final String TABLA_COCHES_VENDIDOS = "CochesVendidos";
 	private static final String COLUMNAS_TABLA_COCHES_VENDIDOS = "(codigoVenta string PRIMARY KEY, nombreVendedor string, dniComprador string , marca string, modelo string)";	
-	
+	private static final String TABLA_TALLER = "Taller";
+	private static final String COLUMNAS_TABLA_TALLER = "(matriculaCoche string PRIMARY KEY, mecanico String, dniCliente string, coste double, estado int)";
 	
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
@@ -95,7 +96,7 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_PIEZAS + COLUMNAS_TABLA_PIEZAS);
 				statement.executeUpdate("create table " + TABLA_COCHES + COLUMNAS_TABLA_COCHES);
 				statement.executeUpdate("create table " + TABLA_COCHES_VENDIDOS + COLUMNAS_TABLA_COCHES_VENDIDOS);
-				
+				statement.executeUpdate("create table " + TABLA_TALLER + COLUMNAS_TABLA_TALLER);
 			} catch (SQLException e) {
 			} // Tabla ya existe. Nada que hacer
 			return statement;
@@ -126,6 +127,7 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_PIEZAS);
 			statement.executeUpdate("drop table if exists " + TABLA_COCHES);
 			statement.executeUpdate("drop table if exists " + TABLA_COCHES_VENDIDOS);
+			statement.executeUpdate("drop table if exists " + TABLA_TALLER);
 			return usarCrearTablasBD(con);
 		} catch (SQLException e) {
 			lastError = e;
