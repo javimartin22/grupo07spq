@@ -7,7 +7,6 @@ public class Usuario {
 	private int tipo;
 	
 	public Usuario(String nickname, String contrasenya, int tipo) {
-		super();
 		this.nickname = nickname;
 		this.contrasenya = contrasenya;
 		this.tipo = tipo;

@@ -3,8 +3,11 @@ package concesionario.servidor.BaseDatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import concesionario.servidor.datos.Usuario;
 
 
 
@@ -298,28 +301,98 @@ public class BD {
 
 //METODOS SELECT:
 
-//	// Tabla USUARIOS CONTRASENYA:
-//	public static Usuario usuarioSelect(Statement st, String txtNombreUsuario) {
-//		String sentSQL = "";
-//		Usuario user = null;
-//		try {
-//			sentSQL = "select * from " + TABLA_USUARIO + " where nombre='" + txtNombreUsuario + "'";
-//			ResultSet rs = st.executeQuery(sentSQL);
-//			if (rs.next()) {
-//				String nombre = rs.getString("nombre");
-//				String pass = rs.getString("contrasenia");
-//				int tipo = rs.getInt("tipo");
-//				user = new Usuario(nombre, pass, tipo);
-//			}
-//			rs.close();
-//		} catch (SQLException e) {
-//			lastError = e;
-//			e.printStackTrace();
-//		}
-//		return user;
-//	}
-
+	// Tabla USUARIOS:
+	public static Usuario usuarioSelect(Statement st, String nickname) {
+		String sentSQL = "";
+		Usuario user = null;
+		try {
+			sentSQL = "select * from " + TABLA_USUARIO + " where nickname='" + nickname + "'";
+			ResultSet rs = st.executeQuery(sentSQL);
+			if (rs.next()) {
+				String nombre = rs.getString("nickname");
+				String pass = rs.getString("contrasenia");
+				int tipo = rs.getInt("tipo");
+				user = new Usuario(nombre, pass, tipo);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+		return user;
+	}
 	
+	//Tabla PIEZAS:
+		//Todas:
+		public static ResultSet piezasTodasSelect(Statement st) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				sentSQL = "select * from " + TABLA_PIEZAS;
+				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}
+		
+		//Busqueda mediante CODIGO:
+		public static ResultSet piezaSelect(Statement st, String codigo) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				sentSQL = "select * from " + TABLA_COCHES + " where codigo= '" + codigo + "'";
+				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}
+	
+	//Tabla COCHES:
+		//Todos:
+		public static ResultSet cochesTodosSelect(Statement st) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				sentSQL = "select * from " + TABLA_COCHES;
+				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}
+		
+		//Busqueda mediante MARCA:
+		public static ResultSet cochesMarcaSelect(Statement st, String marca) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				sentSQL = "select * from " + TABLA_COCHES + " where marca = '" + marca + "'";
+				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}
+		
+		//Busqueda mediante MODELO:
+		public static ResultSet cochesModeloSelect(Statement st, String modelo) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				sentSQL = "select * from " + TABLA_COCHES + " where modelo = '" + modelo + "'";
+				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}
 			
 
 //METODOS DELETE:
