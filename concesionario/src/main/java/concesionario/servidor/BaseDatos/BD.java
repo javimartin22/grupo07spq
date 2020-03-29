@@ -157,7 +157,7 @@ public class BD {
 		return lastError;
 	}
 
-//METODOS INSERT:	
+//METODOS INSERT TODOS:	
 
 	// Tabla USUARIOS:
 	public static boolean usuariosInsert(Statement st, String nombre, String contrasenia, int tipo) {

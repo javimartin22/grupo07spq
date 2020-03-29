@@ -5,7 +5,9 @@ public class CocheConcesionario {
 	private String Marca;
 	private String Modelo; 
 	
-	public CocheConcesionario() {
+	public CocheConcesionario(String marca, String modelo) {
+		this.Marca = marca;
+		this.Modelo = modelo;
 	}
 	
 	public String getMarca() {
