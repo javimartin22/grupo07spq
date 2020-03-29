@@ -16,6 +16,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+
+//para que hayan cambios para el commit
 public class VentanaLogin extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField textNombreUsuario;
