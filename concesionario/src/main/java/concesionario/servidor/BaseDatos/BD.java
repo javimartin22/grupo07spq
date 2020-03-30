@@ -30,14 +30,14 @@ public class BD {
 	private static final String TABLA_MECANICO = "Mecanicos";
 	private static final String COLUMNAS_TABLA_MECANICO = "(dni string PRIMARY KEY, nickname string, contrasenia string, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string, NSS string, numeroCuenta string, sueldo int, horas int)";
 	private static final String TABLA_PIEZAS = "Piezas"; 
-	private static final String COLUMNAS_TABLA_PIEZAS = "(codigo string PRIMARY KEY, nombre string, stock int)";
+	private static final String COLUMNAS_TABLA_PIEZAS = "(codigo string PRIMARY KEY, nombre string, stock int, ubicacion string)";
 	private static final String TABLA_COCHES = "Coches";
 	private static final String COLUMNAS_TABLA_COCHES = "(modelo string PRIMARY KEY, marca string, unidades int)";	
 	private static final String TABLA_VENTAS = "Ventas";
 	private static final String COLUMNAS_TABLA_VENTAS = "(codigoVenta string PRIMARY KEY, nombreVendedor string, dniComprador string , marca string, modelo string)";	
 	private static final String TABLA_TALLER = "Taller";
 	private static final String COLUMNAS_TABLA_TALLER = "(matriculaCoche string PRIMARY KEY, marca string, modelo string, mecanico String, dniCliente string, coste double, estado int)";
-	private static final String TABLA_COCHES_MATRICULADOS = "CochesMAtriculados";
+	private static final String TABLA_COCHES_MATRICULADOS = "CochesMatriculados";
 	private static final String COLUMNAS_TABLA_COCHES_MATRICULADOS = "(matriculaCoche string PRIMARY KEY, marca string, modelo string, fechaMatriculacion string)";
 	
 	/**
@@ -253,10 +253,10 @@ public class BD {
 	}
 	
 	//Tabla PIEZAS:
-	public static boolean piezasInsert(Statement st, String codigo, String nombre, int stock) {
+	public static boolean piezasInsert(Statement st, String codigo, String nombre, int stock, String ubicacion) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into " + TABLA_PIEZAS + " values ('" + secu(codigo) + "', '" + nombre + "', " + stock + ")";
+			sentSQL = "insert into " + TABLA_PIEZAS + " values ('" + secu(codigo) + "', '" + nombre + "', " + stock + ", '" + ubicacion + "')";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
