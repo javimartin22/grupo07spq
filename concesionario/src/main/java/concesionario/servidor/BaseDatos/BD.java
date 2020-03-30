@@ -33,10 +33,12 @@ public class BD {
 	private static final String COLUMNAS_TABLA_PIEZAS = "(codigo string PRIMARY KEY, nombre string, stock int)";
 	private static final String TABLA_COCHES = "Coches";
 	private static final String COLUMNAS_TABLA_COCHES = "(modelo string PRIMARY KEY, marca string, unidades int)";	
-	private static final String TABLA_COCHES_VENDIDOS = "CochesVendidos";
-	private static final String COLUMNAS_TABLA_COCHES_VENDIDOS = "(codigoVenta string PRIMARY KEY, nombreVendedor string, dniComprador string , marca string, modelo string)";	
+	private static final String TABLA_VENTAS = "Ventas";
+	private static final String COLUMNAS_TABLA_VENTAS = "(codigoVenta string PRIMARY KEY, nombreVendedor string, dniComprador string , marca string, modelo string)";	
 	private static final String TABLA_TALLER = "Taller";
 	private static final String COLUMNAS_TABLA_TALLER = "(matriculaCoche string PRIMARY KEY, marca string, modelo string, mecanico String, dniCliente string, coste double, estado int)";
+	private static final String TABLA_COCHES_MATRICULADOS = "CochesMAtriculados";
+	private static final String COLUMNAS_TABLA_COCHES_MATRICULADOS = "(matriculaCoche string PRIMARY KEY, marca string, modelo string, fechaMatriculacion string)";
 	
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
@@ -95,8 +97,9 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_COMERCIAL + COLUMNAS_TABLA_COMERCIAL);
 				statement.executeUpdate("create table " + TABLA_PIEZAS + COLUMNAS_TABLA_PIEZAS);
 				statement.executeUpdate("create table " + TABLA_COCHES + COLUMNAS_TABLA_COCHES);
-				statement.executeUpdate("create table " + TABLA_COCHES_VENDIDOS + COLUMNAS_TABLA_COCHES_VENDIDOS);
+				statement.executeUpdate("create table " + TABLA_VENTAS + COLUMNAS_TABLA_VENTAS);
 				statement.executeUpdate("create table " + TABLA_TALLER + COLUMNAS_TABLA_TALLER);
+				statement.executeUpdate("create table " + TABLA_COCHES_MATRICULADOS + COLUMNAS_TABLA_COCHES_MATRICULADOS);
 			} catch (SQLException e) {
 			} // Tabla ya existe. Nada que hacer
 			return statement;
@@ -126,7 +129,7 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_COMERCIAL);
 			statement.executeUpdate("drop table if exists " + TABLA_PIEZAS);
 			statement.executeUpdate("drop table if exists " + TABLA_COCHES);
-			statement.executeUpdate("drop table if exists " + TABLA_COCHES_VENDIDOS);
+			statement.executeUpdate("drop table if exists " + TABLA_VENTAS);
 			statement.executeUpdate("drop table if exists " + TABLA_TALLER);
 			return usarCrearTablasBD(con);
 		} catch (SQLException e) {
@@ -287,7 +290,7 @@ public class BD {
 	public static boolean cochesVendidodsInsert(Statement st, String codigoVenta, String nombreVendedor, String dniComprador, String marca, String modelo) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into " + TABLA_COCHES_VENDIDOS + " values ('" + secu(codigoVenta) + "', '" + nombreVendedor + "', '" + dniComprador + "', '" + marca + "', '" + modelo + "')";
+			sentSQL = "insert into " + TABLA_VENTAS + " values ('" + secu(codigoVenta) + "', '" + nombreVendedor + "', '" + dniComprador + "', '" + marca + "', '" + modelo + "')";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
