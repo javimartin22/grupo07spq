@@ -47,7 +47,7 @@ public class UsuariosResource {
 		return "Usuario anadido correctamente";
 	}
 	
-	
-	}
+}
+
 
 
