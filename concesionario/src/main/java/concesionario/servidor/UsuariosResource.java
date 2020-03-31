@@ -40,7 +40,7 @@ public class UsuariosResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void anadirUsuario(String usu) {
-		System.out.println("Usuario" +usu+ "anadido");
+		System.out.println("Usuario " +usu+ " anadido");
 	}
 
 }
