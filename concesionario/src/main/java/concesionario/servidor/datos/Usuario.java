@@ -12,6 +12,10 @@ public class Usuario {
 		this.tipo = tipo;
 	}
 	
+	public Usuario() {
+		
+	}
+	
 	public String getNickname() {
 		return nickname;
 	}

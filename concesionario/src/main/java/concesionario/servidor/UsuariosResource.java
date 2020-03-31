@@ -10,7 +10,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 //resources  o
 
@@ -39,8 +41,13 @@ public class UsuariosResource {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void anadirUsuario(String usu) {
-		System.out.println("Usuario" +usu+ "anadido");
+	@Produces(MediaType.TEXT_PLAIN)
+	public String anadirUsuario(Usuario usu) {
+		System.out.println("Usuario" +usu.getNickname()+ "anadido");
+		return "Usuario anadido correctamente";
+	}
+	
+	
 	}
 
-}
+
