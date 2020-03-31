@@ -122,6 +122,8 @@ public class VentanaRegistoPiezas extends JFrame {
 		if (!textField.getText().isEmpty() && !textField_1.getText().isEmpty() && !textField_2.getText().isEmpty()) {
 			datos = true;
 		} 
+		
+		
 		return datos;
 	}
 }

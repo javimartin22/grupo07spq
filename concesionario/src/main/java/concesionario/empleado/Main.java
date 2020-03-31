@@ -6,6 +6,7 @@ public class Main {
 		Empleados v = new Empleados();
 		v.setVisible(true);
 		
+		
 
 	}
 

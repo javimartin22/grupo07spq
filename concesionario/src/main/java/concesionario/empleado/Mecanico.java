@@ -60,7 +60,6 @@ public class Mecanico extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		String ubicaciones [] = {"Alamacen 1 - Estanteria 1", "Almacen 1 - Estanteria 2", "Almacen 1 - Estanteria 3", "Almacen 2 - Estanteria 1", "Almacen 2 - Estanteria 2", "Almacen 2 - Estanteria 3"};
 		
 		JLabel lblNewLabel = new JLabel("Si desea registrar un comercial rellene los siguintes datos:");
 		lblNewLabel.setBounds(22, 20, 426, 16);
@@ -216,6 +215,18 @@ public class Mecanico extends JFrame {
 		if (!textFieldDNI.getText().isEmpty() && !textFieldNombre.getText().isEmpty() && !textFieldApellido.getText().isEmpty() && !textFieldNick.getText().isEmpty() && !textFieldEmail.getText().isEmpty() && !textFieldCiudad.getText().isEmpty() && !textFieldCP.getText().isEmpty() && !textFieldDireccion.getText().isEmpty() && !textFieldTelefono.getText().isEmpty() && !textFieldCuenta.getText().isEmpty() && !textFieldNSS.getText().isEmpty() && !textFieldSueldo.getText().isEmpty()) {
 			datos = true;
 		} 
+		if(textFieldDNI.getText().length()!=9) {
+			JOptionPane.showMessageDialog(contentPane, "DNI incorrecto. Introduzca este campo con el siguiente formato XXXXXXXXY siendo Y una letra");
+			datos = false;
+		}
+		if(textFieldTelefono.getText().length()!=9) {
+			JOptionPane.showMessageDialog(contentPane, "Telefono incorrecto. Introduzca este campo con el siguiente formato XXXXXXXXX.");
+			datos = false;
+		}
+		if(!textFieldEmail.getText().contains("@")) {
+			JOptionPane.showMessageDialog(contentPane, "Email incorrecto.");
+			datos = false;
+		}
 		return datos;
 	}
 }
