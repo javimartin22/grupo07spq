@@ -2,6 +2,7 @@ package concesionario.servidor;
 
 import concesionario.servidor.datos.*;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,19 @@ public class UsuariosResource {
 	public String anadirUsuario(Usuario usu) {
 		System.out.println("Usuario" +usu.getNickname()+ "anadido");
 		return "Usuario anadido correctamente";
+	}
+	
+	
+	@DELETE
+	@Path("{code}")
+	public Response deleteUser (@PathParam("code") int codigo) {
+		if(codigo==10) {
+			System.out.println("borrando usuario");
+			return Response.status(Response.Status.OK).build();
+		}else {
+			System.out.println("usuario no encontrado");
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
 	}
 	
 }

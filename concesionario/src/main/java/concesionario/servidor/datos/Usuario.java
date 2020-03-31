@@ -34,4 +34,7 @@ public class Usuario {
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
+	public String toString() {
+		return nickname + " " + tipo;
+	}
 }
