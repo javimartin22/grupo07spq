@@ -99,7 +99,7 @@ public class ClientApp extends JFrame {
                Entity<Usuario> entity = Entity.entity(nuevo, MediaType.APPLICATION_JSON);
                Response response = loginTarget.request(MediaType.TEXT_PLAIN).post(entity);
                System.out.println(response.getEntity());
-               //como sacar entidad de la respuesta para el sacar el dato/objeto ? mirar ejemplo o preguntar
+               //como sacar entidad de la respuesta para el sacar el dato/objeta ? mirar ejemplo o preguntar
             }
         });
 
