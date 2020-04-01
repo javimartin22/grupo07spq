@@ -7,6 +7,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+
 import concesionario.servidor.datos.Cliente;
 import concesionario.servidor.datos.Pieza;
 import concesionario.servidor.datos.Usuario;
@@ -216,7 +218,7 @@ public class BD {
 	public static boolean empleadosInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String NSS, String numeroCuenta, int sueldo, int tipoEmpleado) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into " + TABLA_EMPLEADO + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + tipoEmpleado +")";
+			sentSQL = "insert into " + TABLA_EMPLEADO + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + tipoEmpleado +")";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -246,15 +248,16 @@ public class BD {
 		}
 	}
 	
-	//Tabla COMERCIAL:
+	//Tabla MECANICOS:
 	public static boolean mecanicosInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String NSS, String numeroCuenta, int sueldo, int horas) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into " + TABLA_MECANICO + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + horas  +")";
+			sentSQL = "insert into " + TABLA_MECANICO + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '"  + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + horas  +")";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
 		}
+			System.out.println("TODO OK");
 			return true;
 		} catch (SQLException e) {
 			lastError = e;
@@ -399,6 +402,43 @@ public class BD {
 				e.printStackTrace();
 			}
 			return client;
+		}
+		
+	//Tabla PIEZAS:
+		//Todas:
+		public static ResultSet empleadosTodasSelect(Statement st) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				sentSQL = "select * from " + TABLA_EMPLEADO;
+				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}
+				
+				
+		//Busqueda mediante CODIGO:
+		public static Pieza empleadoSelect(Statement st, String codigo) {
+			String sentSQL = "";
+			Pieza pieza = null;
+			try {
+				sentSQL = "select * from " + TABLA_EMPLEADO + " where codigo= '" + codigo + "' ";
+				ResultSet rs = st.executeQuery(sentSQL);
+				if (rs.next()) {
+					String cod = rs.getString("codigo");
+					String nombre = rs.getString("nombre");
+					int unidades = rs.getInt("stock");
+					String ubicacion = rs.getString("ubicacion");
+					pieza = new Pieza(cod, nombre, unidades, ubicacion);
+				}
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return pieza;
 		}
 	
 	//Tabla PIEZAS:
