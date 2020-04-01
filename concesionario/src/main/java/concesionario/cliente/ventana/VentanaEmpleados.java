@@ -1,4 +1,4 @@
-package concesionario.cliente.ventana;
+
 
 import java.awt.EventQueue;
 import java.sql.Connection;
@@ -15,7 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import concesionario.servidor.BaseDatos.BD;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -140,10 +139,14 @@ public class VentanaEmpleados extends JFrame {
 				dispose();
 				break;
 			case 1: 
-				//Ventana Comercial...
+				VentanaRegistroComercial ventanaComercial = new VentanaRegistroComercial();
+				ventanaComercial.setVisible(true);
+				dispose();		
 				break;
 			case 2:
-				//Ventana Dep. Compras...
+				VentanaRegistroCompras ventanaCompras = new VentanaRegistroCompras();
+				ventanaCompras.setVisible(true);
+				dispose();		
 				break;
 			}
 			
