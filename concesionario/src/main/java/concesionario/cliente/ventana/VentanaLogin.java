@@ -29,26 +29,15 @@ public class VentanaLogin extends JFrame {
 	private JPanel contentPane;
 	private JTextField textNombreUsuario;
 	private JPasswordField textContrasenya;
-	private Connection con;
-	private Statement st;
+	private JButton buttonAceptar;
+	//private Connection con;
+	//private Statement st;
 	
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaLogin frame = new VentanaLogin();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -59,8 +48,8 @@ public class VentanaLogin extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		con =BD.initBD("Taller");
-		st = BD.usarCrearTablasBD(con);
+		//con =BD.initBD("Taller");
+		//st = BD.usarCrearTablasBD(con);
 		
 		//panel general
 		JPanel panel = new JPanel();
@@ -102,13 +91,13 @@ public class VentanaLogin extends JFrame {
 				if(tecla == 10 ) {
 					String nombre = textNombreUsuario.getText();
 					String contrasenia = new String(textContrasenya.getPassword());
-					iniciarSesion(nombre, contrasenia);
+					//iniciarSesion(nombre, contrasenia);
 				}
 			}
 		});
 		
 		//boton de aceptar para iniciar sesión
-		JButton buttonAceptar = new JButton("Aceptar");
+		 buttonAceptar = new JButton("Aceptar");
 		buttonAceptar.setBounds(200, 212, 89, 23);
 		panel.add(buttonAceptar);
 		
@@ -119,7 +108,7 @@ public class VentanaLogin extends JFrame {
 		panel.add(lblNewLabel);
 		
 		
-		buttonAceptar.addActionListener(new ActionListener() {
+		/*buttonAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String nombre = textNombreUsuario.getText();
 				String contrasenia = new String(textContrasenya.getPassword());
@@ -127,10 +116,34 @@ public class VentanaLogin extends JFrame {
 											
 			}
 
-		});
+		}); */
 	}
 	
-private void iniciarSesion(String nombre, String contrasenia) {
+public JTextField getTextNombreUsuario() {
+		return textNombreUsuario;
+	}
+
+	public void setTextNombreUsuario(JTextField textNombreUsuario) {
+		this.textNombreUsuario = textNombreUsuario;
+	}
+
+	public JPasswordField getTextContrasenya() {
+		return textContrasenya;
+	}
+
+	public void setTextContrasenya(JPasswordField textContrasenya) {
+		this.textContrasenya = textContrasenya;
+	}
+
+	public JButton getButtonAceptar() {
+		return buttonAceptar;
+	}
+
+	public void setButtonAceptar(JButton buttonAceptar) {
+		this.buttonAceptar = buttonAceptar;
+	}
+
+/*private void iniciarSesion(String nombre, String contrasenia) {
 		
 		if(!nombre.equals("") && !contrasenia.equals("")) {
 			Usuario  user = BD.usuarioSelect(st, nombre);
@@ -185,10 +198,27 @@ private void iniciarSesion(String nombre, String contrasenia) {
 			JOptionPane.showMessageDialog(rootPane, "Rellene todos los campos");
 		}
 	}
+	*/
 	
 	private void vaciarCampos(){
 		textNombreUsuario.setText("");
 		textContrasenya.setText("");
 	}
+	
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaLogin frame = new VentanaLogin();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	
 
 }
