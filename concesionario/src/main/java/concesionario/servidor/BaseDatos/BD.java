@@ -35,6 +35,8 @@ public class BD {
 	private static final String COLUMNAS_TABLA_COMERCIAL = "(dni string PRIMARY KEY, nickname string, contrasenia string, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string, NSS string, numeroCuenta string, sueldo int, cochesVendidos int, importeObtenido int, horas int)";
 	private static final String TABLA_MECANICO = "Mecanicos";
 	private static final String COLUMNAS_TABLA_MECANICO = "(dni string PRIMARY KEY, nickname string, contrasenia string, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string, NSS string, numeroCuenta string, sueldo int, horas int)";
+	private static final String TABLA_DEPARTAMENTO_COMPRAS = "DepartamentoCompras";
+	private static final String COLUMNAS_TABLA_DEPARTAMENTO_COMPRAS = "(dni string PRIMARY KEY, nickname string, contrasenia string, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string, NSS string, numeroCuenta string, sueldo int, horas int)";
 	private static final String TABLA_PIEZAS = "Piezas"; 
 	private static final String COLUMNAS_TABLA_PIEZAS = "(codigo string PRIMARY KEY, nombre string, stock int, ubicacion string)";
 	private static final String TABLA_PIEZAS_UTILIZADAS = "PiezasUtilizadas"; 
@@ -104,6 +106,7 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_EMPLEADO + COLUMNAS_TABLA_EMPLEADO);
 				statement.executeUpdate("create table " + TABLA_MECANICO + COLUMNAS_TABLA_MECANICO);
 				statement.executeUpdate("create table " + TABLA_COMERCIAL + COLUMNAS_TABLA_COMERCIAL);
+				statement.executeUpdate("create table " + TABLA_DEPARTAMENTO_COMPRAS + COLUMNAS_TABLA_DEPARTAMENTO_COMPRAS);
 				statement.executeUpdate("create table " + TABLA_PIEZAS + COLUMNAS_TABLA_PIEZAS);
 				statement.executeUpdate("create table " + TABLA_PIEZAS_UTILIZADAS + COLUMNAS_TABLA_PIEZAS_UTILIZADAS);
 				statement.executeUpdate("create table " + TABLA_COCHES + COLUMNAS_TABLA_COCHES);
@@ -137,6 +140,7 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_EMPLEADO);
 			statement.executeUpdate("drop table if exists " + TABLA_MECANICO);
 			statement.executeUpdate("drop table if exists " + TABLA_COMERCIAL);
+			statement.executeUpdate("drop table if exists " + TABLA_DEPARTAMENTO_COMPRAS);
 			statement.executeUpdate("drop table if exists " + TABLA_PIEZAS);
 			statement.executeUpdate("drop table if exists " + TABLA_PIEZAS_UTILIZADAS);
 			statement.executeUpdate("drop table if exists " + TABLA_COCHES);
@@ -232,10 +236,10 @@ public class BD {
 	}
 	
 	//Tabla COMERCIAL:
-	public static boolean comercialesInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String NSS, String numeroCuenta, int sueldo, int cochesVendidos, int importeObtenido, int horas) {
+	public static boolean comercialesInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String NSS, String numeroCuenta, int sueldo, int horas) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into " + TABLA_COMERCIAL + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + cochesVendidos + ", " + importeObtenido + ", " + horas  +")";
+			sentSQL = "insert into " + TABLA_COMERCIAL + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + horas  +")";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -258,6 +262,23 @@ public class BD {
 				return false;
 		}
 			System.out.println("TODO OK");
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	//Tabla EMPLEADO:
+	public static boolean departamentoComprasInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String NSS, String numeroCuenta, int sueldo) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into " + TABLA_DEPARTAMENTO_COMPRAS + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ")";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+		}
 			return true;
 		} catch (SQLException e) {
 			lastError = e;
@@ -375,7 +396,7 @@ public class BD {
 		return user;
 	}
 	
-	// Tabla USUARIOS:
+	// Tabla CLIENTES:
 		public static Cliente clienteSelect(Statement st, String nickname) {
 			String sentSQL = "";
 			Cliente client = null;
@@ -404,7 +425,7 @@ public class BD {
 			return client;
 		}
 		
-	//Tabla PIEZAS:
+	//Tabla EMPLEADOS:
 		//Todas:
 		public static ResultSet empleadosTodasSelect(Statement st) {
 			String sentSQL = "";
