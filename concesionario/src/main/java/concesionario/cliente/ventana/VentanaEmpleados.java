@@ -1,4 +1,5 @@
-import java.awt.BorderLayout;
+package concesionario.cliente.ventana;
+
 import java.awt.EventQueue;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,14 +13,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import concesionario.servidor.BaseDatos.BD;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-public class Empleados extends JFrame {
+public class VentanaEmpleados extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -33,7 +36,7 @@ public class Empleados extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Empleados frame = new Empleados();
+					VentanaEmpleados frame = new VentanaEmpleados();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +48,7 @@ public class Empleados extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Empleados() {
+	public VentanaEmpleados() {
 		setAutoRequestFocus(false);
 		con = BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
@@ -132,7 +135,7 @@ public class Empleados extends JFrame {
 		private void registrar(int tipo) {
 			switch (tipo) {
 			case 0:
-				Mecanico ventana = new Mecanico();
+				VentanaRegistroMecanico ventana = new VentanaRegistroMecanico();
 				ventana.setVisible(true);
 				dispose();
 				break;

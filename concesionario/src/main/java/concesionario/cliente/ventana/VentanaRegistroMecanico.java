@@ -1,3 +1,5 @@
+package concesionario.cliente.ventana;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -16,8 +18,14 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class Mecanico extends JFrame {
+import concesionario.servidor.BaseDatos.BD;
 
+public class VentanaRegistroMecanico extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldDNI;
 	private JTextField textFieldNombre;
@@ -42,7 +50,7 @@ public class Mecanico extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Mecanico frame = new Mecanico();
+					VentanaRegistroMecanico frame = new VentanaRegistroMecanico();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +62,7 @@ public class Mecanico extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Mecanico() {
+	public VentanaRegistroMecanico() {
 		setResizable(false);
 		setTitle("Registro Mecanico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
