@@ -1,34 +1,66 @@
 package concesionario.cliente.ventana;
-import javax.swing.JFrame;
 
 
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
-
-import javax.swing.JLabel;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.Statement;
 
-import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
+import concesionario.servidor.BaseDatos.BD;
+import concesionario.servidor.datos.Usuario;
 
-//para que hayan cambios para el commit
 public class VentanaLogin extends JFrame {
-	private static final long serialVersionUID = 1L;
+
+	private JPanel contentPane;
 	private JTextField textNombreUsuario;
-	private JTextField textContrasenya;
+	private JPasswordField textContrasenya;
+	private Connection con;
+	private Statement st;
 	
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaLogin frame = new VentanaLogin();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
 	public VentanaLogin() {
-		this.setTitle("Iniciar sesión");
-		
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(480,282);
-		this.setResizable(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
 		
 		//panel general
 		JPanel panel = new JPanel();
@@ -50,14 +82,14 @@ public class VentanaLogin extends JFrame {
 		//caja de texto donde escribir el nombre de usuario
 		textNombreUsuario = new JTextField();
 		textNombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textNombreUsuario.setBounds(200, 160, 198, 20);
+		textNombreUsuario.setBounds(200, 91, 198, 20);
 		panel.add(textNombreUsuario);
 		textNombreUsuario.setColumns(10);
 		
 		//caja de texto donde escribir la contraseña
-		textContrasenya = new JTextField();
+		textContrasenya = new JPasswordField();
 		textContrasenya.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textContrasenya.setBounds(200, 93, 198, 20);
+		textContrasenya.setBounds(200, 160, 198, 20);
 		panel.add(textContrasenya);
 		textContrasenya.setColumns(10);
 
@@ -68,7 +100,9 @@ public class VentanaLogin extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				int tecla = e.getKeyCode();
 				if(tecla == 10 ) {
-					iniciarSesion();
+					String nombre = textNombreUsuario.getText();
+					String contrasenia = new String(textContrasenya.getPassword());
+					iniciarSesion(nombre, contrasenia);
 				}
 			}
 		});
@@ -81,29 +115,81 @@ public class VentanaLogin extends JFrame {
 		JLabel lblNewLabel = new JLabel("JMPY SL");
 		lblNewLabel.setForeground(new Color(0, 128, 128));
 		lblNewLabel.setFont(new Font("Kohinoor Devanagari", Font.BOLD, 35));
-		lblNewLabel.setBounds(169, 6, 145, 54);
+		lblNewLabel.setBounds(150, 11, 177, 54);
 		panel.add(lblNewLabel);
 		
 		
 		buttonAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//añadirla nueva ventana
+				String nombre = textNombreUsuario.getText();
+				String contrasenia = new String(textContrasenya.getPassword());
+				iniciarSesion(nombre, contrasenia);
+											
 			}
+
 		});
+	}
+	
+private void iniciarSesion(String nombre, String contrasenia) {
 		
+		if(!nombre.equals("") && !contrasenia.equals("")) {
+			Usuario  user = BD.usuarioSelect(st, nombre);
+			//Comprobamos si el usuario se encuentra registrado en la BD:
+			if (user == null) { //En caso de que no este registrado:
+				int repuesta = JOptionPane.showConfirmDialog(contentPane, "Usuario no registrado. ¿Desea Registrarse?");
+				switch (repuesta) {
+				case 0:
+					//Se visualizara la ventana donde se realizara el registro del cliente.
+					//VentanasRegistroClientes ventana = new VentanasRegistroClientes(nombre, contrasenia);
+					//ventana.setVisible(true);
+					dispose();
+					break;
+				case 1:
+					JOptionPane.showMessageDialog(contentPane, "El usuario no se registrara.");
+					vaciarCampos();
+					break;
+				case 2:
+					vaciarCampos();
+					break;
+				
+				}
+			} else {
+				String nom = user.getNickname();
+				String contr = user.getContrasenya();
+				int tipo = user.getTipo();
+				if (nom.equals(nombre) && contr.equals(contrasenia)) {
+					switch (tipo) {
+					case 0:
+						JOptionPane.showMessageDialog(rootPane, "Sesion iniciada como admin");
+						break;
+					case 1:
+						//metodo de abir el manu para el mecanico
+						JOptionPane.showMessageDialog(rootPane, "Sesion iniciada como mecanico");
+						break;
+					case 2:
+						JOptionPane.showMessageDialog(rootPane, "Sesion iniciada como comercial");
+						break;
+					case 3:
+						//VentanaMenuCliente ventana = new VentanaMenuCliente(nombre);
+						//ventana.setVisible(true);
+						dispose();
+						break;
+					case 4:
+						JOptionPane.showMessageDialog(rootPane, "Sesion iniciada como depatamento de compras");
+						break;
+					}
+				} else{
+					JOptionPane.showMessageDialog(rootPane, "Nombre de usuario o contrasenia incorrecta");
+				}
+			}
+		}else {
+			JOptionPane.showMessageDialog(rootPane, "Rellene todos los campos");
+		}
 	}
 	
-	private void iniciarSesion() {
-		
+	private void vaciarCampos(){
+		textNombreUsuario.setText("");
+		textContrasenya.setText("");
 	}
-	
-	
-	
-	public static void abrirVentanaLogin() {
-		VentanaLogin ventanaLogin = new VentanaLogin();
-		ventanaLogin.setVisible(true);
-		ventanaLogin.setSize(480,360);
-		ventanaLogin.setLocationRelativeTo(null);
-		ventanaLogin.setVisible(true);
-	}
+
 }
