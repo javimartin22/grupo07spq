@@ -1,13 +1,17 @@
 package concesionario.servidor.BaseDatos;
 
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import concesionario.servidor.datos.Cliente;
+import concesionario.servidor.datos.Pieza;
 import concesionario.servidor.datos.Usuario;
+
+
 
 
 
@@ -22,7 +26,7 @@ public class BD {
 	private static final String TABLA_USUARIO = "Usuarios";
 	private static final String COLUMNAS_TABLA_USUARIO = "(nickname string PRIMARY KEY, contrasenia string, tipo int)";
 	private static final String TABLA_CLIENTE = "Clientes";
-	private static final String COLUMNAS_TABLA_CLIENTE = "(dni string PRIMARY KEY, nickname string, contrasenia string, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string, matriculaCoche string)";
+	private static final String COLUMNAS_TABLA_CLIENTE = "(dni string PRIMARY KEY, nickname string, contrasenia string, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string)";
 	private static final String TABLA_EMPLEADO = "Empleados";
 	private static final String COLUMNAS_TABLA_EMPLEADO = "(dni string PRIMARY KEY, nickname string, contrasenia string, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string, NSS string, numeroCuenta string, sueldo int, tipoEmpleado int)";
 	private static final String TABLA_COMERCIAL = "Comerciales";
@@ -31,6 +35,8 @@ public class BD {
 	private static final String COLUMNAS_TABLA_MECANICO = "(dni string PRIMARY KEY, nickname string, contrasenia string, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string, NSS string, numeroCuenta string, sueldo int, horas int)";
 	private static final String TABLA_PIEZAS = "Piezas"; 
 	private static final String COLUMNAS_TABLA_PIEZAS = "(codigo string PRIMARY KEY, nombre string, stock int, ubicacion string)";
+	private static final String TABLA_PIEZAS_UTILIZADAS = "PiezasUtilizadas"; 
+	private static final String COLUMNAS_TABLA_PIEZAS_UTILIZADAS = "(codigo string PRIMARY KEY, nombre string, unidades int, ubicacion string)";
 	private static final String TABLA_COCHES = "Coches";
 	private static final String COLUMNAS_TABLA_COCHES = "(modelo string PRIMARY KEY, marca string, unidades int)";	
 	private static final String TABLA_VENTAS = "Ventas";
@@ -39,6 +45,7 @@ public class BD {
 	private static final String COLUMNAS_TABLA_TALLER = "(matriculaCoche string PRIMARY KEY, marca string, modelo string, mecanico String, dniCliente string, coste double, estado int)";
 	private static final String TABLA_COCHES_MATRICULADOS = "CochesMatriculados";
 	private static final String COLUMNAS_TABLA_COCHES_MATRICULADOS = "(matriculaCoche string PRIMARY KEY, marca string, modelo string, fechaMatriculacion string)";
+	
 	
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
@@ -96,6 +103,7 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_MECANICO + COLUMNAS_TABLA_MECANICO);
 				statement.executeUpdate("create table " + TABLA_COMERCIAL + COLUMNAS_TABLA_COMERCIAL);
 				statement.executeUpdate("create table " + TABLA_PIEZAS + COLUMNAS_TABLA_PIEZAS);
+				statement.executeUpdate("create table " + TABLA_PIEZAS_UTILIZADAS + COLUMNAS_TABLA_PIEZAS_UTILIZADAS);
 				statement.executeUpdate("create table " + TABLA_COCHES + COLUMNAS_TABLA_COCHES);
 				statement.executeUpdate("create table " + TABLA_VENTAS + COLUMNAS_TABLA_VENTAS);
 				statement.executeUpdate("create table " + TABLA_TALLER + COLUMNAS_TABLA_TALLER);
@@ -128,6 +136,7 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_MECANICO);
 			statement.executeUpdate("drop table if exists " + TABLA_COMERCIAL);
 			statement.executeUpdate("drop table if exists " + TABLA_PIEZAS);
+			statement.executeUpdate("drop table if exists " + TABLA_PIEZAS_UTILIZADAS);
 			statement.executeUpdate("drop table if exists " + TABLA_COCHES);
 			statement.executeUpdate("drop table if exists " + TABLA_VENTAS);
 			statement.executeUpdate("drop table if exists " + TABLA_TALLER);
@@ -185,18 +194,20 @@ public class BD {
 	}
 	
 	//Tabla CLIENTES:	
-	public static boolean clientesInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String matriculaCoche) {
+	public static boolean clientesInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into " + TABLA_CLIENTE + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + matriculaCoche +"')";
+			sentSQL = "insert into " + TABLA_CLIENTE + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono +"')";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
 			}
+			System.out.println("Se ha anyadido correcatente.");
 			return true;
 		} catch (SQLException e) {
 			lastError = e;
 			e.printStackTrace();
+			System.out.println("Error ya registrado.");
 			return false;
 		}
 	}
@@ -267,7 +278,24 @@ public class BD {
 			e.printStackTrace();
 			return false;
 		}
-	}	
+	}
+	
+	//Tabla PIEZAS_UTILIZADAS:
+		public static boolean piezasUtilizadasInsert(Statement st, String codigo, String nombre, int unidades, String ubicacion) {
+			String sentSQL = "";
+			try {
+				sentSQL = "insert into " + TABLA_PIEZAS_UTILIZADAS + " values ('" + secu(codigo) + "', '" + nombre + "', " + unidades + ", '" + ubicacion + "')";
+				int val = st.executeUpdate(sentSQL);
+				if (val != 1) { // Se tiene que anyadir 1 - error si no
+					return false;
+			}
+				return true;
+			} catch (SQLException e) {
+				lastError = e;
+				e.printStackTrace();
+				return false;
+			}
+		}
 	
 	//Tabla COCHES
 	public static boolean cochesInsert(Statement st, String modelo, String marca, int unidades) {
@@ -344,13 +372,42 @@ public class BD {
 		return user;
 	}
 	
+	// Tabla USUARIOS:
+		public static Cliente clienteSelect(Statement st, String nickname) {
+			String sentSQL = "";
+			Cliente client = null;
+			try {
+				sentSQL = "select * from " + TABLA_CLIENTE + " where nickname='" + nickname + "'";
+				ResultSet rs = st.executeQuery(sentSQL);
+				if (rs.next()) {
+					String dni = rs.getString("dni");
+					String nick = rs.getString("nickname");
+					String contrasenya = rs.getString("contrasenia");
+					String nombre = rs.getString("nombre");
+					String apellido = rs.getString("apellido");
+					String sexo = rs.getString("sexo");
+					String email = rs.getString("email");
+					String ciudad = rs.getString("ciudad");
+					int codigoPostal = rs.getInt("codigoPostal");
+					String direccion = rs.getString("dir");
+					String numeroTelefono = rs.getString("numTelefono");
+					client = new Cliente(dni, nick, 3, contrasenya, nombre, apellido, sexo, email, ciudad, codigoPostal, direccion, numeroTelefono);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return client;
+		}
+	
 	//Tabla PIEZAS:
 		//Todas:
 		public static ResultSet piezasTodasSelect(Statement st) {
 			String sentSQL = "";
 			ResultSet rs = null;
 			try {
-				sentSQL = "select * from " + TABLA_PIEZAS;
+				sentSQL = "select * from " + TABLA_PIEZAS + " order by codigo";
 				rs = st.executeQuery(sentSQL);
 			} catch (Exception e) {
 				lastError = e;
@@ -359,19 +416,64 @@ public class BD {
 			return rs;
 		}
 		
+		
 		//Busqueda mediante CODIGO:
-		public static ResultSet piezaSelect(Statement st, String codigo) {
+		public static Pieza piezaSelect(Statement st, String codigo) {
 			String sentSQL = "";
-			ResultSet rs = null;
+			Pieza pieza = null;
 			try {
-				sentSQL = "select * from " + TABLA_PIEZAS + " where codigo= '" + codigo + "'";
-				rs = st.executeQuery(sentSQL);
+				sentSQL = "select * from " + TABLA_PIEZAS + " where codigo= '" + codigo + "' ";
+				ResultSet rs = st.executeQuery(sentSQL);
+				if (rs.next()) {
+					String cod = rs.getString("codigo");
+					String nombre = rs.getString("nombre");
+					int unidades = rs.getInt("stock");
+					String ubicacion = rs.getString("ubicacion");
+					pieza = new Pieza(cod, nombre, unidades, ubicacion);
+				}
 			} catch (Exception e) {
 				lastError = e;
 				e.printStackTrace();
 			}
-			return rs;
+			return pieza;
 		}
+		
+	//Tabla PIEZAS_UTILIZADAS:
+		//Todas:
+			public static ResultSet piezasUtilizadasTodasSelect(Statement st) {
+				String sentSQL = "";
+				ResultSet rs = null;
+				try {
+					sentSQL = "select * from " + TABLA_PIEZAS_UTILIZADAS + " order by codigo";
+					rs = st.executeQuery(sentSQL);
+				} catch (Exception e) {
+					lastError = e;
+					e.printStackTrace();
+				}
+				return rs;
+			}
+				
+				
+			//Busqueda mediante CODIGO:
+			public static Pieza piezaUtilizadaSelect(Statement st, String codigo) {
+				String sentSQL = "";
+				Pieza pieza = null;
+				try {
+					sentSQL = "select * from " + TABLA_PIEZAS_UTILIZADAS + " where codigo= '" + codigo + "' ";
+					ResultSet rs = st.executeQuery(sentSQL);
+					if (rs.next()) {
+						String cod = rs.getString("codigo");
+						String nombre = rs.getString("nombre");
+						int unidades = rs.getInt("unidades");
+						String ubicacion = rs.getString("ubicacion");
+						pieza = new Pieza(cod, nombre, unidades, ubicacion);
+					}
+				} catch (Exception e) {
+					lastError = e;
+					e.printStackTrace();
+				}
+					return pieza;
+			}
 	
 	//Tabla COCHES:
 		//Todos:
@@ -447,11 +549,11 @@ public class BD {
 
 //METODOS DELETE:
 
-	// Tabla USUARIOS CONTRASENYA:
-	public static boolean usuariosDelete(Statement st, String nombre) {
+	// Tabla USUARIOS:
+	public static boolean usuariosDelete(Statement st, String nickname) {
 		String sentSQL = "";
 		try {
-			sentSQL = "delete from usuarios where codigo= '" + secu(nombre) + "'";
+			sentSQL = "delete from usuarios where nickname= '" + secu(nickname) + "'";
 			int val = st.executeUpdate(sentSQL);
 			return (val == 1);
 		} catch (SQLException e) {
@@ -461,11 +563,11 @@ public class BD {
 		}
 	}
 	
-	//Tabla JUNTAKIDES UNICO:
-	public static boolean juntakidesUnicoDelete(Statement st, String nombre) {
+	//Tabla CLIENTE:
+	public static boolean clientesDelete(Statement st, String dni) {
 		String sentSQL = "";
 		try {
-			sentSQL = "delete from Juntakides where nombreJuntakide= '" + nombre + "'";
+			sentSQL = "delete from " + TABLA_CLIENTE + " where dni= '" + secu(dni) + "'";
 			int val = st.executeUpdate(sentSQL);
 			return (val == 1);
 		} catch (SQLException e) {
@@ -475,39 +577,11 @@ public class BD {
 		}
 	}
 	
-	//Tabla JUNTAKIDES UNICO:
-	public static boolean juntakidesEliminadosUnicoDelete(Statement st, String nombre, String nombreAMPA) {
+	//Tabla EMPLEADO:
+	public static boolean empleadosDelete(Statement st, String dni) {
 		String sentSQL = "";
 		try {
-			sentSQL = "delete from JuntakidesEliminados where nombreJuntakide= '" + nombre + "' AND nombreAMPA= '" + nombreAMPA + "'";
-			int val = st.executeUpdate(sentSQL);
-			return (val == 1);
-		} catch (SQLException e) {
-			lastError = e;
-			e.printStackTrace();
-			return false;
-		}
-	}
-		
-	//Tabla LLAMADA - OBSERVACIONES:
-	public static boolean llamadaDelete(Statement st, String codigoLlamada) {
-		String sentSQL = "";
-		try {
-			sentSQL = "delete from Observaciones where cod_Id= '" + codigoLlamada + "'";
-			int val = st.executeUpdate(sentSQL);
-			return (val == 1);
-		} catch (SQLException e) {
-			lastError = e;
-			e.printStackTrace();
-			return false;
-		}
-	}
-
-	//Tabla JUNTAKIDES TODOS:
-	public static boolean juntakidesTodosDelete(Statement st, String nombreAmpa) {
-		String sentSQL = "";
-		try {
-			sentSQL = "delete from Juntakides where nombreAMPA= '" + nombreAmpa + "'";
+			sentSQL = "delete from " + TABLA_EMPLEADO + " where dni= '" + secu(dni) + "'";
 			int val = st.executeUpdate(sentSQL);
 			return (val == 1);
 		} catch (SQLException e) {
@@ -517,11 +591,39 @@ public class BD {
 		}
 	}
 	
-	//Tabla AMPAS:
-		public static boolean AMPASDelete(Statement st, String nombreAmpa) {
+	//Tabla MECANICO:
+	public static boolean mecanicosDelete(Statement st, String dni) {
+		String sentSQL = "";
+		try {
+			sentSQL = "delete from " + TABLA_MECANICO + " where dni= '" + secu(dni) + "'";
+			int val = st.executeUpdate(sentSQL);
+			return (val == 1);
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	//Tabla COMERCIAL:
+	public static boolean comercialesDelete(Statement st, String dni) {
+		String sentSQL = "";
+		try {
+			sentSQL = "delete from " + TABLA_COMERCIAL + " where dni= '" + secu(dni) + "'";
+			int val = st.executeUpdate(sentSQL);
+			return (val == 1);
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	// Tabla PIEZA:
+		public static boolean piezaDelete(Statement st, String codigo) {
 			String sentSQL = "";
 			try {
-				sentSQL = "delete from AMPAS where nombreAMPA= '" + nombreAmpa + "'";
+				sentSQL = "delete from " + TABLA_PIEZAS + " where codigo= '" + secu(codigo) + "'";
 				int val = st.executeUpdate(sentSQL);
 				return (val == 1);
 			} catch (SQLException e) {
@@ -531,11 +633,26 @@ public class BD {
 			}
 		}
 	
-	//Tabla COLEGIOS:
-	public static boolean colegioDelete(Statement st, String nombreColegio) {
+		// Tabla PIEZA:
+		public static boolean piezaUtilizadaDelete(Statement st, String codigo) {
+			String sentSQL = "";
+			try {
+				sentSQL = "delete from " + TABLA_PIEZAS_UTILIZADAS + " where codigo= '" + secu(codigo) + "'";
+				int val = st.executeUpdate(sentSQL);
+				return (val == 1);
+			} catch (SQLException e) {
+				lastError = e;
+				e.printStackTrace();
+				return false;
+			}
+		}
+				
+		
+	//Tabla COCHE:
+	public static boolean cochesDelete(Statement st, String modelo) {
 		String sentSQL = "";
 		try {
-			sentSQL = "delete from Colegios where nombreCentro= '" + nombreColegio + "'";
+			sentSQL = "delete from " + TABLA_COCHES + " where modelo= '" + secu(modelo) + "'";
 			int val = st.executeUpdate(sentSQL);
 			return (val == 1);
 		} catch (SQLException e) {
@@ -544,7 +661,21 @@ public class BD {
 			return false;
 		}
 	}
-
+	
+	//Tabla VENTAS:
+	public static boolean ventasDelete(Statement st, String codigoVenta) {
+		String sentSQL = "";
+		try {
+			sentSQL = "delete from " + TABLA_VENTAS + " where codigoVenta= '" + secu(codigoVenta) + "'";
+			int val = st.executeUpdate(sentSQL);
+			return (val == 1);
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}	
+	}
+		
 	/////////////////////////////////////////////////////////////////////
 	// Metodos privados //
 	/////////////////////////////////////////////////////////////////////

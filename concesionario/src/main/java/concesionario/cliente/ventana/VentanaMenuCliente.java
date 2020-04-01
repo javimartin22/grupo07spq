@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
 import concesionario.servidor.BaseDatos.BD;
+import concesionario.servidor.datos.Cliente;
 import concesionario.servidor.datos.Usuario;
 
 import java.awt.Color;
@@ -106,21 +107,21 @@ public class VentanaMenuCliente extends JFrame{
 	
 	private void cambiarNickname(String nickname) {
 		Usuario user = BD.usuarioSelect(st, nickname);
-		//Cliente client = BD.clienteSelect(st, nickname);
+		Cliente client = BD.clienteSelect(st, nickname);
 		String nombre = JOptionPane.showInputDialog("Introduzca el nuevo nickname:");
-		//BD.clientesDelete(st, client.getDNI());
+		BD.clientesDelete(st, client.getDNI());
 		BD.usuariosDelete(st, nickname);
-		//BD.clientesInsert(st, client.getDNI(), nombre, client.getContrasenya(), client.getNombre(), client.getApellido(), client.getSexo(), client.getEmail(), client.getCiudad(), client.getCodigoPostal(), client.getDireccion(), client.getNumeroTelefono());
+		BD.clientesInsert(st, client.getDNI(), nombre, client.getContrasenya(), client.getNombre(), client.getApellido(), client.getSexo(), client.getEmail(), client.getCiudad(), client.getCodigoPostal(), client.getDireccion(), client.getNumeroTelefono());
 		BD.usuariosInsert(st, nombre, user.getContrasenya(), 3);
 	}
 	
 	private void cambiarContrasenya(String nickname) {
 		Usuario user = BD.usuarioSelect(st, nickname);
-		//Cliente client = BD.clienteSelect(st, nickname);
+		Cliente client = BD.clienteSelect(st, nickname);
 		String contrasenya = JOptionPane.showInputDialog("Introduzca la nueva contrasenya:");
-		//BD.clientesDelete(st, client.getDNI());
+		BD.clientesDelete(st, client.getDNI());
 		BD.usuariosDelete(st, nickname);
-		//BD.clientesInsert(st, client.getDNI(), client.getNickname(), contrasenya, client.getNombre(), client.getApellido(), client.getSexo(), client.getEmail(), client.getCiudad(), client.getCodigoPostal(), client.getDireccion(), client.getNumeroTelefono());
+		BD.clientesInsert(st, client.getDNI(), client.getNickname(), contrasenya, client.getNombre(), client.getApellido(), client.getSexo(), client.getEmail(), client.getCiudad(), client.getCodigoPostal(), client.getDireccion(), client.getNumeroTelefono());
 		BD.usuariosInsert(st, user.getNickname(), contrasenya, 3);
 	}
 }

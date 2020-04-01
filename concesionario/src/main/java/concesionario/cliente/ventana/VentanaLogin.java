@@ -163,15 +163,14 @@ private void iniciarSesion(String nombre, String contrasenia) {
 						JOptionPane.showMessageDialog(rootPane, "Sesion iniciada como admin");
 						break;
 					case 1:
-						//metodo de abir el manu para el mecanico
 						JOptionPane.showMessageDialog(rootPane, "Sesion iniciada como mecanico");
 						break;
 					case 2:
 						JOptionPane.showMessageDialog(rootPane, "Sesion iniciada como comercial");
 						break;
 					case 3:
-						//VentanaMenuCliente ventana = new VentanaMenuCliente(nombre);
-						//ventana.setVisible(true);
+						VentanaMenuCliente ventana = new VentanaMenuCliente(nombre);
+						ventana.setVisible(true);
 						dispose();
 						break;
 					case 4:

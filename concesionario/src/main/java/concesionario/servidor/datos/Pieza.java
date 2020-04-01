@@ -1,39 +1,50 @@
 package concesionario.servidor.datos;
 
 public class Pieza {
-
-	private String Codigo;
-	private String Nombre; 
-	private int Stock;
-
-	private  Pieza (String codigo, String nombre, int stock) {
-		// TODO Auto-generated method stub
-		this.Codigo = codigo;
-		this.Nombre = nombre;
-		this.Stock = stock;
+	private String codigo;
+	private String nombre;
+	private int unidades; 
+	private String ubicacion;
+	
+	public Pieza(String codigo, String nombre, int unidades, String ubicacion) {
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.unidades = unidades;
+		this.ubicacion = ubicacion;
 	}
 
 	public String getCodigo() {
-		return Codigo;
+		return codigo;
 	}
 
 	public void setCodigo(String codigo) {
-		Codigo = codigo;
+		this.codigo = codigo;
 	}
 
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
-		Nombre = nombre;
+		this.nombre = nombre;
 	}
 
-	public int getStock() {
-		return Stock;
+	public int getUnidades() {
+		return unidades;
 	}
 
-	public void setStock(int stock) {
-		Stock = stock;
+	public void setUnidades(int unidades) {
+		this.unidades = unidades;
 	}
+
+	public String getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+	
+	
+	
 }

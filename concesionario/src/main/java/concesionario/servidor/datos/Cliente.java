@@ -1,6 +1,7 @@
 package concesionario.servidor.datos;
 
 
+
 public class Cliente extends Usuario{
 	
 	private String DNI;
@@ -9,14 +10,13 @@ public class Cliente extends Usuario{
 	private String Sexo;
 	private String Email;
 	private String Ciudad;
-	private String CodigoPostal;
+	private int CodigoPostal;
 	private String Direccion;
-	private int numeroTelefono;
-	private CocheMatriculado coche;
+	private String numeroTelefono;
 
 	
 	
-	public Cliente(String dni, String nickname, String contrasenya, int tipo, String nombre, String apellido, String sexo, String email, String ciudad, String codigoPostal, String direccion, int numeroTelefono, CocheMatriculado coche) {
+	public Cliente(String dni, String nickname, int tipo, String contrasenya, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String direccion, String numeroTelefono) {
 		super(nickname, contrasenya, tipo);
 		this.DNI = dni;
 		this.Nombre = nombre;
@@ -27,7 +27,6 @@ public class Cliente extends Usuario{
 		this.CodigoPostal = codigoPostal;
 		this.Direccion = direccion;
 		this.numeroTelefono = numeroTelefono;
-		this.coche = coche;
 	}
 
 
@@ -81,11 +80,11 @@ public class Cliente extends Usuario{
 		Ciudad = ciudad;
 	}
 
-	public String getCodigoPostal() {
+	public int getCodigoPostal() {
 		return CodigoPostal;
 	}
 
-	public void setCodigoPostal(String codigoPostal) {
+	public void setCodigoPostal(int codigoPostal) {
 		CodigoPostal = codigoPostal;
 	}
 
@@ -97,22 +96,12 @@ public class Cliente extends Usuario{
 		Direccion = direccion;
 	}
 	
-	public int getNumeroTelefono() {
+	public String getNumeroTelefono() {
 		return numeroTelefono;
 	}
 
 
-	public void setNumeroTelefono(int numeroTelefono) {
+	public void setNumeroTelefono(String numeroTelefono) {
 		this.numeroTelefono = numeroTelefono;
-	}
-
-
-	public CocheMatriculado getCoche() {
-		return coche;
-	}
-
-
-	public void setCoche(CocheMatriculado coche) {
-		this.coche = coche;
 	}
 }
