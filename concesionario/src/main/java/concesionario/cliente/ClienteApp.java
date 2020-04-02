@@ -18,6 +18,7 @@ import javax.ws.rs.core.GenericType;
 
 
 import concesionario.servidor.datos.Usuario;
+import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
 import concesionario.cliente.ventana.VentanaMenuCliente;
 
@@ -30,15 +31,18 @@ public class ClienteApp {
 	private VentanaLogin vlogin;
 	private VentanaMenuCliente vmc;
 	
+	private WebTarget appTarget;
+	private WebTarget loginTarget;
 	
 	public static final String URL_SERVER = "http://localhost:8080/concesionario";
 	
 	public ClienteApp() {
 		
 		client = ClientBuilder.newClient();
-		WebTarget appTarget = client.target(URL_SERVER);
-		WebTarget loginTarget= appTarget.path("loginp");
 		
+		 appTarget = client.target(URL_SERVER);
+		 loginTarget= appTarget.path("loginp");
+		/*
 		vlogin = new VentanaLogin();
 		vlogin.setVisible(true);
 		
@@ -72,6 +76,17 @@ public class ClienteApp {
  			}
 		});
 		
+		*/
+		
+	}
+	
+	public Response login(Usuario concat) {
+		
+		Entity<Usuario> entity = Entity.entity(concat, MediaType.APPLICATION_JSON);
+		Response response = loginTarget.request(MediaType.TEXT_PLAIN).post(entity);
+
+        return response;
+		
 	}
 	
 
@@ -80,7 +95,12 @@ public class ClienteApp {
 	        
 	            @Override
 	            public void run() {
-	                new ClienteApp();
+	                ClienteApp cliente = new ClienteApp();
+	                
+	                LoginController loginController = new LoginController(cliente);
+	                VentanaLogin vlogin = new VentanaLogin(loginController);
+	                vlogin.setVisible(true);
+	                
 	            }
 	        });
 	    }

@@ -34,6 +34,9 @@ public class VentanaMenuCliente extends JFrame{
 	private Connection con;
 	private Statement st;
 	
+	
+	private JButton buttonSalir;
+	
 	public static void main(String nickname) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -70,7 +73,8 @@ public class VentanaMenuCliente extends JFrame{
 		panel.add(nombreCliente);
 		
 		//boton de salir que te lleva a la ventana de VentanaLogin
-		JButton buttonSalir = new JButton("Salir");
+		 buttonSalir = new JButton("Salir");
+		 /*
 		buttonSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VentanaLogin ventana = new VentanaLogin();
@@ -78,6 +82,8 @@ public class VentanaMenuCliente extends JFrame{
 				dispose();
 			}
 		});
+		*/
+		 
 		buttonSalir.setBounds(220, 209, 89, 23);
 		panel.add(buttonSalir);
 		
@@ -124,4 +130,14 @@ public class VentanaMenuCliente extends JFrame{
 		BD.clientesInsert(st, client.getDNI(), client.getNickname(), contrasenya, client.getNombre(), client.getApellido(), client.getSexo(), client.getEmail(), client.getCiudad(), client.getCodigoPostal(), client.getDireccion(), client.getNumeroTelefono());
 		BD.usuariosInsert(st, user.getNickname(), contrasenya, 3);
 	}
+	
+	public JButton getButtonSalir() {
+		return buttonSalir;
+	}
+
+
+	public void setButtonSalir(JButton buttonSalir) {
+		this.buttonSalir = buttonSalir;
+	}
+
 }

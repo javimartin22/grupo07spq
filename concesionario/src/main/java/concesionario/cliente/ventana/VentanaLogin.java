@@ -20,7 +20,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
+import concesionario.cliente.controller.LoginController;
 import concesionario.servidor.BaseDatos.BD;
 import concesionario.servidor.datos.Usuario;
 
@@ -33,6 +36,8 @@ public class VentanaLogin extends JFrame {
 	//private Connection con;
 	//private Statement st;
 	
+	private LoginController loginController;
+	
 
 	/**
 	 * Launch the application.
@@ -41,7 +46,14 @@ public class VentanaLogin extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaLogin() {
+	
+	public VentanaLogin(LoginController loginController) {
+		this.loginController = loginController;
+		initVentanaLogin();
+	}
+	
+	
+	private void initVentanaLogin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -82,19 +94,7 @@ public class VentanaLogin extends JFrame {
 		panel.add(textContrasenya);
 		textContrasenya.setColumns(10);
 
-		//para que también se pueda hacer con el enter
-		textContrasenya.addKeyListener(new KeyAdapter() {
 
-			@Override
-			public void keyPressed(KeyEvent e) {
-				int tecla = e.getKeyCode();
-				if(tecla == 10 ) {
-					String nombre = textNombreUsuario.getText();
-					String contrasenia = new String(textContrasenya.getPassword());
-					//iniciarSesion(nombre, contrasenia);
-				}
-			}
-		});
 		
 		//boton de aceptar para iniciar sesión
 		 buttonAceptar = new JButton("Aceptar");
@@ -108,15 +108,16 @@ public class VentanaLogin extends JFrame {
 		panel.add(lblNewLabel);
 		
 		
-		/*buttonAceptar.addActionListener(new ActionListener() {
+		buttonAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String nombre = textNombreUsuario.getText();
-				String contrasenia = new String(textContrasenya.getPassword());
-				iniciarSesion(nombre, contrasenia);
+				String email = textNombreUsuario.getText();
+				String password = textContrasenya.getText();
+				
+				login(email, password);
 											
 			}
 
-		}); */
+		}); 
 	}
 	
 public JTextField getTextNombreUsuario() {
@@ -205,8 +206,25 @@ public JTextField getTextNombreUsuario() {
 		textContrasenya.setText("");
 	}
 	
+	public void login(String email, String password) {
+		Response response = loginController.login(email, password); //estoy aqui
+		
+		 if(response.getStatus() == Status.OK.getStatusCode()) {
+	         	String str = response.readEntity(String.class);
+	         	JOptionPane.showMessageDialog(this, "Datos correctos, el tipo es " +str);
+	         	if(str.equals("3")) {
+	         		VentanaMenuCliente vmc = new VentanaMenuCliente(email);
+	         		vmc.setVisible(true);
+	         		dispose();
+	         	}
+	         	
+	         }else {
+	         	JOptionPane.showMessageDialog(this, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+	         }
+	}
 	
-	public static void main(String[] args) {
+	
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -219,6 +237,6 @@ public JTextField getTextNombreUsuario() {
 		});
 	}
 
-	
+	*/
 
 }
