@@ -19,6 +19,7 @@ import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
+import concesionario.cliente.controller.LoginController;
 import concesionario.servidor.BaseDatos.BD;
 import concesionario.servidor.datos.Cliente;
 import concesionario.servidor.datos.Usuario;
@@ -33,9 +34,9 @@ public class VentanaMenuCliente extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JButton buttonSalir;
 	
+	private LoginController loginController;
 	
-	
-	public static void main(String nickname) {
+	/*public static void main(String nickname) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -47,9 +48,15 @@ public class VentanaMenuCliente extends JFrame{
 			}
 		});
 	}
+	*/
+	public VentanaMenuCliente(String nickname,LoginController loginController) {
+		this.loginController = loginController;
+		initVentanaMenuCliente(nickname);
+	}
+	
 
 	
-	public VentanaMenuCliente(String nickname) {
+	private void initVentanaMenuCliente(String nickname) {
 		this.setTitle("Menu del cliente");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(480,282);
@@ -63,23 +70,14 @@ public class VentanaMenuCliente extends JFrame{
 		
 		//boton de salir que te lleva a la ventana de VentanaLogin
 		buttonSalir = new JButton("Salir");
-//		buttonSalir.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				VentanaLogin ventana = new VentanaLogin();
-//				ventana.setVisible(true);
-//				dispose();
-//			}
-//		});
-		 buttonSalir = new JButton("Salir");
-		 /*
 		buttonSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaLogin ventana = new VentanaLogin();
-				ventana.setVisible(true);
+				VentanaLogin vlogin = new VentanaLogin(loginController);
+				vlogin.setVisible(true);
 				dispose();
 			}
 		});
-		*/
+		
 		 
 		buttonSalir.setBounds(220, 209, 89, 23);
 		panel.add(buttonSalir);

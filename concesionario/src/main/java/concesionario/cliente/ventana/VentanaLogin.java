@@ -150,7 +150,7 @@ public class VentanaLogin extends JFrame {
 	         	String str = response.readEntity(String.class);
 	         	JOptionPane.showMessageDialog(this, "Datos correctos, el tipo es " +str);
 	         	if(str.equals("3")) {
-	         		VentanaMenuCliente vmc = new VentanaMenuCliente(nickname);
+	         		VentanaMenuCliente vmc = new VentanaMenuCliente(nickname, loginController);
 	         		vmc.setVisible(true);
 	         		dispose();
 	         	}
