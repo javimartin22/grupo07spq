@@ -19,13 +19,17 @@ import javax.ws.rs.core.GenericType;
 
 import concesionario.servidor.datos.Usuario;
 import concesionario.cliente.ventana.VentanaLogin;
+import concesionario.cliente.ventana.VentanaMenuCliente;
 
 //Cambiar el Pom.xml para que luego nos runnee esta aplicaicon
 public class ClienteApp {
 	
 	private static final long serialVersionUID = 1L;
 	private Client client;
+	
 	private VentanaLogin vlogin;
+	private VentanaMenuCliente vmc;
+	
 	
 	public static final String URL_SERVER = "http://localhost:8080/concesionario";
 	
@@ -52,7 +56,14 @@ public class ClienteApp {
  				Response response = loginTarget.request(MediaType.TEXT_PLAIN).post(entity);
 
  	            if(response.getStatus() == Status.OK.getStatusCode()) {
- 	            	JOptionPane.showMessageDialog(vlogin, "Datos correctos");
+ 	            	String str = response.readEntity(String.class);
+ 	            	JOptionPane.showMessageDialog(vlogin, "Datos correctos, el tipo es " +str);
+ 	            	if(str.equals("3")) {
+ 	            		vmc = new VentanaMenuCliente(nombre);
+ 	            		vmc.setVisible(true);
+ 	            		vlogin.dispose();
+ 	            	}
+ 	            	
  	            }else {
  	            	JOptionPane.showMessageDialog(vlogin, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
  	            }

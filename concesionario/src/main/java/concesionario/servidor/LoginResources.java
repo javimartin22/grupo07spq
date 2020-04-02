@@ -47,7 +47,7 @@ public class LoginResources {
 	//Por ahora solo funciona este metodo
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	//@Produces(MediaType.TEXT_PLAIN)
+	//@Produces("application/json")
 	public Response anadirUsuario(Usuario concat) {
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
@@ -57,6 +57,7 @@ public class LoginResources {
 		String pass = concat.getContrasenya();
 		
 		Usuario nuevo = BD.usuarioSelect(st, username);
+		String tipo = Integer.toString(nuevo.getTipo());
 		
 		if (nuevo == null) {
 			System.out.println("El usuario no existe");
@@ -64,7 +65,8 @@ public class LoginResources {
 		} else {
 			if(nuevo.getNickname().equals(username) && nuevo.getContrasenya().equals(pass)) {
 				System.out.println("Usuario correcto");
-				return Response.status(Response.Status.OK).build();
+				return Response.status(Response.Status.OK).entity(tipo).build();
+				
 			}else {
 				System.out.println("Datos incorrectos");
 				return Response.status(Response.Status.NOT_FOUND).build();
