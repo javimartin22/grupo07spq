@@ -22,6 +22,15 @@ public class VentanasRegistroClientes extends JFrame {
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
+	private String dni = "";
+	private String nombre = "";
+	private String apellido = "";
+	private int s = 0;
+	private String email = "";
+	private String dir = "";
+	private String c = "";
+	private String numTelefono = "";
+	private String ciudad = "";
 
 	/**
 	 * Launch the application.
@@ -145,12 +154,34 @@ public class VentanasRegistroClientes extends JFrame {
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dni = textField.getText();
+				nombre = textField_1.getText();
+				apellido = textField_2.getText();
+				s = comboBox.getSelectedIndex();
+				String sexo = comprobarSexo(s);
+				email = textField_3.getText();
+				dir = textField_4.getText();
+				c = textField_5.getText();
+				int codigoPostal = Integer.parseInt(c);
+				numTelefono = textField_6.getText();
+				ciudad = textField_7.getText();
 			}
 		});
 		btnRegistrar.setBounds(228, 341, 117, 29);
 		contentPane.add(btnRegistrar);
 	}
 	
-	
+	public String comprobarSexo(int s){
+		String sexo = "";
+		switch (s) {
+		case 0:
+			sexo = "Hombre";
+			break;
+		case 1: 
+			sexo = "Mujer";
+		case 3: 
+			sexo = "Otro";
+		}
+		return sexo;
+	}
 }
