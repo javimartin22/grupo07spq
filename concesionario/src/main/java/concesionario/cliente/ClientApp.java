@@ -35,10 +35,10 @@ public class ClientApp extends JFrame {
 
     private Client client;
     
-    public ClientApp() {
+    public ClientApp() {  
     	client = ClientBuilder.newClient();
     	WebTarget appTarget = client.target("http://localhost:8080/concesionario"); //ponerlo final o en properties
-    	WebTarget loginTarget= appTarget.path("login");
+    	WebTarget loginTarget= appTarget.path("login"); //anadir un nuevo path /login el path inicial del cliente
     	
     	
         setSize(620, 480);
@@ -94,8 +94,7 @@ public class ClientApp extends JFrame {
             
             @Override
             public void actionPerformed(ActionEvent e) {
-               Usuario nuevo = new Usuario(nameTextField.getText(),surnameTextField.getText(),Integer.parseInt(codeTextField.getText()));
-               
+               Usuario nuevo = new Usuario(nameTextField.getText(),surnameTextField.getText(),Integer.parseInt(codeTextField.getText()));              
                Entity<Usuario> entity = Entity.entity(nuevo, MediaType.APPLICATION_JSON);
                Response response = loginTarget.request(MediaType.TEXT_PLAIN).post(entity);
                System.out.println(response.getEntity());
