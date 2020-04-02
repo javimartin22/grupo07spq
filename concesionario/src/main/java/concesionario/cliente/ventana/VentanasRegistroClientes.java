@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -165,6 +166,7 @@ public class VentanasRegistroClientes extends JFrame {
 				int codigoPostal = Integer.parseInt(c);
 				numTelefono = textField_6.getText();
 				ciudad = textField_7.getText();
+				
 			}
 		});
 		btnRegistrar.setBounds(228, 341, 117, 29);
@@ -183,5 +185,47 @@ public class VentanasRegistroClientes extends JFrame {
 			sexo = "Otro";
 		}
 		return sexo;
+	}
+	
+	public boolean comprobarCampos() {
+		boolean bool = false; 
+		dni = textField.getText();
+		nombre = textField_1.getText();
+		apellido = textField_2.getText();
+		email = textField_3.getText();
+		dir = textField_4.getText();
+		c = textField_5.getText();
+		numTelefono = textField_6.getText();
+		ciudad = textField_7.getText();
+		//Comprobamos si todos los campos han sido completados.
+		if (!nombre.equals("") && !dni.equals("") && !apellido.equals("") && !email.equals("") && !ciudad.equals("") && !c.equals("") && !dir.equals("") && !numTelefono.equals("")) {
+			//Comprobamos la longitud del DNI:
+			if (dni.length() == 10 ) {
+				//Compobamos la longitud del CodigoPostal
+				if (c.length() == 5) {
+					if (comprobarTelefono(numTelefono) && numTelefono.length() == 9) {
+						bool = true;
+					} else {
+						JOptionPane.showMessageDialog(contentPane, "El numero de telefono debe ser correcto."); //En caso de que el CodigoPostal no sea correcto se muestra el mensaje.
+					}
+				} else {
+					JOptionPane.showMessageDialog(contentPane, "El Codigo Postal debe tener 5 digitos."); //En caso de que el CodigoPostal no sea correcto se muestra el mensaje.
+				}
+			} else {
+				JOptionPane.showMessageDialog(contentPane, "El DNI debe contener 10 digitos xxxxxxxxxL."); //En caso de que el DNI no sea correcto se muestra el mensaje.
+			}
+		} else {
+			JOptionPane.showMessageDialog(contentPane, "Todos los campos deben estar rellenados.");
+		}
+		return bool;
+	}
+	
+	public boolean comprobarTelefono (String numTelefono) {
+		try {
+			Integer.parseInt(numTelefono);
+			return true;
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
 	}
 }
