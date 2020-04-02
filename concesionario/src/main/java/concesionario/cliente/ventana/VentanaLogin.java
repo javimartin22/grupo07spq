@@ -97,7 +97,7 @@ public class VentanaLogin extends JFrame {
 		});
 		
 		//boton de aceptar para iniciar sesión
-		 buttonAceptar = new JButton("Aceptar");
+		buttonAceptar = new JButton("Aceptar");
 		buttonAceptar.setBounds(200, 212, 89, 23);
 		panel.add(buttonAceptar);
 		
@@ -106,20 +106,9 @@ public class VentanaLogin extends JFrame {
 		lblNewLabel.setFont(new Font("Kohinoor Devanagari", Font.BOLD, 35));
 		lblNewLabel.setBounds(150, 11, 177, 54);
 		panel.add(lblNewLabel);
-		
-		
-		/*buttonAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String nombre = textNombreUsuario.getText();
-				String contrasenia = new String(textContrasenya.getPassword());
-				iniciarSesion(nombre, contrasenia);
-											
-			}
-
-		}); */
 	}
 	
-public JTextField getTextNombreUsuario() {
+	public JTextField getTextNombreUsuario() {
 		return textNombreUsuario;
 	}
 
@@ -143,64 +132,8 @@ public JTextField getTextNombreUsuario() {
 		this.buttonAceptar = buttonAceptar;
 	}
 
-/*private void iniciarSesion(String nombre, String contrasenia) {
-		
-		if(!nombre.equals("") && !contrasenia.equals("")) {
-			Usuario  user = BD.usuarioSelect(st, nombre);
-			//Comprobamos si el usuario se encuentra registrado en la BD:
-			if (user == null) { //En caso de que no este registrado:
-				int repuesta = JOptionPane.showConfirmDialog(contentPane, "Usuario no registrado. ¿Desea Registrarse?");
-				switch (repuesta) {
-				case 0:
-					//Se visualizara la ventana donde se realizara el registro del cliente.
-					//VentanasRegistroClientes ventana = new VentanasRegistroClientes(nombre, contrasenia);
-					//ventana.setVisible(true);
-					dispose();
-					break;
-				case 1:
-					JOptionPane.showMessageDialog(contentPane, "El usuario no se registrara.");
-					vaciarCampos();
-					break;
-				case 2:
-					vaciarCampos();
-					break;
-				
-				}
-			} else {
-				String nom = user.getNickname();
-				String contr = user.getContrasenya();
-				int tipo = user.getTipo();
-				if (nom.equals(nombre) && contr.equals(contrasenia)) {
-					switch (tipo) {
-					case 0:
-						JOptionPane.showMessageDialog(rootPane, "Sesion iniciada como admin");
-						break;
-					case 1:
-						JOptionPane.showMessageDialog(rootPane, "Sesion iniciada como mecanico");
-						break;
-					case 2:
-						JOptionPane.showMessageDialog(rootPane, "Sesion iniciada como comercial");
-						break;
-					case 3:
-						VentanaMenuCliente ventana = new VentanaMenuCliente(nombre);
-						ventana.setVisible(true);
-						dispose();
-						break;
-					case 4:
-						JOptionPane.showMessageDialog(rootPane, "Sesion iniciada como depatamento de compras");
-						break;
-					}
-				} else{
-					JOptionPane.showMessageDialog(rootPane, "Nombre de usuario o contrasenia incorrecta");
-				}
-			}
-		}else {
-			JOptionPane.showMessageDialog(rootPane, "Rellene todos los campos");
-		}
-	}
-	*/
 	
-	private void vaciarCampos(){
+	public void vaciarCampos(){
 		textNombreUsuario.setText("");
 		textContrasenya.setText("");
 	}

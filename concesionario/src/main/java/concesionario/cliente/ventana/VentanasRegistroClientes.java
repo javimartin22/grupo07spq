@@ -166,7 +166,6 @@ public class VentanasRegistroClientes extends JFrame {
 				int codigoPostal = Integer.parseInt(c);
 				numTelefono = textField_6.getText();
 				ciudad = textField_7.getText();
-				
 			}
 		});
 		btnRegistrar.setBounds(228, 341, 117, 29);
