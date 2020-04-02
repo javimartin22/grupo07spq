@@ -1,4 +1,4 @@
-package concesionario.cliente.ventana;
+/*package concesionario.cliente.ventana;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -15,9 +15,7 @@ import javax.swing.SwingConstants;
 
 public class VentanaMenuAdmin extends JFrame {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	public static void main(String nickname) {
@@ -96,3 +94,5 @@ public class VentanaMenuAdmin extends JFrame {
 	
 	
 }
+
+*/
