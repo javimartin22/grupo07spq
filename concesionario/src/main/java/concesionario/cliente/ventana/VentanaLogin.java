@@ -41,7 +41,7 @@ public class VentanaLogin extends JFrame {
 	 */
 	
 	public VentanaLogin(LoginController loginController) {
-		this.loginController = loginController;
+		this.loginController = loginController;   //errores
 		initVentanaLogin();
 	}
 	
