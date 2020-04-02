@@ -1,5 +1,7 @@
 package concesionario.cliente.ventana;
 
+
+
 import java.awt.EventQueue;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -140,10 +142,14 @@ public class VentanaEmpleados extends JFrame {
 				dispose();
 				break;
 			case 1: 
-				//Ventana Comercial...
+				VentanaRegistroComercial ventanaComercial = new VentanaRegistroComercial();
+				ventanaComercial.setVisible(true);
+				dispose();		
 				break;
 			case 2:
-				//Ventana Dep. Compras...
+				VentanaRegistroCompras ventanaCompras = new VentanaRegistroCompras();
+				ventanaCompras.setVisible(true);
+				dispose();		
 				break;
 			}
 			

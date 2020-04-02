@@ -23,7 +23,7 @@ import javax.swing.border.EmptyBorder;
 import concesionario.servidor.BaseDatos.BD;
 
 
-public class VentanaRegistroMecanico extends JFrame {
+public class VentanaRegistroCompras extends JFrame {
 
 	/**
 	 * 
@@ -53,7 +53,7 @@ public class VentanaRegistroMecanico extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaRegistroMecanico frame = new VentanaRegistroMecanico();
+					VentanaRegistroCompras frame = new VentanaRegistroCompras();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -65,9 +65,9 @@ public class VentanaRegistroMecanico extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaRegistroMecanico() {
+	public VentanaRegistroCompras() {
 		setResizable(false);
-		setTitle("Registro Mecanico");
+		setTitle("Registro Departamento Compras");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 538, 695);
 		contentPane = new JPanel();
@@ -77,8 +77,8 @@ public class VentanaRegistroMecanico extends JFrame {
 		con = BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
-		JLabel lblNewLabel = new JLabel("Si desea registrar un mecanico rellene los siguintes datos:");
-		lblNewLabel.setBounds(22, 20, 426, 16);
+		JLabel lblNewLabel = new JLabel("Si desea registrar un agente rellene los siguintes datos:");
+		lblNewLabel.setBounds(22, 6, 496, 43);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblDNI = new JLabel("DNI: ");
@@ -240,8 +240,9 @@ public class VentanaRegistroMecanico extends JFrame {
 					String email = textFieldEmail.getText();
 					int tipo = comboBoxSexo.getSelectedIndex();
 					String sexo = comprobarSexo(tipo);
-					BD.mecanicosInsert(st, dni, nickname, contrasenia, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, nss, numeroCuenta, sueldo, 0);
-					BD.empleadosInsert(st, dni, nickname, contrasenia, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, nss, numeroCuenta, sueldo, 0);
+					BD.empleadosInsert(st, dni, nickname, contrasenia, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, nss, numeroCuenta, sueldo, 2);
+					BD.departamentoComprasInsert(st, dni, nickname, contrasenia, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, nss, numeroCuenta, sueldo);
+					
 				} else {
 					JOptionPane.showMessageDialog(contentPane, "Todos los campos deben estar rellenados.");
 				}

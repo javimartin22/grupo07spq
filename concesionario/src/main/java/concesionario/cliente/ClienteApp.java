@@ -43,22 +43,22 @@ public class ClienteApp {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String nombre = vlogin.getTextNombreUsuario().getText();
-				String password = vlogin.getTextContrasenya().getText();
-				String concat= nombre + " " + password;
-				
-				//Usuario nuevo = new Usuario()
-				
-				Entity<String> entity = Entity.entity(concat, MediaType.TEXT_PLAIN);
-	            Response response = loginTarget.request(MediaType.TEXT_PLAIN).post(entity);
-	            
-	            if(response.getStatus() == Status.OK.getStatusCode()) {
-	            	   JOptionPane.showMessageDialog(vlogin, "Datos correctos");
-	               }else {
-	            	   JOptionPane.showMessageDialog(vlogin, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-	               }
-				
-				
-			}
+ 				String password = vlogin.getTextContrasenya().getText();
+ 				Usuario concat= new Usuario(nombre, password, 0);
+
+ 				//Usuario nuevo = new Usuario()
+
+ 				Entity<Usuario> entity = Entity.entity(concat, MediaType.APPLICATION_JSON);
+ 				Response response = loginTarget.request(MediaType.TEXT_PLAIN).post(entity);
+
+ 	            if(response.getStatus() == Status.OK.getStatusCode()) {
+ 	            	JOptionPane.showMessageDialog(vlogin, "Datos correctos");
+ 	            }else {
+ 	            	JOptionPane.showMessageDialog(vlogin, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+ 	            }
+
+
+ 			}
 		});
 		
 	}

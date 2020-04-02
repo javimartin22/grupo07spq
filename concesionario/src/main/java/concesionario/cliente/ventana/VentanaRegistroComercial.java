@@ -1,7 +1,5 @@
 package concesionario.cliente.ventana;
 
-
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -9,26 +7,22 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.Statement;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import concesionario.servidor.BaseDatos.BD;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JPasswordField;
 
-public class VentanaRegistroMecanico extends JFrame {
+public class VentanaRegistroComercial extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldDNI;
 	private JTextField textFieldNombre;
@@ -53,7 +47,7 @@ public class VentanaRegistroMecanico extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaRegistroMecanico frame = new VentanaRegistroMecanico();
+					VentanaRegistroComercial frame = new VentanaRegistroComercial();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -65,9 +59,9 @@ public class VentanaRegistroMecanico extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaRegistroMecanico() {
+	public VentanaRegistroComercial() {
 		setResizable(false);
-		setTitle("Registro Mecanico");
+		setTitle("Registro Comercial");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 538, 695);
 		contentPane = new JPanel();
@@ -77,7 +71,7 @@ public class VentanaRegistroMecanico extends JFrame {
 		con = BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
-		JLabel lblNewLabel = new JLabel("Si desea registrar un mecanico rellene los siguintes datos:");
+		JLabel lblNewLabel = new JLabel("Si desea registrar un comercial rellene los siguintes datos:");
 		lblNewLabel.setBounds(22, 20, 426, 16);
 		contentPane.add(lblNewLabel);
 		
@@ -240,8 +234,8 @@ public class VentanaRegistroMecanico extends JFrame {
 					String email = textFieldEmail.getText();
 					int tipo = comboBoxSexo.getSelectedIndex();
 					String sexo = comprobarSexo(tipo);
-					BD.mecanicosInsert(st, dni, nickname, contrasenia, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, nss, numeroCuenta, sueldo, 0);
-					BD.empleadosInsert(st, dni, nickname, contrasenia, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, nss, numeroCuenta, sueldo, 0);
+					BD.empleadosInsert(st, dni, nickname, contrasenia, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, nss, numeroCuenta, sueldo, 1);
+					BD.comercialesInsert(st, dni, nickname, contrasenia, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, nss, numeroCuenta, sueldo, 0);
 				} else {
 					JOptionPane.showMessageDialog(contentPane, "Todos los campos deben estar rellenados.");
 				}
@@ -254,21 +248,17 @@ public class VentanaRegistroMecanico extends JFrame {
 	
 	public boolean comprobarDatos() {
 		boolean datos = false;
-		
 		if (!textFieldDNI.getText().isEmpty() && !textFieldNombre.getText().isEmpty() && !textFieldApellido.getText().isEmpty() && !textFieldNick.getText().isEmpty() && !textFieldEmail.getText().isEmpty() && !textFieldCiudad.getText().isEmpty() && !textFieldCP.getText().isEmpty() && !textFieldDireccion.getText().isEmpty() && !textFieldTelefono.getText().isEmpty() && !textFieldCuenta.getText().isEmpty() && !textFieldNSS.getText().isEmpty() && !textFieldSueldo.getText().isEmpty()) {
 			datos = true;
-		}
-		
+		} 
 		if(textFieldDNI.getText().length()!=9) {
 			JOptionPane.showMessageDialog(contentPane, "DNI incorrecto. Introduzca este campo con el siguiente formato XXXXXXXXY siendo Y una letra");
 			datos = false;
 		}
-		
 		if(textFieldTelefono.getText().length()!=9) {
 			JOptionPane.showMessageDialog(contentPane, "Telefono incorrecto. Introduzca este campo con el siguiente formato XXXXXXXXX.");
 			datos = false;
 		}
-		
 		if(!textFieldEmail.getText().contains("@")) {
 			JOptionPane.showMessageDialog(contentPane, "Email incorrecto.");
 			datos = false;
