@@ -57,23 +57,18 @@ public class LoginResources {
 		String pass = concat.getContrasenya();
 		
 		Usuario nuevo = BD.usuarioSelect(st, username);
-		String tipo = Integer.toString(nuevo.getTipo());
+		
 		
 		if (nuevo == null) {
-			System.out.println("El usuario no existe");
 			return Response.status(Response.Status.NOT_FOUND).build();
 		} else {
+			String tipo = Integer.toString(nuevo.getTipo());
 			if(nuevo.getNickname().equals(username) && nuevo.getContrasenya().equals(pass)) {
-				System.out.println("Usuario correcto");
 				return Response.status(Response.Status.OK).entity(tipo).build();
-				
 			}else {
-				System.out.println("Datos incorrectos");
-				return Response.status(Response.Status.NOT_FOUND).build();
+				return Response.status(Response.Status.NOT_ACCEPTABLE).build();
 			}
 		}
-		
-		
 	}
 	
 	

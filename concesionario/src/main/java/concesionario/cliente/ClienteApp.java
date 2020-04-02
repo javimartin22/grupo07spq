@@ -3,7 +3,6 @@ package concesionario.cliente;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -14,13 +13,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.GenericType;
 
 
 import concesionario.servidor.datos.Usuario;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
 import concesionario.cliente.ventana.VentanaMenuCliente;
+import concesionario.cliente.ventana.VentanasRegistroClientes;
 
 //Cambiar el Pom.xml para que luego nos runnee esta aplicaicon
 public class ClienteApp {
@@ -30,6 +29,7 @@ public class ClienteApp {
 	
 	private VentanaLogin vlogin;
 	private VentanaMenuCliente vmc;
+	private VentanasRegistroClientes vrc;
 	
 	private WebTarget appTarget;
 	private WebTarget loginTarget;
@@ -46,6 +46,7 @@ public class ClienteApp {
 		vlogin = new VentanaLogin();
 		vlogin.setVisible(true);
 		
+		
 		vlogin.getButtonAceptar().addActionListener(new ActionListener() {
 			
 			@Override
@@ -61,20 +62,49 @@ public class ClienteApp {
 
  	            if(response.getStatus() == Status.OK.getStatusCode()) {
  	            	String str = response.readEntity(String.class);
- 	            	JOptionPane.showMessageDialog(vlogin, "Datos correctos, el tipo es " +str);
- 	            	if(str.equals("3")) {
- 	            		vmc = new VentanaMenuCliente(nombre);
- 	            		vmc.setVisible(true);
- 	            		vlogin.dispose();
- 	            	}
- 	            	
- 	            }else {
+ 	            	int tipoUsuario = Integer.parseInt(str);
+ 	            	switch (tipoUsuario) {
+ 	            		case 0:
+ 	            			JOptionPane.showMessageDialog(vlogin, "Sesion iniciada como admin");
+ 	            			break;
+ 	            		case 1:
+ 	            			JOptionPane.showMessageDialog(vlogin, "Sesion iniciada como mecanico");
+ 	            			break;
+	 	       		case 2:
+	 	       			JOptionPane.showMessageDialog(vlogin, "Sesion iniciada como comercial");
+	 	       			break;
+	 	       		case 3:
+	 	       			vmc = new VentanaMenuCliente();
+	 	       			vmc.setVisible(true);
+	 	       			vlogin.dispose();
+	 	       			break;
+	 	       		case 4:
+	 	       			JOptionPane.showMessageDialog(vlogin, "Sesion iniciada como depatamento de compras");
+	 	       			break;
+	 	       		}
+ 	            }else if (response.getStatus() == Status.NOT_ACCEPTABLE.getStatusCode()){
  	            	JOptionPane.showMessageDialog(vlogin, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+ 	            } else {
+ 	            	int respuesta = JOptionPane.showConfirmDialog(vlogin, "Usuario no registrado ¿Desea registrarse?");
+ 	            	switch (respuesta) {
+					case 0:
+						vrc = new VentanasRegistroClientes(nombre, password);
+						vrc.setVisible(true);
+						vlogin.dispose();
+						break;
+					case 1:
+						JOptionPane.showMessageDialog(vlogin, "El usuario no sera registrado.");
+						break;
+					case 2:
+						vlogin.vaciarCampos();
+						break;
+					}
  	            }
 
 
  			}
 		});
+
 		
 		*/
 		
@@ -87,7 +117,11 @@ public class ClienteApp {
 
         return response;
 		
+
+
 	}
+	
+	
 	
 
 	 public static void main(String[] args) {
