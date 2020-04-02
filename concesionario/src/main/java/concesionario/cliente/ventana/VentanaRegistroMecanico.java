@@ -1,3 +1,5 @@
+package concesionario.cliente.ventana;
+
 
 
 import java.awt.BorderLayout;
@@ -17,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import concesionario.servidor.BaseDatos.BD;
 
 
 public class VentanaRegistroMecanico extends JFrame {

@@ -46,30 +46,31 @@ public class LoginResources {
 	}
 	//Por ahora solo funciona este metodo
 	@POST
-	@Consumes(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
 	//@Produces(MediaType.TEXT_PLAIN)
-	public Response anadirUsuario(String concat) {
-		System.out.println("ha llegado server");
-		System.out.println(concat);
-		String arr[] = concat.split(" ", 2);
+	public Response anadirUsuario(Usuario concat) {
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
-		Usuario nuevo = BD.usuarioSelect(st, "user");
-		System.out.println(nuevo.getContrasenya());
-
-		String username = arr[0];   //Nombre de usuario
-		String pass= arr[1];     // Password
 		
+		String username = concat.getNickname();
+		String pass = concat.getContrasenya();
 		
-		if(username.equals("usu") && pass.equals("password")) {
-			
-			System.out.println("Usuario correcto");
-			return Response.status(Response.Status.OK).build();
-		}else {
-			System.out.println("Datos incorrectos");
+		Usuario nuevo = BD.usuarioSelect(st, username);
+		
+		if (nuevo == null) {
+			System.out.println("El usuario no existe");
 			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			if(nuevo.getNickname().equals(username) && nuevo.getContrasenya().equals(pass)) {
+				System.out.println("Usuario correcto");
+				return Response.status(Response.Status.OK).build();
+			}else {
+				System.out.println("Datos incorrectos");
+				return Response.status(Response.Status.NOT_FOUND).build();
+			}
 		}
+		
 		
 	}
 	

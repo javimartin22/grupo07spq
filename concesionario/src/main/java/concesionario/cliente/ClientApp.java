@@ -94,8 +94,7 @@ public class ClientApp extends JFrame {
             
             @Override
             public void actionPerformed(ActionEvent e) {
-               Usuario nuevo = new Usuario(nameTextField.getText(),surnameTextField.getText(),Integer.parseInt(codeTextField.getText()));
-               
+               Usuario nuevo = new Usuario(nameTextField.getText(),surnameTextField.getText(),Integer.parseInt(codeTextField.getText()));              
                Entity<Usuario> entity = Entity.entity(nuevo, MediaType.APPLICATION_JSON);
                Response response = loginTarget.request(MediaType.TEXT_PLAIN).post(entity);
                System.out.println(response.getEntity());

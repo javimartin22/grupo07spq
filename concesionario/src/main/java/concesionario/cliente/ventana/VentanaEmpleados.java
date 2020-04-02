@@ -1,3 +1,5 @@
+package concesionario.cliente.ventana;
+
 
 
 import java.awt.EventQueue;
@@ -15,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import concesionario.servidor.BaseDatos.BD;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

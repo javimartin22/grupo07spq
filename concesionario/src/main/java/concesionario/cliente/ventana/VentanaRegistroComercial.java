@@ -1,3 +1,5 @@
+package concesionario.cliente.ventana;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -14,7 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.sun.prism.paint.Color;
+import concesionario.servidor.BaseDatos.BD;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPasswordField;
 
