@@ -116,7 +116,8 @@ public class VentanaMenuCliente extends JFrame{
 	
 	
 	private void cambiarContrasenia(Cliente client) {
-		String contrasenia = JOptionPane.showInputDialog("Introduzca la nueva contrasenia: ");
+		
+		String contrasenia = JOptionPane.showInputDialog(client.getNombre()+"Introduzca la nueva contrasenia: ");
 		Response response = loginController.cambiarContraseniaCliente(client, contrasenia); //estoy aqui
 		if (response.getStatus() == Status.OK.getStatusCode()) {
 			VentanaMenuCliente vmc = new VentanaMenuCliente(client.getNickname(), loginController);

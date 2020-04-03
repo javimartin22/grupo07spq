@@ -123,7 +123,7 @@ public class ClienteApp {
 	public Response clienteSelect(String nickname) {
 		WebTarget selectClienteTarget = loginTarget.path("selectClient");
 		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
-		Response response = selectClienteTarget.request(MediaType.TEXT_PLAIN).post(ent);
+		Response response = selectClienteTarget.request(MediaType.APPLICATION_JSON).post(ent);
 		return response;
 	}
 	
