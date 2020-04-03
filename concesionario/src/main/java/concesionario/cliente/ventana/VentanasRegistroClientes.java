@@ -1,8 +1,15 @@
 package concesionario.cliente.ventana;
+
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
+import concesionario.cliente.controller.LoginController;
+import concesionario.servidor.datos.Cliente;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
@@ -32,27 +39,14 @@ public class VentanasRegistroClientes extends JFrame {
 	private String c = "";
 	private String numTelefono = "";
 	private String ciudad = "";
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String nickname, String contra) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanasRegistroClientes frame = new VentanasRegistroClientes(nickname, contra);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	private LoginController loginController;
+	
+	public VentanasRegistroClientes(String nickname,String contra, LoginController loginController) {
+		this.loginController = loginController;
+		initVentanaRegistroCliente(nickname, contra);
 	}
-
-	/**
-	 * Create the frame.
-	 */
-	public VentanasRegistroClientes(String nickname, String contrasenia) {
+	
+	private void initVentanaRegistroCliente(String nickname, String contra) {
 		setTitle("Registro Clientes");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,7 +95,9 @@ public class VentanasRegistroClientes extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Abrir venatanaLogin
+				VentanaLogin vlogin = new VentanaLogin(loginController);
+				vlogin.setVisible(true);
+				dispose();
 			}
 		});
 		btnCancelar.setBounds(45, 341, 117, 29);
@@ -166,7 +162,8 @@ public class VentanasRegistroClientes extends JFrame {
 				int codigoPostal = Integer.parseInt(c);
 				numTelefono = textField_6.getText();
 				ciudad = textField_7.getText();
-				
+				Cliente client = new Cliente(dni, nickname, 3, contra, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono);
+				registrar(client);
 			}
 		});
 		btnRegistrar.setBounds(228, 341, 117, 29);
@@ -226,6 +223,20 @@ public class VentanasRegistroClientes extends JFrame {
 			return true;
 		} catch (NumberFormatException nfe) {
 			return false;
+		}
+	}
+	
+	public void registrar(Cliente client) {
+		Response response = loginController.registroCliente(client); //estoy aqui
+		System.out.println("Llega final");
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			
+			VentanaMenuCliente vmc = new VentanaMenuCliente(client.getNickname(), loginController);
+        	vmc.setVisible(true);
+        	dispose();
+		} else {
+			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
+			dispose();
 		}
 	}
 }
