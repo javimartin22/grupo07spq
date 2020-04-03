@@ -1,4 +1,4 @@
-/*package concesionario.cliente.ventana;
+package concesionario.cliente.ventana;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -13,25 +13,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
+import concesionario.cliente.controller.LoginController;
+
 public class VentanaMenuAdmin extends JFrame {
 
-	
+	private LoginController loginController;
 	private static final long serialVersionUID = 1L;
-
-	public static void main(String nickname) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaMenuAdmin ventanaMenuAdmin = new VentanaMenuAdmin(nickname);
-					ventanaMenuAdmin.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	
+	public VentanaMenuAdmin(LoginController loginController, String nickname) {
+		this.loginController = loginController;   //errores
+		inicioVentanaMenuAdmin(nickname);
 	}
 	
-	public VentanaMenuAdmin(String nickname) {
+	
+	public void inicioVentanaMenuAdmin(String nickname) {
 		this.setTitle("Menu del administrador");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(434,282);
@@ -55,23 +50,27 @@ public class VentanaMenuAdmin extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					String respuesta = JOptionPane.showInputDialog("¿Que tipo de Empleado desea registrar? (M/C/DC)");
 					if (respuesta.equals("C") || respuesta.equals("c")) {
-						//Llevaria a ventana registrar Comercial.
+						VentanaRegistroComercial vrc = new VentanaRegistroComercial(loginController, nickname);
+						vrc.setVisible(true);
+						dispose();
 					} else if (respuesta.equals("M") || respuesta.equals("m")){
-						//Llevaria a ventana registrar Mecanico.
+						VentanaRegistroMecanico vrm = new VentanaRegistroMecanico(loginController, nickname);
+						vrm.setVisible(true);
+						dispose();
 					} else if (respuesta.equals("DC") || respuesta.equals("dc") || respuesta.equals("Dc") || respuesta.equals("dC")){
-						//Levaria a la ventana registrar DC.
+						JOptionPane.showMessageDialog(panel, "Ventana Departamento Compras");
 					} else {
 						JOptionPane.showMessageDialog(panel, "Caracter no valido");
 					}
 				} 
 			});
-			buttonAnadirUsuarios.setBounds(145, 65, 137, 23);
+			buttonAnadirUsuarios.setBounds(129, 66, 164, 23);
 			panel.add(buttonAnadirUsuarios);
 			
 			JButton buttonVerUsuarios = new JButton("Ver usuarios");
 			buttonVerUsuarios.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+					verUsuarios(nickname);
 				}
 			});
 			buttonVerUsuarios.setBounds(145, 117, 137, 23);
@@ -82,17 +81,24 @@ public class VentanaMenuAdmin extends JFrame {
 			JButton buttonSalir = new JButton("Salir");
 			buttonSalir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					VentanaLogin ventana = new VentanaLogin();
-					ventana.setVisible(true);
-					dispose();
+					salir();
 				}
 			});
 			buttonSalir.setBounds(171, 165, 89, 23);
 			panel.add(buttonSalir);
-			
 	}
 	
+	public void verUsuarios(String nickname) {
+		VentanaEmpleados ve = new VentanaEmpleados(loginController, nickname);
+    	ve.setVisible(true);
+    	dispose();
+	}
+	
+	public void salir() {
+		VentanaLogin vlogin = new VentanaLogin(loginController);
+		vlogin.setVisible(true);
+		dispose();
+	}
 	
 }
 
-*/

@@ -2,12 +2,9 @@ package concesionario.cliente.ventana;
 
 
 
-import java.awt.EventQueue;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -17,7 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import concesionario.servidor.BaseDatos.BD;
+import concesionario.cliente.controller.LoginController;
+import concesionario.servidor.datos.Mecanico;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -28,32 +26,15 @@ public class VentanaEmpleados extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	private Statement st;
-	private Connection con;
+	private LoginController loginController;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaEmpleados frame = new VentanaEmpleados();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public VentanaEmpleados(LoginController loginController, String nickname){
+		this.loginController = loginController;
+		iniciarVentanaEmpleados(nickname);
 	}
-
-	/**
-	 * Create the frame.
-	 */
-	public VentanaEmpleados() {
+	
+	public void  iniciarVentanaEmpleados(String nickname) {
 		setAutoRequestFocus(false);
-		con = BD.initBD("Taller");
-		st = BD.usarCrearTablasBD(con);
 		setBounds(100, 100, 992, 360);
 		setTitle("Gestión de empleados");
 		getContentPane().setLayout(null);
@@ -69,13 +50,20 @@ public class VentanaEmpleados extends JFrame {
 		JButton btnCargar = new JButton("Cargar");
 		btnCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cargarTabla(table, st);
+				cargarTabla(table);
 			}
 		});
 		btnCargar.setBounds(145, 299, 117, 29);
 		getContentPane().add(btnCargar);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaMenuAdmin vma = new VentanaMenuAdmin(loginController, nickname);
+				vma.setVisible(true);
+				dispose();
+			}
+		});
 		btnVolver.setBounds(16, 299, 117, 29);
 		getContentPane().add(btnVolver);
 		
@@ -95,7 +83,7 @@ public class VentanaEmpleados extends JFrame {
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int tipo = comboBox.getSelectedIndex();
-				registrar(tipo);
+				registrar(tipo, nickname);
 			}
 		});
 		btnAgregar.setBounds(689, 299, 112, 29);
@@ -125,29 +113,24 @@ public class VentanaEmpleados extends JFrame {
 		    return new DefaultTableModel(data, columnNames);
 		}
 		
-		private static void cargarTabla(JTable tabla, Statement st) {
-			ResultSet rst = BD.empleadosTodasSelect(st);
-			try {
-				tabla.setModel(buildTableModel(rst));
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+		public void cargarTabla(JTable table) {
+			
 		}
 		
-		private void registrar(int tipo) {
+		private void registrar(int tipo, String nickname) {
 			switch (tipo) {
 			case 0:
-				VentanaRegistroMecanico ventana = new VentanaRegistroMecanico();
-				ventana.setVisible(true);
+				VentanaRegistroMecanico ventanaRegistrarMecanico = new VentanaRegistroMecanico(loginController, nickname);
+				ventanaRegistrarMecanico.setVisible(true);
 				dispose();
 				break;
 			case 1: 
-				VentanaRegistroComercial ventanaComercial = new VentanaRegistroComercial();
+				VentanaRegistroComercial ventanaComercial = new VentanaRegistroComercial(loginController, nickname);
 				ventanaComercial.setVisible(true);
 				dispose();		
 				break;
 			case 2:
-				VentanaRegistroCompras ventanaCompras = new VentanaRegistroCompras();
+				VentanaRegistroDepartamentoCompras ventanaCompras = new VentanaRegistroDepartamentoCompras(loginController, nickname);
 				ventanaCompras.setVisible(true);
 				dispose();		
 				break;
