@@ -133,3 +133,12 @@ public class VentanaPiezas extends JFrame {
 //			}
 //		}
 }
+
+
+
+
+
+
+
+
+
