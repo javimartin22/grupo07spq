@@ -670,10 +670,10 @@ public class BD {
 	}
 	
 	//Tabla CLIENTE:
-	public static boolean clientesDelete(Statement st, String dni) {
+	public static boolean clientesDelete(Statement st, String nickname) {
 		String sentSQL = "";
 		try {
-			sentSQL = "delete from " + TABLA_CLIENTE + " where dni= '" + secu(dni) + "'";
+			sentSQL = "delete from " + TABLA_CLIENTE + " where nickname= '" + secu(nickname) + "'";
 			int val = st.executeUpdate(sentSQL);
 			return (val == 1);
 		} catch (SQLException e) {

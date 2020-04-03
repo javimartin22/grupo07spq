@@ -252,6 +252,7 @@ public class LoginResources {
 		st = BD.usarCrearTablasBD(con);
 		
 		BD.clientesDelete(st, client.getDNI());
+		BD.usuariosDelete(st, client.getNickname());
 		Cliente nuevo = BD.clienteSelect(st, client.getNickname());
 		
 		if (nuevo == null) {
@@ -260,6 +261,24 @@ public class LoginResources {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
+	
+	@POST
+	@Path("selectClient")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response selectCliente(String nickname) {
+		System.out.println("Llega");
+		Cliente nuevo = BD.clienteSelect(st, nickname);
+		
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			System.out.println(nuevo.getNombre());
+			return Response.status(Response.Status.OK).entity(nuevo).build();
+		}
+	}
+	
 	
 	@DELETE
 	@Path("{code}")

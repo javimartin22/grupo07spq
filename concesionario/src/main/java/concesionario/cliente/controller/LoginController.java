@@ -27,10 +27,6 @@ public class LoginController {
 		return cliente.registroCliente(client);
 	}
 	
-//	public Response cargarTabla () {
-//		return cliente.cargarTabla();
-//	}
-	
 	public Response registroMecanico(Mecanico mecanic) {
 		return cliente.registroMecanico(mecanic);
 	}
@@ -43,8 +39,12 @@ public class LoginController {
 		return cliente.registroDepartamentoCompras(dep);
 	}
 	
-	public Response cambiarContraseniaCliente(Cliente client, String nickname) {
-		return cliente.cambiarContraseniaCliente(client, nickname);
+	public Response cambiarContraseniaCliente(Cliente client, String contrasenia) {
+		return cliente.cambiarContraseniaCliente(client, contrasenia);
+	}
+	
+	public Response seleccionarCliente(String nickname) {
+		return cliente.clienteSelect(nickname);
 	}
 	
 }

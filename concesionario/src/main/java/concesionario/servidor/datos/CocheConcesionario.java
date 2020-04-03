@@ -9,7 +9,10 @@ public class CocheConcesionario extends Coche {
 		this.precio = precio;
 	}
 	
-
+	public CocheConcesionario() {
+		
+	}
+	
 	public int getPrecio() {
 		return precio;
 	}

@@ -39,7 +39,7 @@ public class VentanaMenuCliente extends JFrame{
 	private LoginController loginController;
 	
 	
-	public VentanaMenuCliente(String nickname,LoginController loginController) {
+	public VentanaMenuCliente(String nickname, LoginController loginController) {
 		this.loginController = loginController;
 		initVentanaMenuCliente(nickname);
 	}
@@ -81,16 +81,21 @@ public class VentanaMenuCliente extends JFrame{
 		JMenuItem mntmNicname = new JMenuItem("Cambiar Nickname");
 		mntmNicname.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//cambiarNickname(client);
-				
-			}
+					}
 		});
 		mnSeleccion.add(mntmNicname);
 		
 		JMenuItem mntmContrasenya = new JMenuItem("Cambiar Contraseña");
 		mntmContrasenya.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				cambiarContrasenya(nickname);
+				Response response = loginController.seleccionarCliente(nickname);
+				if (response.getStatus() == Status.OK.getStatusCode()) {
+					Cliente client = response.readEntity(Cliente.class);
+					cambiarContrasenia(client);
+				} else {
+					System.out.println("llega mal");
+				}
+				
 			}
 		});
 		mnSeleccion.add(mntmContrasenya);
@@ -110,9 +115,9 @@ public class VentanaMenuCliente extends JFrame{
 
 	
 	
-	private void cambiarNickname(Cliente client) {
-		String nickname = JOptionPane.showInputDialog("Introduzca la nueva contrasenia: ");
-		Response response = loginController.cambiarContraseniaCliente(client, nickname); //estoy aqui
+	private void cambiarContrasenia(Cliente client) {
+		String contrasenia = JOptionPane.showInputDialog("Introduzca la nueva contrasenia: ");
+		Response response = loginController.cambiarContraseniaCliente(client, contrasenia); //estoy aqui
 		if (response.getStatus() == Status.OK.getStatusCode()) {
 			VentanaMenuCliente vmc = new VentanaMenuCliente(client.getNickname(), loginController);
         	vmc.setVisible(true);
@@ -121,6 +126,7 @@ public class VentanaMenuCliente extends JFrame{
 			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
 			dispose();
 		}
+		
 //		Usuario user = BD.usuarioSelect(st, nickname);
 //		Cliente client = BD.clienteSelect(st, nickname);
 //		String contrasenya = JOptionPane.showInputDialog("Introduzca la nueva contrasenya:");
