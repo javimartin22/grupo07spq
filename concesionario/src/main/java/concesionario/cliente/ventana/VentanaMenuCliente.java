@@ -36,19 +36,7 @@ public class VentanaMenuCliente extends JFrame{
 	
 	private LoginController loginController;
 	
-	/*public static void main(String nickname) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaMenuCliente ventanaMenuCliente = new VentanaMenuCliente(nickname);
-					ventanaMenuCliente.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
+	
 	public VentanaMenuCliente(String nickname,LoginController loginController) {
 		this.loginController = loginController;
 		initVentanaMenuCliente(nickname);
