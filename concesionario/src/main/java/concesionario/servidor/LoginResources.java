@@ -6,6 +6,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.client.Entity;
+import javax.naming.spi.DirStateFactory.Result;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.core.MediaType;
@@ -131,19 +133,21 @@ public class LoginResources {
 	
 	
 	
-//	@POST
-//	@Path("loadTable")
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	//@Produces("application/json")
-//	public Response cargarTabla() {
-//		
-//		con =BD.initBD("Taller");
-//		st = BD.usarCrearTablasBD(con);
-//		
-//		ResultSet nuevo = BD.empleadosTodasSelect(st);
-//		return 
-//		
-//	}
+
+	@POST
+	@Path("selectClient")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application1/json")
+	public Response cargarTabla() {
+		
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rst = BD.cochesTodosSelect(st);
+		
+			Entity<ResultSet> entity = Entity.entity(rst, MediaType.APPLICATION_JSON);
+			return Response.status(Response.Status.OK).entity(rst).build();
+	}
 	
 	
 	@POST
@@ -289,25 +293,19 @@ public class LoginResources {
 	@Produces("application/json")
 	public Response selectCliente(String nickname) {
 		
-		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
-		System.out.println("Llega");
 		Cliente nuevo = BD.clienteSelect(st, nickname);
-		System.out.println("el nickname es " + nuevo.getNickname());
-		System.out.println(nuevo.getApellido());
-		
-		Entity<Usuario> entity = Entity.entity(nuevo, MediaType.APPLICATION_JSON);
-		
 		
 		if (nuevo == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		} else {
-			System.out.println(nuevo.getNombre());
-			
+			Entity<Usuario> entity = Entity.entity(nuevo, MediaType.APPLICATION_JSON);
 			return Response.status(Response.Status.OK).entity(nuevo).build();
 		}
 	}
+	
+	
 	
 	
 	@DELETE
