@@ -22,28 +22,18 @@ public class VentanaAgregarVentas extends JFrame {
 	private JTextField textFieldDNI;
 	private JTextField textFieldMarca;
 	private JTextField textFieldModelo;
+	private LoginController loginController;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAgregarVentas frame = new VentanaAgregarVentas();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public VentanaAgregarVentas(LoginController loginController, String nickname) {
+		this.loginController = loginController;
+		iniciarVentanaAgregarVentas(nickname);
 	}
 
 
 	/**
 	 * Create the frame.
 	 */
-	public VentanaAgregarVentas() {
+	public void iniciarVentanaAgregarVentas(String nickname) {
 
 		setResizable(false);
 		setTitle("Registrar ventas");
@@ -66,9 +56,9 @@ public class VentanaAgregarVentas extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				VentanaVisualizarVentas vvv = new VentanaVisualizarVentas();
-//				ventana.setVisible(true);
-//				dispose();
+				VentanaVisualizarVentas vvv = new VentanaVisualizarVentas(loginController, nickname);
+				ventana.setVisible(true);
+				dispose();
 				
 				
 			}
