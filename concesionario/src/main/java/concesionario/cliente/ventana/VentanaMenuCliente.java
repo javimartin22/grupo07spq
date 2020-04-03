@@ -81,7 +81,14 @@ public class VentanaMenuCliente extends JFrame{
 		JMenuItem mntmNicname = new JMenuItem("Cambiar Nickname");
 		mntmNicname.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					}
+				Response response = loginController.seleccionarCliente(nickname);
+				if (response.getStatus() == Status.OK.getStatusCode()) {
+					Cliente client = response.readEntity(Cliente.class);
+					cambiarNickname(client);
+				} else {
+					System.out.println("llega mal");
+				}
+			}
 		});
 		mnSeleccion.add(mntmNicname);
 		
@@ -102,22 +109,25 @@ public class VentanaMenuCliente extends JFrame{
 	}
 	
 	
-//	private void cambiarNickname(String nickname) {
-//		Usuario user = BD.usuarioSelect(st, nickname);
-//		Cliente client = BD.clienteSelect(st, nickname);
-//		String nombre = JOptionPane.showInputDialog("Introduzca el nuevo nickname:");
-//		BD.clientesDelete(st, client.getDNI());
-//		BD.usuariosDelete(st, nickname);
-//		BD.clientesInsert(st, client.getDNI(), nombre, client.getContrasenya(), client.getNombre(), client.getApellido(), client.getSexo(), client.getEmail(), client.getCiudad(), client.getCodigoPostal(), client.getDireccion(), client.getNumeroTelefono());
-//		BD.usuariosInsert(st, nombre, user.getContrasenya(), 3);
-//	}
-//	
+	private void cambiarNickname(Cliente client) {
+		String nickname = JOptionPane.showInputDialog("Introduzca el nuevo nickname: ");
+		Response response = loginController.cambiarNicknameCliente(client, nickname); //estoy aqui
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			VentanaMenuCliente vmc = new VentanaMenuCliente(client.getNickname(), loginController);
+        	vmc.setVisible(true);
+        	dispose();
+		} else {
+			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
+			dispose();
+		}
+	}
+	
 
 	
 	
 	private void cambiarContrasenia(Cliente client) {
 		
-		String contrasenia = JOptionPane.showInputDialog(client.getNombre()+"Introduzca la nueva contrasenia: ");
+		String contrasenia = JOptionPane.showInputDialog("Introduzca la nueva contrasenia: ");
 		Response response = loginController.cambiarContraseniaCliente(client, contrasenia); //estoy aqui
 		if (response.getStatus() == Status.OK.getStatusCode()) {
 			VentanaMenuCliente vmc = new VentanaMenuCliente(client.getNickname(), loginController);

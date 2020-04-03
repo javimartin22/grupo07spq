@@ -12,8 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.LoginController;
+import concesionario.servidor.datos.Cliente;
 
 public class VentanaCochesConcesionario extends JFrame {
 		
@@ -59,10 +62,7 @@ public class VentanaCochesConcesionario extends JFrame {
 		JButton btnVer = new JButton("Ver");
 		btnVer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int fila = table.getSelectedRow();
-				String modelo = (String) table.getModel().getValueAt(fila, 0);
-//				CocheConcesionario coche = BD.cocheConcesionarioSelect(st, modelo);
-//				JOptionPane.showMessageDialog(contentPane, coche.getPrecio());
+				cargarTabla(table);
 			}
 		});
 		btnVer.setBounds(446, 299, 112, 29);
@@ -90,13 +90,19 @@ public class VentanaCochesConcesionario extends JFrame {
 	    return new DefaultTableModel(data, columnNames);
 	}
 	
-//	public void cargarTabla(JTable table, Statement st) {
-//		ResultSet rst = BD.cochesTodosSelect(st);
-//		try {
-//			table.setModel(buildTableModel(rst));
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+	public void cargarTabla(JTable table) {
+		Response response = loginController.cargarTablaCochesConcesionario();
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			ResultSet rst = response.readEntity(ResultSet.class);
+			try {
+				table.setModel(buildTableModel(rst));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("llega mal");
+		}
+		
+	}
 }
