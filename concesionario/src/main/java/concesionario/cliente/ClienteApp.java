@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.client.Entity;
 
 import concesionario.servidor.datos.Cliente;
+import concesionario.servidor.datos.CocheConcesionario;
 import concesionario.servidor.datos.Comercial;
 import concesionario.servidor.datos.DepartamentoCompras;
 import concesionario.servidor.datos.Mecanico;
@@ -57,6 +58,18 @@ public class ClienteApp {
 
         return response;
 	}
+	
+	public Response registrarCoche(CocheConcesionario auto) {
+		WebTarget registroTarget = loginTarget.path("registrarcoche");
+		//Entity<CocheConcesionario> entity = Entity.entity(auto, MediaType.APPLICATION_JSON);
+		Entity<String> entitys = Entity.entity(auto.getMarca(), MediaType.TEXT_PLAIN);
+		System.out.println("llega coche");
+		System.out.println(auto.getMarca());
+		Response response = registroTarget.request(MediaType.TEXT_PLAIN).post(entitys);
+
+        return response;
+	}
+	
 	
 	public Response registroCliente (Cliente client) {
 		WebTarget insertClientTarget = loginTarget.path("insertClient");

@@ -8,6 +8,9 @@ public class CocheConcesionario extends Coche {
 		super(marca, modelo);
 		this.precio = precio;
 	}
+	public CocheConcesionario() {
+		super();
+	}
 	
 	public CocheConcesionario() {
 		

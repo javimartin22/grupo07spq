@@ -4,6 +4,7 @@ import javax.ws.rs.core.Response;
 
 import concesionario.cliente.ClienteApp;
 import concesionario.servidor.datos.Cliente;
+import concesionario.servidor.datos.CocheConcesionario;
 import concesionario.servidor.datos.Comercial;
 import concesionario.servidor.datos.DepartamentoCompras;
 import concesionario.servidor.datos.Mecanico;
@@ -21,6 +22,13 @@ public class LoginController {
 			Usuario usu = new Usuario(email,password,0);
 			return cliente.login(usu);
 		
+	}
+	
+	public Response registrarCoche(String marca, String modelo, int precio) {
+		CocheConcesionario auto = new CocheConcesionario(marca, modelo, precio);
+		System.out.println("llega controller");
+		System.out.println(auto.getMarca());
+		return cliente.registrarCoche(auto);
 	}
 	
 	public Response registroCliente(Cliente client) {

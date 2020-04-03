@@ -110,6 +110,35 @@ public class LoginResources {
 		}
 	}
 	
+	@POST
+	@Path("registrarcoche")
+	@Consumes(MediaType.TEXT_PLAIN)
+	//@Produces("application/json")
+	public Response registrarCocheConcesionario(CocheConcesionario auto) {
+		System.out.println("llega");
+		System.out.println(auto.getMarca());
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		boolean result;
+		
+		if(!auto.getMarca().isEmpty()) {
+			result = true;
+		}else {
+			result = false;
+		}
+		//boolean result = BD.cochesInsert(st, auto.getModelo(), auto.getMarca(), auto.getPrecio());
+		
+		if(result) {
+			return Response.status(Response.Status.OK).build();
+		}else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+		
+	}
+	
+	
+	
 //	@POST
 //	@Path("loadTable")
 //	@Consumes(MediaType.APPLICATION_JSON)
