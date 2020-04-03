@@ -170,13 +170,13 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 	
 	public void registrarCoche(CocheConcesionario coche, String nickname) {
 		Response response = loginController.registrarCoche(coche);
-		
 		if(response.getStatus() == Status.OK.getStatusCode()) {
 			JOptionPane.showMessageDialog(this, "Coche registrado");
 			VentanaMenuComercial vmc = new VentanaMenuComercial(loginController, nickname);
 			vmc.setVisible(true);
 			dispose();
+		} else {
+			JOptionPane.showMessageDialog(this, "ERROR al regristar el coche");
 		}
-		 JOptionPane.showMessageDialog(this, "Error al registrar coche", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 }
