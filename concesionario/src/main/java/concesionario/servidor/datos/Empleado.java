@@ -1,7 +1,10 @@
 package concesionario.servidor.datos;
 
-public class Empleado extends Usuario{
+public class Empleado {
 
+	private String nickname;
+	private String contrasenia;
+	private int tipo;
 	private String DNI;
 	private String Nombre;
 	private String Apellido;
@@ -15,28 +18,64 @@ public class Empleado extends Usuario{
 	private int Sueldo;
 	private String NumeroTelefono;
 	private int TipoEmpleado;
-	
-	
 
-	public Empleado(String dni, String nickname, String contrasenya, int tipo, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String direccion, String nSS, String numeroCuenta, int sueldo, String numeroTelefono, int tipoEmpleado) {
-		super(nickname, contrasenya, tipo);
-		this.DNI = dni;
-		this.Nombre = nombre;
-		this.Apellido = apellido;
-		this.Sexo = sexo;
-		this.Email = email;
-		this.Ciudad = ciudad;
-		this.CodigoPostal = codigoPostal;
-		this.Direccion = direccion;
-		this.NSS = nSS;
-		this.NumeroCuenta = numeroCuenta;
-		this.Sueldo = sueldo;
-		this.NumeroTelefono = numeroTelefono;
-		this.TipoEmpleado = tipoEmpleado;
+	public Empleado() {
+		
+	}
+	
+	public Empleado(String nickname, String contrasenia, int tipo, String dNI,
+			String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal,
+			String direccion, String nSS, String numeroCuenta, int sueldo, String numeroTelefono, int tipoEmpleado) {
+		
+		this.nickname = nickname;
+		this.contrasenia = contrasenia;
+		DNI = dNI;
+		Nombre = nombre;
+		Apellido = apellido;
+		Sexo = sexo;
+		Email = email;
+		Ciudad = ciudad;
+		CodigoPostal = codigoPostal;
+		Direccion = direccion;
+		NSS = nSS;
+		NumeroCuenta = numeroCuenta;
+		Sueldo = sueldo;
+		NumeroTelefono = numeroTelefono;
+		TipoEmpleado = tipoEmpleado;
+	}
+
+
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getContrasenia() {
+		return contrasenia;
+	}
+
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
 	}
 
 	
 	
+	public int getTipo() {
+		return tipo;
+	}
+
+
+
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
+
+
+
 	public String getDNI() {
 		return DNI;
 	}
