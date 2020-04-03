@@ -60,12 +60,10 @@ public class ClienteApp {
 	}
 	
 	public Response registrarCoche(CocheConcesionario auto) {
-		WebTarget registroTarget = loginTarget.path("registrarcoche");
-		//Entity<CocheConcesionario> entity = Entity.entity(auto, MediaType.APPLICATION_JSON);
-		Entity<String> entitys = Entity.entity(auto.getMarca(), MediaType.TEXT_PLAIN);
-		System.out.println("llega coche");
 		System.out.println(auto.getMarca());
-		Response response = registroTarget.request(MediaType.TEXT_PLAIN).post(entitys);
+		WebTarget registroTarget = loginTarget.path("insertCocheConcesionario");
+		Entity<CocheConcesionario> entity = Entity.entity(auto, MediaType.APPLICATION_JSON);
+		Response response = registroTarget.request(MediaType.TEXT_PLAIN).post(entity);
 
         return response;
 	}

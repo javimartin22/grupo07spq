@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.LoginController;
+import concesionario.servidor.datos.CocheConcesionario;
 
 public class VentanaMenuComercial extends JFrame {
 
@@ -89,36 +90,12 @@ public class VentanaMenuComercial extends JFrame {
 		buttonRegistrarCoche = new JButton("Registrar coche");
 		buttonRegistrarCoche.setBounds(200, 212, 89, 23);
 		panel.add(buttonRegistrarCoche);
-		
-		
-		
-		
-		
-		
 		buttonRegistrarCoche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String marca = comboMarca.getSelectedItem().toString();
-				String modelo = textModeloCoche.getText();
-				int precio = Integer.parseInt(textPrecio.getText());
-				
-				registrarCoche(marca, modelo, precio);
-											
+				VentanaRegistrarCocheConcesionario vrcc = new VentanaRegistrarCocheConcesionario(loginController, nickname);
+				vrcc.setVisible(true);
+				dispose();
 			}
-
 		}); 
-		
 	}
-	
-	public void registrarCoche(String marca, String modelo, int precio) {
-		
-		Response response = loginController.registrarCoche(marca, modelo, precio);
-		
-		if(response.getStatus() == Status.OK.getStatusCode()) {
-			JOptionPane.showMessageDialog(this, "Coche registrado");
-		}
-		 JOptionPane.showMessageDialog(this, "Error al registrar coche", "Error", JOptionPane.ERROR_MESSAGE);
-	}
-	
-	
-	
 }

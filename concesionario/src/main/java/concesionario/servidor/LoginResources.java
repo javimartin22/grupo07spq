@@ -111,30 +111,21 @@ public class LoginResources {
 	}
 	
 	@POST
-	@Path("registrarcoche")
-	@Consumes(MediaType.TEXT_PLAIN)
-	//@Produces("application/json")
+	@Path("insertCocheConcesionario")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response registrarCocheConcesionario(CocheConcesionario auto) {
-		System.out.println("llega");
-		System.out.println(auto.getMarca());
+		System.out.println(auto.getModelo());
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
-		boolean result;
+		BD.cochesInsert(st, auto.getModelo(), auto.getMarca(), auto.getPrecio());
+		CocheConcesionario coche = BD.cocheConcesionarioSelect(st, auto.getModelo());
 		
-		if(!auto.getMarca().isEmpty()) {
-			result = true;
-		}else {
-			result = false;
-		}
-		//boolean result = BD.cochesInsert(st, auto.getModelo(), auto.getMarca(), auto.getPrecio());
-		
-		if(result) {
-			return Response.status(Response.Status.OK).build();
-		}else {
+		if (coche == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).build();
 		}
-		
 	}
 	
 	

@@ -24,10 +24,7 @@ public class LoginController {
 		
 	}
 	
-	public Response registrarCoche(String marca, String modelo, int precio) {
-		CocheConcesionario auto = new CocheConcesionario(marca, modelo, precio);
-		System.out.println("llega controller");
-		System.out.println(auto.getMarca());
+	public Response registrarCoche(CocheConcesionario auto) {
 		return cliente.registrarCoche(auto);
 	}
 	
