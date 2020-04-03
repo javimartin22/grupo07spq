@@ -1,23 +1,16 @@
 package concesionario.cliente.ventana;
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.LoginController;
-import concesionario.servidor.datos.CocheConcesionario;
 
 public class VentanaMenuComercial extends JFrame {
 
@@ -63,6 +56,17 @@ public class VentanaMenuComercial extends JFrame {
 		});
 		btnVerVentas.setBounds(154, 103, 117, 29);
 		panel.add(btnVerVentas);
+		
+		JButton btnNewButton = new JButton("Ver Coches");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaCochesConcesionario vcc = new VentanaCochesConcesionario(loginController, nickname);
+				vcc.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton.setBounds(154, 144, 117, 29);
+		panel.add(btnNewButton);
 		buttonRegistrarCoche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaRegistrarCocheConcesionario vrcc = new VentanaRegistrarCocheConcesionario(loginController, nickname);
