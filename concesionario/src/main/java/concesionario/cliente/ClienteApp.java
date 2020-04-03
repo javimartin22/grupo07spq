@@ -93,6 +93,21 @@ public class ClienteApp {
 		return response;
 	}
 	
+	public Response cambiarContraseniaCliente(Cliente client, String nickname) {
+		WebTarget deleteClienteTarget = loginTarget.path("deleteClient");
+		Entity<Cliente> ent = Entity.entity(client, MediaType.APPLICATION_JSON);
+		Response resp = deleteClienteTarget.request(MediaType.TEXT_PLAIN).post(ent);
+		
+		if (resp.getStatus() == Status.OK.getStatusCode()) {
+			client.setNickname(nickname);
+			WebTarget insertClientTarget = loginTarget.path("insertClient");
+			Entity<Cliente> entity = Entity.entity(client, MediaType.APPLICATION_JSON);
+			Response response = insertClientTarget.request(MediaType.TEXT_PLAIN).post(entity);
+			return response;
+		} else {
+			return null;
+		}
+	}
 	
 	
 

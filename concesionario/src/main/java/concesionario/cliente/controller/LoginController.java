@@ -43,4 +43,8 @@ public class LoginController {
 		return cliente.registroDepartamentoCompras(dep);
 	}
 	
+	public Response cambiarContraseniaCliente(Cliente client, String nickname) {
+		return cliente.cambiarContraseniaCliente(client, nickname);
+	}
+	
 }

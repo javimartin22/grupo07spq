@@ -18,6 +18,8 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.LoginController;
 import concesionario.servidor.BaseDatos.BD;
@@ -79,7 +81,7 @@ public class VentanaMenuCliente extends JFrame{
 		JMenuItem mntmNicname = new JMenuItem("Cambiar Nickname");
 		mntmNicname.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				cambiarNickname(nickname);
+				//cambiarNickname(client);
 				
 			}
 		});
@@ -105,18 +107,20 @@ public class VentanaMenuCliente extends JFrame{
 //		BD.usuariosInsert(st, nombre, user.getContrasenya(), 3);
 //	}
 //	
-//	private void cambiarContrasenya(String nickname) {
-//		Usuario user = BD.usuarioSelect(st, nickname);
-//		Cliente client = BD.clienteSelect(st, nickname);
-//		String contrasenya = JOptionPane.showInputDialog("Introduzca la nueva contrasenya:");
-//		BD.clientesDelete(st, client.getDNI());
-//		BD.usuariosDelete(st, nickname);
-//		BD.clientesInsert(st, client.getDNI(), client.getNickname(), contrasenya, client.getNombre(), client.getApellido(), client.getSexo(), client.getEmail(), client.getCiudad(), client.getCodigoPostal(), client.getDireccion(), client.getNumeroTelefono());
-//		BD.usuariosInsert(st, user.getNickname(), contrasenya, 3);
-//	}
+
 	
 	
-	private void cambiarContrasenya(String nickname) {
+	private void cambiarNickname(Cliente client) {
+		String nickname = JOptionPane.showInputDialog("Introduzca la nueva contrasenia: ");
+		Response response = loginController.cambiarContraseniaCliente(client, nickname); //estoy aqui
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			VentanaMenuCliente vmc = new VentanaMenuCliente(client.getNickname(), loginController);
+        	vmc.setVisible(true);
+        	dispose();
+		} else {
+			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
+			dispose();
+		}
 //		Usuario user = BD.usuarioSelect(st, nickname);
 //		Cliente client = BD.clienteSelect(st, nickname);
 //		String contrasenya = JOptionPane.showInputDialog("Introduzca la nueva contrasenya:");

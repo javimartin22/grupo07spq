@@ -228,7 +228,6 @@ public class VentanasRegistroClientes extends JFrame {
 	
 	public void registrar(Cliente client) {
 		Response response = loginController.registroCliente(client); //estoy aqui
-		System.out.println("Llega final");
 		if (response.getStatus() == Status.OK.getStatusCode()) {
 			
 			VentanaMenuCliente vmc = new VentanaMenuCliente(client.getNickname(), loginController);

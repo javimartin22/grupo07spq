@@ -150,7 +150,6 @@ public class LoginResources {
 		int sueldo = mecanic.getSueldo();
 		int horas = mecanic.getHoras();
 		
-		
 		BD.mecanicosInsert(st, dni, username, pass, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, NSS, numeroCuenta, sueldo, horas);
 		BD.empleadosInsert(st, dni, username, pass, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, NSS, numeroCuenta, sueldo, 0);
 		BD.usuariosInsert(st, username, pass, 1);
@@ -241,6 +240,24 @@ public class LoginResources {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		} else {
 			return Response.status(Response.Status.OK).build();
+		}
+	}
+	
+	@POST
+	@Path("deleteClient")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response deleteCliente(Cliente client) {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		BD.clientesDelete(st, client.getDNI());
+		Cliente nuevo = BD.clienteSelect(st, client.getNickname());
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
 	
