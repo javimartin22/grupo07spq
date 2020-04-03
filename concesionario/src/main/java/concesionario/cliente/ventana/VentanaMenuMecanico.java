@@ -55,8 +55,8 @@ public class VentanaMenuMecanico extends JFrame {
 		JButton anadirPieza = new JButton("Ver Piezas");
 		anadirPieza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				VentanaPiezas ventanaPiezas = new VentanaPiezas(nickname);
-//				ventanaPiezas.setVisible(true);
+				VentanaPiezas vp = new VentanaPiezas(loginController, nickname);
+				vp.setVisible(true);
 				dispose();
 			}
 		});
