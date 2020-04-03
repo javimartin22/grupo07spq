@@ -1,61 +1,46 @@
 package concesionario.cliente.ventana;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import concesionario.servidor.BaseDatos.BD;
-import concesionario.servidor.datos.CocheConcesionario;
+import concesionario.cliente.controller.LoginController;
 
-public class VentanaCochesCliente extends JFrame {
+public class VentanaCochesConcesionario extends JFrame {
 		
 	private JPanel contentPane;
 	private JTable table;
 	private DefaultTableModel model;
-	private Connection con;
-	private Statement st;
+	private LoginController loginController;
 	
-	public static void main(String nickname) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaCochesCliente ventanaCochesCliente = new VentanaCochesCliente("Pablo");
-					ventanaCochesCliente.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public VentanaCochesConcesionario(LoginController loginController, String nickname) {
+		this.loginController = loginController;
+		iniciarVentanaCochesConcesionario(nickname);
 	}
 	
-	public VentanaCochesCliente(String nickname){
+	public void iniciarVentanaCochesConcesionario(String nickname){
 		
 		setAutoRequestFocus(false);
 		setBounds(100, 100, 992, 360);
-		setTitle("Gesti�n de empleados");
+		setTitle("Gestion de empleados");
 		getContentPane().setLayout(null);
-		con = BD.initBD("Taller");
-		st = BD.usarCrearTablasBD(con);
+		setLocationRelativeTo(null);
 		
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//VentanaMenuCliente vmc = new VentanaMenuCliente();
-				//vmc.setVisible(true);
+				VentanaMenuComercial vmc = new VentanaMenuComercial(loginController, nickname);
+				vmc.setVisible(true);
 				dispose();
 			}
 		});
@@ -68,7 +53,6 @@ public class VentanaCochesCliente extends JFrame {
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		cargarTabla(table, st);
 		
 
 		//boton para ver las propiedades del vehiculo seleccionado (no se bien como sacar todas las propiedades)
@@ -77,8 +61,8 @@ public class VentanaCochesCliente extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int fila = table.getSelectedRow();
 				String modelo = (String) table.getModel().getValueAt(fila, 0);
-				CocheConcesionario coche = BD.cocheConcesionarioSelect(st, modelo);
-				JOptionPane.showMessageDialog(contentPane, coche.getPrecio());
+//				CocheConcesionario coche = BD.cocheConcesionarioSelect(st, modelo);
+//				JOptionPane.showMessageDialog(contentPane, coche.getPrecio());
 			}
 		});
 		btnVer.setBounds(446, 299, 112, 29);
@@ -106,13 +90,13 @@ public class VentanaCochesCliente extends JFrame {
 	    return new DefaultTableModel(data, columnNames);
 	}
 	
-	public void cargarTabla(JTable table, java.sql.Statement st) {
-		ResultSet rst = BD.cochesTodosSelect(st);
-		try {
-			table.setModel(buildTableModel(rst));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public void cargarTabla(JTable table, Statement st) {
+//		ResultSet rst = BD.cochesTodosSelect(st);
+//		try {
+//			table.setModel(buildTableModel(rst));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 }
