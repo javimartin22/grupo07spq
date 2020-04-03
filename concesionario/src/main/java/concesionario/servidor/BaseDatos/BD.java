@@ -7,9 +7,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 import concesionario.servidor.datos.Cliente;
+import concesionario.servidor.datos.Comercial;
+import concesionario.servidor.datos.DepartamentoCompras;
+import concesionario.servidor.datos.Empleado;
 import concesionario.servidor.datos.Pieza;
 import concesionario.servidor.datos.Usuario;
 
@@ -36,7 +38,7 @@ public class BD {
 	private static final String TABLA_MECANICO = "Mecanicos";
 	private static final String COLUMNAS_TABLA_MECANICO = "(dni string PRIMARY KEY, nickname string, contrasenia string, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string, NSS string, numeroCuenta string, sueldo int, horas int)";
 	private static final String TABLA_DEPARTAMENTO_COMPRAS = "DepartamentoCompras";
-	private static final String COLUMNAS_TABLA_DEPARTAMENTO_COMPRAS = "(dni string PRIMARY KEY, nickname string, contrasenia string, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string, NSS string, numeroCuenta string, sueldo int, horas int)";
+	private static final String COLUMNAS_TABLA_DEPARTAMENTO_COMPRAS = "(dni string PRIMARY KEY, nickname string, contrasenia string, nombre string, apellido string, sexo string, email string, ciudad string, codigoPostal int, dir string, numTelefono string, NSS string, numeroCuenta string, sueldo int, pedidos int)";
 	private static final String TABLA_PIEZAS = "Piezas"; 
 	private static final String COLUMNAS_TABLA_PIEZAS = "(codigo string PRIMARY KEY, nombre string, stock int, ubicacion string)";
 	private static final String TABLA_PIEZAS_UTILIZADAS = "PiezasUtilizadas"; 
@@ -236,10 +238,10 @@ public class BD {
 	}
 	
 	//Tabla COMERCIAL:
-	public static boolean comercialesInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String NSS, String numeroCuenta, int sueldo, int horas) {
+	public static boolean comercialesInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String NSS, String numeroCuenta, int sueldo, int horas, int cochesVendidos, int importeObtenido) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into " + TABLA_COMERCIAL + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + horas  +")";
+			sentSQL = "insert into " + TABLA_COMERCIAL + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + cochesVendidos + ", " + importeObtenido + ", " + horas  +")";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -270,11 +272,11 @@ public class BD {
 		}
 	}
 	
-	//Tabla EMPLEADO:
-	public static boolean departamentoComprasInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String NSS, String numeroCuenta, int sueldo) {
+	//Tabla DEPARTAMENTO_COMPRAS:
+	public static boolean departamentoComprasInsert(Statement st, String dni, String nickname, String contrasenia, String nombre, String apellido, String sexo, String email, String ciudad, int codigoPostal, String dir, String numTelefono, String NSS, String numeroCuenta, int sueldo, int pedidos) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into " + TABLA_DEPARTAMENTO_COMPRAS + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ")";
+			sentSQL = "insert into " + TABLA_DEPARTAMENTO_COMPRAS + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + pedidos +")";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -442,25 +444,68 @@ public class BD {
 				
 				
 		//Busqueda mediante CODIGO:
-		public static Pieza empleadoSelect(Statement st, String codigo) {
+		public static Empleado empleadoSelect(Statement st, String nickname) {
 			String sentSQL = "";
-			Pieza pieza = null;
+			Empleado empleado = null;
 			try {
-				sentSQL = "select * from " + TABLA_EMPLEADO + " where codigo= '" + codigo + "' ";
+				sentSQL = "select * from " + TABLA_EMPLEADO + " where nickname= '" + nickname + "' ";
 				ResultSet rs = st.executeQuery(sentSQL);
 				if (rs.next()) {
-					String cod = rs.getString("codigo");
+					String dni = rs.getString("dni");
+					String nick = rs.getString("nickname");
+					String contrasenya = rs.getString("contrasenia");
 					String nombre = rs.getString("nombre");
-					int unidades = rs.getInt("stock");
-					String ubicacion = rs.getString("ubicacion");
-					pieza = new Pieza(cod, nombre, unidades, ubicacion);
+					String apellido = rs.getString("apellido");
+					String sexo = rs.getString("sexo");
+					String email = rs.getString("email");
+					String ciudad = rs.getString("ciudad");
+					int codigoPostal = rs.getInt("codigoPostal");
+					String direccion = rs.getString("dir");
+					String numeroTelefono = rs.getString("numTelefono");
+					String NSS = rs.getString("NSS");
+					String numeroCuenta = rs.getString("numeroCuenta");
+					int tipoEmpleado = rs.getInt("tipoEmpleado");
+					int sueldo = rs.getInt("sueldo");
+					empleado = new Empleado(nick, contrasenya, 1, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, direccion, NSS, numeroCuenta, sueldo, numeroTelefono, tipoEmpleado);
 				}
 			} catch (Exception e) {
 				lastError = e;
 				e.printStackTrace();
 			}
-			return pieza;
+			return empleado;
 		}
+		
+	//Tabla DEPARTAMENTO_COMPRAS:
+	public static DepartamentoCompras departamentoCompraSelect(Statement st, String nickname) {
+		String sentSQL = "";
+		DepartamentoCompras depar = null;
+		try {
+			sentSQL = "select * from " + TABLA_COMERCIAL + " where nickname= '" + nickname + "' ";
+			ResultSet rs = st.executeQuery(sentSQL);
+			if (rs.next()) {
+				String dni = rs.getString("dni");
+				String nick = rs.getString("nickname");
+				String contrasenya = rs.getString("contrasenia");
+				String nombre = rs.getString("nombre");
+				String apellido = rs.getString("apellido");
+				String sexo = rs.getString("sexo");
+				String email = rs.getString("email");
+				String ciudad = rs.getString("ciudad");
+				int codigoPostal = rs.getInt("codigoPostal");
+				String direccion = rs.getString("dir");
+				String numeroTelefono = rs.getString("numTelefono");
+				String NSS = rs.getString("NSS");
+				String numeroCuenta = rs.getString("numeroCuenta");
+				int sueldo = rs.getInt("sueldo");
+				int pedidos = rs.getInt("pedidos");
+				depar = new DepartamentoCompras(nick, contrasenya, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, direccion, NSS, numeroCuenta, sueldo, numeroTelefono, pedidos);
+			}
+		} catch (Exception e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+		return depar;
+	}
 	
 	//Tabla PIEZAS:
 		//Todas:
