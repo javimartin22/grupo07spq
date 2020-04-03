@@ -1,12 +1,6 @@
 package concesionario.cliente;
 
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -24,18 +18,12 @@ import concesionario.servidor.datos.Mecanico;
 import concesionario.servidor.datos.Usuario;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
-import concesionario.cliente.ventana.VentanaMenuCliente;
-import concesionario.cliente.ventana.VentanasRegistroClientes;
 
 //Cambiar el Pom.xml para que luego nos runnee esta aplicaicon
 public class ClienteApp {
 	
-	private static final long serialVersionUID = 1L;
 	private Client client;
 	
-	private VentanaLogin vlogin;
-	private VentanaMenuCliente vmc;
-	private VentanasRegistroClientes vrc;
 	
 	private WebTarget appTarget;
 	private WebTarget loginTarget;
@@ -60,12 +48,10 @@ public class ClienteApp {
 	}
 	
 	public Response registrarCoche(CocheConcesionario auto) {
-		WebTarget registroTarget = loginTarget.path("registrarcoche");
-		//Entity<CocheConcesionario> entity = Entity.entity(auto, MediaType.APPLICATION_JSON);
-		Entity<String> entitys = Entity.entity(auto.getMarca(), MediaType.TEXT_PLAIN);
-		System.out.println("llega coche");
 		System.out.println(auto.getMarca());
-		Response response = registroTarget.request(MediaType.TEXT_PLAIN).post(entitys);
+		WebTarget registroTarget = loginTarget.path("insertCocheConcesionario");
+		Entity<CocheConcesionario> entity = Entity.entity(auto, MediaType.APPLICATION_JSON);
+		Response response = registroTarget.request(MediaType.TEXT_PLAIN).post(entity);
 
         return response;
 	}
@@ -75,13 +61,6 @@ public class ClienteApp {
 		WebTarget insertClientTarget = loginTarget.path("insertClient");
 		Entity<Cliente> entity = Entity.entity(client, MediaType.APPLICATION_JSON);
 		Response response = insertClientTarget.request(MediaType.TEXT_PLAIN).post(entity);
-		return response;
-	}
-	
-	public Response cargarTabla(){
-		WebTarget loadTableTarget = loginTarget.path("loadTable");
-		Entity<ResultSet> entity = Entity.entity(null, MediaType.APPLICATION_JSON);
-		Response response = loadTableTarget.request(MediaType.TEXT_PLAIN).post(entity);
 		return response;
 	}
 	
@@ -122,10 +101,33 @@ public class ClienteApp {
 		}
 	}
 	
+	public Response cambiarNicknameCliente(Cliente client, String nickname) {
+		WebTarget deleteClienteTarget = loginTarget.path("deleteClient");
+		Entity<Cliente> ent = Entity.entity(client, MediaType.APPLICATION_JSON);
+		Response resp = deleteClienteTarget.request(MediaType.TEXT_PLAIN).post(ent);
+		
+		if (resp.getStatus() == Status.OK.getStatusCode()) {
+			client.setNickname(nickname);
+			WebTarget insertClientTarget = loginTarget.path("insertClient");
+			Entity<Cliente> entity = Entity.entity(client, MediaType.APPLICATION_JSON);
+			Response response = insertClientTarget.request(MediaType.TEXT_PLAIN).post(entity);
+			return response;
+		} else {
+			return null;
+		}
+	}
+	
 	public Response clienteSelect(String nickname) {
 		WebTarget selectClienteTarget = loginTarget.path("selectClient");
 		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
 		Response response = selectClienteTarget.request(MediaType.APPLICATION_JSON).post(ent);
+		return response;
+	}
+	
+	public Response cargarTablaCochesConcesionario(){
+		WebTarget loadTableTarget = loginTarget.path("loadTable");
+		Entity<String> entity = Entity.entity("", MediaType.APPLICATION_JSON);
+		Response response = loadTableTarget.request(MediaType.APPLICATION_JSON).post(entity);
 		return response;
 	}
 	

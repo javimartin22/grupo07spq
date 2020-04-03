@@ -1,20 +1,17 @@
 package concesionario.cliente.ventana;
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.Statement;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import concesionario.cliente.controller.LoginController;
 
 //import concesionario.cliente.ventana.VentanaLogin;
 
@@ -23,35 +20,24 @@ import javax.swing.JButton;
 
 public class VentanaMenuMecanico extends JFrame {
 
-	private Connection con;
-	private Statement st;
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public static void main(String nickname) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaMenuMecanico ventanaMenuMecanico = new VentanaMenuMecanico(nickname);
-					ventanaMenuMecanico.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	private LoginController loginController;
+	
+	public VentanaMenuMecanico(LoginController loginController, String nickname){
+		this.loginController = loginController;
+		iniciarVentanaMenuMecanico(nickname);
 	}
 	
-	public VentanaMenuMecanico(String nickname){
+	
+	public void iniciarVentanaMenuMecanico(String nickname){
 		this.setTitle("Menu del mecanico");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(434,282);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-		//con = BD.initBD("Taller");
-		//st = BD.usarCrearTablasBD(con);
 		
 		//panel donde van todos los componentes
 		JPanel panel = new JPanel();
@@ -69,9 +55,8 @@ public class VentanaMenuMecanico extends JFrame {
 		JButton anadirPieza = new JButton("Ver Piezas");
 		anadirPieza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//ventana donde se registran las piezas utilizadas
-				//VentanaPiezas ventanaPiezas = new VentanaPiezas(nickname);
-				//ventanaPiezas.setVisible(true);
+				VentanaPiezas vp = new VentanaPiezas(loginController, nickname);
+				vp.setVisible(true);
 				dispose();
 			}
 		});
@@ -103,8 +88,8 @@ public class VentanaMenuMecanico extends JFrame {
 		buttonSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//ventana para iniciar serion
-				//VentanaLogin ventana = new VentanaLogin();
-				//ventana.setVisible(true);
+				VentanaLogin vl = new VentanaLogin(loginController);
+				vl.setVisible(true);
 				dispose();
 			}
 		});

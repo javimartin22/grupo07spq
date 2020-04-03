@@ -6,6 +6,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.client.Entity;
+import javax.naming.spi.DirStateFactory.Result;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.core.MediaType;
@@ -112,47 +114,40 @@ public class LoginResources {
 	}
 	
 	@POST
-	@Path("registrarcoche")
-	@Consumes(MediaType.TEXT_PLAIN)
-	//@Produces("application/json")
+	@Path("insertCocheConcesionario")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response registrarCocheConcesionario(CocheConcesionario auto) {
-		System.out.println("llega");
-		System.out.println(auto.getMarca());
+		System.out.println(auto.getModelo());
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
-		boolean result;
+		BD.cochesInsert(st, auto.getModelo(), auto.getMarca(), auto.getColor(), auto.getCv(), auto.getNumPuertas(), auto.getUnidades(), auto.getPrecio());
+		CocheConcesionario coche = BD.cocheConcesionarioSelect(st, auto.getModelo());
 		
-		if(!auto.getMarca().isEmpty()) {
-			result = true;
-		}else {
-			result = false;
-		}
-		//boolean result = BD.cochesInsert(st, auto.getModelo(), auto.getMarca(), auto.getPrecio());
-		
-		if(result) {
-			return Response.status(Response.Status.OK).build();
-		}else {
+		if (coche == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).build();
 		}
-		
 	}
 	
 	
 	
-//	@POST
-//	@Path("loadTable")
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	//@Produces("application/json")
-//	public Response cargarTabla() {
-//		
-//		con =BD.initBD("Taller");
-//		st = BD.usarCrearTablasBD(con);
-//		
-//		ResultSet nuevo = BD.empleadosTodasSelect(st);
-//		return 
-//		
-//	}
+
+	@POST
+	@Path("selectClient")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application1/json")
+	public Response cargarTabla() {
+		
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rst = BD.cochesTodosSelect(st);
+		
+			Entity<ResultSet> entity = Entity.entity(rst, MediaType.APPLICATION_JSON);
+			return Response.status(Response.Status.OK).entity(rst).build();
+	}
 	
 	
 	@POST
@@ -298,25 +293,19 @@ public class LoginResources {
 	@Produces("application/json")
 	public Response selectCliente(String nickname) {
 		
-		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
-		System.out.println("Llega");
 		Cliente nuevo = BD.clienteSelect(st, nickname);
-		System.out.println("el nickname es " + nuevo.getNickname());
-		System.out.println(nuevo.getApellido());
-		
-		Entity<Usuario> entity = Entity.entity(nuevo, MediaType.APPLICATION_JSON);
-		
 		
 		if (nuevo == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		} else {
-			System.out.println(nuevo.getNombre());
-			
+			Entity<Usuario> entity = Entity.entity(nuevo, MediaType.APPLICATION_JSON);
 			return Response.status(Response.Status.OK).entity(nuevo).build();
 		}
 	}
+	
+	
 	
 	
 	@DELETE

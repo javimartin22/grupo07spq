@@ -24,10 +24,7 @@ public class LoginController {
 		
 	}
 	
-	public Response registrarCoche(String marca, String modelo, int precio) {
-		CocheConcesionario auto = new CocheConcesionario(marca, modelo, precio);
-		System.out.println("llega controller");
-		System.out.println(auto.getMarca());
+	public Response registrarCoche(CocheConcesionario auto) {
 		return cliente.registrarCoche(auto);
 	}
 	
@@ -50,9 +47,16 @@ public class LoginController {
 	public Response cambiarContraseniaCliente(Cliente client, String contrasenia) {
 		return cliente.cambiarContraseniaCliente(client, contrasenia);
 	}
+	public Response cambiarNicknameCliente(Cliente client, String nickname) {
+		return cliente.cambiarNicknameCliente(client, nickname);
+	}
 	
 	public Response seleccionarCliente(String nickname) {
 		return cliente.clienteSelect(nickname);
+	}
+	
+	public Response cargarTablaCochesConcesionario() {
+		return cliente.cargarTablaCochesConcesionario();
 	}
 	
 }

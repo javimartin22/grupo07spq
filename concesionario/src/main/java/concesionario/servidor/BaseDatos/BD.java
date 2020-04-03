@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import concesionario.servidor.datos.Cliente;
+import concesionario.servidor.datos.CocheConcesionario;
 import concesionario.servidor.datos.Comercial;
 import concesionario.servidor.datos.DepartamentoCompras;
 import concesionario.servidor.datos.Empleado;
@@ -43,8 +44,8 @@ public class BD {
 	private static final String COLUMNAS_TABLA_PIEZAS = "(codigo string PRIMARY KEY, nombre string, stock int, ubicacion string)";
 	private static final String TABLA_PIEZAS_UTILIZADAS = "PiezasUtilizadas"; 
 	private static final String COLUMNAS_TABLA_PIEZAS_UTILIZADAS = "(codigo string PRIMARY KEY, nombre string, unidades int, ubicacion string)";
-	private static final String TABLA_COCHES = "Coches";
-	private static final String COLUMNAS_TABLA_COCHES = "(modelo string PRIMARY KEY, marca string, unidades int)";	
+	private static final String TABLA_COCHES_CONCESIONARIO = "CochesConcesionario";
+	private static final String COLUMNAS_TABLA_COCHES_CONCESIONARIO = "(modelo string PRIMARY KEY, marca string, color string, CV int, numeroPuertas int, unidades int, precio int)";	
 	private static final String TABLA_VENTAS = "Ventas";
 	private static final String COLUMNAS_TABLA_VENTAS = "(codigoVenta string PRIMARY KEY, nombreVendedor string, dniComprador string , marca string, modelo string)";	
 	private static final String TABLA_TALLER = "Taller";
@@ -111,7 +112,7 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_DEPARTAMENTO_COMPRAS + COLUMNAS_TABLA_DEPARTAMENTO_COMPRAS);
 				statement.executeUpdate("create table " + TABLA_PIEZAS + COLUMNAS_TABLA_PIEZAS);
 				statement.executeUpdate("create table " + TABLA_PIEZAS_UTILIZADAS + COLUMNAS_TABLA_PIEZAS_UTILIZADAS);
-				statement.executeUpdate("create table " + TABLA_COCHES + COLUMNAS_TABLA_COCHES);
+				statement.executeUpdate("create table " + TABLA_COCHES_CONCESIONARIO + COLUMNAS_TABLA_COCHES_CONCESIONARIO);
 				statement.executeUpdate("create table " + TABLA_VENTAS + COLUMNAS_TABLA_VENTAS);
 				statement.executeUpdate("create table " + TABLA_TALLER + COLUMNAS_TABLA_TALLER);
 				statement.executeUpdate("create table " + TABLA_COCHES_MATRICULADOS + COLUMNAS_TABLA_COCHES_MATRICULADOS);
@@ -145,7 +146,7 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_DEPARTAMENTO_COMPRAS);
 			statement.executeUpdate("drop table if exists " + TABLA_PIEZAS);
 			statement.executeUpdate("drop table if exists " + TABLA_PIEZAS_UTILIZADAS);
-			statement.executeUpdate("drop table if exists " + TABLA_COCHES);
+			statement.executeUpdate("drop table if exists " + TABLA_COCHES_CONCESIONARIO);
 			statement.executeUpdate("drop table if exists " + TABLA_VENTAS);
 			statement.executeUpdate("drop table if exists " + TABLA_TALLER);
 			return usarCrearTablasBD(con);
@@ -323,11 +324,11 @@ public class BD {
 			}
 		}
 	
-	//Tabla COCHES
-	public static boolean cochesInsert(Statement st, String modelo, String marca, int unidades) {
+	//Tabla COCHES_CONCESIONARIO
+	public static boolean cochesInsert(Statement st, String modelo, String marca, String color, int CV, int numPuertas, int unidades, int precio) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into" + TABLA_COCHES + "values ('" + secu(modelo) + "', '" + marca + "', " + unidades + ")";
+			sentSQL = "insert into " + TABLA_COCHES_CONCESIONARIO + " values ('" + secu(modelo) + "', '" + marca + "', '" +  color + "', " + CV + ", " + numPuertas + ", " + unidades + ", " + precio + ")";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -580,6 +581,31 @@ public class BD {
 				}
 					return pieza;
 			}
+			
+	// Tabla COCHE_CONCESIONARIO:
+	public static CocheConcesionario cocheConcesionarioSelect(Statement st, String modelo) {
+		String sentSQL = "";
+		CocheConcesionario coche = null;
+		try {
+			sentSQL = "select * from " + TABLA_COCHES_CONCESIONARIO + " where modelo='" + modelo + "'";
+			ResultSet rs = st.executeQuery(sentSQL);
+			if (rs.next()) {
+				String model = rs.getString("modelo");
+				String marca = rs.getString("marca");
+				int precio = rs.getInt("precio");
+				int unidades = rs.getInt("unidades");
+				int CV = rs.getInt("CV");
+				int numPuertas = rs.getInt("numeroPuertas");
+				String color = rs.getString("color");
+				coche = new CocheConcesionario(marca, modelo, precio, CV, numPuertas, color, unidades);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+		return coche;
+	}
 	
 	//Tabla COCHES:
 		//Todos:
@@ -587,7 +613,7 @@ public class BD {
 			String sentSQL = "";
 			ResultSet rs = null;
 			try {
-				sentSQL = "select * from " + TABLA_COCHES;
+				sentSQL = "select * from " + TABLA_COCHES_CONCESIONARIO;
 				rs = st.executeQuery(sentSQL);
 			} catch (Exception e) {
 				lastError = e;
@@ -601,7 +627,7 @@ public class BD {
 			String sentSQL = "";
 			ResultSet rs = null;
 			try {
-				sentSQL = "select * from " + TABLA_COCHES + " where marca = '" + marca + "'";
+				sentSQL = "select * from " + TABLA_COCHES_CONCESIONARIO + " where marca = '" + marca + "'";
 				rs = st.executeQuery(sentSQL);
 			} catch (Exception e) {
 				lastError = e;
@@ -615,7 +641,7 @@ public class BD {
 			String sentSQL = "";
 			ResultSet rs = null;
 			try {
-				sentSQL = "select * from " + TABLA_COCHES + " where modelo = '" + modelo + "'";
+				sentSQL = "select * from " + TABLA_COCHES_CONCESIONARIO + " where modelo = '" + modelo + "'";
 				rs = st.executeQuery(sentSQL);
 			} catch (Exception e) {
 				lastError = e;
@@ -758,7 +784,7 @@ public class BD {
 	public static boolean cochesDelete(Statement st, String modelo) {
 		String sentSQL = "";
 		try {
-			sentSQL = "delete from " + TABLA_COCHES + " where modelo= '" + secu(modelo) + "'";
+			sentSQL = "delete from " + TABLA_COCHES_CONCESIONARIO + " where modelo= '" + secu(modelo) + "'";
 			int val = st.executeUpdate(sentSQL);
 			return (val == 1);
 		} catch (SQLException e) {
