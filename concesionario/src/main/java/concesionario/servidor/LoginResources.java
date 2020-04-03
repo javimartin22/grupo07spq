@@ -119,7 +119,7 @@ public class LoginResources {
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
-		BD.cochesInsert(st, auto.getModelo(), auto.getMarca(), auto.getPrecio());
+		BD.cochesInsert(st, auto.getModelo(), auto.getMarca(), auto.getColor(), auto.getCv(), auto.getNumPuertas(), auto.getUnidades(), auto.getPrecio());
 		CocheConcesionario coche = BD.cocheConcesionarioSelect(st, auto.getModelo());
 		
 		if (coche == null) {

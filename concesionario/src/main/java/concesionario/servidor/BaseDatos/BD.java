@@ -45,7 +45,7 @@ public class BD {
 	private static final String TABLA_PIEZAS_UTILIZADAS = "PiezasUtilizadas"; 
 	private static final String COLUMNAS_TABLA_PIEZAS_UTILIZADAS = "(codigo string PRIMARY KEY, nombre string, unidades int, ubicacion string)";
 	private static final String TABLA_COCHES_CONCESIONARIO = "CochesConcesionario";
-	private static final String COLUMNAS_TABLA_COCHES_CONCESIONARIO = "(modelo string PRIMARY KEY, marca string, precio int)";	
+	private static final String COLUMNAS_TABLA_COCHES_CONCESIONARIO = "(modelo string PRIMARY KEY, marca string, color string, CV int, numeroPuertas int, unidades int, precio int)";	
 	private static final String TABLA_VENTAS = "Ventas";
 	private static final String COLUMNAS_TABLA_VENTAS = "(codigoVenta string PRIMARY KEY, nombreVendedor string, dniComprador string , marca string, modelo string)";	
 	private static final String TABLA_TALLER = "Taller";
@@ -325,10 +325,10 @@ public class BD {
 		}
 	
 	//Tabla COCHES_CONCESIONARIO
-	public static boolean cochesInsert(Statement st, String modelo, String marca, int precio) {
+	public static boolean cochesInsert(Statement st, String modelo, String marca, String color, int CV, int numPuertas, int unidades, int precio) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into " + TABLA_COCHES_CONCESIONARIO + " values ('" + secu(modelo) + "', '" + marca + "', " + precio + ")";
+			sentSQL = "insert into " + TABLA_COCHES_CONCESIONARIO + " values ('" + secu(modelo) + "', '" + marca + "', '" +  color + "', " + CV + ", " + numPuertas + ", " + unidades + ", " + precio + ")";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -593,7 +593,11 @@ public class BD {
 				String model = rs.getString("modelo");
 				String marca = rs.getString("marca");
 				int precio = rs.getInt("precio");
-				coche = new CocheConcesionario(model, marca, precio);
+				int unidades = rs.getInt("unidades");
+				int CV = rs.getInt("CV");
+				int numPuertas = rs.getInt("numeroPuertas");
+				String color = rs.getString("color");
+				coche = new CocheConcesionario(marca, modelo, precio, CV, numPuertas, color, unidades);
 			}
 			rs.close();
 		} catch (SQLException e) {
