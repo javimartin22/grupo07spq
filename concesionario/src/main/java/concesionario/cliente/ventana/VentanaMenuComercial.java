@@ -24,9 +24,6 @@ public class VentanaMenuComercial extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private LoginController loginController;
 	private JButton buttonRegistrarCoche;
-	private JComboBox comboMarca;
-	private JTextField textModeloCoche;
-	private JTextField textPrecio;
 	
 	public VentanaMenuComercial(LoginController loginController, String nickname) {
 		this.loginController = loginController;
@@ -52,44 +49,20 @@ public class VentanaMenuComercial extends JFrame {
 		nombreMecanico.setBounds(178, 11, 250, 33);
 		panel.add(nombreMecanico);
 		
-		JLabel labelMarca = new JLabel("Marca");
-		labelMarca.setBounds(50, 16, 85, 14);
-		panel.add(labelMarca);
-		
-		comboMarca= new JComboBox();
-		comboMarca.addItem("BMW");
-		comboMarca.addItem("Renault");
-		comboMarca.addItem("Fiat");
-		comboMarca.addItem("Mercedes");
-		comboMarca.addItem("Ford");
-		comboMarca.setBounds(50, 54, 100, 24);
-		panel.add(comboMarca);
-		
-		
-		JLabel labelModelo = new JLabel("Modelo");
-		labelModelo.setBounds(200, 60, 85, 14);
-		panel.add(labelModelo);
-		
-		
-		textModeloCoche = new JTextField();
-		textModeloCoche.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textModeloCoche.setBounds(200, 91, 198, 20);
-		panel.add(textModeloCoche);
-		textModeloCoche.setColumns(10);
-		
-		JLabel labelPrecio = new JLabel("Precio");
-		labelPrecio.setBounds(300, 60, 85, 14);
-		panel.add(labelPrecio);
-		
-		textPrecio = new JTextField();
-		textPrecio.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textPrecio.setBounds(300, 91, 198, 20);
-		panel.add(textPrecio);
-		textPrecio.setColumns(10);
-		
 		buttonRegistrarCoche = new JButton("Registrar coche");
-		buttonRegistrarCoche.setBounds(200, 212, 89, 23);
+		buttonRegistrarCoche.setBounds(144, 68, 141, 23);
 		panel.add(buttonRegistrarCoche);
+		
+		JButton btnVerVentas = new JButton("Ver Ventas");
+		btnVerVentas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaVisualizarVentas vvv = new VentanaVisualizarVentas(loginController, nickname);
+				vvv.setVisible(true);
+				dispose();
+			}
+		});
+		btnVerVentas.setBounds(154, 103, 117, 29);
+		panel.add(btnVerVentas);
 		buttonRegistrarCoche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaRegistrarCocheConcesionario vrcc = new VentanaRegistrarCocheConcesionario(loginController, nickname);

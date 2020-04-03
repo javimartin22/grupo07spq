@@ -1,25 +1,19 @@
-import java.awt.BorderLayout;
+package concesionario.cliente.ventana;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+
 import javax.swing.JLayeredPane;
 
 public class VentanaAgregarVentas extends JFrame {
@@ -27,8 +21,6 @@ public class VentanaAgregarVentas extends JFrame {
 	private JPanel contentPane;
 	private JTextField textFieldDNI;
 	private JTextField textFieldMarca;
-	private Connection con;
-	private Statement st;
 	private JTextField textFieldModelo;
 
 	/**
@@ -61,8 +53,6 @@ public class VentanaAgregarVentas extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		con = BD.initBD("Ventas");
-		st = BD.usarCrearTablasBD(con);
 		
 		JLabel lblNewLabel = new JLabel("Si desea registrar una venta rellene los siguientes datos:");
 		lblNewLabel.setBounds(22, 20, 426, 16);
@@ -73,14 +63,12 @@ public class VentanaAgregarVentas extends JFrame {
 		contentPane.add(textFieldDNI);
 		textFieldDNI.setColumns(10);
 		
-		
-		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaVisualizarVentas ventana = new VentanaVisualizarVentas();
-				ventana.setVisible(true);
-				dispose();
+//				VentanaVisualizarVentas vvv = new VentanaVisualizarVentas();
+//				ventana.setVisible(true);
+//				dispose();
 				
 				
 			}
@@ -118,16 +106,12 @@ public class VentanaAgregarVentas extends JFrame {
 					comercial = comercial.toUpperCase();
 					//BD.cochesVendidodsInsert(st,codVentas , comercial, dniComprador, marca, modelo);
 				
-					VentanaVisualizarVentas ventana = new VentanaVisualizarVentas();
-					ventana.setVisible(true);
-					dispose();
-					
-				
-					
+//					VentanaVisualizarVentas ventana = new VentanaVisualizarVentas();
+//					ventana.setVisible(true);
+//					dispose();
 			//	} else {
 					JOptionPane.showMessageDialog(contentPane, "Todos los campos deben estar rellenados.");
 				}
-				
 		//	}
 		});
 		btnRegistrar.setBounds(275, 186, 117, 29);
@@ -145,8 +129,6 @@ public class VentanaAgregarVentas extends JFrame {
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBounds(291, 168, 1, 1);
 		contentPane.add(layeredPane);
-	
-		
 	}
 	
 	
@@ -155,8 +137,6 @@ public class VentanaAgregarVentas extends JFrame {
 		if (!textFieldDNI.getText().isEmpty() && !textFieldMarca.getText().isEmpty() && !textFieldModelo.getText().isEmpty()) {
 			datos = true;
 		} 
-
-		
 		return datos;
 	}
 //	
@@ -166,20 +146,15 @@ public class VentanaAgregarVentas extends JFrame {
 //		try {
 //			while (rst.next()) {
 //			   String s = rst.getString("codigoVenta");
-//	
 //			   array.add(s);
 //			    System.out.println(s);
 //		}} catch (SQLException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//		
 //		return array;
 //	}	
 //		
-//		
-//	
-//	
 	private static String generarCodigo (ArrayList<String> array) {
 		String s="V";
 		int num = 0;
@@ -199,24 +174,6 @@ public class VentanaAgregarVentas extends JFrame {
 				}
 			}
 		}
-		
-		
-		
-		
 		return cod;
-		
 	}
-	
-	
-
-	
-	
-
-			
-	}
-		
-
-
-		
-	
-
+}
