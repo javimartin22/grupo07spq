@@ -1,27 +1,24 @@
 package concesionario.servidor.datos;
 
-public class CocheConcesionario {
-	
-	private String Marca;
-	private String Modelo; 
-	
-	public CocheConcesionario(String marca, String modelo) {
-		this.Marca = marca;
-		this.Modelo = modelo;
+public class CocheConcesionario extends Coche {
+
+	private int precio;
+
+	public CocheConcesionario(String marca, String modelo, int precio) {
+		super(marca, modelo);
+		this.precio = precio;
 	}
 	
-	public String getMarca() {
-		return Marca;
+
+	public int getPrecio() {
+		return precio;
 	}
-	public void setMarca(String marca) {
-		Marca = marca;
+
+	public void setPrecio(int precio) {
+		this.precio = precio;
 	}
-	public String getModelo() {
-		return Modelo;
-	}
-	public void setModelo(String modelo) {
-		Modelo = modelo;
-	}
-	 
 	
+	
+	
+
 }
