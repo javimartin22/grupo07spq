@@ -156,10 +156,12 @@ public class VentanaLogin extends JFrame {
 				dispose();
 				break;
 			case 1: 
-				
+				JOptionPane.showMessageDialog(this,"Iniciando sesion como mecanico");
 				break;
 			case 2:
-				
+				VentanaMenuComercial vmcom = new VentanaMenuComercial(loginController, nickname);
+				vmcom.setVisible(true);
+				dispose();
 				break;
 			case 3:
 				VentanaMenuCliente vmc = new VentanaMenuCliente(nickname, loginController);
@@ -167,8 +169,6 @@ public class VentanaLogin extends JFrame {
 	        	dispose();
 				break;
 			case 4:
-				
-				break;
 			}
 		 }else if (response.getStatus() == Status.NOT_ACCEPTABLE.getStatusCode()){
 	         JOptionPane.showMessageDialog(this, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);

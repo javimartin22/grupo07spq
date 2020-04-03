@@ -11,6 +11,10 @@ abstract class Coche {
 		this.modelo = modelo;
 	}
 	
+	public Coche() {
+		
+	}
+	
 	
 	public String getMarca() {
 		return marca;
