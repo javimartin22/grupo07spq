@@ -19,11 +19,15 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
+import concesionario.cliente.controller.LoginController;
 import concesionario.servidor.BaseDatos.BD;
+import concesionario.servidor.datos.DepartamentoCompras;
 
 
-public class VentanaRegistroCompras extends JFrame {
+public class VentanaRegistroDepartamentoCompras extends JFrame {
 
 	/**
 	 * 
@@ -43,29 +47,14 @@ public class VentanaRegistroCompras extends JFrame {
 	private JTextField textFieldNSS;
 	private JTextField textFieldCuenta;
 	private JTextField textFieldSueldo;
-	private Connection con;
-	private Statement st;
+	private LoginController loginController;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaRegistroCompras frame = new VentanaRegistroCompras();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public VentanaRegistroDepartamentoCompras(LoginController loginController, String nickname) {
+		this.loginController = loginController;
+		iniciarVentanaRegistroDepartamentoCompras(nickname);
 	}
-
-	/**
-	 * Create the frame.
-	 */
-	public VentanaRegistroCompras() {
+	
+	public void iniciarVentanaRegistroDepartamentoCompras(String nickname) {
 		setResizable(false);
 		setTitle("Registro Departamento Compras");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,8 +63,6 @@ public class VentanaRegistroCompras extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		con = BD.initBD("Taller");
-		st = BD.usarCrearTablasBD(con);
 		
 		JLabel lblNewLabel = new JLabel("Si desea registrar un agente rellene los siguintes datos:");
 		lblNewLabel.setBounds(22, 6, 496, 43);
@@ -112,7 +99,7 @@ public class VentanaRegistroCompras extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaEmpleados ventana = new VentanaEmpleados();
+				VentanaEmpleados ventana = new VentanaEmpleados(loginController, nickname);
 				ventana.setVisible(true);
 				dispose();
 				
@@ -240,8 +227,8 @@ public class VentanaRegistroCompras extends JFrame {
 					String email = textFieldEmail.getText();
 					int tipo = comboBoxSexo.getSelectedIndex();
 					String sexo = comprobarSexo(tipo);
-					BD.empleadosInsert(st, dni, nickname, contrasenia, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, nss, numeroCuenta, sueldo, 2);
-					BD.departamentoComprasInsert(st, dni, nickname, contrasenia, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, nss, numeroCuenta, sueldo);
+					DepartamentoCompras dep = new DepartamentoCompras(nickname, contrasenia, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, nss, numeroCuenta, sueldo, numTelefono, 0);
+					registrarDepartamentoCompras(dep, nickname);
 					
 				} else {
 					JOptionPane.showMessageDialog(contentPane, "Todos los campos deben estar rellenados.");
@@ -294,5 +281,46 @@ public class VentanaRegistroCompras extends JFrame {
 			sexo = "Otro";
 		}
 		return sexo;
+	}
+	
+	public void registrarDepartamentoCompras(DepartamentoCompras dep, String nickname) {
+		Response response = loginController.registroDepartamentoCompras(dep);
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			int respuesta = JOptionPane.showConfirmDialog(this, "Departamento Comercial Registrado ¿Desea registrar otro mecanico?");
+			switch (respuesta) {
+			case 0:
+				vaciarCampos();
+				break;
+			case 1:
+				VentanaEmpleados ve = new VentanaEmpleados(loginController, nickname);
+				ve.setVisible(true);
+				dispose();
+				break;
+			case 2: 
+				VentanaEmpleados ve2 = new VentanaEmpleados(loginController, nickname);
+				ve2.setVisible(true);
+				dispose();
+				break;
+			}
+		} else {
+			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
+			dispose();
+		}
+	}
+	
+	public void vaciarCampos() {
+		textFieldApellido.setText("");
+		textFieldCiudad.setText("");
+		textFieldCP.setText("");
+		textFieldCuenta.setText("");
+		textFieldDireccion.setText("");
+		textFieldDNI.setText("");
+		textFieldEmail.setText("");
+		textFieldNick.setText("");
+		textFieldNombre.setText("");
+		textFieldNSS.setText("");
+		textFieldSueldo.setText("");
+		textFieldTelefono.setText("");
+		passwordField.setText("");
 	}
 }
