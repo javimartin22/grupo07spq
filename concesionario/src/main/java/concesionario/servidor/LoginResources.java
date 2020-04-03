@@ -46,6 +46,7 @@ public class LoginResources {
 	}
 	//Por ahora solo funciona este metodo
 	@POST
+	@Path("inicio")
 	@Consumes(MediaType.APPLICATION_JSON)
 	//@Produces("application/json")
 	public Response anadirUsuario(Usuario concat) {
@@ -71,6 +72,177 @@ public class LoginResources {
 		}
 	}
 	
+	@POST
+	@Path("insertClient")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response registrarCliente(Cliente client) {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		
+		String username = client.getNickname();
+		String pass = client.getContrasenya();
+		String dni = client.getDNI();
+		String nombre = client.getNombre();
+		String apellido = client.getApellido();
+		String sexo = client.getSexo();
+		String email = client.getEmail();
+		String ciudad = client.getCiudad();
+		int codigoPostal = client.getCodigoPostal();
+		String dir = client.getDireccion();
+		String numTelefono = client.getNumeroTelefono();
+		
+		BD.clientesInsert(st, dni, username, pass, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono);
+		BD.usuariosInsert(st, username, pass, 3);
+		
+		Usuario nuevo = BD.usuarioSelect(st, username);
+		Cliente clienteNuevo = BD.clienteSelect(st, username);
+		
+		if (nuevo == null) {
+			if (clienteNuevo == null) {
+				return Response.status(Response.Status.NOT_FOUND).build();
+			} else {
+				return Response.status(Response.Status.OK).build();
+			}
+		} else {
+			return Response.status(Response.Status.OK).build();
+		}
+	}
+	
+//	@POST
+//	@Path("loadTable")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	//@Produces("application/json")
+//	public Response cargarTabla() {
+//		
+//		con =BD.initBD("Taller");
+//		st = BD.usarCrearTablasBD(con);
+//		
+//		ResultSet nuevo = BD.empleadosTodasSelect(st);
+//		return 
+//		
+//	}
+	
+	
+	@POST
+	@Path("insertMecanic")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response registrarMecanico(Mecanico mecanic) {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		
+		String username = mecanic.getNickname();
+		String pass = mecanic.getContrasenia();
+		String dni = mecanic.getDNI();
+		String nombre = mecanic.getNombre();
+		String apellido = mecanic.getApellido();
+		String sexo = mecanic.getSexo();
+		String email = mecanic.getEmail();
+		String ciudad = mecanic.getCiudad();
+		int codigoPostal = mecanic.getCodigoPostal();
+		String dir = mecanic.getDireccion();
+		String numTelefono = mecanic.getNumeroTelefono();
+		String NSS = mecanic.getNSS();
+		String numeroCuenta = mecanic.getNumeroCuenta();
+		int sueldo = mecanic.getSueldo();
+		int horas = mecanic.getHoras();
+		
+		
+		BD.mecanicosInsert(st, dni, username, pass, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, NSS, numeroCuenta, sueldo, horas);
+		BD.empleadosInsert(st, dni, username, pass, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, NSS, numeroCuenta, sueldo, 0);
+		BD.usuariosInsert(st, username, pass, 1);
+		
+		Usuario nuevo = BD.usuarioSelect(st, username);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).build();
+		}
+	}
+	
+	@POST
+	@Path("insertComercial")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response registrarComercial(Comercial comercial) {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		
+		String username = comercial.getNickname();
+		String pass = comercial.getContrasenia();
+		String dni = comercial.getDNI();
+		String nombre = comercial.getNombre();
+		String apellido = comercial.getApellido();
+		String sexo = comercial.getSexo();
+		String email = comercial.getEmail();
+		String ciudad = comercial.getCiudad();
+		int codigoPostal = comercial.getCodigoPostal();
+		String dir = comercial.getDireccion();
+		String numTelefono = comercial.getNumeroTelefono();
+		String NSS = comercial.getNSS();
+		String numeroCuenta = comercial.getNumeroCuenta();
+		int sueldo = comercial.getSueldo();
+		int horas = comercial.getHoras();
+		int cochesVendidos = comercial.getCochesVendidos();
+		int importeObtenido = comercial.getImporteObetenido();
+		
+		
+		BD.comercialesInsert(st, dni, username, pass, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, NSS, numeroCuenta, sueldo, horas,cochesVendidos, importeObtenido);
+		BD.empleadosInsert(st, dni, username, pass, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, NSS, numeroCuenta, sueldo, 0);
+		BD.usuariosInsert(st, username, pass, 2);
+		
+		Usuario nuevo = BD.usuarioSelect(st, username);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).build();
+		}
+	}
+	
+	@POST
+	@Path("insertDepartamentoCompras")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response registrarDepartamentoCompras(DepartamentoCompras departamentoCompras) {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		
+		String username = departamentoCompras.getNickname();
+		String pass = departamentoCompras.getContrasenia();
+		String dni = departamentoCompras.getDNI();
+		String nombre = departamentoCompras.getNombre();
+		String apellido = departamentoCompras.getApellido();
+		String sexo = departamentoCompras.getSexo();
+		String email = departamentoCompras.getEmail();
+		String ciudad = departamentoCompras.getCiudad();
+		int codigoPostal = departamentoCompras.getCodigoPostal();
+		String dir = departamentoCompras.getDireccion();
+		String numTelefono = departamentoCompras.getNumeroTelefono();
+		String NSS = departamentoCompras.getNSS();
+		String numeroCuenta = departamentoCompras.getNumeroCuenta();
+		int sueldo = departamentoCompras.getSueldo();
+		int pedidos = departamentoCompras.getPedidos();
+		
+		
+		BD.departamentoComprasInsert(st, dni, username, pass, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, NSS, numeroCuenta, sueldo, pedidos);
+		BD.empleadosInsert(st, dni, username, pass, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, NSS, numeroCuenta, sueldo, 0);
+		BD.usuariosInsert(st, username, pass, 2);
+		
+		Usuario nuevo = BD.usuarioSelect(st, username);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).build();
+		}
+	}
 	
 	@DELETE
 	@Path("{code}")

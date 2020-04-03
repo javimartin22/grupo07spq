@@ -3,8 +3,10 @@ package concesionario.cliente;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -14,7 +16,10 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.client.Entity;
 
-
+import concesionario.servidor.datos.Cliente;
+import concesionario.servidor.datos.Comercial;
+import concesionario.servidor.datos.DepartamentoCompras;
+import concesionario.servidor.datos.Mecanico;
 import concesionario.servidor.datos.Usuario;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
@@ -42,83 +47,50 @@ public class ClienteApp {
 		
 		 appTarget = client.target(URL_SERVER);
 		 loginTarget= appTarget.path("loginp");
-		/*
-		vlogin = new VentanaLogin();
-		vlogin.setVisible(true);
-		
-		
-		vlogin.getButtonAceptar().addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String nombre = vlogin.getTextNombreUsuario().getText();
- 				String password = vlogin.getTextContrasenya().getText();
- 				Usuario concat= new Usuario(nombre, password, 0);
-
- 				//Usuario nuevo = new Usuario()
-
- 				Entity<Usuario> entity = Entity.entity(concat, MediaType.APPLICATION_JSON);
- 				Response response = loginTarget.request(MediaType.TEXT_PLAIN).post(entity);
-
- 	            if(response.getStatus() == Status.OK.getStatusCode()) {
- 	            	String str = response.readEntity(String.class);
- 	            	int tipoUsuario = Integer.parseInt(str);
- 	            	switch (tipoUsuario) {
- 	            		case 0:
- 	            			JOptionPane.showMessageDialog(vlogin, "Sesion iniciada como admin");
- 	            			break;
- 	            		case 1:
- 	            			JOptionPane.showMessageDialog(vlogin, "Sesion iniciada como mecanico");
- 	            			break;
-	 	       		case 2:
-	 	       			JOptionPane.showMessageDialog(vlogin, "Sesion iniciada como comercial");
-	 	       			break;
-	 	       		case 3:
-	 	       			vmc = new VentanaMenuCliente();
-	 	       			vmc.setVisible(true);
-	 	       			vlogin.dispose();
-	 	       			break;
-	 	       		case 4:
-	 	       			JOptionPane.showMessageDialog(vlogin, "Sesion iniciada como depatamento de compras");
-	 	       			break;
-	 	       		}
- 	            }else if (response.getStatus() == Status.NOT_ACCEPTABLE.getStatusCode()){
- 	            	JOptionPane.showMessageDialog(vlogin, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
- 	            } else {
- 	            	int respuesta = JOptionPane.showConfirmDialog(vlogin, "Usuario no registrado ¿Desea registrarse?");
- 	            	switch (respuesta) {
-					case 0:
-						vrc = new VentanasRegistroClientes(nombre, password);
-						vrc.setVisible(true);
-						vlogin.dispose();
-						break;
-					case 1:
-						JOptionPane.showMessageDialog(vlogin, "El usuario no sera registrado.");
-						break;
-					case 2:
-						vlogin.vaciarCampos();
-						break;
-					}
- 	            }
-
-
- 			}
-		});
-
-		
-		*/
 		
 	}
 	
 	public Response login(Usuario concat) {
-		
+		WebTarget inicioTarget = loginTarget.path("inicio");
 		Entity<Usuario> entity = Entity.entity(concat, MediaType.APPLICATION_JSON);
-		Response response = loginTarget.request(MediaType.TEXT_PLAIN).post(entity);
+		Response response = inicioTarget.request(MediaType.TEXT_PLAIN).post(entity);
 
         return response;
-		
-
-
+	}
+	
+	public Response registroCliente (Cliente client) {
+		WebTarget insertClientTarget = loginTarget.path("insertClient");
+		Entity<Cliente> entity = Entity.entity(client, MediaType.APPLICATION_JSON);
+		Response response = insertClientTarget.request(MediaType.TEXT_PLAIN).post(entity);
+		return response;
+	}
+	
+	public Response cargarTabla(){
+		WebTarget loadTableTarget = loginTarget.path("loadTable");
+		Entity<ResultSet> entity = Entity.entity(null, MediaType.APPLICATION_JSON);
+		Response response = loadTableTarget.request(MediaType.TEXT_PLAIN).post(entity);
+		return response;
+	}
+	
+	public Response registroMecanico(Mecanico mecanic) {
+		WebTarget insertMecanicTarget = loginTarget.path("insertMecanic");
+		Entity<Mecanico> entity = Entity.entity(mecanic, MediaType.APPLICATION_JSON);
+		Response response = insertMecanicTarget.request(MediaType.TEXT_PLAIN).post(entity);
+		return response;
+	}
+	
+	public Response registroComercial(Comercial comercial) {
+		WebTarget insertComercialTarget = loginTarget.path("insertComercial");
+		Entity<Comercial> entity = Entity.entity(comercial, MediaType.APPLICATION_JSON);
+		Response response = insertComercialTarget.request(MediaType.TEXT_PLAIN).post(entity);
+		return response;
+	}
+	
+	public Response registroDepartamentoCompras(DepartamentoCompras dep) {
+		WebTarget insertDepartamentoComprasTarget = loginTarget.path("insertDepartamentoCompras");
+		Entity<DepartamentoCompras> entity = Entity.entity(dep, MediaType.APPLICATION_JSON);
+		Response response = insertDepartamentoComprasTarget.request(MediaType.TEXT_PLAIN).post(entity);
+		return response;
 	}
 	
 	

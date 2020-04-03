@@ -28,6 +28,10 @@ public class Cliente extends Usuario{
 		this.Direccion = direccion;
 		this.numeroTelefono = numeroTelefono;
 	}
+	
+	public Cliente() {
+		
+	}
 
 
 
