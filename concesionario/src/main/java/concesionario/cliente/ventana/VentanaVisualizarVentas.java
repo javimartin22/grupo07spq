@@ -51,7 +51,7 @@ public class VentanaVisualizarVentas extends JFrame {
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VentanaAgregarVentas vav = new VentanaAgregarVentas(loginController, nickname);
-				ventana.setVisible(true);
+				vav.setVisible(true);
 				dispose();
 			}
 		});

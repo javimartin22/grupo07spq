@@ -1,10 +1,8 @@
 package concesionario.cliente.ventana;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,8 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
-
+import concesionario.cliente.controller.LoginController;
 import javax.swing.JLayeredPane;
 
 public class VentanaAgregarVentas extends JFrame {
@@ -57,7 +54,7 @@ public class VentanaAgregarVentas extends JFrame {
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VentanaVisualizarVentas vvv = new VentanaVisualizarVentas(loginController, nickname);
-				ventana.setVisible(true);
+				vvv.setVisible(true);
 				dispose();
 				
 				
@@ -84,25 +81,25 @@ public class VentanaAgregarVentas extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			//	boolean datos = comprobarDatos();
 			//	if (datos) {
-					String marca = textFieldMarca.getText();
-					marca = marca.toUpperCase();
-					String modelo = textFieldModelo.getText();
-					modelo = modelo.toUpperCase();
-					String dniComprador = textFieldDNI.getText();	
+//					String marca = textFieldMarca.getText();
+//					marca = marca.toUpperCase();
+//					String modelo = textFieldModelo.getText();
+//					modelo = modelo.toUpperCase();
+//					String dniComprador = textFieldDNI.getText();	
 					//ArrayList<String > array = cargarCodigo(st);
 					//String codVentas =  generarCodigo(array);
 					//String codVentas = JOptionPane.showInputDialog("Introduzca cod ventas: ");
-					String comercial = JOptionPane.showInputDialog("Introduzca comercial: ");
-					comercial = comercial.toUpperCase();
-					//BD.cochesVendidodsInsert(st,codVentas , comercial, dniComprador, marca, modelo);
+//					String comercial = JOptionPane.showInputDialog("Introduzca comercial: ");
+//					comercial = comercial.toUpperCase();
+//					BD.cochesVendidodsInsert(st,codVentas , comercial, dniComprador, marca, modelo);
 				
 //					VentanaVisualizarVentas ventana = new VentanaVisualizarVentas();
 //					ventana.setVisible(true);
 //					dispose();
-			//	} else {
+//				} else {
 					JOptionPane.showMessageDialog(contentPane, "Todos los campos deben estar rellenados.");
-				}
-		//	}
+//				}
+			}
 		});
 		btnRegistrar.setBounds(275, 186, 117, 29);
 		contentPane.add(btnRegistrar);
