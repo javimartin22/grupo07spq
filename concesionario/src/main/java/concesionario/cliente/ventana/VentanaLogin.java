@@ -146,34 +146,46 @@ public class VentanaLogin extends JFrame {
 	public void login(String nickname, String password) {
 		Response response = loginController.login(nickname, password); //estoy aqui
 		
-		 if(response.getStatus() == Status.OK.getStatusCode()) {
-	         	String str = response.readEntity(String.class);
-	         	JOptionPane.showMessageDialog(this, "Datos correctos, el tipo es " +str);
-	         	if(str.equals("3")) {
-	         		VentanaMenuCliente vmc = new VentanaMenuCliente(nickname, loginController);
-	         		vmc.setVisible(true);
-	         		dispose();
-	         	}
-	         	
-	         }else {
-	         	JOptionPane.showMessageDialog(this, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-	         }
-	}
-	
-	
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaLogin frame = new VentanaLogin();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		if(response.getStatus() == Status.OK.getStatusCode()) {
+			String str = response.readEntity(String.class);
+	        int tipoInicio = Integer.parseInt(str);
+	        switch (tipoInicio) {
+			case 0:
+				VentanaMenuAdmin vma = new VentanaMenuAdmin(loginController, nickname);
+				vma.setVisible(true);
+				dispose();
+				break;
+			case 1: 
+				
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				VentanaMenuCliente vmc = new VentanaMenuCliente(nickname, loginController);
+	        	vmc.setVisible(true);
+	        	dispose();
+				break;
+			case 4:
+				
+				break;
 			}
-		});
-	}
+		 }else if (response.getStatus() == Status.NOT_ACCEPTABLE.getStatusCode()){
+	         JOptionPane.showMessageDialog(this, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
 
-	*/
+		 } else {
+			 int respuesta = JOptionPane.showConfirmDialog(this, "Usuario no registrado ¿Desea registrarse?");
+			 switch (respuesta) {
+			case 0:
+				VentanasRegistroClientes vrc = new VentanasRegistroClientes(nickname, password, loginController);
+	        	vrc.setVisible(true);
+	        	dispose();
+				break;
+
+			default:
+				break;
+			}
+		 }
+	}
 
 }
