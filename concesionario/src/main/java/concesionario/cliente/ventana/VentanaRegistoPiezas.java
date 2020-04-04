@@ -1,13 +1,15 @@
 package concesionario.cliente.ventana;
 
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
-import concesionario.servidor.BaseDatos.BD;
+import concesionario.cliente.controller.LoginController;
+import concesionario.servidor.datos.Pieza;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,41 +19,25 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
 
 public class VentanaRegistoPiezas extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JComboBox comboBox;
 	private JSpinner spinner;
-	private Connection con;
-	private Statement st;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String nombreMecanico) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaRegistoPiezas frame = new VentanaRegistoPiezas(nombreMecanico);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	private LoginController loginController;
+	
+	public VentanaRegistoPiezas(LoginController loginController, String nickname){
+		this.loginController = loginController;
+		iniciarVentanaRegistoPiezas(nickname);
 	}
-
-	/**
-	 * Create the frame.
-	 */
-	public VentanaRegistoPiezas(String nombreMecanico) {
+	
+	public void iniciarVentanaRegistoPiezas(String nombreMecanico) {
 		setResizable(false);
 		setTitle("Registro de Nuevas Piezas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,8 +47,6 @@ public class VentanaRegistoPiezas extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		con = BD.initBD("Piezas");
-		st = BD.usarCrearTablasBD(con);
 		
 		
 		String ubicaciones [] = {"Alamacen 1 - Estanteria 1", "Almacen 1 - Estanteria 2", "Almacen 1 - Estanteria 3", "Almacen 2 - Estanteria 1", "Almacen 2 - Estanteria 2", "Almacen 2 - Estanteria 3"};
@@ -121,12 +105,14 @@ public class VentanaRegistoPiezas extends JFrame {
 						//Preguntamos si desea realizar registrar una nueva pieza:
 						int respuesta = JOptionPane.showConfirmDialog(contentPane, "¿Desea registrar una nueva pieza?");
 						if (respuesta == 0){ //En caso afirmativo la pieza se registra en la base de datos y se vacian los campos:
-							registrarBD(codigo, nombre, unidades, ubicacion);
+							Pieza pieza = new Pieza(codigo, nombre, unidades, ubicacion);
+							registrarBD(pieza);
 							vaciarCampos();
 						} else if (respuesta == 2){//En caso de pulsar cancel, se cancela el registro de la pieza en la base de datos y continuan todos los datos correctamente
 							JOptionPane.showMessageDialog(contentPane, "La pieza no ha sido registrada.");
 						} else { //En caso contrario se registra la pieza y se regresa al menu principal:
-							registrarBD(codigo, nombre, unidades, ubicacion);
+							Pieza pieza1 = new Pieza(codigo, nombre, unidades, ubicacion);
+							registrarBD(pieza1);
 							dispose();
 						}
 				} else {
@@ -147,9 +133,13 @@ public class VentanaRegistoPiezas extends JFrame {
 	}
 	
 	//Conectar con el servidor para poder hacer el registro en la BD:
-	private void registrarBD(String codigo, String nombre, int unidades, String ubicacion) {
-		BD.piezasInsert(st, codigo, nombre, unidades, ubicacion);
-		BD.piezasUtilizadasInsert(st, codigo, nombre, 0, ubicacion);
+	private void registrarBD(Pieza pieza) {
+		Response response = loginController.registroPieza(pieza); 
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			JOptionPane.showMessageDialog(contentPane, "Unidades anyadidas correctamente");
+		} else {
+			JOptionPane.showMessageDialog(contentPane, "Error al anyadir unidades.");
+		}
 	}
 	
 	//Borrar todos los campos de tipo textfield y inicializar los demas tipos.

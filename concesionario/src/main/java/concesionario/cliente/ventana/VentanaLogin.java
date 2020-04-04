@@ -172,6 +172,10 @@ public class VentanaLogin extends JFrame {
 	        	dispose();
 				break;
 			case 4:
+				VentanaMenuDepartamentoCompras vmdc = new VentanaMenuDepartamentoCompras(loginController, nickname);
+				vmdc.setVisible(true);
+				dispose();
+				break;
 			}
 		 }else if (response.getStatus() == Status.NOT_ACCEPTABLE.getStatusCode()){
 	         JOptionPane.showMessageDialog(this, "Datos incorrectos");

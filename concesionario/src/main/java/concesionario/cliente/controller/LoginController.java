@@ -74,8 +74,24 @@ public class LoginController {
 		return cliente.registroVenta(venta);
 	}
 	
+	public Response registroPieza(Pieza pieza) {
+		return cliente.regsitroPieza(pieza);
+	}
+	
 	public List<Pieza> cargarPiezas(){
 		return cliente.cargarTablaPiezas();
+	}
+	
+	public Response seleccionarPiezaUtilizada(String codigo) {
+		return cliente.piezaUtilizadaSelect(codigo);
+	}
+	
+	public Response registroPiezaUtilizada(Pieza pieza, int unidades) {
+		return cliente.registroPiezaUtilizada(pieza, unidades);
+	}
+	
+	public List<Pieza> cargarPiezasUtilizadas(){
+		return cliente.cargarTablaPiezasUtilizadas();
 	}
 	
 	public List<CocheMatriculado> cargarCochesMatriculados(){

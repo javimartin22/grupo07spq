@@ -158,7 +158,45 @@ public class ClienteApp {
 		WebTarget loadPiezaTableTarget = loginTarget.path("loadPiezaTable");
 		GenericType<List<Pieza>> genericType = new GenericType<List<Pieza>>() {};
         List<Pieza> piezas = loadPiezaTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
-		
+		return piezas;
+	}
+	
+	public Response piezaUtilizadaSelect(String codigo) {
+		WebTarget selectPiezaUtilizadaTarget = loginTarget.path("selectPiezaUtilizada");
+		Entity<String> ent = Entity.entity(codigo, MediaType.APPLICATION_JSON);
+		Response response = selectPiezaUtilizadaTarget.request(MediaType.APPLICATION_JSON).post(ent);
+		return response;
+	}
+	
+	public Response regsitroPieza(Pieza pieza) {
+		WebTarget insertPiezaTarget = loginTarget.path("insertPiezas");
+ 		Entity<Pieza> entity = Entity.entity(pieza, MediaType.APPLICATION_JSON);
+ 		Response response = insertPiezaTarget.request(MediaType.TEXT_PLAIN).post(entity);
+ 		return response;
+	}
+	
+	public Response registroPiezaUtilizada(Pieza pieza, int unidades) {
+//		WebTarget deletePiezaUtilizadaTarget = loginTarget.path("deletePiezaUtilizada");
+//		Entity<Pieza> ent = Entity.entity(pieza, MediaType.APPLICATION_JSON);
+//		Response resp = deletePiezaUtilizadaTarget.request(MediaType.TEXT_PLAIN).post(ent);
+//		
+//		if (resp.getStatus() == Status.OK.getStatusCode()) {
+//			pieza.setUnidades(pieza.getUnidades() + unidades);
+//			WebTarget insertPiezaUtilizadaTarget = loginTarget.path("insertPiezasUtilizada");
+//	 		Entity<Pieza> entity = Entity.entity(pieza, MediaType.APPLICATION_JSON);
+//	 		Response response = insertPiezaUtilizadaTarget.request(MediaType.TEXT_PLAIN).post(entity);
+//	 		return response;
+//		} else {
+//			return null;
+//		}
+		return null;
+ 		
+	}
+	
+	public List<Pieza> cargarTablaPiezasUtilizadas(){
+		WebTarget loadPiezaUtilizadaTableTarget = loginTarget.path("loadPiezaUtilizadasTable");
+		GenericType<List<Pieza>> genericType = new GenericType<List<Pieza>>() {};
+        List<Pieza> piezas = loadPiezaUtilizadaTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
 		return piezas;
 	}
 	
@@ -166,7 +204,6 @@ public class ClienteApp {
 		WebTarget loadTableTarget = loginTarget.path("loadCochesMatricTable");
 		GenericType<List<CocheMatriculado>> genericType = new GenericType<List<CocheMatriculado>>() {};
         List<CocheMatriculado> coches_matric = loadTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
-		
 		return coches_matric;
 	}
 	
@@ -174,7 +211,6 @@ public class ClienteApp {
 		WebTarget loadEmpleadosTableTarget = loginTarget.path("loadEmpleadosTable");
 		GenericType<List<Empleado>> genericType = new GenericType<List<Empleado>>() {};
         List<Empleado> empleados = loadEmpleadosTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
-		
 		return empleados;
 	}
 	

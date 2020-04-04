@@ -126,26 +126,6 @@ public class VentanaVisualizarVentas extends JFrame {
 		mnFiltro.add(mntmComercial);
 	}
 	
-//	//Metodo general para obtener los datos de una base de datos y añadirlos a una tabla
-	private static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
-	    ResultSetMetaData metaData = rs.getMetaData();
-	    // Nombre de las columnas:
-		    Vector<String> columnNames = new Vector<String>();
-		    int columnCount = metaData.getColumnCount();
-		    for (int column = 1; column <= columnCount; column++) {
-		        columnNames.add(metaData.getColumnName(column));
-		    }
-	    // Datos de la tabla:
-		    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
-		    while (rs.next()) {
-		        Vector<Object> vector = new Vector<Object>();
-		        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-		            vector.add(rs.getObject(columnIndex));
-		        }
-		        data.add(vector);
-		    }
-	    return new DefaultTableModel(data, columnNames);
-	}
 	
 //	private static void cargarTabla(JTable tabla, Statement st) {
 //		ResultSet rst = BD.ventasTodosSelect(st);

@@ -259,7 +259,7 @@ public class LoginResources {
 		
 		BD.departamentoComprasInsert(st, dni, username, pass, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, NSS, numeroCuenta, sueldo, pedidos);
 		BD.empleadosInsert(st, dni, username, pass, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, numTelefono, NSS, numeroCuenta, sueldo, 0);
-		BD.usuariosInsert(st, username, pass, 2);
+		BD.usuariosInsert(st, username, pass, 4);
 		
 		Usuario nuevo = BD.usuarioSelect(st, username);
 		
@@ -327,6 +327,90 @@ public class LoginResources {
 		}
 	}
 	
+	@POST
+	@Path("selectPiezaUtilizada")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response selectPiezaUtilizada(String codigo) {
+
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		Pieza nuevo = BD.piezaUtilizadaSelect(st, codigo);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			Entity<Pieza> entity = Entity.entity(nuevo, MediaType.APPLICATION_JSON);
+			return Response.status(Response.Status.OK).entity(nuevo).build();
+		}
+	}
+	
+	@POST
+	@Path("insertPiezas")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response registrarPieza(Pieza pieza) {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		String codigo = pieza.getCodigo();
+		String nombre = pieza.getNombre();
+		String ubicacion = pieza.getUbicacion();
+		int stock = pieza.getUnidades();
+		
+		BD.piezasInsert(st, codigo, nombre, stock, ubicacion);
+		BD.piezasUtilizadasInsert(st, codigo, nombre, 0, ubicacion);
+		Pieza nuevo = BD.piezaSelect(st, pieza.getCodigo());
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).build();
+		}
+	}
+	
+	@POST
+	@Path("insertPiezasUtilizadas")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response registrarPiezaUtilizada(Pieza pieza) {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		String codigo = pieza.getCodigo();
+		String nombre = pieza.getNombre();
+		String ubicacion = pieza.getUbicacion();
+		int stock = pieza.getUnidades();
+		
+		BD.piezasUtilizadasInsert(st, codigo, nombre, stock, ubicacion);
+		Pieza nuevo = BD.piezaUtilizadaSelect(st, pieza.getCodigo());
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).build();
+		}
+	}
+	
+	@POST
+	@Path("deletePiezaUtilizada")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response deletePiezaUtilizada(Pieza pieza) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		BD.piezaUtilizadaDelete(st, pieza.getCodigo());
+		Pieza nuevo = BD.piezaSelect(st, pieza.getCodigo());
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
 	@GET
 	@Path("loadTable")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -369,7 +453,6 @@ public class LoginResources {
 	public List<Pieza> cargarPiezaTabla()throws SQLException {
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
-		
 		ResultSet rs = BD.piezasTodasSelect(st);
 		List<Pieza> pieza_result = new ArrayList<Pieza>();
 		
@@ -379,8 +462,6 @@ public class LoginResources {
 			
 			while(rs.next()) {
 				//Obtener atributos rs
-				
-//				codigo string PRIMARY KEY, nombre string, stock int, ubicacion string
 				String codigo = rs.getString("codigo");
 				String nombre = rs.getString("nombre");
 				int unidades = rs.getInt("stock");
@@ -393,6 +474,38 @@ public class LoginResources {
 			return pieza_result;
 		}
 	}
+	
+	@GET
+	@Path("loadPiezaUtilizadasTable")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Pieza> cargarPiezaUtilizadaTabla()throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		ResultSet rs = BD.piezasUtilizadasTodasSelect(st);
+		List<Pieza> pieza_result = new ArrayList<Pieza>();
+		
+		if (rs == null) {
+			return pieza_result;
+		} else {
+			
+			while(rs.next()) {
+				//Obtener atributos rs
+				String codigo = rs.getString("codigo");
+				String nombre = rs.getString("nombre");
+				int unidades = rs.getInt("unidades");
+				String ubicacion = rs.getString("ubicacion");
+				
+				Pieza pieza = new Pieza(codigo, nombre, unidades, ubicacion);	
+				pieza_result.add(pieza);
+			}
+			 
+			return pieza_result;
+		}
+	}
+	
+	
+	
+	
 	
 	@GET
 	@Path("loadCochesMatricTable")
