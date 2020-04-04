@@ -73,6 +73,9 @@ public class VentanaMenuMecanico extends JFrame {
 		verHistoial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//hace falta instanciar la ventana donde se vera el hisorial
+				VentanaCochesMatriculadosMecanico vcmm = new VentanaCochesMatriculadosMecanico(loginController, nickname);
+				vcmm.setVisible(true);
+				dispose();
 			}
 		});
 		verHistoial.setBounds(104, 161, 201, 23);

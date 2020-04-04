@@ -15,6 +15,8 @@ public class CocheMatriculado{
 		this.anyo_matriculacion = anyo_matriculacion;
 		this.revisiones = revisiones;
 	}
+	public CocheMatriculado() {
+	}
 
 	public String getMarca() {
 		return marca;
