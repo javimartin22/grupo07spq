@@ -65,7 +65,18 @@ public class VentanaCochesConcesionario extends JFrame {
 		JButton btnVer = new JButton(" Ver Info");
 		btnVer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				int fila = table.getSelectedRow();
+				String marca = (String) table.getModel().getValueAt(fila, 1);
+				String modelo = (String) table.getModel().getValueAt(fila, 0);
+				String color = (String) table.getModel().getValueAt(fila, 2);
+				int precio = Integer.parseInt((String) table.getModel().getValueAt(fila, 6));
+				int cv = Integer.parseInt((String) table.getModel().getValueAt(fila, 3));
+				int unidades = Integer.parseInt((String) table.getModel().getValueAt(fila, 5));
+				int numPuertas = Integer.parseInt((String) table.getModel().getValueAt(fila, 4));
+				CocheConcesionario coche = new CocheConcesionario(marca, modelo, precio, cv, numPuertas, color, unidades);
+				VentanaDetallesCoche vdc = new VentanaDetallesCoche(loginController, coche, nickname);
+				vdc.setVisible(true);
+				dispose();
 			}
 		});
 		btnVer.setBounds(858, 299, 112, 29);
