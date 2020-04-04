@@ -18,6 +18,7 @@ import concesionario.servidor.datos.Empleado;
 import concesionario.servidor.datos.Mecanico;
 import concesionario.servidor.datos.Pieza;
 import concesionario.servidor.datos.Usuario;
+import concesionario.servidor.datos.Venta;
 
 
 
@@ -50,7 +51,7 @@ public class BD {
 	private static final String TABLA_COCHES_CONCESIONARIO = "CochesConcesionario";
 	private static final String COLUMNAS_TABLA_COCHES_CONCESIONARIO = "(modelo string PRIMARY KEY, marca string, color string, CV int, numeroPuertas int, unidades int, precio int)";	
 	private static final String TABLA_VENTAS = "Ventas";
-	private static final String COLUMNAS_TABLA_VENTAS = "(codigoVenta string PRIMARY KEY, nombreVendedor string, dniComprador string , marca string, modelo string)";	
+	private static final String COLUMNAS_TABLA_VENTAS = "(fecha string, nombreVendedor string, nombreComprador string , marca string, modelo string, matricula string PRIMARY KEY)";	
 	private static final String TABLA_TALLER = "Taller";
 	private static final String COLUMNAS_TABLA_TALLER = "(matriculaCoche string PRIMARY KEY, marca string, modelo string, mecanico String, dniCliente string, coste double, estado int)";
 	private static final String TABLA_COCHES_MATRICULADOS = "CochesMatriculados";
@@ -345,10 +346,10 @@ public class BD {
 	}
 	
 	//Tabla COCHES_VENDIDOS:
-	public static boolean cochesVendidodsInsert(Statement st, String codigoVenta, String nombreVendedor, String dniComprador, String marca, String modelo) {
+	public static boolean cochesVendidodsInsert(Statement st, String fechaVenta, String nombreVendedor, String nombreComprador, String marca, String modelo, String matricula) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into " + TABLA_VENTAS + " values ('" + secu(codigoVenta) + "', '" + nombreVendedor + "', '" + dniComprador + "', '" + marca + "', '" + modelo + "')";
+			sentSQL = "insert into " + TABLA_VENTAS + " values ('" + secu(fechaVenta) + "', '" + nombreVendedor + "', '"  + nombreComprador + "', '" + marca + "', '" + modelo + "', '" + matricula + "')";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -713,6 +714,30 @@ public class BD {
 			}
 			return rs;
 		}
+		
+		//Tabla Ventas:
+ 		//Busqueda mediante Matricula:
+ 				public static Venta ventaSelect(Statement st, String matricula) {
+ 					String sentSQL = "";
+ 					Venta venta = null;
+ 					try {
+ 						sentSQL = "select * from " + TABLA_VENTAS + " where matricula= '" + matricula + "' ";
+ 						ResultSet rs = st.executeQuery(sentSQL);
+ 						if (rs.next()) {
+ 							String fecha = rs.getString("fecha");
+ 							String nicknameComercial = rs.getString("nombreVendedor");
+ 							String marca = rs.getString("marca");
+ 							String modelo = rs.getString("modelo");
+ 							String nombreComprador = rs.getString("nombreComprador");
+ 							String matricul = rs.getString("matricula");
+ 							venta = new Venta(fecha, modelo, marca, matricul, nicknameComercial, nombreComprador);
+ 						}
+ 					} catch (Exception e) {
+ 						lastError = e;
+ 						e.printStackTrace();
+ 					}
+ 					return venta;
+ 				}
 
 //METODOS DELETE:
 

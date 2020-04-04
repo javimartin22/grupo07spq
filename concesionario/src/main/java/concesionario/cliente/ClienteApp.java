@@ -19,6 +19,7 @@ import concesionario.servidor.datos.Comercial;
 import concesionario.servidor.datos.DepartamentoCompras;
 import concesionario.servidor.datos.Mecanico;
 import concesionario.servidor.datos.Usuario;
+import concesionario.servidor.datos.Venta;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
 
@@ -143,6 +144,13 @@ public class ClienteApp {
 		Response response = selectMecanicoTarget.request(MediaType.APPLICATION_JSON).post(ent);
 		return response;
 	}
+	
+	public Response registroVenta(Venta venta) {
+ 		WebTarget insertVentaTarget = loginTarget.path("insertVenta");
+ 		Entity<Venta> entity = Entity.entity(venta, MediaType.APPLICATION_JSON);
+ 		Response response = insertVentaTarget.request(MediaType.TEXT_PLAIN).post(entity);
+ 		return response;
+ 	}
 	
 	
 	
