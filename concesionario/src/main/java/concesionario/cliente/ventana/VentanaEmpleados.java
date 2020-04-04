@@ -7,7 +7,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import concesionario.cliente.controller.LoginController;
-import concesionario.servidor.datos.CocheConcesionario;
 import concesionario.servidor.datos.Empleado;
 
 import java.awt.event.ActionListener;

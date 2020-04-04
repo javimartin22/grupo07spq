@@ -222,7 +222,7 @@ public class VentanaRegistroMecanico extends JFrame {
 					String email = textFieldEmail.getText();
 					int tipo = comboBoxSexo.getSelectedIndex();
 					String sexo = comprobarSexo(tipo);
-					Mecanico mecanic = new Mecanico(nickname, contrasenia, tipo, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, nss, numeroCuenta, sueldo, numTelefono, 0);
+					Mecanico mecanic = new Mecanico(nickname, contrasenia, 0, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, nss, numeroCuenta, sueldo, numTelefono, 0);
 					registrarMecanico(mecanic, nickname);
 				} else {
 					JOptionPane.showMessageDialog(contentPane, "Todos los campos deben estar rellenados.");

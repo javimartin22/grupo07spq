@@ -227,7 +227,7 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 					String email = textFieldEmail.getText();
 					int tipo = comboBoxSexo.getSelectedIndex();
 					String sexo = comprobarSexo(tipo);
-					DepartamentoCompras dep = new DepartamentoCompras(nickname, contrasenia, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, nss, numeroCuenta, sueldo, numTelefono, 0);
+					DepartamentoCompras dep = new DepartamentoCompras(nickname, contrasenia, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, nss, numeroCuenta, sueldo, numTelefono, 2);
 					registrarDepartamentoCompras(dep, nickname);
 					
 				} else {
