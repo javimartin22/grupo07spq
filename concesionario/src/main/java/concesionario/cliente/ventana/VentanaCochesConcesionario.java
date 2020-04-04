@@ -93,13 +93,9 @@ public class VentanaCochesConcesionario extends JFrame {
 	public void cargarTabla(JTable table) {
 		Response response = loginController.cargarTablaCochesConcesionario();
 		if (response.getStatus() == Status.OK.getStatusCode()) {
-			ResultSet rst = response.readEntity(ResultSet.class);
-			try {
-				table.setModel(buildTableModel(rst));
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			DefaultTableModel dtm = response.readEntity(DefaultTableModel.class);
+			table.setModel(dtm);
+			System.out.println(dtm.getValueAt(0, 0));
 		} else {
 			System.out.println("llega mal");
 		}

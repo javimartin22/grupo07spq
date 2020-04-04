@@ -8,10 +8,15 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.LoginController;
+import concesionario.servidor.datos.Cliente;
+import concesionario.servidor.datos.Mecanico;
 
 //import concesionario.cliente.ventana.VentanaLogin;
 
@@ -55,7 +60,7 @@ public class VentanaMenuMecanico extends JFrame {
 		JButton anadirPieza = new JButton("Ver Piezas");
 		anadirPieza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaPiezas vp = new VentanaPiezas(loginController, nickname);
+				VentanaPiezasMecanico vp = new VentanaPiezasMecanico(loginController, nickname);
 				vp.setVisible(true);
 				dispose();
 			}
@@ -95,74 +100,5 @@ public class VentanaMenuMecanico extends JFrame {
 		});
 		buttonSalir.setBounds(162, 208, 89, 23);
 		panel.add(buttonSalir);
-		
-		//Menu para cambiar el nickane o la contrasenia
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		
-		JMenu mnSeleccion = new JMenu("Configuración");
-		menuBar.add(mnSeleccion);
-		
-		
-		JMenuItem mntmNicname = new JMenuItem("Cambiar Nickname");
-		mntmNicname.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//llamada a metodo para cambiar el nicname
-				cambiarNickname(nickname);
-				
-			}
-		});
-		mnSeleccion.add(mntmNicname);
-		
-		JMenuItem mntmContrasenya = new JMenuItem("Cambiar Contraseña");
-		mntmContrasenya.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//llamada a metodo para cambiar la contrasenia
-				cambiarContrasenya(nickname);
-			}
-		});
-		mnSeleccion.add(mntmContrasenya);
-		
-	}
-	
-	//metodo para cambiar el nickname
-	private void cambiarNickname(String nickname) {
-		//se le pasa un nickname donde se busca al mecanico en la bd de las tablas usuarios, mecanicos y empleados
-		/*Usuario user = BD.usuarioSelect(st, nickname);
-		Mecanico mecanico = BD.mecanicoSelect(st, nickname);
-		Empleado empleado = BD.empleadoSelect(st, nickname);
-		//si el nickname existe, se le muestra un JOptionPane donde introduce el nuevo nickname
-		if (mecanico != null) {
-			String nombre = JOptionPane.showInputDialog("Introduzca el nuevo nickname:");
-			BD.mecanicosDelete(st, mecanico.getNickname());
-			BD.usuariosDelete(st, user.getNickname());
-			BD.empleadosDelete(st, nickname);
-			BD.mecanicosInsert(st, mecanico.getDNI(), nombre, mecanico.getContrasenya(), mecanico.getNombre(), mecanico.getApellido(), mecanico.getSexo(), mecanico.getEmail(), mecanico.getCiudad(), mecanico.getCodigoPostal(), mecanico.getDireccion(), mecanico.getNumeroTelefono(), mecanico.getNSS(), mecanico.getNumeroCuenta(), mecanico.getSueldo(), mecanico.getHoras(), mecanico.getCoches());
-			BD.usuariosInsert(st, nombre, user.getContrasenya(), 3);
-			BD.empleadosInsert(st, empleado.getDNI(), nombre, empleado.getContrasenya(), empleado.getNombre(), empleado.getApellido(), empleado.getSexo(), empleado.getEmail(), empleado.getCiudad(), empleado.getCodigoPostal(), empleado.getDireccion(), empleado.getNumeroTelefono(), empleado.getNSS(), empleado.getNumeroCuenta(), empleado.getSueldo(), empleado.getTipoEmpleado());
-			
-		} else {
-			JOptionPane.showMessageDialog(this, "Cambio de nickname no permitido.");
-		}*/
-	}
-	
-	//metodo para cambiar la contrasenia
-	private void cambiarContrasenya(String nickname) {
-		//se le pasa un nickname donde se busca al mecanico en la bd de las tablas usuarios, mecanicos y empleados
-		/*Usuario user = BD.usuarioSelect(st, nickname);
-		Mecanico mecanico = BD.mecanicoSelect(st, nickname);
-		Empleado empleado = BD.empleadoSelect(st, nickname);
-		//si el nickname existe, se le muestra un JOptionPane donde intriduce la nueva contrasenia
-		if (mecanico != null) {
-			String contra = JOptionPane.showInputDialog("Introduzca la nueva Contrasenya:");
-			BD.mecanicosDelete(st, mecanico.getNickname());
-			BD.usuariosDelete(st, user.getNickname());
-			BD.empleadosDelete(st, nickname);
-			BD.mecanicosInsert(st, mecanico.getDNI(), nickname, contra, mecanico.getNombre(), mecanico.getApellido(), mecanico.getSexo(), mecanico.getEmail(), mecanico.getCiudad(), mecanico.getCodigoPostal(), mecanico.getDireccion(), mecanico.getNumeroTelefono(), mecanico.getNSS(), mecanico.getNumeroCuenta(), mecanico.getSueldo(), mecanico.getHoras(), mecanico.getCoches());
-			BD.usuariosInsert(st, nickname, contra, 3);
-			BD.empleadosInsert(st, empleado.getDNI(), nickname, contra, empleado.getNombre(), empleado.getApellido(), empleado.getSexo(), empleado.getEmail(), empleado.getCiudad(), empleado.getCodigoPostal(), empleado.getDireccion(), empleado.getNumeroTelefono(), empleado.getNSS(), empleado.getNumeroCuenta(), empleado.getSueldo(), empleado.getTipoEmpleado());
-		} else {
-			JOptionPane.showMessageDialog(this, "Cambio de contrasenya no permitido.");
-		}*/
 	}
 }

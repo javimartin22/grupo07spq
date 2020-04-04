@@ -7,15 +7,19 @@ import javax.ws.rs.PathParam;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.client.Entity;
 import javax.naming.spi.DirStateFactory.Result;
+import javax.swing.table.DefaultTableModel;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.core.MediaType;
@@ -134,20 +138,7 @@ public class LoginResources {
 	
 	
 
-	@POST
-	@Path("selectClient")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces("application1/json")
-	public Response cargarTabla() {
-		
-		con =BD.initBD("Taller");
-		st = BD.usarCrearTablasBD(con);
-		
-		ResultSet rst = BD.cochesTodosSelect(st);
-		
-			Entity<ResultSet> entity = Entity.entity(rst, MediaType.APPLICATION_JSON);
-			return Response.status(Response.Status.OK).entity(rst).build();
-	}
+	
 	
 	
 	@POST
@@ -273,7 +264,7 @@ public class LoginResources {
 	@Consumes(MediaType.APPLICATION_JSON)
 	//@Produces("application/json")
 	public Response deleteCliente(Cliente client) {
-		con =BD.initBD("Taller");
+		con = BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
 		BD.clientesDelete(st, client.getDNI());
@@ -286,6 +277,7 @@ public class LoginResources {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
+	
 	
 	@POST
 	@Path("selectClient")
@@ -305,7 +297,43 @@ public class LoginResources {
 		}
 	}
 	
+	@POST
+	@Path("selectMecanico")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response selectMecanico(String nickname) {
+
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		Mecanico nuevo = BD.mecanicoSelect(st, nickname);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			Entity<Mecanico> entity = Entity.entity(nuevo, MediaType.APPLICATION_JSON);
+			return Response.status(Response.Status.OK).entity(nuevo).build();
+		}
+	}
 	
+	@POST
+	@Path("loadTable")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response cargarTabla(String string) throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+
+		ResultSet rs = BD.cochesTodosSelect(st);
+		
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			DefaultTableModel nuevo = buildTableModel(rs);
+			Entity<DefaultTableModel> entity = Entity.entity(nuevo, MediaType.APPLICATION_JSON);
+			return Response.status(Response.Status.OK).entity(nuevo).build();
+		}
+	}
 	
 	
 	@DELETE
@@ -318,6 +346,27 @@ public class LoginResources {
 			System.out.println("usuario no encontrado");
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
+	}
+	
+	private static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
+	    ResultSetMetaData metaData = rs.getMetaData();
+	    // Nombre de las columnas:
+		    Vector<String> columnNames = new Vector<String>();
+		    int columnCount = metaData.getColumnCount();
+		    for (int column = 1; column <= columnCount; column++) {
+		        columnNames.add(metaData.getColumnName(column));
+		    }
+	    // Datos de la tabla:
+		    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+		    while (rs.next()) {
+		        Vector<Object> vector = new Vector<Object>();
+		        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+		            vector.add(rs.getObject(columnIndex));
+		        }
+		        data.add(vector);
+		    }
+		DefaultTableModel dtm = new DefaultTableModel(data, columnNames);
+	    return dtm;
 	}
 	
 }

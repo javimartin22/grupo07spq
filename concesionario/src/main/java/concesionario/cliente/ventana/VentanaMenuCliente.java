@@ -126,25 +126,14 @@ public class VentanaMenuCliente extends JFrame{
 	
 	
 	private void cambiarContrasenia(Cliente client) {
-		
 		String contrasenia = JOptionPane.showInputDialog("Introduzca la nueva contrasenia: ");
 		Response response = loginController.cambiarContraseniaCliente(client, contrasenia); //estoy aqui
 		if (response.getStatus() == Status.OK.getStatusCode()) {
-			VentanaMenuCliente vmc = new VentanaMenuCliente(client.getNickname(), loginController);
-        	vmc.setVisible(true);
-        	dispose();
+			JOptionPane.showMessageDialog(this, "Contrasenia cambiada.");
 		} else {
-			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
+			JOptionPane.showMessageDialog(this, "Fallo en el cambio de contrasenia.");
 			dispose();
 		}
-		
-//		Usuario user = BD.usuarioSelect(st, nickname);
-//		Cliente client = BD.clienteSelect(st, nickname);
-//		String contrasenya = JOptionPane.showInputDialog("Introduzca la nueva contrasenya:");
-//		BD.clientesDelete(st, client.getDNI());
-//		BD.usuariosDelete(st, nickname);
-//		BD.clientesInsert(st, client.getDNI(), client.getNickname(), contrasenya, client.getNombre(), client.getApellido(), client.getSexo(), client.getEmail(), client.getCiudad(), client.getCodigoPostal(), client.getDireccion(), client.getNumeroTelefono());
-//		BD.usuariosInsert(st, user.getNickname(), contrasenya, 3);
 	}
 	
 	public JButton getButtonSalir() {

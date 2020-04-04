@@ -101,6 +101,7 @@ public class ClienteApp {
 		}
 	}
 	
+	
 	public Response cambiarNicknameCliente(Cliente client, String nickname) {
 		WebTarget deleteClienteTarget = loginTarget.path("deleteClient");
 		Entity<Cliente> ent = Entity.entity(client, MediaType.APPLICATION_JSON);
@@ -130,6 +131,14 @@ public class ClienteApp {
 		Response response = loadTableTarget.request(MediaType.APPLICATION_JSON).post(entity);
 		return response;
 	}
+	
+	public Response mecanicoSelect(String nickname) {
+		WebTarget selectMecanicoTarget = loginTarget.path("selectMecanico");
+		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
+		Response response = selectMecanicoTarget.request(MediaType.APPLICATION_JSON).post(ent);
+		return response;
+	}
+	
 	
 	
 

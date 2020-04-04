@@ -17,9 +17,7 @@ public class Mecanico{
 	private String NumeroCuenta; 
 	private int Sueldo;
 	private String NumeroTelefono;
-	private int coches;
 	private int horas;
-	private int tipoEmpleado;
 	
 	public Mecanico() {
 		
@@ -29,7 +27,7 @@ public class Mecanico{
 
 	public Mecanico(String nickname, String contrasenia, int tipo, String dNI, String nombre, String apellido,
 			String sexo, String email, String ciudad, int codigoPostal, String direccion, String nSS,
-			String numeroCuenta, int sueldo, String numeroTelefono, int tipoEmpleado, int coches, int horas) {
+			String numeroCuenta, int sueldo, String numeroTelefono, int horas) {
 		this.nickname = nickname;
 		this.contrasenia = contrasenia;
 		this.tipo = tipo;
@@ -45,8 +43,6 @@ public class Mecanico{
 		NumeroCuenta = numeroCuenta;
 		Sueldo = sueldo;
 		NumeroTelefono = numeroTelefono;
-		this.tipoEmpleado = tipoEmpleado;
-		this.coches = coches;
 		this.horas = horas;
 	}
 
@@ -172,23 +168,10 @@ public class Mecanico{
 		NumeroTelefono = numeroTelefono;
 	}
 
-	public int getTipoEmpleado() {
-		return tipoEmpleado;
-	}
-
-	public void setTipoEmpleado(int tipoEmpleado) {
-		this.tipoEmpleado = tipoEmpleado;
-	}
-
-	public int getCoches() {
-		return coches;
-	}
-	public void setCoches(int coches) {
-		this.coches = coches;
-	}
 	public int getHoras() {
 		return horas;
 	}
+	
 	public void setHoras(int horas) {
 		this.horas = horas;
 	}

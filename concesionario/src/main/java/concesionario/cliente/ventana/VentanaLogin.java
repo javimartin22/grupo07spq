@@ -22,6 +22,7 @@ import concesionario.cliente.controller.LoginController;
 
 public class VentanaLogin extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textNombreUsuario;
 	private JPasswordField textContrasenya;
@@ -156,7 +157,9 @@ public class VentanaLogin extends JFrame {
 				dispose();
 				break;
 			case 1: 
-				JOptionPane.showMessageDialog(this,"Iniciando sesion como mecanico");
+				VentanaMenuMecanico vmm = new VentanaMenuMecanico(loginController, nickname);
+				vmm.setVisible(true);
+				dispose();
 				break;
 			case 2:
 				VentanaMenuComercial vmcom = new VentanaMenuComercial(loginController, nickname);
@@ -171,7 +174,7 @@ public class VentanaLogin extends JFrame {
 			case 4:
 			}
 		 }else if (response.getStatus() == Status.NOT_ACCEPTABLE.getStatusCode()){
-	         JOptionPane.showMessageDialog(this, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+	         JOptionPane.showMessageDialog(this, "Datos incorrectos");
 
 		 } else {
 			 int respuesta = JOptionPane.showConfirmDialog(this, "Usuario no registrado ¿Desea registrarse?");

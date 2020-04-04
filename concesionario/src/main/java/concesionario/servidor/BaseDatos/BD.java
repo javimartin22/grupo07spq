@@ -13,6 +13,7 @@ import concesionario.servidor.datos.CocheConcesionario;
 import concesionario.servidor.datos.Comercial;
 import concesionario.servidor.datos.DepartamentoCompras;
 import concesionario.servidor.datos.Empleado;
+import concesionario.servidor.datos.Mecanico;
 import concesionario.servidor.datos.Pieza;
 import concesionario.servidor.datos.Usuario;
 
@@ -475,6 +476,38 @@ public class BD {
 			}
 			return empleado;
 		}
+		
+		//Busqueda mediante CODIGO:
+				public static Mecanico mecanicoSelect(Statement st, String nickname) {
+					String sentSQL = "";
+					Mecanico mecanico = null;
+					try {
+						sentSQL = "select * from " + TABLA_MECANICO + " where nickname= '" + nickname + "' ";
+						ResultSet rs = st.executeQuery(sentSQL);
+						if (rs.next()) {
+							String dni = rs.getString("dni");
+							String nick = rs.getString("nickname");
+							String contrasenya = rs.getString("contrasenia");
+							String nombre = rs.getString("nombre");
+							String apellido = rs.getString("apellido");
+							String sexo = rs.getString("sexo");
+							String email = rs.getString("email");
+							String ciudad = rs.getString("ciudad");
+							int codigoPostal = rs.getInt("codigoPostal");
+							String direccion = rs.getString("dir");
+							String numeroTelefono = rs.getString("numTelefono");
+							String NSS = rs.getString("NSS");
+							String numeroCuenta = rs.getString("numeroCuenta");
+							int sueldo = rs.getInt("sueldo");
+							int horas = rs.getInt("horas");
+							mecanico = new Mecanico(nickname, contrasenya, 1, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, direccion, NSS, numeroCuenta, sueldo, numeroTelefono, horas);
+						}
+					} catch (Exception e) {
+						lastError = e;
+						e.printStackTrace();
+					}
+					return mecanico;
+				}
 		
 	//Tabla DEPARTAMENTO_COMPRAS:
 	public static DepartamentoCompras departamentoCompraSelect(Statement st, String nickname) {

@@ -47,6 +47,7 @@ public class LoginController {
 	public Response cambiarContraseniaCliente(Cliente client, String contrasenia) {
 		return cliente.cambiarContraseniaCliente(client, contrasenia);
 	}
+	
 	public Response cambiarNicknameCliente(Cliente client, String nickname) {
 		return cliente.cambiarNicknameCliente(client, nickname);
 	}
@@ -57,6 +58,10 @@ public class LoginController {
 	
 	public Response cargarTablaCochesConcesionario() {
 		return cliente.cargarTablaCochesConcesionario();
+	}
+	
+	public Response seleccionarMecanico(String nickname) {
+		return cliente.mecanicoSelect(nickname);
 	}
 	
 }
