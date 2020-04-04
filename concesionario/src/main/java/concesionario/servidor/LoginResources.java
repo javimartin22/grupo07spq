@@ -135,11 +135,23 @@ public class LoginResources {
 		}
 	}
 	
-	
-	
-
-	
-	
+	@POST
+	@Path("insertVenta")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response registrarVenta(Venta venta) {
+		System.out.println(venta.getModelo());
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		BD.cochesVendidodsInsert(st, venta.getFecha(), venta.getNicknameComercial(), venta.getNombreComprador(), venta.getMarca(), venta.getModelo(), venta.getMatricula());
+		Venta v = BD.ventaSelect(st, venta.getMatricula());
+		System.out.println(v.getNombreComprador());
+		if (v == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).build();
+		}
+	}
 	
 	@POST
 	@Path("insertMecanic")

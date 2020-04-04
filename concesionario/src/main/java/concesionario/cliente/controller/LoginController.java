@@ -9,6 +9,7 @@ import concesionario.servidor.datos.Comercial;
 import concesionario.servidor.datos.DepartamentoCompras;
 import concesionario.servidor.datos.Mecanico;
 import concesionario.servidor.datos.Usuario;
+import concesionario.servidor.datos.Venta;
 
 public class LoginController {
 	
@@ -62,6 +63,10 @@ public class LoginController {
 	
 	public Response seleccionarMecanico(String nickname) {
 		return cliente.mecanicoSelect(nickname);
+	}
+	
+	public Response registrarVenta(Venta venta) {
+		return cliente.registroVenta(venta);
 	}
 	
 }
