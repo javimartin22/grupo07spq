@@ -10,6 +10,7 @@ import concesionario.servidor.datos.CocheConcesionario;
 import concesionario.servidor.datos.Comercial;
 import concesionario.servidor.datos.DepartamentoCompras;
 import concesionario.servidor.datos.Mecanico;
+import concesionario.servidor.datos.Pieza;
 import concesionario.servidor.datos.Usuario;
 import concesionario.servidor.datos.Venta;
 
@@ -69,6 +70,10 @@ public class LoginController {
 	
 	public Response registrarVenta(Venta venta) {
 		return cliente.registroVenta(venta);
+	}
+	
+	public List<Pieza> cargarPiezas(){
+		return cliente.cargarTablaPiezas();
 	}
 	
 }
