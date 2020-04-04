@@ -18,6 +18,7 @@ import concesionario.servidor.datos.CocheConcesionario;
 import concesionario.servidor.datos.Comercial;
 import concesionario.servidor.datos.DepartamentoCompras;
 import concesionario.servidor.datos.Mecanico;
+import concesionario.servidor.datos.Pieza;
 import concesionario.servidor.datos.Usuario;
 import concesionario.servidor.datos.Venta;
 import concesionario.cliente.controller.LoginController;
@@ -131,7 +132,6 @@ public class ClienteApp {
 	
 	public List<CocheConcesionario> cargarTablaCochesConcesionario(){
 		WebTarget loadTableTarget = loginTarget.path("loadTable");
-		
 		GenericType<List<CocheConcesionario>> genericType = new GenericType<List<CocheConcesionario>>() {};
         List<CocheConcesionario> usuarios = loadTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
 		
@@ -151,6 +151,14 @@ public class ClienteApp {
  		Response response = insertVentaTarget.request(MediaType.TEXT_PLAIN).post(entity);
  		return response;
  	}
+	
+	public List<Pieza> cargarTablaPiezas(){
+		WebTarget loadPiezaTableTarget = loginTarget.path("loadPiezaTable");
+		GenericType<List<Pieza>> genericType = new GenericType<List<Pieza>>() {};
+        List<Pieza> piezas = loadPiezaTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
+		
+		return piezas;
+	}
 	
 	
 	
