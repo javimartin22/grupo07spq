@@ -1,30 +1,27 @@
 package concesionario.cliente.ventana;
 
-
-
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.Vector;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import concesionario.cliente.controller.LoginController;
-import concesionario.servidor.datos.Mecanico;
+import concesionario.servidor.datos.CocheConcesionario;
+import concesionario.servidor.datos.Empleado;
 
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 public class VentanaEmpleados extends JFrame {
 
-	private JPanel contentPane;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private LoginController loginController;
 	
@@ -92,50 +89,64 @@ public class VentanaEmpleados extends JFrame {
 	}
 	
 
-	//Metodo general para obtener los datos de una base de datos y añadirlos a una tabla
-		private static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
-		    ResultSetMetaData metaData = rs.getMetaData();
-		    // Nombre de las columnas:
-			    Vector<String> columnNames = new Vector<String>();
-			    int columnCount = metaData.getColumnCount();
-			    for (int column = 1; column <= columnCount; column++) {
-			        columnNames.add(metaData.getColumnName(column));
-			    }
-		    // Datos de la tabla:
-			    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
-			    while (rs.next()) {
-			        Vector<Object> vector = new Vector<Object>();
-			        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-			            vector.add(rs.getObject(columnIndex));
-			        }
-			        data.add(vector);
-			    }
-		    return new DefaultTableModel(data, columnNames);
-		}
 		
-		public void cargarTabla(JTable table) {
-			
-		}
+	public void cargarTabla(JTable table) {
+		List<Empleado> empleados = loginController.cargarTablaEmpleado();
 		
-		private void registrar(int tipo, String nickname) {
-			switch (tipo) {
-			case 0:
-				VentanaRegistroMecanico ventanaRegistrarMecanico = new VentanaRegistroMecanico(loginController, nickname);
-				ventanaRegistrarMecanico.setVisible(true);
-				dispose();
-				break;
-			case 1: 
-				VentanaRegistroComercial ventanaComercial = new VentanaRegistroComercial(loginController, nickname);
-				ventanaComercial.setVisible(true);
-				dispose();		
-				break;
-			case 2:
-				VentanaRegistroDepartamentoCompras ventanaCompras = new VentanaRegistroDepartamentoCompras(loginController, nickname);
-				ventanaCompras.setVisible(true);
-				dispose();		
-				break;
-			}
-			
-			
+		String[] columnNames = {"Nickname", "Nombre", "Apellido", "DNI", "Tipo Empleado"};
+		
+		if (!empleados.isEmpty()) {
+			 DefaultTableModel model = new DefaultTableModel();
+			   table.setModel(model);
+			   model.setColumnIdentifiers(columnNames);
+			   
+			   for (Empleado e : empleados) {
+				   Object[] o = new Object[7];
+				   o[0] = e.getNickname();
+				   o[1] = e.getNombre();
+				   o[2] = e.getApellido();
+				   o[3] = e.getDNI();
+				   o[4] = cambioTipo(e.getTipoEmpleado());
+				   model.addRow(o);
+				 }
+		} else {
+			System.out.println("llega mal");
 		}
+	}
+		
+	private void registrar(int tipo, String nickname) {
+		switch (tipo) {
+		case 0:
+			VentanaRegistroMecanico ventanaRegistrarMecanico = new VentanaRegistroMecanico(loginController, nickname);
+			ventanaRegistrarMecanico.setVisible(true);
+			dispose();
+			break;
+		case 1: 
+			VentanaRegistroComercial ventanaComercial = new VentanaRegistroComercial(loginController, nickname);
+			ventanaComercial.setVisible(true);
+			dispose();		
+			break;
+		case 2:
+			VentanaRegistroDepartamentoCompras ventanaCompras = new VentanaRegistroDepartamentoCompras(loginController, nickname);
+			ventanaCompras.setVisible(true);
+			dispose();		
+			break;
+		}
+	}
+	
+	public String cambioTipo(int tipoEmpleado) {
+		String tipo = "";
+		switch (tipoEmpleado) {
+		case 0:
+			tipo = "Mecanico";
+			break;
+		case 1: 
+			tipo = "Comercial";
+			break;
+		case 2:
+			tipo = "Departamento Compras";
+			break;
+		}
+		return tipo;
+	}
 }

@@ -425,6 +425,45 @@ public class LoginResources {
 		}
 	}
 	
+	@GET
+	@Path("loadEmpleadosTable")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Empleado> cargarEmpleadoTabla()throws SQLException {
+		System.out.println("llega");
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.empleadosTodasSelect(st);
+		List<Empleado> empleados_result = new ArrayList<Empleado>();
+		
+		if (rs == null) {
+			System.out.println("No hay empleados bd");
+			return empleados_result;
+		} else {
+			while(rs.next()) {
+				//Obtener atributos rs
+				String nickname = rs.getString("nickname");
+				String contrasenia = rs.getString("contrasenia");
+				String dNI = rs.getString("dni");
+				int tipo = 0;
+				String nombre = rs.getString("nombre");
+				String apellido = rs.getString("apellido");
+				String sexo = rs.getString("sexo");
+				String email = rs.getString("email");
+				String ciudad = rs.getString("ciudad");
+				int codigoPostal = rs.getInt("codigoPostal");
+				String direccion = rs.getString("dir");
+				String nSS = rs.getString("NSS");
+				String numeroCuenta = rs.getString("numeroCuenta");
+				String numeroTelefono = rs.getString("numTelefono");
+				int sueldo = rs.getInt("sueldo");
+				int tipoEmpleado = rs.getInt("tipoEmpleado");
+				Empleado empleado = new Empleado(nickname, contrasenia, tipo, dNI, nombre, apellido, sexo, email, ciudad, codigoPostal, direccion, nSS, numeroCuenta, sueldo, numeroTelefono, tipoEmpleado);
+				empleados_result.add(empleado);
+			}
+			return empleados_result;
+		}
+	}
 	
 	
 	

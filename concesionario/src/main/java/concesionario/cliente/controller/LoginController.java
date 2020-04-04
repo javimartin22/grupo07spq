@@ -10,6 +10,7 @@ import concesionario.servidor.datos.CocheConcesionario;
 import concesionario.servidor.datos.CocheMatriculado;
 import concesionario.servidor.datos.Comercial;
 import concesionario.servidor.datos.DepartamentoCompras;
+import concesionario.servidor.datos.Empleado;
 import concesionario.servidor.datos.Mecanico;
 import concesionario.servidor.datos.Pieza;
 import concesionario.servidor.datos.Usuario;
@@ -81,6 +82,9 @@ public class LoginController {
 		return cliente.cargarTablaCochesCocheMatriculados();
 	}
 	
+	public List<Empleado> cargarTablaEmpleado(){
+		return cliente.cargarTablaEmpleados();
+	}
 	
 	
 }

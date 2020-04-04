@@ -1,28 +1,23 @@
 package concesionario.cliente.ventana;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.LoginController;
-import concesionario.servidor.datos.Cliente;
 import concesionario.servidor.datos.CocheConcesionario;
 
 public class VentanaCochesConcesionario extends JFrame {
 		
-	private JPanel contentPane;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private DefaultTableModel model;
 	private LoginController loginController;
@@ -68,11 +63,11 @@ public class VentanaCochesConcesionario extends JFrame {
 				int fila = table.getSelectedRow();
 				String marca = (String) table.getModel().getValueAt(fila, 1);
 				String modelo = (String) table.getModel().getValueAt(fila, 0);
-				String color = (String) table.getModel().getValueAt(fila, 2);
-				int precio = Integer.parseInt((String) table.getModel().getValueAt(fila, 6));
-				int cv = Integer.parseInt((String) table.getModel().getValueAt(fila, 3));
-				int unidades = Integer.parseInt((String) table.getModel().getValueAt(fila, 5));
-				int numPuertas = Integer.parseInt((String) table.getModel().getValueAt(fila, 4));
+				String color = (String) table.getModel().getValueAt(fila, 5);
+				int precio = (int) table.getModel().getValueAt(fila, 2);
+				int cv = (int) table.getModel().getValueAt(fila, 3);
+				int unidades = (int) table.getModel().getValueAt(fila, 6);
+				int numPuertas = (int) table.getModel().getValueAt(fila, 4);
 				CocheConcesionario coche = new CocheConcesionario(marca, modelo, precio, cv, numPuertas, color, unidades);
 				VentanaDetallesCoche vdc = new VentanaDetallesCoche(loginController, coche, nickname);
 				vdc.setVisible(true);
@@ -91,26 +86,6 @@ public class VentanaCochesConcesionario extends JFrame {
 		btnNewButton.setBounds(729, 299, 117, 29);
 		getContentPane().add(btnNewButton);
 		
-	}
-	
-	private static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
-	    ResultSetMetaData metaData = rs.getMetaData();
-	    // Nombre de las columnas:
-		    Vector<String> columnNames = new Vector<String>();
-		    int columnCount = metaData.getColumnCount();
-		    for (int column = 1; column <= columnCount; column++) {
-		        columnNames.add(metaData.getColumnName(column));
-		    }
-	    // Datos de la tabla:
-		    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
-		    while (rs.next()) {
-		        Vector<Object> vector = new Vector<Object>();
-		        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-		            vector.add(rs.getObject(columnIndex));
-		        }
-		        data.add(vector);
-		    }
-	    return new DefaultTableModel(data, columnNames);
 	}
 	
 	public void cargarTabla(JTable table) {
@@ -143,6 +118,5 @@ public class VentanaCochesConcesionario extends JFrame {
 		} else {
 			System.out.println("llega mal");
 		}
-		
 	}
 }
