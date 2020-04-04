@@ -1,16 +1,35 @@
 package concesionario.servidor.datos;
 
-public class CocheMatriculado extends Coche {
+public class CocheMatriculado{
 	
+	String marca;
+	String modelo;
 	String matricula;
 	int anyo_matriculacion;
 	int revisiones;
 	
 	public CocheMatriculado(String marca, String modelo, String matricula, int anyo_matriculacion, int revisiones ) {
-		super(marca, modelo);
+		this.marca = marca;
+		this.modelo= modelo;
 		this.matricula = matricula;
 		this.anyo_matriculacion = anyo_matriculacion;
 		this.revisiones = revisiones;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+	public String getModelo() {
+		return modelo;
+	}
+
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
 	}
 
 	public String getMatricula() {

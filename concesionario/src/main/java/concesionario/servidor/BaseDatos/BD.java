@@ -55,7 +55,7 @@ public class BD {
 	private static final String TABLA_TALLER = "Taller";
 	private static final String COLUMNAS_TABLA_TALLER = "(matriculaCoche string PRIMARY KEY, marca string, modelo string, mecanico String, dniCliente string, coste double, estado int)";
 	private static final String TABLA_COCHES_MATRICULADOS = "CochesMatriculados";
-	private static final String COLUMNAS_TABLA_COCHES_MATRICULADOS = "(matriculaCoche string PRIMARY KEY, marca string, modelo string, fechaMatriculacion string)";
+	private static final String COLUMNAS_TABLA_COCHES_MATRICULADOS = "(matriculaCoche string PRIMARY KEY, marca string, modelo string, anyomatriculacion int, revisiones int)";
 	
 	
 	/**
