@@ -12,6 +12,10 @@ public class Pieza {
 		this.unidades = unidades;
 		this.ubicacion = ubicacion;
 	}
+	
+	public Pieza() {
+		
+	}
 
 	public String getCodigo() {
 		return codigo;

@@ -6,19 +6,22 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import concesionario.cliente.controller.LoginController;
+import concesionario.servidor.datos.CocheConcesionario;
+import concesionario.servidor.datos.Pieza;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.Vector;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class VentanaPiezasMecanico extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable tabla;
 	private LoginController loginController;
@@ -58,7 +61,7 @@ public class VentanaPiezasMecanico extends JFrame {
 		JButton btnCargarPiezas = new JButton("Cargar Piezas");
 		btnCargarPiezas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				cargarTabla(tabla, st);
+				cargarTabla(tabla);
 			}
 		});
 		btnCargarPiezas.setBounds(291, 267, 117, 29);
@@ -76,51 +79,28 @@ public class VentanaPiezasMecanico extends JFrame {
 		contentPane.add(btnCogerPiezas);
 	}
 	
-	//Metodo general para obtener los datos de una base de datos y añadirlos a una tabla
-		private static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
-		    ResultSetMetaData metaData = rs.getMetaData();
-		    // Nombre de las columnas:
-			    Vector<String> columnNames = new Vector<String>();
-			    int columnCount = metaData.getColumnCount();
-			    for (int column = 1; column <= columnCount; column++) {
-			        columnNames.add(metaData.getColumnName(column));
-			    }
-		    // Datos de la tabla:
-			    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
-			    while (rs.next()) {
-			        Vector<Object> vector = new Vector<Object>();
-			        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-			            vector.add(rs.getObject(columnIndex));
-			        }
-			        data.add(vector);
-			    }
-		    return new DefaultTableModel(data, columnNames);
+		public void cargarTabla(JTable table) {
+			List<Pieza> piezas = loginController.cargarPiezas();
+			String[] columnNames = {"Codigo", "Nombre", "Unidades", "Ubicacion"};
+			
+			if (!piezas.isEmpty()) {
+				 DefaultTableModel model = new DefaultTableModel();
+				   table.setModel(model);
+				   model.setColumnIdentifiers(columnNames);
+				   
+				   for (Pieza p : piezas) {
+					   Object[] o = new Object[7];
+					   o[0] = p.getCodigo();
+					   o[1] = p.getNombre();
+					   o[2] = p.getUnidades();
+					   o[3] = p.getUbicacion();
+					   model.addRow(o);
+					 }
+			} else {
+				System.out.println("llega mal");
+			}
 		}
 		
-//		private static void cargarTabla(JTable tabla, Statement st) {
-//			ResultSet rst = BD.piezasTodasSelect(st);
-//			try {
-//				tabla.setModel(buildTableModel(rst));
-//			} catch (SQLException e1) {
-//				e1.printStackTrace();
-//			}
-//		}
-//		
-//		private void cogerPieza(String codigo) {
-//			Pieza pieza = BD.piezaSelect(st, codigo);
-//			Pieza piezaUtiluzada = BD.piezaUtilizadaSelect(st, codigo);
-//			BD.piezaDelete(st, codigo);
-//			BD.piezaUtilizadaDelete(st, codigo);
-//			int unidadesUtilizadas = piezaUtiluzada.getUnidades() + 1;
-//			int unidades = pieza.getUnidades() - 1;
-//			if (unidades >= 0) {
-//				BD.piezasInsert(st, pieza.getCodigo(), pieza.getNombre(), unidades, pieza.getUbicacion());
-//				BD.piezasUtilizadasInsert(st, codigo, piezaUtiluzada.getNombre(), unidadesUtilizadas, piezaUtiluzada.getUbicacion());
-//				cargarTabla(tabla, st);
-//			} else {
-//				JOptionPane.showMessageDialog(contentPane, "No quedan piezas");
-//			}
-//		}
 }
 
 

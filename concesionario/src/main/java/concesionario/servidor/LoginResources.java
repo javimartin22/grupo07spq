@@ -145,17 +145,13 @@ public class LoginResources {
 
  		BD.cochesVendidodsInsert(st, venta.getFecha(), venta.getNicknameComercial(), venta.getNombreComprador(), venta.getMarca(), venta.getModelo(), venta.getMatricula());
  		Venta v = BD.ventaSelect(st, venta.getMatricula());
- 		System.out.println(v.getNombreComprador());
+ 		
  		if (v == null) {
  			return Response.status(Response.Status.NOT_FOUND).build();
  		} else {
  			return Response.status(Response.Status.OK).build();
  		}
  	}
-	
-
-	
-	
 	
 	@POST
 	@Path("insertMecanic")
@@ -164,7 +160,6 @@ public class LoginResources {
 	public Response registrarMecanico(Mecanico mecanic) {
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
-		
 		
 		String username = mecanic.getNickname();
 		String pass = mecanic.getContrasenia();
@@ -373,6 +368,37 @@ public class LoginResources {
 			}
 			 
 			return coches_result;
+		}
+	}
+	
+	@GET
+	@Path("loadPiezaTable")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Pieza> cargarPiezaTabla()throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.piezasTodasSelect(st);
+		List<Pieza> pieza_result = new ArrayList<Pieza>();
+		
+		if (rs == null) {
+			return pieza_result;
+		} else {
+			
+			while(rs.next()) {
+				//Obtener atributos rs
+				
+//				codigo string PRIMARY KEY, nombre string, stock int, ubicacion string
+				String codigo = rs.getString("codigo");
+				String nombre = rs.getString("nombre");
+				int unidades = rs.getInt("stock");
+				String ubicacion = rs.getString("ubicacion");
+				
+				Pieza pieza = new Pieza(codigo, nombre, unidades, ubicacion);	
+				pieza_result.add(pieza);
+			}
+			 
+			return pieza_result;
 		}
 	}
 	
