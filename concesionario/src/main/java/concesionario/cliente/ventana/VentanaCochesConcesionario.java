@@ -109,13 +109,14 @@ public class VentanaCochesConcesionario extends JFrame {
 			   model.setColumnIdentifiers(columnNames);
 			   
 			   for (CocheConcesionario c : coches) {
-				   Object[] o = new Object[6];
+				   Object[] o = new Object[7];
 				   o[0] = c.getMarca();
 				   o[1] = c.getModelo();
-				   o[2] = c.getCv();
-				   o[3] = c.getNumPuertas();
-				   o[4] = c.getColor();
-				   o[5] = c.getUnidades();
+				   o[2] = c.getPrecio();
+				   o[3] = c.getCv();
+				   o[4] = c.getNumPuertas();
+				   o[5] = c.getColor();
+				   o[6] = c.getUnidades();
 				   model.addRow(o);
 				 }
 		} else {
