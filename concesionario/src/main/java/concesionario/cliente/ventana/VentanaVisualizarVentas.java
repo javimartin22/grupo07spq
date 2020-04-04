@@ -50,8 +50,8 @@ public class VentanaVisualizarVentas extends JFrame {
 		JButton btnVolver = new JButton("Agregar");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//VentanaAgregarVentas vav = new VentanaAgregarVentas(loginController, nickname);
-				//vav.setVisible(true);
+				//VentanaRegistrarVentas vrv = new VentanaRegistrarVentas(loginController, nickname);
+				//vrv.setVisible(true);
 				dispose();
 			}
 		});
