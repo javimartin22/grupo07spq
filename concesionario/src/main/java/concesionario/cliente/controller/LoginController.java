@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 import concesionario.cliente.ClienteApp;
 import concesionario.servidor.datos.Cliente;
 import concesionario.servidor.datos.CocheConcesionario;
+import concesionario.servidor.datos.CocheMatriculado;
 import concesionario.servidor.datos.Comercial;
 import concesionario.servidor.datos.DepartamentoCompras;
 import concesionario.servidor.datos.Mecanico;
@@ -75,5 +76,11 @@ public class LoginController {
 	public List<Pieza> cargarPiezas(){
 		return cliente.cargarTablaPiezas();
 	}
+	
+	public List<CocheMatriculado> cargarCochesMatriculados(){
+		return cliente.cargarTablaCochesCocheMatriculados();
+	}
+	
+	
 	
 }

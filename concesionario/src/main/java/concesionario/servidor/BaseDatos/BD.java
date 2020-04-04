@@ -643,13 +643,27 @@ public class BD {
 		return coche;
 	}
 	
-	//Tabla COCHES:
+	//Tabla COCHES_CONCESIONARIO:
 		//Todos:
 		public static ResultSet cochesTodosSelect(Statement st) {
 			String sentSQL = "";
 			ResultSet rs = null;
 			try {
 				sentSQL = "select * from " + TABLA_COCHES_CONCESIONARIO;
+				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}
+		
+		//Tabla COCHES_MATRICULADOS
+		public static ResultSet cochesMatricTodosSelect(Statement st) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				sentSQL = "select * from " + TABLA_COCHES_MATRICULADOS;
 				rs = st.executeQuery(sentSQL);
 			} catch (Exception e) {
 				lastError = e;

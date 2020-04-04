@@ -334,14 +334,6 @@ public class LoginResources {
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
-		
-		System.out.println("entra server load table");
-		
-		try {
-			
-		} catch (Exception e) {
-			
-		}
 		ResultSet rs = BD.cochesTodosSelect(st);
 		List<CocheConcesionario> coches_result = new ArrayList<CocheConcesionario>();
 		
@@ -401,6 +393,39 @@ public class LoginResources {
 			return pieza_result;
 		}
 	}
+	
+	@GET
+	@Path("loadCochesMatricTable")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<CocheMatriculado> cargarCochesMatriculadosTabla()throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.cochesMatricTodosSelect(st);
+		List<CocheMatriculado> cochesMatric_result = new ArrayList<CocheMatriculado>();
+		
+		if (rs == null) {
+			System.out.println("No hay coches bd");
+			return cochesMatric_result;
+		} else {
+			
+			while(rs.next()) {
+				//Obtener atributos rs
+				String matricula = rs.getString("matriculaCoche");
+				String marca = rs.getString("marca");
+				String modelo = rs.getString("modelo");
+				int anyo_matric = rs.getInt("anyomatriculacion");
+				int revisiones = rs.getInt("revisiones");
+						
+				CocheMatriculado cocheMatric = new CocheMatriculado(marca, modelo, matricula, anyo_matric, revisiones);
+				cochesMatric_result.add(cocheMatric);
+			}
+			 
+			return cochesMatric_result;
+		}
+	}
+	
+	
 	
 	
 	@DELETE
