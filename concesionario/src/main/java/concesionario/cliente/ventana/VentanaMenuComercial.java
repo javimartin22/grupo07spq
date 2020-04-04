@@ -46,6 +46,7 @@ public class VentanaMenuComercial extends JFrame {
 		buttonRegistrarCoche.setBounds(144, 68, 141, 23);
 		panel.add(buttonRegistrarCoche);
 		
+		
 		JButton btnVerVentas = new JButton("Ver Ventas");
 		btnVerVentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -1,10 +1,13 @@
 package concesionario.cliente;
 
 
+import java.util.List;
+
 import javax.swing.SwingUtilities;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -126,11 +129,13 @@ public class ClienteApp {
 		return response;
 	}
 	
-	public Response cargarTablaCochesConcesionario(){
+	public List<CocheConcesionario> cargarTablaCochesConcesionario(){
 		WebTarget loadTableTarget = loginTarget.path("loadTable");
-		Entity<String> entity = Entity.entity("", MediaType.APPLICATION_JSON);
-		Response response = loadTableTarget.request(MediaType.APPLICATION_JSON).post(entity);
-		return response;
+		
+		GenericType<List<CocheConcesionario>> genericType = new GenericType<List<CocheConcesionario>>() {};
+        List<CocheConcesionario> usuarios = loadTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
+		
+		return usuarios;
 	}
 	
 	public Response mecanicoSelect(String nickname) {
