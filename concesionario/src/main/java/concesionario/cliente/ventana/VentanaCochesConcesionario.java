@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.LoginController;
 import concesionario.servidor.datos.Cliente;
+import concesionario.servidor.datos.CocheConcesionario;
 
 public class VentanaCochesConcesionario extends JFrame {
 		
@@ -91,11 +93,31 @@ public class VentanaCochesConcesionario extends JFrame {
 	}
 	
 	public void cargarTabla(JTable table) {
-		Response response = loginController.cargarTablaCochesConcesionario();
-		if (response.getStatus() == Status.OK.getStatusCode()) {
-			DefaultTableModel dtm = response.readEntity(DefaultTableModel.class);
-			table.setModel(dtm);
-			System.out.println(dtm.getValueAt(0, 0));
+		List<CocheConcesionario> coches = loginController.cargarTablaCochesConcesionario();
+		
+		String[] columnNames = {"MARCA",
+		        "MODELO",
+		        "PRECIO",
+		        "CV",
+		        "NUMPUERTAS",
+		        "COLOR",
+		        "UNIDADES"};
+		
+		if (!coches.isEmpty()) {
+			 DefaultTableModel model = new DefaultTableModel();
+			   table.setModel(model);
+			   model.setColumnIdentifiers(columnNames);
+			   
+			   for (CocheConcesionario c : coches) {
+				   Object[] o = new Object[6];
+				   o[0] = c.getMarca();
+				   o[1] = c.getModelo();
+				   o[2] = c.getCv();
+				   o[3] = c.getNumPuertas();
+				   o[4] = c.getColor();
+				   o[5] = c.getUnidades();
+				   model.addRow(o);
+				 }
 		} else {
 			System.out.println("llega mal");
 		}

@@ -316,22 +316,47 @@ public class LoginResources {
 		}
 	}
 	
-	@POST
+	@GET
 	@Path("loadTable")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces("application/json")
-	public Response cargarTabla(String string) throws SQLException {
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<CocheConcesionario> cargarTabla()throws SQLException {
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
-
+		
+		
+		System.out.println("entra server load table");
+		
+		try {
+			
+		} catch (Exception e) {
+			
+		}
 		ResultSet rs = BD.cochesTodosSelect(st);
+		List<CocheConcesionario> coches_result = new ArrayList<CocheConcesionario>();
 		
 		if (rs == null) {
-			return Response.status(Response.Status.NOT_FOUND).build();
+			System.out.println("No hay coches bd");
+			return coches_result;
 		} else {
-			DefaultTableModel nuevo = buildTableModel(rs);
-			Entity<DefaultTableModel> entity = Entity.entity(nuevo, MediaType.APPLICATION_JSON);
-			return Response.status(Response.Status.OK).entity(nuevo).build();
+			
+			while(rs.next()) {
+				System.out.println("entra rs");
+				
+				//Obtener atributos rs
+				
+				String marca = rs.getString("marca");
+				String modelo = rs.getString("modelo");
+				String color = rs.getString("color");
+				int CV = rs.getInt("CV");
+				int numeroPuertas = rs.getInt("numeroPuertas");
+				int unidades = rs.getInt("unidades");
+				int precio = rs.getInt("precio");
+						
+				CocheConcesionario coche = new CocheConcesionario(marca, modelo, precio, CV , numeroPuertas, color, unidades );
+				coches_result.add(coche);
+			}
+			 
+			return coches_result;
 		}
 	}
 	

@@ -1,5 +1,7 @@
 package concesionario.cliente.controller;
 
+import java.util.List;
+
 import javax.ws.rs.core.Response;
 
 import concesionario.cliente.ClienteApp;
@@ -56,7 +58,7 @@ public class LoginController {
 		return cliente.clienteSelect(nickname);
 	}
 	
-	public Response cargarTablaCochesConcesionario() {
+	public List<CocheConcesionario> cargarTablaCochesConcesionario() {
 		return cliente.cargarTablaCochesConcesionario();
 	}
 	
