@@ -17,13 +17,13 @@ import java.sql.SQLException;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 
-public class VentanaPiezas extends JFrame {
+public class VentanaPiezasMecanico extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tabla;
 	private LoginController loginController;
 	
-	public VentanaPiezas(LoginController loginController, String nickname) {
+	public VentanaPiezasMecanico(LoginController loginController, String nickname) {
 		this.loginController = loginController;
 		iniciarVentanaPiezas(nickname);
 	}
@@ -52,7 +52,7 @@ public class VentanaPiezas extends JFrame {
 				dispose();
 			}
 		});
-		btnRegresar.setBounds(16, 267, 117, 29);
+		btnRegresar.setBounds(162, 267, 117, 29);
 		contentPane.add(btnRegresar);
 		
 		JButton btnCargarPiezas = new JButton("Cargar Piezas");
@@ -74,17 +74,6 @@ public class VentanaPiezas extends JFrame {
 		});
 		btnCogerPiezas.setBounds(421, 267, 117, 29);
 		contentPane.add(btnCogerPiezas);
-		
-		JButton btnNewButton = new JButton("Registrar Piezas");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				VentanaRegistoPiezas ventana = new VentanaRegistoPiezas(nickname);
-				ventana.setVisible(true);
-				dispose();
-			}
-		});
-		btnNewButton.setBounds(142, 267, 133, 29);
-		contentPane.add(btnNewButton);
 	}
 	
 	//Metodo general para obtener los datos de una base de datos y añadirlos a una tabla
