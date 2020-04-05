@@ -4,11 +4,11 @@ Proyecto cliente-servidor que simula la gestión de un concesionario e implement
 
 ## Funcionalidad del Proyecto 🚀
 
-Gerente: Realiza la gestión de usuarios 
-Departamento Compras: Registro de piezas
-Mecánico: Registro de coches en el taller
-Comercial: Registro de coches en el concesionario y getionar las ventas
-Cliente: Iniciar sesion
+* Gerente: Realiza la gestión de usuarios 
+* Departamento Compras: Registro de piezas
+* Mecánico: Registro de coches en el taller
+* Comercial: Registro de coches en el concesionario y getionar las ventas
+* Cliente: Iniciar sesion
 
 Mira **Ejecución** para conocer como desplegar el proyecto.
 
