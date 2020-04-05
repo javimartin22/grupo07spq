@@ -648,8 +648,11 @@ public class LoginResources {
 				String modelo = rs.getString("modelo");
 				int anyo_matric = rs.getInt("anyomatriculacion");
 				int revisiones = rs.getInt("revisiones");
-						
-				CocheMatriculado cocheMatric = new CocheMatriculado(marca, modelo, matricula, anyo_matric, revisiones);
+				int cv = rs.getInt("cv");
+				String nombrePropietario = rs.getString("nombreCliente");
+				String color = rs.getString("Color");
+				int numPuertas = rs.getInt("numPuertas");
+				CocheMatriculado cocheMatric = new CocheMatriculado(marca, modelo, matricula, nombrePropietario, color, numPuertas, anyo_matric, cv, revisiones);
 				cochesMatric_result.add(cocheMatric);
 			}
 			 

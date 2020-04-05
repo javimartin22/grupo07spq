@@ -97,11 +97,7 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 	public void cargarTabla(JTable table) {
 		List<CocheMatriculado> cochesMatric = loginController.cargarCochesMatriculados();
 		
-		String[] columnNames = {"MARCA",
-		        "MODELO",
-		        "MATRICULA",
-		        "ANYO_MATRICULACION",
-		        "REVISIONES"};
+		String[] columnNames = {"Matricula","Marca", "Modelo", "Anio Matriculacion", "Revisiones", "Nombre Propietario", "Nº Puertas", "Color"};
 		
 		if (!cochesMatric.isEmpty()) {
 			 DefaultTableModel model = new DefaultTableModel();
@@ -113,8 +109,12 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 				   o[0] = cm.getMarca();
 				   o[1] = cm.getModelo();
 				   o[2] = cm.getMatricula();
-				   o[3] = cm.getAnyo_matriculacion();
+				   o[3] = cm.getAnyoMatriculacion();
 				   o[4] = cm.getRevisiones();
+				   o[5] = cm.getCv();
+				   o[6] = cm.getNombrePropietario();
+				   o[7] = cm.getNumPuertas();
+				   o[8] = cm.getColor();
 				   model.addRow(o);
 				 }
 		} else {

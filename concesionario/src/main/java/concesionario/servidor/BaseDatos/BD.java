@@ -55,7 +55,7 @@ public class BD {
 	private static final String TABLA_TALLER = "Taller";
 	private static final String COLUMNAS_TABLA_TALLER = "(matriculaCoche string PRIMARY KEY, marca string, modelo string, mecanico String, dniCliente string, coste double, estado int)";
 	private static final String TABLA_COCHES_MATRICULADOS = "CochesMatriculados";
-	private static final String COLUMNAS_TABLA_COCHES_MATRICULADOS = "(matriculaCoche string PRIMARY KEY, marca string, modelo string, anyomatriculacion int, revisiones int)";
+	private static final String COLUMNAS_TABLA_COCHES_MATRICULADOS = "(matricula string PRIMARY KEY, marca string, modelo string, anyomatriculacion int, revisiones int, cv int, nombreCliente string, numPuertas int, color string)";
 	
 	
 	/**
@@ -345,7 +345,25 @@ public class BD {
 		}
 	}
 	
-	//Tabla COCHES_VENDIDOS:
+	//Tabla COCHES_MATRICULADOS:
+	public static boolean cochesMatriculadosInsert(Statement st, String matricula, String marca, String modelo, int anyoMatriculacion, int revisiones, int cv, String nombrePropietario, int numPuertas, String color) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into " + TABLA_COCHES_CONCESIONARIO + " values ('" + secu(matricula) + "', '" + marca + "', '" +  modelo + "', " + anyoMatriculacion + ", " + revisiones + ", " + cv + ", '" + nombrePropietario + "', " + numPuertas + ", '" + color + "')";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+		}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	//Tabla VENTAS:
 	public static boolean cochesVendidodsInsert(Statement st, String fechaVenta, String nombreVendedor, String nombreComprador, String marca, String modelo, String matricula) {
 		String sentSQL = "";
 		try {
@@ -691,21 +709,7 @@ public class BD {
 			}
 			return rs;
 		}
-		
-		//Tabla COCHES_MATRICULADOS
-		public static ResultSet cochesMatricTodosSelect(Statement st) {
-			String sentSQL = "";
-			ResultSet rs = null;
-			try {
-				sentSQL = "select * from " + TABLA_COCHES_MATRICULADOS;
-				rs = st.executeQuery(sentSQL);
-			} catch (Exception e) {
-				lastError = e;
-				e.printStackTrace();
-			}
-			return rs;
-		}
-		
+	
 		//Busqueda mediante MARCA:
 		public static ResultSet cochesMarcaSelect(Statement st, String marca) {
 			String sentSQL = "";
@@ -726,6 +730,21 @@ public class BD {
 			ResultSet rs = null;
 			try {
 				sentSQL = "select * from " + TABLA_COCHES_CONCESIONARIO + " where modelo = '" + modelo + "'";
+				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}
+		
+	//Tabla COCHES_MATRICULADOS:
+		//Todos:
+		public static ResultSet cochesMatricTodosSelect(Statement st) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				sentSQL = "select * from " + TABLA_COCHES_MATRICULADOS;
 				rs = st.executeQuery(sentSQL);
 			} catch (Exception e) {
 				lastError = e;

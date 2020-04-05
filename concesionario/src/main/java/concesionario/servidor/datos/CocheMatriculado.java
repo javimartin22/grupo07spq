@@ -2,19 +2,29 @@ package concesionario.servidor.datos;
 
 public class CocheMatriculado{
 	
-	String marca;
-	String modelo;
-	String matricula;
-	int anyo_matriculacion;
-	int revisiones;
+	private String marca;
+	private String modelo;
+	private String matricula;
+	private String nombrePropietario;
+	private String color;
+	private int cv;
+	private int numPuertas;
+	private int anyoMatriculacion;
+	private int revisiones;
 	
-	public CocheMatriculado(String marca, String modelo, String matricula, int anyo_matriculacion, int revisiones ) {
+	
+	public CocheMatriculado(String marca, String modelo, String matricula, String nombrePropietario, String color,
+			int numPuertas, int anyo_matriculacion, int cv, int revisiones) {
 		this.marca = marca;
-		this.modelo= modelo;
+		this.modelo = modelo;
 		this.matricula = matricula;
-		this.anyo_matriculacion = anyo_matriculacion;
+		this.nombrePropietario = nombrePropietario;
+		this.color = color;
+		this.numPuertas = numPuertas;
+		this.anyoMatriculacion = anyo_matriculacion;
 		this.revisiones = revisiones;
 	}
+
 	public CocheMatriculado() {
 	}
 
@@ -42,12 +52,12 @@ public class CocheMatriculado{
 		this.matricula = matricula;
 	}
 
-	public int getAnyo_matriculacion() {
-		return anyo_matriculacion;
+	public int getAnyoMatriculacion() {
+		return anyoMatriculacion;
 	}
 
-	public void setAnyo_matriculacion(int anyo_matriculacion) {
-		this.anyo_matriculacion = anyo_matriculacion;
+	public void setAnyoMatriculacion(int anyo_matriculacion) {
+		this.anyoMatriculacion = anyo_matriculacion;
 	}
 
 	public int getRevisiones() {
@@ -56,6 +66,32 @@ public class CocheMatriculado{
 
 	public void setRevisiones(int revisiones) {
 		this.revisiones = revisiones;
+	}
+	public String getNombrePropietario() {
+		return nombrePropietario;
+	}
+	public void setNombrePropietario(String nombrePropietario) {
+		this.nombrePropietario = nombrePropietario;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+	public int getNumPuertas() {
+		return numPuertas;
+	}
+	public void setNumPuertas(int numPuertas) {
+		this.numPuertas = numPuertas;
+	}
+
+	public int getCv() {
+		return cv;
+	}
+
+	public void setCv(int cv) {
+		this.cv = cv;
 	}
 	
 	
