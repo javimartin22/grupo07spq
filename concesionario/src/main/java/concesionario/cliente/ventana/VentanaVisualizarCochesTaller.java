@@ -56,6 +56,13 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 		contentPane.add(btnCargar);
 		
 		JButton btnRegresar = new JButton("Regresar");
+		btnRegresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaMenuMecanico vmm = new VentanaMenuMecanico(loginController, nickname);
+				vmm.setVisible(true);
+				dispose();
+			}
+		});
 		btnRegresar.setBounds(362, 324, 117, 29);
 		contentPane.add(btnRegresar);
 		
@@ -65,7 +72,7 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 	private void cargarTabla(JTable table) {
 		List<CocheTaller> coches = loginController.cargarTablaCocheTaller();
 		
-		String[] columnNames = {"Nickname", "Nombre", "Apellido", "DNI", "Tipo Empleado"};
+		String[] columnNames = {"Marticula", "Marca", "Modelo", "DNI Cliente", "Mecanico", "Coste", "Estado"};
 		
 		if (!coches.isEmpty()) {
 			 DefaultTableModel model = new DefaultTableModel();
@@ -74,15 +81,33 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 			   
 			   for (CocheTaller c : coches) {
 				   Object[] o = new Object[7];
-//				   o[0] = e.getNickname();
-//				   o[1] = e.getNombre();
-//				   o[2] = e.getApellido();
-//				   o[3] = e.getDNI();
-//				   o[4] = cambioTipo(e.getTipoEmpleado());
+				   o[0] = c.getMatricula();
+				   o[1] = c.getMarca();
+				   o[2] = c.getModelo();
+				   o[3] = c.getDniCliente();
+				   o[4] = c.getMecanico();
+				   o[5] = c.getCoste() + "€";
+				   o[6] = traducirEstado(c.getEstado());
 				   model.addRow(o);
 				 }
 		} else {
 			System.out.println("llega mal");
 		}
+	}
+	
+	public String traducirEstado(int estado) {
+		String estad = "";
+		switch (estado) {
+		case 0:
+			estad = "Sin Empezar";
+			break;
+		case 1:
+			estad = "En proceso";
+			break;
+		case 2:
+			estad = "Terminado";
+			break;
+		}
+		return estad;
 	}
 }
