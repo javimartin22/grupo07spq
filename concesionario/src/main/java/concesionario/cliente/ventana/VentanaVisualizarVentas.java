@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -16,6 +17,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import concesionario.cliente.controller.LoginController;
+import concesionario.servidor.datos.CocheTaller;
+import concesionario.servidor.datos.Venta;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -126,49 +129,28 @@ public class VentanaVisualizarVentas extends JFrame {
 		mnFiltro.add(mntmComercial);
 	}
 	
-	
-//	private static void cargarTabla(JTable tabla, Statement st) {
-//		ResultSet rst = BD.ventasTodosSelect(st);
-//		try {
-//			tabla.setModel(buildTableModel(rst));
-//		} catch (SQLException e1) {
-//			e1.printStackTrace();
-//		}
-//		
-//		
-//	}
-//	
-//	private static void cargarMarca(JTable tabla, Statement st, String marca) {
-//		ResultSet rst = BD.ventasMarcaSelect(st, marca);
-//		try {
-//			tabla.setModel(buildTableModel(rst));
-//		} catch (SQLException e1) {
-//			e1.printStackTrace();
-//		}
-//		
-//		
-//	}
-//	
-//	private static void cargarModelo(JTable tabla, Statement st, String modelo) {
-//		ResultSet rst = BD.ventasModeloSelect(st, modelo);
-//		try {
-//			tabla.setModel(buildTableModel(rst));
-//		} catch (SQLException e1) {
-//			e1.printStackTrace();
-//		}
-//	}
-//		
-//	private static void cargarComercial(JTable tabla, Statement st, String nickname) {
-//		ResultSet rst = BD.ventasComercialSelect(st, nickname);
-//		try {
-//			tabla.setModel(buildTableModel(rst));
-//		} catch (SQLException e1) {
-//			e1.printStackTrace();
-//		}
-//		
-//	}
-	
-	private static void resetearTabla(JTable tabla) {
+	public void resetearTabla(JTable tabla) {
+		List<Venta> ventas = loginController.cargarTablaVenta();
 		
+		String[] columnNames = {"Fecha", "Matricula", "Marca", "Modelo", "Comercial", "DNI Cliente"};
+		
+		if (!ventas.isEmpty()) {
+			 DefaultTableModel model = new DefaultTableModel();
+			   tabla.setModel(model);
+			   model.setColumnIdentifiers(columnNames);
+			   
+			   for (Venta v : ventas) {
+				   Object[] o = new Object[7];
+				   o[0] = v.getFecha();
+				   o[1] = v.getMatricula();
+				   o[2] = v.getModelo();
+				   o[3] = v.getModelo();
+				   o[4] = v.getNicknameComercial();
+				   o[5] = v.getNombreComprador();
+				   model.addRow(o);
+				 }
+		} else {
+			System.out.println("llega mal");
+		}
 	}
 }

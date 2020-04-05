@@ -134,4 +134,8 @@ public class LoginController {
 	public Response deleteCocheTaller(String matricula) {
 		return cliente.CocheTallerDelete(matricula);
 	}
+	
+	public List<Venta> cargarTablaVenta(){
+		return cliente.cargarTablaVenta();
+	}
 }
