@@ -5,12 +5,17 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import concesionario.cliente.controller.LoginController;
+import concesionario.servidor.datos.CocheTaller;
+import concesionario.servidor.datos.Empleado;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class VentanaVisualizarCochesTaller extends JFrame {
@@ -58,6 +63,26 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 	}
 	
 	private void cargarTabla(JTable table) {
+//		List<CocheTaller> coches = loginController.cargarTablaEmpleado();
 		
+		String[] columnNames = {"Nickname", "Nombre", "Apellido", "DNI", "Tipo Empleado"};
+		
+//		if (!coches.isEmpty()) {
+//			 DefaultTableModel model = new DefaultTableModel();
+//			   table.setModel(model);
+//			   model.setColumnIdentifiers(columnNames);
+//			   
+//			   for (CocheTaller c : coches) {
+//				   Object[] o = new Object[7];
+//				   o[0] = e.getNickname();
+//				   o[1] = e.getNombre();
+//				   o[2] = e.getApellido();
+//				   o[3] = e.getDNI();
+//				   o[4] = cambioTipo(e.getTipoEmpleado());
+//				   model.addRow(o);
+//				 }
+//		} else {
+//			System.out.println("llega mal");
+//		}
 	}
 }
