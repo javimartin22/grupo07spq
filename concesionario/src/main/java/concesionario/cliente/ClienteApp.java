@@ -4,7 +4,6 @@ package concesionario.cliente;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
-import javax.ws.rs.POST;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
