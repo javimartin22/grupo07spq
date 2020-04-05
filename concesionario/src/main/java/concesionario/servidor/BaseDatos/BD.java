@@ -786,6 +786,19 @@ public class BD {
  					}
  					return venta;
  				}
+ 				
+ 		public static ResultSet ventasTodasSelect(Statement st) {
+ 			String sentSQL = "";
+ 			ResultSet rs = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_VENTAS;
+ 				rs = st.executeQuery(sentSQL);
+ 			} catch (Exception e) {
+ 				lastError = e;
+ 				e.printStackTrace();
+ 			}
+ 			return rs;
+ 		}	
 
 //METODOS DELETE:
 

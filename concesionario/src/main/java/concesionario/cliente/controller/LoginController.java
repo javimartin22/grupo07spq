@@ -121,4 +121,9 @@ public class LoginController {
 	public Response eliminarDepartamentoCompras(String nickname) {
 		return cliente.departamentoComprasDelete(nickname);
 	}
+	
+	public List<Venta> cargarTablaVenta(){
+		return cliente.cargarTablaVenta();
+	}
+	
 }

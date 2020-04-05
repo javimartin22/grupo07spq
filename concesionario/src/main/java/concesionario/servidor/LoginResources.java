@@ -334,7 +334,6 @@ public class LoginResources {
 	@Consumes(MediaType.APPLICATION_JSON)
 	//@Produces("application/json")
 	public Response deleteDepartamentoCompras(String nickname) {
-		System.out.println("llega");
 		con = BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
@@ -597,7 +596,33 @@ public class LoginResources {
 		}
 	}
 	
-	
+	@GET
+	@Path("loadVentaTable")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Venta> cargarVentaTabla()throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		ResultSet rs = BD.ventasTodasSelect(st);
+		List<Venta> venta_result = new ArrayList<Venta>();
+		
+		if (rs == null) {
+			return venta_result;
+		} else {
+			while(rs.next()) {
+				//Obtener atributos rs
+				String fecha = rs.getString("fecha");
+				String modelo = rs.getString("modelo");
+				String marca = rs.getString("marca");
+				String matricula = rs.getString("matricula");
+				String nicknameComercial = rs.getString("nombreVendedor");
+				String nombreComprador = rs.getString("nombreComprador");
+				
+				Venta venta = new Venta(fecha, modelo, marca, matricula, nicknameComercial, nombreComprador);
+				venta_result.add(venta);
+			}
+			return venta_result;
+		}
+	}
 	
 	
 	
