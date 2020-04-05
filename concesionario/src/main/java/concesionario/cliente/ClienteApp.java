@@ -177,7 +177,7 @@ public class ClienteApp {
 	}
 	
 	public Response departamentoComprasDelete(String nickname) {
-		WebTarget deleteDepartamentoComprasTarget = loginTarget.path("deleteDepartamentoCompras1");
+		WebTarget deleteDepartamentoComprasTarget = loginTarget.path("deleteDepartamentoCompras");
 		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
 		System.out.println(nickname);
 		Response response = deleteDepartamentoComprasTarget.request(MediaType.TEXT_PLAIN).post(ent);

@@ -222,7 +222,7 @@ public class VentanaEmpleados extends JFrame {
 			break;
 		case "Comercial":
 			System.out.println(nombre);
-			Response res = loginController.seleccionarComercial(nombre);
+			Response res = loginController.eliminarComercial(nombre);
 			if (res.getStatus() == Status.OK.getStatusCode()) {
 				JOptionPane.showMessageDialog(this, "Comercial elimindado");
 			} else {
@@ -231,7 +231,7 @@ public class VentanaEmpleados extends JFrame {
 			break;
 		case "Departamento Compras":
 			System.out.println(nombre);
-			Response resp = loginController.seleccionarDepartamentoCompras(nombre);
+			Response resp = loginController.eliminarDepartamentoCompras(nombre);
 			if (resp.getStatus() == Status.OK.getStatusCode()) {
 				JOptionPane.showMessageDialog(this, "Empleado del Departamento de Compras elimindado");
 			} else {
