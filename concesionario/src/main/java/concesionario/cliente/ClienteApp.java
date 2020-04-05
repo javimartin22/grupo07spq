@@ -4,6 +4,7 @@ package concesionario.cliente;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
+import javax.ws.rs.POST;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -238,7 +239,12 @@ public class ClienteApp {
 		return empleados;
 	}
 	
-	
+	public List<Venta> cargarTablaVenta(){
+		WebTarget loadVentaTableTarget = loginTarget.path("loadVentaTable");
+		GenericType<List<Venta>> genericType = new GenericType<List<Venta>>() {};
+        List<Venta> ventas = loadVentaTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
+		return ventas;
+	}
 	
 
 	 public static void main(String[] args) {

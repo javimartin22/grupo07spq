@@ -3,30 +3,19 @@ package concesionario.cliente.ventana;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.Statement;
 import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.LoginController;
-import concesionario.servidor.BaseDatos.BD;
 import concesionario.servidor.datos.Cliente;
-import concesionario.servidor.datos.Usuario;
-
-import java.awt.Color;
 
 public class VentanaMenuCliente extends JFrame{
 	
@@ -69,7 +58,7 @@ public class VentanaMenuCliente extends JFrame{
 		});
 		
 		 
-		buttonSalir.setBounds(220, 209, 89, 23);
+		buttonSalir.setBounds(190, 196, 89, 23);
 		panel.add(buttonSalir);
 		
 		JMenuBar menuBar = new JMenuBar();

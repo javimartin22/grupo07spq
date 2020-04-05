@@ -27,8 +27,6 @@ public class VentanaLogin extends JFrame {
 	private JTextField textNombreUsuario;
 	private JPasswordField textContrasenya;
 	private JButton buttonAceptar;
-	//private Connection con;
-	//private Statement st;
 	
 	private LoginController loginController;
 	
@@ -54,9 +52,7 @@ public class VentanaLogin extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		//con =BD.initBD("Taller");
-		//st = BD.usarCrearTablasBD(con);
-		
+
 		//panel general
 		JPanel panel = new JPanel();
 		panel.setLayout(null);

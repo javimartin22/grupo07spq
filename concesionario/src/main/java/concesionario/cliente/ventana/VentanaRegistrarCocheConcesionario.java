@@ -1,8 +1,5 @@
 package concesionario.cliente.ventana;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -24,6 +21,10 @@ import javax.swing.JSpinner;
 
 public class VentanaRegistrarCocheConcesionario extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private LoginController loginController; 
 	private JTextField modelo;
@@ -113,17 +114,22 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 		JButton btnNewButton = new JButton("Registrar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String ma = marca.getText();
-				String mo = modelo.getText();
-				int pr = Integer.parseInt(precio.getText());
-				int cv = Integer.parseInt(textField_1.getText());
-				int numPuertas = Integer.parseInt(spinner_1.getValue().toString());
-				int c = comboBox.getSelectedIndex();
-				String color = comprobarColor(c);
-				int unidades = Integer.parseInt(spinner.getValue().toString());
+				if (comprobarCampos()) {
+					String ma = marca.getText();
+					String mo = modelo.getText();
+					int pr = Integer.parseInt(precio.getText());
+					int cv = Integer.parseInt(textField_1.getText());
+					int numPuertas = Integer.parseInt(spinner_1.getValue().toString());
+					int c = comboBox.getSelectedIndex();
+					String color = comprobarColor(c);
+					int unidades = Integer.parseInt(spinner.getValue().toString());
+					
+					CocheConcesionario coche = new CocheConcesionario(ma, mo, pr, cv, numPuertas, color, unidades);
+					registrarCoche(coche, nickname);
+				} else {
+					JOptionPane.showMessageDialog(contentPane, "Todos los campos deben estar completos");
+				}
 				
-				CocheConcesionario coche = new CocheConcesionario(ma, mo, pr, cv, numPuertas, color, unidades);
-				registrarCoche(coche, nickname);
 			}
 		});
 		btnNewButton.setBounds(259, 290, 117, 29);
@@ -178,5 +184,13 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 		} else {
 			JOptionPane.showMessageDialog(this, "ERROR al regristar el coche");
 		}
+	}
+	
+	public boolean comprobarCampos() {
+		boolean datos = false;
+		if (!textField_1.getText().isEmpty() && !modelo.getText().isEmpty() && !marca.getText().isEmpty() && !precio.getText().isEmpty()) {
+			datos = true;
+		}
+		return datos;
 	}
 }
