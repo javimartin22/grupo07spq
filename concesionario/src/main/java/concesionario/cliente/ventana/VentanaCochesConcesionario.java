@@ -23,13 +23,14 @@ public class VentanaCochesConcesionario extends JFrame {
 	private LoginController loginController;
 	
 	public VentanaCochesConcesionario(LoginController loginController, String nickname) {
-		setResizable(false);
 		this.loginController = loginController;
 		iniciarVentanaCochesConcesionario(nickname);
 	}
 	
 	public void iniciarVentanaCochesConcesionario(String nickname){
 		
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setAutoRequestFocus(false);
 		setBounds(100, 100, 992, 360);
 		setTitle("Gestion de empleados");

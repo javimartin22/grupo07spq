@@ -17,9 +17,15 @@ import java.awt.Color;
 
 public class VentanaDetallesCoche extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private LoginController loginController;
 	
 	public VentanaDetallesCoche(LoginController loginController, CocheConcesionario coche, String nickname) {
+		
+		setTitle("Informacion del Vehiculo");
 		this.loginController = loginController;
 		iniciarVentanaDetallesCoche(coche, nickname);
 	}
@@ -27,6 +33,8 @@ public class VentanaDetallesCoche extends JFrame {
 	public void iniciarVentanaDetallesCoche(CocheConcesionario coche, String nickname) {
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		panel.setLayout(null);
 		
 		//label para el modelo
@@ -92,5 +100,9 @@ public class VentanaDetallesCoche extends JFrame {
 		lblInformacionDelCoche.setForeground(Color.RED);
 		lblInformacionDelCoche.setBounds(23, 13, 276, 16);
 		panel.add(lblInformacionDelCoche);
+		
+		JButton btnRegresar = new JButton("Regresar");
+		btnRegresar.setBounds(117, 326, 117, 29);
+		panel.add(btnRegresar);
 	}
 }

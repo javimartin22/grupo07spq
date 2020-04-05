@@ -1,7 +1,5 @@
 package concesionario.cliente.ventana;
 
-
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -110,9 +108,12 @@ public class VentanaRegistoPiezas extends JFrame {
 							vaciarCampos();
 						} else if (respuesta == 2){//En caso de pulsar cancel, se cancela el registro de la pieza en la base de datos y continuan todos los datos correctamente
 							JOptionPane.showMessageDialog(contentPane, "La pieza no ha sido registrada.");
+							vaciarCampos();
 						} else { //En caso contrario se registra la pieza y se regresa al menu principal:
 							Pieza pieza1 = new Pieza(codigo, nombre, unidades, ubicacion);
 							registrarBD(pieza1);
+							VentanaPiezasUtilizadas vpu = new VentanaPiezasUtilizadas(loginController, nombreMecanico);
+							vpu.setVisible(true);
 							dispose();
 						}
 				} else {
@@ -124,6 +125,13 @@ public class VentanaRegistoPiezas extends JFrame {
 		contentPane.add(btnRegistrar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaPiezasUtilizadas vpu = new VentanaPiezasUtilizadas(loginController, nombreMecanico);
+				vpu.setVisible(true);
+				dispose();
+			}
+		});
 		btnCancelar.setBounds(126, 207, 117, 29);
 		contentPane.add(btnCancelar);
 		

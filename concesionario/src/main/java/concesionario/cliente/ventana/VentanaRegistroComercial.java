@@ -22,6 +22,7 @@ import javax.swing.JPasswordField;
 
 public class VentanaRegistroComercial extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldDNI;
 	private JTextField textFieldNombre;
@@ -47,7 +48,8 @@ public class VentanaRegistroComercial extends JFrame {
 		setResizable(false);
 		setTitle("Registro Comercial");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 538, 695);
+		setBounds(100, 100, 538, 710);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

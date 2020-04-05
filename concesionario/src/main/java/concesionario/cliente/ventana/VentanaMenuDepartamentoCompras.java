@@ -40,6 +40,17 @@ public class VentanaMenuDepartamentoCompras extends JFrame {
 		});
 		btnNewButton.setBounds(158, 75, 132, 29);
 		contentPane.add(btnNewButton);
+		
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaLogin vl = new VentanaLogin(loginController);
+				vl.setVisible(true);
+				dispose();
+			}
+		});
+		btnSalir.setBounds(168, 116, 117, 29);
+		contentPane.add(btnSalir);
 	}
 
 }

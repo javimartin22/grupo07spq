@@ -2,12 +2,8 @@ package concesionario.cliente.ventana;
 
 
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.Statement;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -23,7 +19,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.LoginController;
-import concesionario.servidor.BaseDatos.BD;
 import concesionario.servidor.datos.DepartamentoCompras;
 
 
@@ -58,7 +53,8 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 		setResizable(false);
 		setTitle("Registro Departamento Compras");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 538, 695);
+		setBounds(100, 100, 538, 709);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

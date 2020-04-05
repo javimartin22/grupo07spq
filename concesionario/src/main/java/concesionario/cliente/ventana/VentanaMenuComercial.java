@@ -26,7 +26,7 @@ public class VentanaMenuComercial extends JFrame {
 	private void initVentanaMenuComercial(String nickname) {
 		this.setTitle("Menu del comercial");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(434,282);
+		this.setSize(451,282);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
@@ -68,6 +68,17 @@ public class VentanaMenuComercial extends JFrame {
 		});
 		btnNewButton.setBounds(154, 144, 117, 29);
 		panel.add(btnNewButton);
+		
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaLogin vl = new VentanaLogin(loginController);
+				vl.setVisible(true);
+				dispose();
+			}
+		});
+		btnSalir.setBounds(154, 181, 117, 29);
+		panel.add(btnSalir);
 		buttonRegistrarCoche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaRegistrarCocheConcesionario vrcc = new VentanaRegistrarCocheConcesionario(loginController, nickname);

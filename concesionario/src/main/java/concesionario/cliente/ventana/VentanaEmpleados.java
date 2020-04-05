@@ -38,9 +38,12 @@ public class VentanaEmpleados extends JFrame {
 	
 	public void  iniciarVentanaEmpleados(String nickname) {
 		setAutoRequestFocus(false);
-		setBounds(100, 100, 992, 360);
+		setBounds(100, 100, 1024, 379);
 		setTitle("Gestión de empleados");
+		setResizable(false);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
+		
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
@@ -51,7 +54,7 @@ public class VentanaEmpleados extends JFrame {
 				eliminarEmpleado(tipo, nickname, nombre);
 			}
 		});
-		btnEliminar.setBounds(847, 299, 117, 29);
+		btnEliminar.setBounds(879, 299, 117, 29);
 		getContentPane().add(btnEliminar);
 		
 		JButton btnVer = new JButton("Ver Info");
@@ -63,7 +66,7 @@ public class VentanaEmpleados extends JFrame {
 				verInfo(tipo, nickname, nombre);
 			}
 		});
-		btnVer.setBounds(316, 299, 112, 29);
+		btnVer.setBounds(334, 299, 112, 29);
 		getContentPane().add(btnVer);
 		
 		JButton btnCargar = new JButton("Cargar");
@@ -72,7 +75,7 @@ public class VentanaEmpleados extends JFrame {
 				cargarTabla(table);
 			}
 		});
-		btnCargar.setBounds(145, 299, 117, 29);
+		btnCargar.setBounds(175, 299, 117, 29);
 		getContentPane().add(btnCargar);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -87,7 +90,7 @@ public class VentanaEmpleados extends JFrame {
 		getContentPane().add(btnVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 6, 980, 286);
+		scrollPane.setBounds(16, 6, 980, 286);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -95,7 +98,7 @@ public class VentanaEmpleados extends JFrame {
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Mecanico", "Comercial", "Departamento Compras"}));
-		comboBox.setBounds(485, 300, 168, 27);
+		comboBox.setBounds(532, 300, 168, 27);
 		getContentPane().add(comboBox);
 		
 		JButton btnAgregar = new JButton("Agregar");
@@ -105,7 +108,7 @@ public class VentanaEmpleados extends JFrame {
 				registrar(tipo, nickname);
 			}
 		});
-		btnAgregar.setBounds(689, 299, 112, 29);
+		btnAgregar.setBounds(731, 299, 112, 29);
 		getContentPane().add(btnAgregar);
 		
 	}

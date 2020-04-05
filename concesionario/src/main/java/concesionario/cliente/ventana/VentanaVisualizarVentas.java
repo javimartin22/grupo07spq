@@ -2,22 +2,16 @@ package concesionario.cliente.ventana;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import concesionario.cliente.controller.LoginController;
-import concesionario.servidor.datos.Empleado;
 import concesionario.servidor.datos.Venta;
 
 import javax.swing.JMenuBar;
@@ -27,7 +21,7 @@ import java.awt.Color;
 
 public class VentanaVisualizarVentas extends JFrame {
 
-	private JPanel contentPane;
+	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private LoginController loginController;
 	
@@ -43,6 +37,8 @@ public class VentanaVisualizarVentas extends JFrame {
 		setBounds(100, 100, 992, 400);
 		setTitle("Ventas");
 		getContentPane().setLayout(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		
 		JButton btnVolver = new JButton("Agregar");
 		btnVolver.addActionListener(new ActionListener() {

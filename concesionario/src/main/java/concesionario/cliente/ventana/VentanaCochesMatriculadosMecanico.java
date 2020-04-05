@@ -36,8 +36,9 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 	private void iniciarVentanaCochesMatriculadosMecanico(String nickname){
 		
 		setAutoRequestFocus(false);
-		setBounds(100, 100, 992, 360);
+		setBounds(100, 100, 1032, 392);
 		setTitle("Coches Matriculados");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		
@@ -50,11 +51,11 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(849, 299, 117, 29);
+		btnVolver.setBounds(727, 318, 117, 29);
 		getContentPane().add(btnVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 6, 980, 286);
+		scrollPane.setBounds(22, 6, 980, 286);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -62,13 +63,13 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 		
 
 		//boton para ver las propiedades del vehiculo seleccionado (no se bien como sacar todas las propiedades)
-		JButton btnVer = new JButton("Ver");
+		JButton btnVer = new JButton("Cargar");
 		btnVer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cargarTabla(table);
 			}
 		});
-		btnVer.setBounds(446, 299, 112, 29);
+		btnVer.setBounds(879, 318, 112, 29);
 		getContentPane().add(btnVer);
 		
 	}
