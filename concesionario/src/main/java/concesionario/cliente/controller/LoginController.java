@@ -131,4 +131,7 @@ public class LoginController {
 		return cliente.cargarTablaCocheTaller();
 	}
 	
+	public Response deleteCocheTaller(String matricula) {
+		return cliente.CocheTallerDelete(matricula);
+	}
 }

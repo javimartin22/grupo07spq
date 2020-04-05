@@ -3,9 +3,12 @@ package concesionario.cliente.ventana;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.LoginController;
 import concesionario.servidor.datos.CocheTaller;
@@ -52,7 +55,7 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 				cargarTabla(table_1);
 			}
 		});
-		btnCargar.setBounds(504, 324, 117, 29);
+		btnCargar.setBounds(357, 324, 117, 29);
 		contentPane.add(btnCargar);
 		
 		JButton btnRegresar = new JButton("Regresar");
@@ -63,8 +66,34 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 				dispose();
 			}
 		});
-		btnRegresar.setBounds(362, 324, 117, 29);
+		btnRegresar.setBounds(228, 324, 117, 29);
 		contentPane.add(btnRegresar);
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int resp = JOptionPane.showConfirmDialog(contentPane, "¿Esta seguro de que quiere eliminarlo?");
+				switch (resp) {
+				case 0:
+					int fila = table_1.getSelectedRow();
+					String estado = (String) table_1.getModel().getValueAt(fila, 6);
+					if (estado.equals("Terminado")) {
+						eliminarCocheTaller((String) table_1.getModel().getValueAt(fila, 0));
+					} else {
+						JOptionPane.showMessageDialog(contentPane, "El coche no se ha finalizado.");
+					}
+					break;
+				case 1:
+					JOptionPane.showMessageDialog(contentPane, "No se eliminara.");
+					break;
+				case 2:
+					JOptionPane.showMessageDialog(contentPane, "No se eliminara.");
+					break;
+				}	
+			}
+		});
+		btnEliminar.setBounds(501, 324, 117, 29);
+		contentPane.add(btnEliminar);
 		
 		
 	}
@@ -92,6 +121,15 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 				 }
 		} else {
 			System.out.println("llega mal");
+		}
+	}
+	
+	public void eliminarCocheTaller(String matricula) {
+		Response response = loginController.deleteCocheTaller(matricula); //estoy aqui
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			JOptionPane.showMessageDialog(contentPane, "El coche ha salido del taller.");
+		} else {
+			System.out.println("fallo");
 		}
 	}
 	
