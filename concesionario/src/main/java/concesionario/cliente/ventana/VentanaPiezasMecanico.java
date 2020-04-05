@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import concesionario.cliente.controller.LoginController;
+import concesionario.servidor.datos.CocheConcesionario;
 import concesionario.servidor.datos.Pieza;
 
 import javax.swing.JScrollPane;
@@ -17,6 +18,9 @@ import java.awt.event.ActionEvent;
 
 public class VentanaPiezasMecanico extends JFrame {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable tabla;
@@ -66,6 +70,9 @@ public class VentanaPiezasMecanico extends JFrame {
 		JButton btnCogerPiezas = new JButton("Coger Piezas");
 		btnCogerPiezas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int fila = tabla.getSelectedRow();
+				String codigo = (String) tabla.getModel().getValueAt(fila, 0);
+//				cogerPieza(codigo);
 			}
 		});
 		btnCogerPiezas.setBounds(421, 267, 117, 29);

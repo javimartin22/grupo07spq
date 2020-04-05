@@ -21,7 +21,6 @@ public class VentanaMenuAdmin extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	public VentanaMenuAdmin(LoginController loginController, String nickname) {
-		setResizable(false);
 		this.loginController = loginController;   //errores
 		inicioVentanaMenuAdmin(nickname);
 	}
@@ -30,7 +29,8 @@ public class VentanaMenuAdmin extends JFrame {
 	public void inicioVentanaMenuAdmin(String nickname) {
 		this.setTitle("Menu del administrador");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(457,282);
+		this.setSize(434,282);
+		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
 		JPanel panel = new JPanel();
@@ -64,7 +64,7 @@ public class VentanaMenuAdmin extends JFrame {
 					}
 				} 
 			});
-			buttonAnadirUsuarios.setBounds(162, 102, 164, 23);
+			buttonAnadirUsuarios.setBounds(129, 66, 164, 23);
 			panel.add(buttonAnadirUsuarios);
 			
 			JButton buttonVerUsuarios = new JButton("Ver usuarios");
@@ -73,7 +73,7 @@ public class VentanaMenuAdmin extends JFrame {
 					verUsuarios(nickname);
 				}
 			});
-			buttonVerUsuarios.setBounds(178, 149, 137, 23);
+			buttonVerUsuarios.setBounds(145, 117, 137, 23);
 			panel.add(buttonVerUsuarios);
 			
 			
@@ -84,7 +84,7 @@ public class VentanaMenuAdmin extends JFrame {
 					salir();
 				}
 			});
-			buttonSalir.setBounds(204, 196, 89, 23);
+			buttonSalir.setBounds(171, 165, 89, 23);
 			panel.add(buttonSalir);
 	}
 	

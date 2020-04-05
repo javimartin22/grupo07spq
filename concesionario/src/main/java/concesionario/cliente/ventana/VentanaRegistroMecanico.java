@@ -24,6 +24,9 @@ import concesionario.servidor.datos.Mecanico;
 
 public class VentanaRegistroMecanico extends JFrame {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldDNI;
@@ -50,8 +53,7 @@ public class VentanaRegistroMecanico extends JFrame {
 		setResizable(false);
 		setTitle("Registro Mecanico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 538, 709);
-		setLocationRelativeTo(null);
+		setBounds(100, 100, 538, 695);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

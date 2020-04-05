@@ -2,6 +2,7 @@ package concesionario.cliente.ventana;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.JButton;
@@ -21,10 +22,6 @@ import javax.swing.JLayeredPane;
 
 public class VentanaRegistrarVentas extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldMarca;
 	private JTextField textFieldModelo;
@@ -47,7 +44,6 @@ public class VentanaRegistrarVentas extends JFrame {
 		setTitle("Registrar ventas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 494, 290);
-		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

@@ -1,4 +1,5 @@
 package concesionario.cliente.ventana;
+import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -9,6 +10,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.LoginController;
+import concesionario.servidor.datos.Cliente;
 import concesionario.servidor.datos.Pieza;
 
 import javax.swing.JScrollPane;

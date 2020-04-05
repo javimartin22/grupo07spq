@@ -40,7 +40,7 @@ public class VentanaMenuMecanico extends JFrame {
 	public void iniciarVentanaMenuMecanico(String nickname){
 		this.setTitle("Menu del mecanico");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(453,282);
+		this.setSize(434,282);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
