@@ -39,6 +39,8 @@ public class VentanaEmpleados extends JFrame {
 	public void  iniciarVentanaEmpleados(String nickname) {
 		setAutoRequestFocus(false);
 		setBounds(100, 100, 992, 360);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		setTitle("Gestión de empleados");
 		getContentPane().setLayout(null);
 		

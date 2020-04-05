@@ -47,6 +47,7 @@ public class VentanaVisualizarVentas extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Ventas");
 		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JButton btnVolver = new JButton("Agregar");
 		btnVolver.addActionListener(new ActionListener() {

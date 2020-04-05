@@ -33,6 +33,8 @@ public class VentanaDetallesCoche extends JFrame {
 	public void iniciarVentanaDetallesCoche(CocheConcesionario coche, String nickname) {
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
+		setBounds(100, 100, 366, 411);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		panel.setLayout(null);

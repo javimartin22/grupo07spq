@@ -32,6 +32,7 @@ public class VentanaCochesConcesionario extends JFrame {
 		
 		setAutoRequestFocus(false);
 		setBounds(100, 100, 992, 360);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Gestion de empleados");
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
