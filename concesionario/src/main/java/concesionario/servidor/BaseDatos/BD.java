@@ -12,6 +12,7 @@ import java.util.List;
 
 import concesionario.servidor.datos.Cliente;
 import concesionario.servidor.datos.CocheConcesionario;
+import concesionario.servidor.datos.CocheTaller;
 import concesionario.servidor.datos.Comercial;
 import concesionario.servidor.datos.DepartamentoCompras;
 import concesionario.servidor.datos.Empleado;

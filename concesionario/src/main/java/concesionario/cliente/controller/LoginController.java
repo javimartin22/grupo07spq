@@ -35,6 +35,10 @@ public class LoginController {
 		return cliente.registrarCoche(auto);
 	}
 	
+	public Response registrarCocheTaller(CocheTaller cocheTaller) {
+		return cliente.registrarCocheTaller(cocheTaller);
+	}
+	
 	public Response registroCliente(Cliente client) {
 		return cliente.registroCliente(client);
 	}

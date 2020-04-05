@@ -135,6 +135,25 @@ public class LoginResources {
 		}
 	}
 	
+
+	@POST
+	@Path("insertCocheTaller")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response registrarCocheTaller(CocheTaller cocheTaller) {
+		System.out.println(cocheTaller.getModelo());
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		boolean b = BD.cocheTallerInsert(st, cocheTaller.getMatricula(), cocheTaller.getMarca(), cocheTaller.getModelo(), cocheTaller.getMecanico(),cocheTaller.getDniCliente(),cocheTaller.getCoste(), cocheTaller.getEstado());
+		
+		if (b) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
+	
 	@POST
  	@Path("insertVenta")
  	@Consumes(MediaType.APPLICATION_JSON)

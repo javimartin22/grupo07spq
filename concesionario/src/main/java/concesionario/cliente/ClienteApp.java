@@ -65,6 +65,16 @@ public class ClienteApp {
         return response;
 	}
 	
+	public Response registrarCocheTaller(CocheTaller cocheTaller) {
+		System.out.println(cocheTaller.getMarca());
+		WebTarget registroTarget = loginTarget.path("insertCocheTaller");
+		Entity<CocheTaller> entity = Entity.entity(cocheTaller, MediaType.APPLICATION_JSON);
+		Response response = registroTarget.request(MediaType.TEXT_PLAIN).post(entity);
+
+        return response;
+	}
+	
+	
 	
 	public Response registroCliente (Cliente client) {
 		WebTarget insertClientTarget = loginTarget.path("insertClient");

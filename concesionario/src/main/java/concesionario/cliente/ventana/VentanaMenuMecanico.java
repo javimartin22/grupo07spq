@@ -85,7 +85,9 @@ public class VentanaMenuMecanico extends JFrame {
 		JButton registarVehiculo = new JButton("Registrar vehiculo del taller");
 		registarVehiculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//hace falta instanciar la ventana donde se puedan registrar los vehiculos 
+				VentanaRegistroCocheTaller vrct = new VentanaRegistroCocheTaller(loginController, nickname);
+				vrct.setVisible(true);
+				dispose();
 			}
 		});
 		registarVehiculo.setBounds(104, 118, 201, 23);
