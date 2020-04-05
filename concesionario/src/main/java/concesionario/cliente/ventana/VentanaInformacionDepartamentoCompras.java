@@ -1,7 +1,5 @@
 package concesionario.cliente.ventana;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,184 +16,147 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 
 public class VentanaInformacionDepartamentoCompras extends JFrame {
-
-	private JPanel contentPane;
-	private LoginController controller;
-	private DepartamentoCompras depcompras;
 	
-	public void VentanaInformacionDepartamentoCompras(LoginController loginController, DepartamentoCompras depcompras) {
-		this.controller = loginController;
-		this.depcompras = depcompras;
-		initVentanaInformacionDepartamentoCompras();
+	private static final long serialVersionUID = 1L;
+ 
+	private JPanel contentPane;
+	private LoginController loginController;
+	
+	public VentanaInformacionDepartamentoCompras(LoginController loginController, DepartamentoCompras departamentoCompras, String nickname) {
+		this.loginController = loginController;
+		initVentanaInformacionDepartamentoCompras(departamentoCompras, nickname);
 	}
-	/**
-	 * Create the frame.
-	 */
-	private void initVentanaInformacionDepartamentoCompras() {
+	
+	private void initVentanaInformacionDepartamentoCompras(DepartamentoCompras departamentoCompras, String nickname) {
 		setTitle("Informacion Departamento Compras");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 406, 572);
+		setBounds(100, 100, 434, 624);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNombre = new JLabel("Nombre: ");
-		lblNombre.setBounds(28, 23, 310, 16);
+		lblNombre.setBounds(28, 23, 104, 16);
 		contentPane.add(lblNombre);
 		
-		JTextField txtNombre = new JTextField();
-		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtNombre.setBounds(350, 23, 150, 20);
-		contentPane.add(txtNombre);
-		
 		JLabel lblApellido = new JLabel("Apellido: ");
-		lblApellido.setBounds(28, 60, 310, 16);
+		lblApellido.setBounds(28, 60, 104, 16);
 		contentPane.add(lblApellido);
 		
-		JTextField txtApellido= new JTextField();
-		txtApellido.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtApellido.setBounds(350, 60, 150, 20);
-		contentPane.add(txtApellido);
-		
 		JLabel lblNickname = new JLabel("Nickname: ");
-		lblNickname.setBounds(28, 98, 310, 16);
+		lblNickname.setBounds(28, 98, 104, 16);
 		contentPane.add(lblNickname);
 		
-		JTextField txtNickname= new JTextField();
-		txtNickname.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtNickname.setBounds(350, 98, 150, 20);
-		contentPane.add(txtNickname);
-		
 		JLabel lblDni = new JLabel("DNI:  ");
-		lblDni.setBounds(28, 137, 310, 16);
+		lblDni.setBounds(28, 137, 104, 16);
 		contentPane.add(lblDni);
 		
-		JTextField txtDni= new JTextField();
-		txtDni.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtDni.setBounds(350, 137, 150, 20);
-		contentPane.add(txtDni);
-		
 		JLabel lblSexo = new JLabel("Sexo:");
-		lblSexo.setBounds(28, 175, 310, 16);
+		lblSexo.setBounds(28, 175, 104, 16);
 		contentPane.add(lblSexo);
 		
-		JTextField txtSexo= new JTextField();
-		txtSexo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtSexo.setBounds(350, 175, 150, 20);
-		contentPane.add(txtSexo);
-		
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(28, 210, 310, 16);
+		lblEmail.setBounds(28, 210, 104, 16);
 		contentPane.add(lblEmail);
 		
-		JTextField txtEmail= new JTextField();
-		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtEmail.setBounds(350, 210, 150, 20);
-		contentPane.add(txtEmail);
-		
 		JLabel lblCiudad = new JLabel("Ciudad:");
-		lblCiudad.setBounds(28, 248, 310, 16);
+		lblCiudad.setBounds(28, 248, 104, 16);
 		contentPane.add(lblCiudad);
 		
-		JTextField txtCiudad= new JTextField();
-		txtCiudad.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtCiudad.setBounds(350, 248, 150, 20);
-		contentPane.add(txtCiudad);
-		
 		JLabel lblCodigoPostal = new JLabel("Codigo Postal:");
-		lblCodigoPostal.setBounds(28, 287, 310, 16);
+		lblCodigoPostal.setBounds(28, 287, 104, 16);
 		contentPane.add(lblCodigoPostal);
 		
-		JTextField txtCodigoPostal= new JTextField();
-		txtCodigoPostal.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtCodigoPostal.setBounds(350, 287, 150, 20);
-		contentPane.add(txtCodigoPostal);
-		
 		JLabel lblDireccion = new JLabel("Direccion:");
-		lblDireccion.setBounds(28, 325, 310, 16);
+		lblDireccion.setBounds(28, 325, 104, 16);
 		contentPane.add(lblDireccion);
 		
-		JTextField txtDireccion= new JTextField();
-		txtDireccion.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtDireccion.setBounds(350, 325, 150, 20);
-		contentPane.add(txtDireccion);
-		
 		JLabel lblNTelefono = new JLabel("Nº Telefono:");
-		lblNTelefono.setBounds(28, 365, 310, 16);
+		lblNTelefono.setBounds(28, 365, 104, 16);
 		contentPane.add(lblNTelefono);
 		
-		JTextField txtTelefono= new JTextField();
-		txtTelefono.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtTelefono.setBounds(350, 365, 150, 20);
-		contentPane.add(txtTelefono);
-		
 		JLabel lblNss = new JLabel("NSS:");
-		lblNss.setBounds(28, 404, 310, 16);
+		lblNss.setBounds(28, 404, 104, 16);
 		contentPane.add(lblNss);
 		
-		JTextField txtNss= new JTextField();
-		txtNss.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtNss.setBounds(350, 404, 150, 20);
-		contentPane.add(txtNss);
-		
 		JLabel lblNCuenta = new JLabel("Nº Cuenta: ");
-		lblNCuenta.setBounds(28, 441, 310, 16);
+		lblNCuenta.setBounds(28, 441, 104, 16);
 		contentPane.add(lblNCuenta);
 		
-		JTextField txtNcuenta= new JTextField();
-		txtNcuenta.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtNcuenta.setBounds(350, 441, 150, 20);
-		contentPane.add(txtNcuenta);
-		
 		JLabel lblSueldo = new JLabel("Sueldo:");
-		lblSueldo.setBounds(28, 477, 310, 16);
+		lblSueldo.setBounds(28, 477, 104, 16);
 		contentPane.add(lblSueldo);
 		
-		JTextField txtSueldo= new JTextField();
-		txtSueldo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtSueldo.setBounds(350, 477, 150, 20);
-		contentPane.add(txtSueldo);
-		
 		JLabel lblPedidos = new JLabel("Pedidos:");
-		lblPedidos.setBounds(28, 514, 310, 16);
+		lblPedidos.setBounds(28, 514, 104, 16);
 		contentPane.add(lblPedidos);
 		
-		JTextField txtPedidos= new JTextField();
-		txtPedidos.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPedidos.setBounds(350, 514, 150, 20);
-		contentPane.add(txtPedidos);
+		JLabel lblNewLabel = new JLabel(departamentoCompras.getNombre());
+		lblNewLabel.setBounds(177, 23, 219, 16);
+		contentPane.add(lblNewLabel);
 		
-	
-		//Añadir valores
-		txtNombre.setText(depcompras.getNombre());
-		txtApellido.setText(depcompras.getApellido());
-		txtNickname.setText(depcompras.getNickname());
-		txtDni.setText(depcompras.getDNI());
-		txtSexo.setText(depcompras.getSexo());
-		txtEmail.setText(depcompras.getEmail());
-		txtCiudad.setText(depcompras.getCiudad());
-		txtCodigoPostal.setText(Integer.toString(depcompras.getCodigoPostal()));
-		txtDireccion.setText(depcompras.getDireccion());
-		txtTelefono.setText(depcompras.getNumeroTelefono());
-		txtNss.setText(depcompras.getNSS());
-		txtNcuenta.setText(depcompras.getNumeroCuenta());
-		txtSueldo.setText(Integer.toString(depcompras.getSueldo()));
-		txtPedidos.setText(Integer.toString(depcompras.getPedidos()));
+		JLabel lblNewLabel_1 = new JLabel(departamentoCompras.getApellido());
+		lblNewLabel_1.setBounds(177, 60, 219, 16);
+		contentPane.add(lblNewLabel_1);
 		
+		JLabel lblNewLabel_2 = new JLabel(departamentoCompras.getNickname());
+		lblNewLabel_2.setBounds(177, 98, 219, 16);
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel(departamentoCompras.getDNI());
+		lblNewLabel_3.setBounds(177, 137, 219, 16);
+		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel(departamentoCompras.getSexo());
+		lblNewLabel_4.setBounds(177, 175, 219, 16);
+		contentPane.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel(departamentoCompras.getEmail());
+		lblNewLabel_5.setBounds(177, 210, 219, 16);
+		contentPane.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel(departamentoCompras.getCiudad());
+		lblNewLabel_6.setBounds(177, 248, 219, 16);
+		contentPane.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("" + departamentoCompras.getCodigoPostal());
+		lblNewLabel_7.setBounds(177, 287, 219, 16);
+		contentPane.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_8 = new JLabel(departamentoCompras.getDireccion());
+		lblNewLabel_8.setBounds(177, 325, 219, 16);
+		contentPane.add(lblNewLabel_8);
+		
+		JLabel lblNewLabel_9 = new JLabel(departamentoCompras.getNumeroTelefono());
+		lblNewLabel_9.setBounds(177, 365, 219, 16);
+		contentPane.add(lblNewLabel_9);
+		
+		JLabel lblNewLabel_10 = new JLabel(departamentoCompras.getNSS());
+		lblNewLabel_10.setBounds(177, 404, 219, 16);
+		contentPane.add(lblNewLabel_10);
+		
+		JLabel lblNewLabel_11 = new JLabel(departamentoCompras.getNumeroCuenta());
+		lblNewLabel_11.setBounds(177, 441, 219, 16);
+		contentPane.add(lblNewLabel_11);
+		
+		JLabel lblNewLabel_12 = new JLabel("" + departamentoCompras.getSueldo());
+		lblNewLabel_12.setBounds(177, 477, 219, 16);
+		contentPane.add(lblNewLabel_12);
+		
+		JLabel lblNewLabel_13 = new JLabel("" + departamentoCompras.getPedidos());
+		lblNewLabel_13.setBounds(177, 514, 219, 16);
+		contentPane.add(lblNewLabel_13);
 		
 		JButton btnSalir = new JButton("Salir");
-		btnSalir.setBounds(136, 505, 117, 29);
+		btnSalir.setBounds(153, 552, 117, 29);
 		contentPane.add(btnSalir);
-		
-		
 		btnSalir.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//VentanaEmpleados vempl = new VentanaEmpleados(loginController, nickname)
-				//vempl.setVisible(true);
-				//dispose();
+				VentanaEmpleados vempl = new VentanaEmpleados(loginController, nickname);
+				vempl.setVisible(true);
+				dispose();
 			}
 		});
 		
