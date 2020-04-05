@@ -8,6 +8,7 @@ import concesionario.cliente.ClienteApp;
 import concesionario.servidor.datos.Cliente;
 import concesionario.servidor.datos.CocheConcesionario;
 import concesionario.servidor.datos.CocheMatriculado;
+import concesionario.servidor.datos.CocheTaller;
 import concesionario.servidor.datos.Comercial;
 import concesionario.servidor.datos.DepartamentoCompras;
 import concesionario.servidor.datos.Empleado;
@@ -121,4 +122,9 @@ public class LoginController {
 	public Response eliminarDepartamentoCompras(String nickname) {
 		return cliente.departamentoComprasDelete(nickname);
 	}
+	
+	public List<CocheTaller> cargarTablaCocheTaller(){
+		return cliente.cargarTablaCocheTaller();
+	}
+	
 }

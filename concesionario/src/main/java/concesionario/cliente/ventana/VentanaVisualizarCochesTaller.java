@@ -63,26 +63,26 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 	}
 	
 	private void cargarTabla(JTable table) {
-//		List<CocheTaller> coches = loginController.cargarTablaEmpleado();
+		List<CocheTaller> coches = loginController.cargarTablaCocheTaller();
 		
 		String[] columnNames = {"Nickname", "Nombre", "Apellido", "DNI", "Tipo Empleado"};
 		
-//		if (!coches.isEmpty()) {
-//			 DefaultTableModel model = new DefaultTableModel();
-//			   table.setModel(model);
-//			   model.setColumnIdentifiers(columnNames);
-//			   
-//			   for (CocheTaller c : coches) {
-//				   Object[] o = new Object[7];
+		if (!coches.isEmpty()) {
+			 DefaultTableModel model = new DefaultTableModel();
+			   table.setModel(model);
+			   model.setColumnIdentifiers(columnNames);
+			   
+			   for (CocheTaller c : coches) {
+				   Object[] o = new Object[7];
 //				   o[0] = e.getNickname();
 //				   o[1] = e.getNombre();
 //				   o[2] = e.getApellido();
 //				   o[3] = e.getDNI();
 //				   o[4] = cambioTipo(e.getTipoEmpleado());
-//				   model.addRow(o);
-//				 }
-//		} else {
-//			System.out.println("llega mal");
-//		}
+				   model.addRow(o);
+				 }
+		} else {
+			System.out.println("llega mal");
+		}
 	}
 }

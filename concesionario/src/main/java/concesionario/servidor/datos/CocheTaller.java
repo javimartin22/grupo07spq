@@ -6,7 +6,7 @@ public class CocheTaller {
 	private String modelo;
 	private String mecanico;
 	private String dniCliente;
-	private int coste; 
+	private double coste; 
 	private int estado;
 	
 	
@@ -14,7 +14,7 @@ public class CocheTaller {
 	public CocheTaller() {
 	}
 	
-	public CocheTaller(String matricula, String marca, String modelo, String mecanico, String dniCliente, int coste,
+	public CocheTaller(String matricula, String marca, String modelo, String mecanico, String dniCliente, double coste,
 			int estado) {
 		this.matricula = matricula;
 		this.marca = marca;
@@ -54,10 +54,10 @@ public class CocheTaller {
 	public void setDniCliente(String dniCliente) {
 		this.dniCliente = dniCliente;
 	}
-	public int getCoste() {
+	public double getCoste() {
 		return coste;
 	}
-	public void setCoste(int coste) {
+	public void setCoste(double coste) {
 		this.coste = coste;
 	}
 	public int getEstado() {

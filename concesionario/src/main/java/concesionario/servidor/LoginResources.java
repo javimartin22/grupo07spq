@@ -569,6 +569,37 @@ public class LoginResources {
 	}
 	
 	@GET
+	@Path("loadCocheTallerTable")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<CocheTaller> cargarCocheTallerTabla()throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		ResultSet rs = BD.cochesTallerSelect(st);
+		List<CocheTaller> coches_result = new ArrayList<CocheTaller>();
+		
+		if (rs == null) {
+			return coches_result;
+		} else {
+			
+			while(rs.next()) {
+				//Obtener atributos rs
+				String matricula = rs.getString("matriculaCoche");
+				String marca = rs.getString("marca");
+				int estado = rs.getInt("estado");
+				String modelo = rs.getString("modelo");
+				String mecanico = rs.getString("mecanico");
+				String dniCliente = rs.getString("dniCliente");
+				double coste = rs.getDouble("coste");
+				
+				CocheTaller coche = new CocheTaller(matricula, marca, modelo, mecanico, dniCliente, coste, estado);
+				coches_result.add(coche);
+			}
+			 
+			return coches_result;
+		}
+	}
+	
+	@GET
 	@Path("loadPiezaUtilizadasTable")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Pieza> cargarPiezaUtilizadaTabla()throws SQLException {

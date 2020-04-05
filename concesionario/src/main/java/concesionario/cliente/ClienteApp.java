@@ -17,6 +17,7 @@ import javax.ws.rs.client.Entity;
 import concesionario.servidor.datos.Cliente;
 import concesionario.servidor.datos.CocheConcesionario;
 import concesionario.servidor.datos.CocheMatriculado;
+import concesionario.servidor.datos.CocheTaller;
 import concesionario.servidor.datos.Comercial;
 import concesionario.servidor.datos.DepartamentoCompras;
 import concesionario.servidor.datos.Empleado;
@@ -244,6 +245,13 @@ public class ClienteApp {
 		GenericType<List<Venta>> genericType = new GenericType<List<Venta>>() {};
         List<Venta> ventas = loadVentaTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
 		return ventas;
+	}
+	
+	public List<CocheTaller> cargarTablaCocheTaller(){
+		WebTarget loadVentaTableTarget = loginTarget.path("loadCocheTallerTable");
+		GenericType<List<CocheTaller>> genericType = new GenericType<List<CocheTaller>>() {};
+        List<CocheTaller> coches = loadVentaTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
+		return coches;
 	}
 	
 
