@@ -99,7 +99,7 @@ public class VentanaMenuMecanico extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//ventana para iniciar serion
 				VentanaLogin vl = new VentanaLogin(loginController);
-				vl.setVisible(true);
+				vl.setVisible(true);///ee
 				dispose();
 			}
 		});
