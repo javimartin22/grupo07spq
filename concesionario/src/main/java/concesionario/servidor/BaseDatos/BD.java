@@ -511,13 +511,47 @@ public class BD {
 					}
 					return mecanico;
 				}
+				
+		//Busqueda mediante CODIGO:
+		public static Comercial ComercialSelect(Statement st, String nickname) {
+			String sentSQL = "";
+			Comercial comercial = null;
+			try {
+				sentSQL = "select * from " + TABLA_COMERCIAL + " where nickname= '" + nickname + "' ";
+				ResultSet rs = st.executeQuery(sentSQL);
+				if (rs.next()) {
+					String dni = rs.getString("dni");
+					String nick = rs.getString("nickname");
+					String contrasenya = rs.getString("contrasenia");
+					String nombre = rs.getString("nombre");
+					String apellido = rs.getString("apellido");
+					String sexo = rs.getString("sexo");
+					String email = rs.getString("email");
+					String ciudad = rs.getString("ciudad");
+					int codigoPostal = rs.getInt("codigoPostal");
+					String direccion = rs.getString("dir");
+					String numeroTelefono = rs.getString("numTelefono");
+					String NSS = rs.getString("NSS");
+					String numeroCuenta = rs.getString("numeroCuenta");
+					int sueldo = rs.getInt("sueldo");
+					int cochesVendidos = rs.getInt("cochesVendidos");
+					int importeObtenido = rs.getInt("importeObtenido");
+					int horas = rs.getInt("horas");
+					comercial = new Comercial(nick, contrasenya, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, direccion, NSS, numeroCuenta, sueldo, numeroTelefono, 1, cochesVendidos, importeObtenido, horas);
+				}
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return comercial;
+		}
 		
 	//Tabla DEPARTAMENTO_COMPRAS:
 	public static DepartamentoCompras departamentoCompraSelect(Statement st, String nickname) {
 		String sentSQL = "";
 		DepartamentoCompras depar = null;
 		try {
-			sentSQL = "select * from " + TABLA_COMERCIAL + " where nickname= '" + nickname + "' ";
+			sentSQL = "select * from " + TABLA_DEPARTAMENTO_COMPRAS + " where nickname= '" + nickname + "' ";
 			ResultSet rs = st.executeQuery(sentSQL);
 			if (rs.next()) {
 				String dni = rs.getString("dni");
@@ -784,10 +818,10 @@ public class BD {
 	}
 	
 	//Tabla EMPLEADO:
-	public static boolean empleadosDelete(Statement st, String dni) {
+	public static boolean empleadosDelete(Statement st, String nickname) {
 		String sentSQL = "";
 		try {
-			sentSQL = "delete from " + TABLA_EMPLEADO + " where dni= '" + secu(dni) + "'";
+			sentSQL = "delete from " + TABLA_EMPLEADO + " where nickname= '" + secu(nickname) + "'";
 			int val = st.executeUpdate(sentSQL);
 			return (val == 1);
 		} catch (SQLException e) {
@@ -798,10 +832,10 @@ public class BD {
 	}
 	
 	//Tabla MECANICO:
-	public static boolean mecanicosDelete(Statement st, String dni) {
+	public static boolean mecanicosDelete(Statement st, String nickname) {
 		String sentSQL = "";
 		try {
-			sentSQL = "delete from " + TABLA_MECANICO + " where dni= '" + secu(dni) + "'";
+			sentSQL = "delete from " + TABLA_MECANICO + " where nickname= '" + secu(nickname) + "'";
 			int val = st.executeUpdate(sentSQL);
 			return (val == 1);
 		} catch (SQLException e) {
@@ -812,10 +846,24 @@ public class BD {
 	}
 	
 	//Tabla COMERCIAL:
-	public static boolean comercialesDelete(Statement st, String dni) {
+	public static boolean comercialesDelete(Statement st, String nickname) {
 		String sentSQL = "";
 		try {
-			sentSQL = "delete from " + TABLA_COMERCIAL + " where dni= '" + secu(dni) + "'";
+			sentSQL = "delete from " + TABLA_COMERCIAL + " where nickname= '" + secu(nickname) + "'";
+			int val = st.executeUpdate(sentSQL);
+			return (val == 1);
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	//Tabla COMERCIAL:
+	public static boolean departamentoComprasDelete(Statement st, String nickname) {
+		String sentSQL = "";
+		try {
+			sentSQL = "delete from " + TABLA_DEPARTAMENTO_COMPRAS + " where nickname= '" + secu(nickname) + "'";
 			int val = st.executeUpdate(sentSQL);
 			return (val == 1);
 		} catch (SQLException e) {
