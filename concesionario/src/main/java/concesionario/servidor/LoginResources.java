@@ -289,6 +289,66 @@ public class LoginResources {
 		}
 	}
 	
+	@POST
+	@Path("deleteMecanico")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response deleteMecanico(String nickname) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		BD.mecanicosDelete(st, nickname);
+		BD.empleadosDelete(st, nickname);
+		BD.usuariosDelete(st, nickname);
+		Mecanico nuevo = BD.mecanicoSelect(st, nickname);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
+	@POST
+	@Path("deleteComercial")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response deleteComercial(String nickname) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		BD.comercialesDelete(st, nickname);
+		BD.empleadosDelete(st, nickname);
+		BD.usuariosDelete(st, nickname);
+		Comercial nuevo = BD.ComercialSelect(st, nickname);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
+	@POST
+	@Path("deleteDepartamentoCompras")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response deleteDepartamentoCompras(String nickname) {
+		System.out.println("llega");
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		BD.departamentoComprasDelete(st, nickname);
+		BD.empleadosDelete(st, nickname);
+		BD.usuariosDelete(st, nickname);
+		DepartamentoCompras nuevo = BD.departamentoCompraSelect(st, nickname);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
 	
 	@POST
 	@Path("selectClient")
@@ -303,7 +363,6 @@ public class LoginResources {
 		if (nuevo == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		} else {
-			Entity<Usuario> entity = Entity.entity(nuevo, MediaType.APPLICATION_JSON);
 			return Response.status(Response.Status.OK).entity(nuevo).build();
 		}
 	}
@@ -322,7 +381,42 @@ public class LoginResources {
 		if (nuevo == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		} else {
-			Entity<Mecanico> entity = Entity.entity(nuevo, MediaType.APPLICATION_JSON);
+			return Response.status(Response.Status.OK).entity(nuevo).build();
+		}
+	}
+	
+	@POST
+	@Path("selectComercial")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response selectComercial(String nickname) {
+
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		Comercial nuevo = BD.ComercialSelect(st, nickname);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).entity(nuevo).build();
+		}
+	}
+	
+	@POST
+	@Path("selectDepartamentoCompras")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response selectDepartamentoCompras(String nickname) {
+
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		DepartamentoCompras nuevo = BD.departamentoCompraSelect(st, nickname);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
 			return Response.status(Response.Status.OK).entity(nuevo).build();
 		}
 	}
@@ -542,7 +636,6 @@ public class LoginResources {
 	@Path("loadEmpleadosTable")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Empleado> cargarEmpleadoTabla()throws SQLException {
-		System.out.println("llega");
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		

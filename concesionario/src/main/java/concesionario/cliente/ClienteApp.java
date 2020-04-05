@@ -147,6 +147,43 @@ public class ClienteApp {
 		return response;
 	}
 	
+	public Response mecanicoDelete(String nickname) {
+		WebTarget deleteMecanicoTarget = loginTarget.path("deleteMecanico");
+		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
+		Response response = deleteMecanicoTarget.request(MediaType.TEXT_PLAIN).post(ent);
+		return response;
+	}
+	
+	public Response comercialSelect(String nickname) {
+		WebTarget selectComercialTarget = loginTarget.path("selectComercial");
+		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
+		Response response = selectComercialTarget.request(MediaType.APPLICATION_JSON).post(ent);
+		return response;
+	}
+	
+	public Response comercialDelete(String nickname) {
+		WebTarget deleteComercialTarget = loginTarget.path("deleteComercial");
+		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
+		System.out.println(nickname);
+		Response response = deleteComercialTarget.request(MediaType.TEXT_PLAIN).post(ent);
+		return response;
+	}
+	
+	public Response departamentoComprasSelect(String nickname) {
+		WebTarget selectDepartamentoComprasTarget = loginTarget.path("selectDepartamentoCompras");
+		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
+		Response response = selectDepartamentoComprasTarget.request(MediaType.APPLICATION_JSON).post(ent);
+		return response;
+	}
+	
+	public Response departamentoComprasDelete(String nickname) {
+		WebTarget deleteDepartamentoComprasTarget = loginTarget.path("deleteDepartamentoCompras1");
+		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
+		System.out.println(nickname);
+		Response response = deleteDepartamentoComprasTarget.request(MediaType.TEXT_PLAIN).post(ent);
+		return response;
+	}
+	
 	public Response registroVenta(Venta venta) {
  		WebTarget insertVentaTarget = loginTarget.path("insertVenta");
  		Entity<Venta> entity = Entity.entity(venta, MediaType.APPLICATION_JSON);
@@ -176,19 +213,6 @@ public class ClienteApp {
 	}
 	
 	public Response registroPiezaUtilizada(Pieza pieza, int unidades) {
-//		WebTarget deletePiezaUtilizadaTarget = loginTarget.path("deletePiezaUtilizada");
-//		Entity<Pieza> ent = Entity.entity(pieza, MediaType.APPLICATION_JSON);
-//		Response resp = deletePiezaUtilizadaTarget.request(MediaType.TEXT_PLAIN).post(ent);
-//		
-//		if (resp.getStatus() == Status.OK.getStatusCode()) {
-//			pieza.setUnidades(pieza.getUnidades() + unidades);
-//			WebTarget insertPiezaUtilizadaTarget = loginTarget.path("insertPiezasUtilizada");
-//	 		Entity<Pieza> entity = Entity.entity(pieza, MediaType.APPLICATION_JSON);
-//	 		Response response = insertPiezaUtilizadaTarget.request(MediaType.TEXT_PLAIN).post(entity);
-//	 		return response;
-//		} else {
-//			return null;
-//		}
 		return null;
  		
 	}

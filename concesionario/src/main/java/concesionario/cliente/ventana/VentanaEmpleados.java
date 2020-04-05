@@ -2,12 +2,19 @@ package concesionario.cliente.ventana;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.LoginController;
+import concesionario.servidor.datos.Cliente;
+import concesionario.servidor.datos.Comercial;
+import concesionario.servidor.datos.DepartamentoCompras;
 import concesionario.servidor.datos.Empleado;
+import concesionario.servidor.datos.Mecanico;
 
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -36,10 +43,26 @@ public class VentanaEmpleados extends JFrame {
 		getContentPane().setLayout(null);
 		
 		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int fila = table.getSelectedRow();
+				String tipo = (String) table.getModel().getValueAt(fila, 4);
+				String nombre = (String) table.getModel().getValueAt(fila, 0);
+				eliminarEmpleado(tipo, nickname, nombre);
+			}
+		});
 		btnEliminar.setBounds(847, 299, 117, 29);
 		getContentPane().add(btnEliminar);
 		
-		JButton btnVer = new JButton("Ver");
+		JButton btnVer = new JButton("Ver Info");
+		btnVer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int fila = table.getSelectedRow();
+				String tipo = (String) table.getModel().getValueAt(fila, 4);
+				String nombre = (String) table.getModel().getValueAt(fila, 0);
+				verInfo(tipo, nickname, nombre);
+			}
+		});
 		btnVer.setBounds(316, 299, 112, 29);
 		getContentPane().add(btnVer);
 		
@@ -147,5 +170,74 @@ public class VentanaEmpleados extends JFrame {
 			break;
 		}
 		return tipo;
+	}
+	
+	public void verInfo(String tipo, String nickname, String nombre) {
+		switch (tipo) {
+		case "Mecanico":
+			Response response = loginController.seleccionarMecanico(nombre);
+			if (response.getStatus() == Status.OK.getStatusCode()) {
+				Mecanico mecanic = response.readEntity(Mecanico.class);
+				VentanaInformacionMecanico vim = new VentanaInformacionMecanico(loginController, nickname, mecanic);
+				vim.setVisible(true);
+				dispose();
+			} else {
+				System.out.println("llega mal");
+			}
+			break;
+		case "Comercial":
+			Response res = loginController.seleccionarComercial(nombre);
+			if (res.getStatus() == Status.OK.getStatusCode()) {
+				Comercial comercial = res.readEntity(Comercial.class);
+				VentanaInformacionComercial vic = new VentanaInformacionComercial(loginController, comercial, nickname);
+				vic.setVisible(true);
+				dispose();
+			} else {
+				System.out.println("llega mal");
+			}
+			break;
+		case "Departamento Compras":
+			Response resp = loginController.seleccionarDepartamentoCompras(nombre);
+			if (resp.getStatus() == Status.OK.getStatusCode()) {
+				DepartamentoCompras dep = resp.readEntity(DepartamentoCompras.class);
+				VentanaInformacionDepartamentoCompras vidc = new VentanaInformacionDepartamentoCompras(loginController, dep, nickname);
+				vidc.setVisible(true);
+				dispose();
+			} else {
+				System.out.println("llega mal");
+			}
+			break;
+		}
+	}
+	
+	public void eliminarEmpleado(String tipo, String nickname, String nombre) {
+		switch (tipo) {
+		case "Mecanico":
+			Response response = loginController.eliminarMecanico(nombre);
+			if (response.getStatus() == Status.OK.getStatusCode()) {
+				JOptionPane.showMessageDialog(this, "Mecanico elimindado");
+			} else {
+				System.out.println("llega mal");
+			}
+			break;
+		case "Comercial":
+			System.out.println(nombre);
+			Response res = loginController.seleccionarComercial(nombre);
+			if (res.getStatus() == Status.OK.getStatusCode()) {
+				JOptionPane.showMessageDialog(this, "Comercial elimindado");
+			} else {
+				System.out.println("llega mal");
+			}
+			break;
+		case "Departamento Compras":
+			System.out.println(nombre);
+			Response resp = loginController.seleccionarDepartamentoCompras(nombre);
+			if (resp.getStatus() == Status.OK.getStatusCode()) {
+				JOptionPane.showMessageDialog(this, "Empleado del Departamento de Compras elimindado");
+			} else {
+				System.out.println("llega mal");
+			}
+			break;
+		}
 	}
 }

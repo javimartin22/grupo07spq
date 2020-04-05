@@ -70,6 +70,14 @@ public class LoginController {
 		return cliente.mecanicoSelect(nickname);
 	}
 	
+	public Response seleccionarComercial(String nickname) {
+		return cliente.comercialSelect(nickname);
+	}
+	
+	public Response seleccionarDepartamentoCompras(String nickname) {
+		return cliente.departamentoComprasSelect(nickname);
+	}
+	
 	public Response registrarVenta(Venta venta) {
 		return cliente.registroVenta(venta);
 	}
@@ -102,5 +110,15 @@ public class LoginController {
 		return cliente.cargarTablaEmpleados();
 	}
 	
+	public Response eliminarMecanico(String nickname) {
+		return cliente.mecanicoDelete(nickname);
+	}
 	
+	public Response eliminarComercial(String nickname) {
+		return cliente.comercialDelete(nickname);
+	}
+	
+	public Response eliminarDepartamentoCompras(String nickname) {
+		return cliente.departamentoComprasDelete(nickname);
+	}
 }
