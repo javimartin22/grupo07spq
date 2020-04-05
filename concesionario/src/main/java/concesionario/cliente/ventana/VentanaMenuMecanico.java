@@ -40,7 +40,7 @@ public class VentanaMenuMecanico extends JFrame {
 	public void iniciarVentanaMenuMecanico(String nickname){
 		this.setTitle("Menu del mecanico");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(434,282);
+		this.setSize(434,358);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
@@ -78,7 +78,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		verHistoial.setBounds(104, 161, 201, 23);
+		verHistoial.setBounds(104, 213, 201, 23);
 		panel.add(verHistoial);
 		
 		//boton para poder registrar los vehiculos que pasan por el taller
@@ -101,7 +101,18 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		buttonSalir.setBounds(162, 208, 89, 23);
+		buttonSalir.setBounds(151, 262, 89, 23);
 		panel.add(buttonSalir);
+		
+		JButton btnVerCochesTaller = new JButton("Ver Coches Taller");
+		btnVerCochesTaller.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaVisualizarCochesTaller vvct = new VentanaVisualizarCochesTaller(loginController, nickname);
+				vvct.setVisible(true);
+				dispose();
+			}
+		});
+		btnVerCochesTaller.setBounds(124, 162, 160, 29);
+		panel.add(btnVerCochesTaller);
 	}
 }

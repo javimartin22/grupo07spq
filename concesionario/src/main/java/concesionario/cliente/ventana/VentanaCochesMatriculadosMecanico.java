@@ -50,7 +50,7 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(849, 299, 117, 29);
+		btnVolver.setBounds(709, 299, 117, 29);
 		getContentPane().add(btnVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -68,7 +68,7 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 				cargarTabla(table);
 			}
 		});
-		btnVer.setBounds(446, 299, 112, 29);
+		btnVer.setBounds(838, 299, 112, 29);
 		getContentPane().add(btnVer);
 		
 	}
