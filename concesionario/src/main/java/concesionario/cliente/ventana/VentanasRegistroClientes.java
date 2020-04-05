@@ -197,11 +197,15 @@ public class VentanasRegistroClientes extends JFrame {
 		//Comprobamos si todos los campos han sido completados.
 		if (!nombre.equals("") && !dni.equals("") && !apellido.equals("") && !email.equals("") && !ciudad.equals("") && !c.equals("") && !dir.equals("") && !numTelefono.equals("")) {
 			//Comprobamos la longitud del DNI:
-			if (dni.length() == 10 ) {
+			if (dni.length() == 9 ) {
 				//Compobamos la longitud del CodigoPostal
 				if (c.length() == 5) {
 					if (comprobarTelefono(numTelefono) && numTelefono.length() == 9) {
-						bool = true;
+						if (!email.contains("@")){
+							bool = true;
+						} else {
+							JOptionPane.showMessageDialog(contentPane, "El email debe contener una @");
+						}
 					} else {
 						JOptionPane.showMessageDialog(contentPane, "El numero de telefono debe ser correcto."); //En caso de que el CodigoPostal no sea correcto se muestra el mensaje.
 					}
