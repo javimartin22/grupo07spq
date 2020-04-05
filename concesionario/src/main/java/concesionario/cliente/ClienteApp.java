@@ -181,6 +181,13 @@ public class ClienteApp {
 		return response;
 	}
 	
+	public Response CocheTallerDelete(String matricula) {
+		WebTarget deleteComercialTarget = loginTarget.path("deleteCocheTaller");
+		Entity<String> ent = Entity.entity(matricula, MediaType.APPLICATION_JSON);
+		Response response = deleteComercialTarget.request(MediaType.TEXT_PLAIN).post(ent);
+		return response;
+	}
+	
 	public Response departamentoComprasSelect(String nickname) {
 		WebTarget selectDepartamentoComprasTarget = loginTarget.path("selectDepartamentoCompras");
 		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
@@ -263,6 +270,8 @@ public class ClienteApp {
         List<CocheTaller> coches = loadVentaTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
 		return coches;
 	}
+	
+	
 	
 
 	 public static void main(String[] args) {

@@ -309,6 +309,23 @@ public class LoginResources {
 	}
 	
 	@POST
+	@Path("deleteCocheTaller")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response deleteCocheTaller(String matricula) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		boolean b = BD.cocheTallerDelete(st, matricula);
+		
+		if (b) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
+	@POST
 	@Path("deleteMecanico")
 	@Consumes(MediaType.APPLICATION_JSON)
 	//@Produces("application/json")

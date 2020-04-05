@@ -949,6 +949,20 @@ public class BD {
 		}
 	}
 	
+	//Tabla TALLER:
+		public static boolean cocheTallerDelete(Statement st, String matricula) {
+			String sentSQL = "";
+			try {
+				sentSQL = "delete from " + TABLA_TALLER + " where matriculaCoche= '" + secu(matricula) + "'";
+				int val = st.executeUpdate(sentSQL);
+				return (val == 1);
+			} catch (SQLException e) {
+				lastError = e;
+				e.printStackTrace();
+				return false;
+			}	
+		}
+	
 	//Tabla VENTAS:
 	public static boolean ventasDelete(Statement st, String codigoVenta) {
 		String sentSQL = "";
