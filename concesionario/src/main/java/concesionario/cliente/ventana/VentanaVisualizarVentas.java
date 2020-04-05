@@ -41,6 +41,7 @@ public class VentanaVisualizarVentas extends JFrame {
 
 		setAutoRequestFocus(false);
 		setBounds(100, 100, 992, 400);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Ventas");
 		getContentPane().setLayout(null);
 		
@@ -66,7 +67,6 @@ public class VentanaVisualizarVentas extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetearTabla(table);
-				//cargarTabla(table, st);
 			}
 		});
 		btnNewButton.setBounds(458, 304, 117, 29);
@@ -169,7 +169,6 @@ public class VentanaVisualizarVentas extends JFrame {
 //	}
 	
 	private static void resetearTabla(JTable tabla) {
-		 DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
-	       tb.setRowCount(0);
+		
 	}
 }
