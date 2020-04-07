@@ -104,6 +104,13 @@ public class VentanaDetallesCoche extends JFrame {
 		panel.add(lblInformacionDelCoche);
 		
 		JButton btnRegresar = new JButton("Regresar");
+		btnRegresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaCochesConcesionario vcc = new VentanaCochesConcesionario(loginController, nickname);
+				vcc.setVisible(true);
+				dispose();
+			}
+		});
 		btnRegresar.setBounds(117, 326, 117, 29);
 		panel.add(btnRegresar);
 	}

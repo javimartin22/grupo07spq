@@ -48,6 +48,13 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaCochesConcesionario vcc = new VentanaCochesConcesionario(loginController, nickname);
+				vcc.setVisible(true);
+				dispose();
+			}
+		});
 		btnCancelar.setBounds(105, 290, 117, 29);
 		contentPane.add(btnCancelar);
 		

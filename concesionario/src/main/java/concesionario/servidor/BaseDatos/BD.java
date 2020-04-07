@@ -427,7 +427,7 @@ public class BD {
 			String sentSQL = "";
 			Cliente client = null;
 			try {
-				sentSQL = "select * from " + TABLA_CLIENTE + " where nickname='" + nickname + "'";
+				sentSQL = "select * from " + TABLA_CLIENTE + " where nickname= '" + nickname + "'";
 				ResultSet rs = st.executeQuery(sentSQL);
 				if (rs.next()) {
 					String dni = rs.getString("dni");
