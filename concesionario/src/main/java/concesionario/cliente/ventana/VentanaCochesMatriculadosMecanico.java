@@ -74,30 +74,11 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 		
 	}
 	
-	private static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
-	    ResultSetMetaData metaData = rs.getMetaData();
-	    // Nombre de las columnas:
-		    Vector<String> columnNames = new Vector<String>();
-		    int columnCount = metaData.getColumnCount();
-		    for (int column = 1; column <= columnCount; column++) {
-		        columnNames.add(metaData.getColumnName(column));
-		    }
-	    // Datos de la tabla:
-		    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
-		    while (rs.next()) {
-		        Vector<Object> vector = new Vector<Object>();
-		        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-		            vector.add(rs.getObject(columnIndex));
-		        }
-		        data.add(vector);
-		    }
-	    return new DefaultTableModel(data, columnNames);
-	}
-	
 	public void cargarTabla(JTable table) {
+		System.out.println("HOLA");
 		List<CocheMatriculado> cochesMatric = loginController.cargarCochesMatriculados();
 		
-		String[] columnNames = {"Matricula","Marca", "Modelo", "Anio Matriculacion", "Revisiones", "Nombre Propietario", "Nº Puertas", "Color"};
+		String[] columnNames = {"Matricula", "Marca", "Modelo", "Anio Matriculacion", "Revisiones", "CV", "Nombre Propietario", "Nº Puertas", "Color"};
 		
 		if (!cochesMatric.isEmpty()) {
 			 DefaultTableModel model = new DefaultTableModel();
@@ -105,10 +86,10 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 			   model.setColumnIdentifiers(columnNames);
 			   
 			   for (CocheMatriculado cm : cochesMatric) {
-				   Object[] o = new Object[5];
-				   o[0] = cm.getMarca();
-				   o[1] = cm.getModelo();
-				   o[2] = cm.getMatricula();
+				   Object[] o = new Object[9];
+				   o[0] = cm.getMatricula();
+				   o[1] = cm.getMarca();
+				   o[2] = cm.getModelo();
 				   o[3] = cm.getAnyoMatriculacion();
 				   o[4] = cm.getRevisiones();
 				   o[5] = cm.getCv();

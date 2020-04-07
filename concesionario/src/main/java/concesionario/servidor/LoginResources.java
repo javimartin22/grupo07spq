@@ -390,7 +390,7 @@ public class LoginResources {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces("application/json")
 	public Response selectCliente(String nickname) {
-		
+		con = BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
 		Cliente nuevo = BD.clienteSelect(st, nickname);
@@ -710,7 +710,7 @@ public class LoginResources {
 			
 			while(rs.next()) {
 				//Obtener atributos rs
-				String matricula = rs.getString("matriculaCoche");
+				String matricula = rs.getString("matricula");
 				String marca = rs.getString("marca");
 				String modelo = rs.getString("modelo");
 				int anyo_matric = rs.getInt("anyomatriculacion");
@@ -720,6 +720,7 @@ public class LoginResources {
 				String color = rs.getString("Color");
 				int numPuertas = rs.getInt("numPuertas");
 				CocheMatriculado cocheMatric = new CocheMatriculado(marca, modelo, matricula, nombrePropietario, color, numPuertas, anyo_matric, cv, revisiones);
+				
 				cochesMatric_result.add(cocheMatric);
 			}
 			 
@@ -779,28 +780,6 @@ public class LoginResources {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
-	
-	private static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
-	    ResultSetMetaData metaData = rs.getMetaData();
-	    // Nombre de las columnas:
-		    Vector<String> columnNames = new Vector<String>();
-		    int columnCount = metaData.getColumnCount();
-		    for (int column = 1; column <= columnCount; column++) {
-		        columnNames.add(metaData.getColumnName(column));
-		    }
-	    // Datos de la tabla:
-		    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
-		    while (rs.next()) {
-		        Vector<Object> vector = new Vector<Object>();
-		        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-		            vector.add(rs.getObject(columnIndex));
-		        }
-		        data.add(vector);
-		    }
-		DefaultTableModel dtm = new DefaultTableModel(data, columnNames);
-	    return dtm;
-	}
-	
 }
 
 
