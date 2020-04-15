@@ -7,12 +7,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import concesionario.servidor.datos.Cliente;
 import concesionario.servidor.datos.CocheConcesionario;
-import concesionario.servidor.datos.CocheTaller;
 import concesionario.servidor.datos.Comercial;
 import concesionario.servidor.datos.DepartamentoCompras;
 import concesionario.servidor.datos.Empleado;
@@ -522,7 +519,7 @@ public class BD {
 							String numeroCuenta = rs.getString("numeroCuenta");
 							int sueldo = rs.getInt("sueldo");
 							int horas = rs.getInt("horas");
-							mecanico = new Mecanico(nickname, contrasenya, 1, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, direccion, NSS, numeroCuenta, sueldo, numeroTelefono, horas);
+							mecanico = new Mecanico(nick, contrasenya, 1, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, direccion, NSS, numeroCuenta, sueldo, numeroTelefono, horas);
 						}
 					} catch (Exception e) {
 						lastError = e;
@@ -686,7 +683,7 @@ public class BD {
 				int CV = rs.getInt("CV");
 				int numPuertas = rs.getInt("numeroPuertas");
 				String color = rs.getString("color");
-				coche = new CocheConcesionario(marca, modelo, precio, CV, numPuertas, color, unidades);
+				coche = new CocheConcesionario(marca, model, precio, CV, numPuertas, color, unidades);
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -710,8 +707,8 @@ public class BD {
 			}
 			return rs;
 		}
-	
-		//Busqueda mediante MARCA:
+		
+	//Busqueda mediante MARCA:
 		public static ResultSet cochesMarcaSelect(Statement st, String marca) {
 			String sentSQL = "";
 			ResultSet rs = null;
