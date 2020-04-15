@@ -10,7 +10,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.LoginController;
-import concesionario.servidor.datos.Cliente;
 import concesionario.servidor.datos.Comercial;
 import concesionario.servidor.datos.DepartamentoCompras;
 import concesionario.servidor.datos.Empleado;
@@ -38,7 +37,7 @@ public class VentanaEmpleados extends JFrame {
 	
 	public void  iniciarVentanaEmpleados(String nickname) {
 		setAutoRequestFocus(false);
-		setBounds(100, 100, 992, 360);
+		setBounds(100, 100, 1010, 376);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setTitle("Gestión de empleados");

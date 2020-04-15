@@ -61,6 +61,17 @@ public class VentanaMenuCliente extends JFrame{
 		buttonSalir.setBounds(190, 196, 89, 23);
 		panel.add(buttonSalir);
 		
+		JButton btnNewButton = new JButton("Visualizar Catalogo");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaVisualizarCatalogo vvc = new VentanaVisualizarCatalogo(loginController, nickname);
+				vvc.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton.setBounds(151, 36, 151, 23);
+		panel.add(btnNewButton);
+		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -133,5 +144,4 @@ public class VentanaMenuCliente extends JFrame{
 	public void setButtonSalir(JButton buttonSalir) {
 		this.buttonSalir = buttonSalir;
 	}
-
 }
