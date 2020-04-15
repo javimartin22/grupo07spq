@@ -144,7 +144,7 @@ public class ClienteApp {
 	}
 	
 	public List<CocheConcesionario> cargarTablaCochesConcesionario(){
-		WebTarget loadTableTarget = loginTarget.path("loadTable");
+		WebTarget loadTableTarget = loginTarget.path("loadCocheConcesionarioTable");
 		GenericType<List<CocheConcesionario>> genericType = new GenericType<List<CocheConcesionario>>() {};
         List<CocheConcesionario> usuarios = loadTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
 		
@@ -268,6 +268,13 @@ public class ClienteApp {
 		GenericType<List<CocheTaller>> genericType = new GenericType<List<CocheTaller>>() {};
         List<CocheTaller> coches = loadVentaTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
 		return coches;
+	}
+	
+	public Response seleccionarCocheConcesionario(String modelo) {
+		WebTarget selectCocheConcesionarioTarget = loginTarget.path("selectCocheConcesionario");
+		Entity<String> ent = Entity.entity(modelo, MediaType.APPLICATION_JSON);
+		Response response = selectCocheConcesionarioTarget.request(MediaType.APPLICATION_JSON).post(ent);
+		return response;
 	}
 	
 	

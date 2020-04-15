@@ -138,4 +138,8 @@ public class LoginController {
 	public List<Venta> cargarTablaVenta(){
 		return cliente.cargarTablaVenta();
 	}
+	
+	public Response seleccionarCocheConcesionario(String modelo) {
+		return cliente.seleccionarCocheConcesionario(modelo);
+	}
 }

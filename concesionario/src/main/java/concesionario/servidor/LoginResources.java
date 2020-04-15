@@ -7,19 +7,15 @@ import javax.ws.rs.PathParam;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.client.Entity;
-import javax.naming.spi.DirStateFactory.Result;
-import javax.swing.table.DefaultTableModel;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.core.MediaType;
@@ -403,6 +399,23 @@ public class LoginResources {
 	}
 	
 	@POST
+	@Path("selectCocheConcesionario")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response selectCocheConcesionario(String modelo) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		CocheConcesionario nuevo = BD.cocheConcesionarioSelect(st, modelo);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).entity(nuevo).build();
+		}
+	}
+	
+	@POST
 	@Path("selectMecanico")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces("application/json")
@@ -470,7 +483,6 @@ public class LoginResources {
 		if (nuevo == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		} else {
-			Entity<Pieza> entity = Entity.entity(nuevo, MediaType.APPLICATION_JSON);
 			return Response.status(Response.Status.OK).entity(nuevo).build();
 		}
 	}
@@ -541,9 +553,9 @@ public class LoginResources {
 	}
 	
 	@GET
-	@Path("loadTable")
+	@Path("loadCocheConcesionarioTable")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<CocheConcesionario> cargarTabla()throws SQLException {
+	public List<CocheConcesionario> cargarCocheConcesionarioTabla()throws SQLException {
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
@@ -551,15 +563,9 @@ public class LoginResources {
 		List<CocheConcesionario> coches_result = new ArrayList<CocheConcesionario>();
 		
 		if (rs == null) {
-			System.out.println("No hay coches bd");
 			return coches_result;
 		} else {
-			
 			while(rs.next()) {
-				System.out.println("entra rs");
-				
-				//Obtener atributos rs
-				
 				String marca = rs.getString("marca");
 				String modelo = rs.getString("modelo");
 				String color = rs.getString("color");
@@ -571,10 +577,10 @@ public class LoginResources {
 				CocheConcesionario coche = new CocheConcesionario(marca, modelo, precio, CV , numeroPuertas, color, unidades );
 				coches_result.add(coche);
 			}
-			 
 			return coches_result;
 		}
 	}
+	
 	
 	@GET
 	@Path("loadPiezaTable")
