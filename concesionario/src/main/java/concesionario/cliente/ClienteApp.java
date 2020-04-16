@@ -13,19 +13,19 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.client.Entity;
 
-import concesionario.servidor.datos.Cliente;
-import concesionario.servidor.datos.CocheConcesionario;
-import concesionario.servidor.datos.CocheMatriculado;
-import concesionario.servidor.datos.CocheTaller;
-import concesionario.servidor.datos.Comercial;
-import concesionario.servidor.datos.DepartamentoCompras;
-import concesionario.servidor.datos.Empleado;
-import concesionario.servidor.datos.Mecanico;
-import concesionario.servidor.datos.Pieza;
-import concesionario.servidor.datos.Usuario;
-import concesionario.servidor.datos.Venta;
-import concesionario.cliente.controller.LoginController;
+import concesionario.cliente.controller.Controller;
 import concesionario.cliente.ventana.VentanaLogin;
+import concesionario.datos.Cliente;
+import concesionario.datos.CocheConcesionario;
+import concesionario.datos.CocheMatriculado;
+import concesionario.datos.CocheTaller;
+import concesionario.datos.Comercial;
+import concesionario.datos.DepartamentoCompras;
+import concesionario.datos.Empleado;
+import concesionario.datos.Mecanico;
+import concesionario.datos.Pieza;
+import concesionario.datos.Usuario;
+import concesionario.datos.Venta;
 
 //Cambiar el Pom.xml para que luego nos runnee esta aplicaicon
 public class ClienteApp {
@@ -287,7 +287,7 @@ public class ClienteApp {
 	            public void run() {
 	                ClienteApp cliente = new ClienteApp();
 	                
-	                LoginController loginController = new LoginController(cliente);
+	                Controller loginController = new Controller(cliente);
 	                VentanaLogin vlogin = new VentanaLogin(loginController);
 	                vlogin.setVisible(true);
 	                

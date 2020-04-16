@@ -18,7 +18,13 @@ import javax.swing.border.EmptyBorder;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.LoginController;
+import concesionario.cliente.controller.Controller;
+import concesionario.cliente.ventana.cliente.VentanaMenuCliente;
+import concesionario.cliente.ventana.cliente.VentanasRegistroClientes;
+import concesionario.cliente.ventana.comercial.VentanaMenuComercial;
+import concesionario.cliente.ventana.departamentoCompras.VentanaMenuDepartamentoCompras;
+import concesionario.cliente.ventana.gerente.VentanaMenuAdmin;
+import concesionario.cliente.ventana.mecanico.VentanaMenuMecanico;
 
 public class VentanaLogin extends JFrame {
 
@@ -28,7 +34,7 @@ public class VentanaLogin extends JFrame {
 	private JPasswordField textContrasenya;
 	private JButton buttonAceptar;
 	
-	private LoginController loginController;
+	private Controller loginController;
 	
 
 	/**
@@ -39,7 +45,7 @@ public class VentanaLogin extends JFrame {
 	 * Create the frame.
 	 */
 	
-	public VentanaLogin(LoginController loginController) {
+	public VentanaLogin(Controller loginController) {
 		this.loginController = loginController;   //errores
 		initVentanaLogin();
 	}

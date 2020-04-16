@@ -8,15 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import concesionario.servidor.datos.Cliente;
-import concesionario.servidor.datos.CocheConcesionario;
-import concesionario.servidor.datos.Comercial;
-import concesionario.servidor.datos.DepartamentoCompras;
-import concesionario.servidor.datos.Empleado;
-import concesionario.servidor.datos.Mecanico;
-import concesionario.servidor.datos.Pieza;
-import concesionario.servidor.datos.Usuario;
-import concesionario.servidor.datos.Venta;
+import concesionario.datos.Cliente;
+import concesionario.datos.CocheConcesionario;
+import concesionario.datos.Comercial;
+import concesionario.datos.DepartamentoCompras;
+import concesionario.datos.Empleado;
+import concesionario.datos.Mecanico;
+import concesionario.datos.Pieza;
+import concesionario.datos.Usuario;
+import concesionario.datos.Venta;
 
 
 
