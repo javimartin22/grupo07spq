@@ -143,13 +143,14 @@ public class VentanaRegistoPiezas extends JFrame {
 	
 	//Conectar con el servidor para poder hacer el registro en la BD:
 	private void registrarBD(Pieza pieza) {
-		Response response = loginController.registroPieza(pieza); 
+		Response response = loginController.registroPieza(pieza);
 		if (response.getStatus() == Status.OK.getStatusCode()) {
 			JOptionPane.showMessageDialog(contentPane, "Unidades anyadidas correctamente");
 		} else {
 			JOptionPane.showMessageDialog(contentPane, "Error al anyadir unidades.");
 		}
 	}
+	
 	
 	//Borrar todos los campos de tipo textfield y inicializar los demas tipos.
 	private void vaciarCampos() {
