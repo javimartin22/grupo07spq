@@ -9,7 +9,7 @@ public class Presupuesto {
 	private int numPiezas;
 	private String listaPiezas;
 	private String observaciones;
-	private double precio; 
+	private int precio; 
 	private String fecha;
 	
 	public Presupuesto() {
@@ -17,7 +17,7 @@ public class Presupuesto {
 	}
 
 	public Presupuesto(String dniCliente, String mecanico, String marca, String modelo, String problema, int numPiezas,
-			String listaPiezas, String observaciones, double precio, String fecha) {
+			String listaPiezas, String observaciones, int precio, String fecha) {
 		this.dniCliente = dniCliente;
 		this.mecanico = mecanico;
 		this.marca = marca;
@@ -94,11 +94,11 @@ public class Presupuesto {
 		this.observaciones = observaciones;
 	}
 
-	public double getPrecio() {
+	public int getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(double precio) {
+	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
 

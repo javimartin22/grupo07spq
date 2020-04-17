@@ -4,6 +4,8 @@ package concesionario.cliente.ventana.mecanico;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.Controller;
 import concesionario.datos.Presupuesto;
@@ -20,7 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import java.awt.Font;
 
-public class VentanaPresupuesto extends JFrame {
+public class VentanaRegistroPresupuesto extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Controller controller;
@@ -29,14 +31,14 @@ public class VentanaPresupuesto extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	
-	public VentanaPresupuesto(Controller controller, String nickname) {
+	public VentanaRegistroPresupuesto(Controller controller, String nickname, int precio) {
 		setResizable(false);
 		this.controller = controller;
-		ventanaPresupuesto(nickname);
+		ventanaPresupuesto(nickname, precio);
 	}
 
 	
-	public void ventanaPresupuesto(String nickname) {
+	public void ventanaPresupuesto(String nickname, int cost) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 452, 471);
 		contentPane = new JPanel();
@@ -121,7 +123,7 @@ public class VentanaPresupuesto extends JFrame {
 		spinner.setBounds(180, 212, 71, 20);
 		contentPane.add(spinner);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
+		JLabel lblNewLabel_1 = new JLabel(nickname);
 		lblNewLabel_1.setBounds(180, 66, 239, 14);
 		contentPane.add(lblNewLabel_1);
 		
@@ -132,6 +134,7 @@ public class VentanaPresupuesto extends JFrame {
 		
 		JSpinner spinner_1 = new JSpinner();
 		spinner_1.setBounds(180, 251, 71, 20);
+		spinner_1.setValue(cost);
 		contentPane.add(spinner_1);
 		
 		JButton btnNewButton_1 = new JButton("Crear Presupuesto");
@@ -158,7 +161,12 @@ public class VentanaPresupuesto extends JFrame {
 	}
 	
 	public void registroPresupuesto(Presupuesto presupuesto) {
-		JOptionPane.showMessageDialog(contentPane, "Registrando...");
+		Response response = controller.registroPresupuesto(presupuesto); //estoy aqui
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			JOptionPane.showMessageDialog(contentPane, "Presupuesto registrado correctamente");
+		} else {
+			JOptionPane.showMessageDialog(contentPane, "Presupuesto no regsitrada");
+		}
 	}
 	
 	public String crearPiezasString(int numPiezas) {
