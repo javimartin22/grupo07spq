@@ -399,6 +399,23 @@ public class LoginResources {
 	}
 	
 	@POST
+	@Path("selectCocheTaller")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response selectCocheTaller(String matricula) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		CocheTaller nuevo = BD.cocheTalleSelect(st, matricula);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).entity(nuevo).build();
+		}
+	}
+	
+	@POST
 	@Path("selectCocheConcesionario")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces("application/json")
@@ -503,6 +520,36 @@ public class LoginResources {
 		BD.piezasInsert(st, codigo, nombre, stock, ubicacion);
 		BD.piezasUtilizadasInsert(st, codigo, nombre, 0, ubicacion);
 		Pieza nuevo = BD.piezaSelect(st, pieza.getCodigo());
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).build();
+		}
+	}
+	
+	
+	@POST
+	@Path("insertPresupuesto")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response registroPresupuesto(Presupuesto presupuesto) {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		String dniCliente = presupuesto.getDniCliente();
+		String mecanico = presupuesto.getMecanico();
+		String marca = presupuesto.getMarca();
+		String modelo = presupuesto.getModelo();
+		String problema = presupuesto.getProblema();
+		int numPiezas = presupuesto.getNumPiezas();
+		String piezas = presupuesto.getListaPiezas();
+		String observaciones = presupuesto.getObservaciones();
+		int precio = presupuesto.getPrecio();
+		String fecha = presupuesto.getFecha();
+		
+		BD.PresupuestoInsert(st, dniCliente, mecanico, marca, modelo, problema, numPiezas, piezas, observaciones, precio, fecha);
+		Presupuesto nuevo = BD.presupuestoSelect(st, dniCliente);
 		
 		if (nuevo == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();

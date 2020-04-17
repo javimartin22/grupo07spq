@@ -24,6 +24,7 @@ import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
+import concesionario.datos.Presupuesto;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
 
@@ -73,8 +74,6 @@ public class ClienteApp {
         return response;
 	}
 	
-	
-	
 	public Response registroCliente (Cliente client) {
 		WebTarget insertClientTarget = loginTarget.path("insertClient");
 		Entity<Cliente> entity = Entity.entity(client, MediaType.APPLICATION_JSON);
@@ -119,7 +118,6 @@ public class ClienteApp {
 		}
 	}
 	
-	
 	public Response cambiarNicknameCliente(Cliente client, String nickname) {
 		WebTarget deleteClienteTarget = loginTarget.path("deleteClient");
 		Entity<Cliente> ent = Entity.entity(client, MediaType.APPLICATION_JSON);
@@ -134,6 +132,29 @@ public class ClienteApp {
 		} else {
 			return null;
 		}
+	}
+	
+	public Response cambiarEstadoCocheTaller(CocheTaller coche, int estado) {
+		WebTarget deleteClienteTarget = loginTarget.path("deleteCocheTaller");
+		Entity<CocheTaller> ent = Entity.entity(coche, MediaType.APPLICATION_JSON);
+		Response resp = deleteClienteTarget.request(MediaType.TEXT_PLAIN).post(ent);
+		
+		if (resp.getStatus() == Status.OK.getStatusCode()) {
+			coche.setEstado(estado);
+			WebTarget insertClientTarget = loginTarget.path("insertCocheTaller");
+			Entity<CocheTaller> entity = Entity.entity(coche, MediaType.APPLICATION_JSON);
+			Response response = insertClientTarget.request(MediaType.TEXT_PLAIN).post(entity);
+			return response;
+		} else {
+			return null;
+		}
+	}
+	
+	public Response seleccionarCocheTaller (String matricula) {
+		WebTarget selectClienteTarget = loginTarget.path("selectCocheTaller");
+		Entity<String> ent = Entity.entity(matricula, MediaType.APPLICATION_JSON);
+		Response response = selectClienteTarget.request(MediaType.APPLICATION_JSON).post(ent);
+		return response;
 	}
 	
 	public Response clienteSelect(String nickname) {
@@ -230,6 +251,13 @@ public class ClienteApp {
  		return response;
 	}
 	
+	public Response regsitroPresupuesto(Presupuesto presupuesto) {
+		WebTarget insertPresupuestoTarget = loginTarget.path("insertPresupuesto");
+ 		Entity<Presupuesto> entity = Entity.entity(presupuesto, MediaType.APPLICATION_JSON);
+ 		Response response = insertPresupuestoTarget.request(MediaType.TEXT_PLAIN).post(entity);
+ 		return response;
+	}
+	
 	public Response registroPiezaUtilizada(Pieza pieza, int unidades) {
 		return null;
  		
@@ -294,4 +322,6 @@ public class ClienteApp {
 	            }
 	        });
 	    }
+
+	
 	}

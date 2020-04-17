@@ -14,6 +14,7 @@ import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
+import concesionario.datos.Presupuesto;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
 
@@ -141,4 +142,17 @@ public class Controller {
 	public Response seleccionarCocheConcesionario(String modelo) {
 		return cliente.seleccionarCocheConcesionario(modelo);
 	}
+	
+	public Response registroPresupuesto(Presupuesto presupuesto) {
+		return cliente.regsitroPresupuesto(presupuesto);
+	}
+	
+	public Response seleccionarCocheTaller(String matricula) {
+		return cliente.seleccionarCocheTaller(matricula);
+	}
+	
+	public Response cambiarEstadoCocheTaller(CocheTaller coche, int estado) {
+		return cliente.cambiarEstadoCocheTaller(coche, estado);
+	}
+	
 }

@@ -10,11 +10,13 @@ import java.sql.Statement;
 
 import concesionario.datos.Cliente;
 import concesionario.datos.CocheConcesionario;
+import concesionario.datos.CocheTaller;
 import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
+import concesionario.datos.Presupuesto;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
 
@@ -54,7 +56,8 @@ public class BD {
 	private static final String COLUMNAS_TABLA_TALLER = "(matriculaCoche string PRIMARY KEY, marca string, modelo string, mecanico String, dniCliente string, coste double, estado int)";
 	private static final String TABLA_COCHES_MATRICULADOS = "CochesMatriculados";
 	private static final String COLUMNAS_TABLA_COCHES_MATRICULADOS = "(matricula string PRIMARY KEY, marca string, modelo string, anyomatriculacion int, revisiones int, cv int, nombreCliente string, numPuertas int, color string)";
-	
+	private static final String TABLA_PRESUPUESTO = "Presupuesto"; 
+	private static final String COLUMNAS_TABLA_PRESUPUESTO = "(dniCliente string, mecanico string, marca int, modelo string, problema string, numPiezas int, piezas string, observaviones string, precio int, fecha string)";
 	
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
@@ -118,6 +121,7 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_VENTAS + COLUMNAS_TABLA_VENTAS);
 				statement.executeUpdate("create table " + TABLA_TALLER + COLUMNAS_TABLA_TALLER);
 				statement.executeUpdate("create table " + TABLA_COCHES_MATRICULADOS + COLUMNAS_TABLA_COCHES_MATRICULADOS);
+				statement.executeUpdate("create table " + TABLA_PRESUPUESTO + COLUMNAS_TABLA_PRESUPUESTO);
 			} catch (SQLException e) {
 			} // Tabla ya existe. Nada que hacer
 			return statement;
@@ -150,7 +154,9 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_PIEZAS_UTILIZADAS);
 			statement.executeUpdate("drop table if exists " + TABLA_COCHES_CONCESIONARIO);
 			statement.executeUpdate("drop table if exists " + TABLA_VENTAS);
+			statement.executeUpdate("drop table if exists " + TABLA_COCHES_MATRICULADOS);
 			statement.executeUpdate("drop table if exists " + TABLA_TALLER);
+			statement.executeUpdate("drop table if exists " + TABLA_PRESUPUESTO);
 			return usarCrearTablasBD(con);
 		} catch (SQLException e) {
 			lastError = e;
@@ -347,7 +353,7 @@ public class BD {
 	public static boolean cochesMatriculadosInsert(Statement st, String matricula, String marca, String modelo, int anyoMatriculacion, int revisiones, int cv, String nombrePropietario, int numPuertas, String color) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into " + TABLA_COCHES_CONCESIONARIO + " values ('" + secu(matricula) + "', '" + marca + "', '" +  modelo + "', " + anyoMatriculacion + ", " + revisiones + ", " + cv + ", '" + nombrePropietario + "', " + numPuertas + ", '" + color + "')";
+			sentSQL = "insert into " + TABLA_COCHES_MATRICULADOS + " values ('" + secu(matricula) + "', '" + marca + "', '" +  modelo + "', " + anyoMatriculacion + ", " + revisiones + ", " + cv + ", '" + nombrePropietario + "', " + numPuertas + ", '" + color + "')";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -394,6 +400,23 @@ public class BD {
 			return false;
 		}
 	}
+	
+	//Tabla PIEZAS_UTILIZADAS:
+			public static boolean PresupuestoInsert(Statement st, String dniCliente, String mecanico, String marca, String modelo, String problema, int numPiezas, String piezas, String observaciones, int precio, String fecha) {
+				String sentSQL = "";
+				try {
+					sentSQL = "insert into " + TABLA_PRESUPUESTO + " values ('" + secu(dniCliente) + "', '" + mecanico + "', '" + marca + "', '" + modelo  + "', '" + problema + "', " + numPiezas + ", '" + piezas + "', '" + observaciones + "', " + precio + ", '" + fecha + "')";
+					int val = st.executeUpdate(sentSQL);
+					if (val != 1) { // Se tiene que anyadir 1 - error si no
+						return false;
+				}
+					return true;
+				} catch (SQLException e) {
+					lastError = e;
+					e.printStackTrace();
+					return false;
+				}
+			}
 		
 
 //METODOS SELECT:
@@ -780,6 +803,29 @@ public class BD {
 			return rs;
 		}
 		
+		public static CocheTaller cocheTalleSelect(Statement st, String matricula) {
+			String sentSQL = "";
+			CocheTaller cocheTaller = null;
+			try {
+				sentSQL = "select * from " + TABLA_TALLER + " where matriculaCoche= '" + matricula + "'";
+				ResultSet rs = st.executeQuery(sentSQL);
+				if (rs.next()) {
+					String matriculaCoche = rs.getString("matriculaCoche");
+					String marca = rs.getString("marca");
+					String mecanico = rs.getString("mecanico");
+					String modelo = rs.getString("modelo");
+					String dniCliente = rs.getString("dniCliente");
+					double coste = rs.getDouble("coste");
+					int estado = rs.getInt("estado");
+					cocheTaller = new CocheTaller(matriculaCoche, marca, modelo, mecanico, dniCliente, coste, estado);
+				}
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return cocheTaller;
+		}
+		
 		//Tabla Ventas:
  		//Busqueda mediante Matricula:
  				public static Venta ventaSelect(Statement st, String matricula) {
@@ -816,6 +862,32 @@ public class BD {
  			}
  			return rs;
  		}	
+ 		
+ 		public static Presupuesto presupuestoSelect(Statement st, String dni) {
+ 			String sentSQL = "";
+ 			Presupuesto presupuesto = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_PRESUPUESTO + " where dniCliente= '" + dni + "' ";
+ 				ResultSet rs = st.executeQuery(sentSQL);
+ 				if (rs.next()) {
+ 					String dniCliente = rs.getString("dniCliente");
+ 					String mecanico = rs.getString("mecanico");
+ 					String marca = rs.getString("marca");
+ 					String modelo = rs.getString("modelo");
+ 					String problema = rs.getString("problema");
+ 					int numPiezas = rs.getInt("numPiezas");
+ 					String listaPiezas = rs.getString("piezas");
+ 					String observaciones = rs.getString("observaviones");
+ 					int precio = rs.getInt("precio");
+ 					String fecha = rs.getString("fecha");
+ 					presupuesto = new Presupuesto(dniCliente, mecanico, marca, modelo, problema, numPiezas, listaPiezas, observaciones, precio, fecha);
+				}
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+ 			return presupuesto;
+		}
 
 //METODOS DELETE:
 
