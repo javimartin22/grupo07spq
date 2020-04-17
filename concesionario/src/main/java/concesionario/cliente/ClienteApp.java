@@ -136,7 +136,9 @@ public class ClienteApp {
 	
 	public Response cambiarEstadoCocheTaller(CocheTaller coche, int estado) {
 		WebTarget deleteClienteTarget = loginTarget.path("deleteCocheTaller");
-		Entity<CocheTaller> ent = Entity.entity(coche, MediaType.APPLICATION_JSON);
+		String matricula = coche.getMatricula();
+		System.out.println(matricula);
+		Entity<String> ent = Entity.entity(matricula, MediaType.APPLICATION_JSON);
 		Response resp = deleteClienteTarget.request(MediaType.TEXT_PLAIN).post(ent);
 		
 		if (resp.getStatus() == Status.OK.getStatusCode()) {

@@ -819,6 +819,7 @@ public class BD {
 					int estado = rs.getInt("estado");
 					cocheTaller = new CocheTaller(matriculaCoche, marca, modelo, mecanico, dniCliente, coste, estado);
 				}
+				st.close();
 			} catch (Exception e) {
 				lastError = e;
 				e.printStackTrace();
@@ -1023,7 +1024,10 @@ public class BD {
 			String sentSQL = "";
 			try {
 				sentSQL = "delete from " + TABLA_TALLER + " where matriculaCoche= '" + secu(matricula) + "'";
+				System.out.println(sentSQL);
 				int val = st.executeUpdate(sentSQL);
+				System.out.println("ha pasado o se queda en update");
+				System.out.println(val);
 				return (val == 1);
 			} catch (SQLException e) {
 				lastError = e;

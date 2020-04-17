@@ -311,10 +311,10 @@ public class LoginResources {
 	public Response deleteCocheTaller(String matricula) {
 		con = BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
-		
+		System.out.println(matricula);
 		boolean b = BD.cocheTallerDelete(st, matricula);
-		
 		if (b) {
+			System.out.println("entra true");
 			return Response.status(Response.Status.OK).build();
 		} else {
 			return Response.status(Response.Status.NOT_FOUND).build();
