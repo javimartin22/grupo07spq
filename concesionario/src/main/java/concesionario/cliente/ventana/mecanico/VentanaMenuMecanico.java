@@ -56,7 +56,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		anadirPieza.setBounds(104, 71, 201, 23);
+		anadirPieza.setBounds(124, 71, 201, 23);
 		panel.add(anadirPieza);
 		
 		//boton para poder ver el historial de los vehiculos que han pasado por el taller 
@@ -69,7 +69,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		verHistoial.setBounds(104, 213, 201, 23);
+		verHistoial.setBounds(124, 203, 201, 23);
 		panel.add(verHistoial);
 		
 		//boton para poder registrar los vehiculos que pasan por el taller
@@ -81,7 +81,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		registarVehiculo.setBounds(104, 118, 201, 23);
+		registarVehiculo.setBounds(124, 110, 201, 23);
 		panel.add(registarVehiculo);
 		
 		//boton de salir que te lleva a la ventana de VentanaLogin donde se inicia la sesion
@@ -94,7 +94,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		buttonSalir.setBounds(151, 262, 89, 23);
+		buttonSalir.setBounds(172, 295, 89, 23);
 		panel.add(buttonSalir);
 		
 		JButton btnVerCochesTaller = new JButton("Ver Coches Taller");
@@ -105,7 +105,18 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		btnVerCochesTaller.setBounds(124, 162, 160, 29);
+		btnVerCochesTaller.setBounds(124, 157, 201, 23);
 		panel.add(btnVerCochesTaller);
+		
+		JButton verHistoial_1 = new JButton("Realizar Presupuesto");
+		verHistoial_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaPresupuesto vp = new VentanaPresupuesto(loginController, nickname);
+				vp.setVisible(true);
+				dispose();
+			}
+		});
+		verHistoial_1.setBounds(124, 246, 201, 23);
+		panel.add(verHistoial_1);
 	}
 }
