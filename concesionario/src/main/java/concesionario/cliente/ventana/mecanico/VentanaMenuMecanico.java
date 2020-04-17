@@ -111,7 +111,7 @@ public class VentanaMenuMecanico extends JFrame {
 		JButton verHistoial_1 = new JButton("Realizar Presupuesto");
 		verHistoial_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaPresupuesto vp = new VentanaPresupuesto(loginController, nickname);
+				VentanaRegistroPresupuesto vp = new VentanaRegistroPresupuesto(loginController, nickname, 0);
 				vp.setVisible(true);
 				dispose();
 			}

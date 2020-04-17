@@ -134,8 +134,8 @@ public class VentanaRegistroCocheTaller extends JFrame {
 		Response response = loginController.registrarCocheTaller(cocheTaller);
 		if(response.getStatus() == Status.OK.getStatusCode()) {
 			JOptionPane.showMessageDialog(this, "Coche taller registrado");
-			VentanaMenuMecanico vmc = new VentanaMenuMecanico(loginController, nickname);
-			vmc.setVisible(true);
+			VentanaMenuMecanico vmm = new VentanaMenuMecanico(loginController, nickname);
+			vmm.setVisible(true);
 			dispose();
 		} else {
 			JOptionPane.showMessageDialog(this, "ERROR al regristar el coche taller");
