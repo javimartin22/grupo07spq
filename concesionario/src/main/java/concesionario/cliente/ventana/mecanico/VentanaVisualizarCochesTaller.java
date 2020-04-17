@@ -34,7 +34,7 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 	
 	public void iniciarVentanaVisualizarCochesTaller(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 655, 400);
+		setBounds(100, 100, 807, 400);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -42,7 +42,7 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(16, 18, 620, 294);
+		scrollPane.setBounds(16, 18, 765, 294);
 		contentPane.add(scrollPane);
 		
 		table_1 = new JTable();
@@ -54,7 +54,7 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 				cargarTabla(table_1);
 			}
 		});
-		btnCargar.setBounds(357, 324, 117, 29);
+		btnCargar.setBounds(377, 323, 117, 29);
 		contentPane.add(btnCargar);
 		
 		JButton btnRegresar = new JButton("Regresar");
@@ -65,7 +65,7 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 				dispose();
 			}
 		});
-		btnRegresar.setBounds(228, 324, 117, 29);
+		btnRegresar.setBounds(250, 323, 117, 29);
 		contentPane.add(btnRegresar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
@@ -91,8 +91,19 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 				}	
 			}
 		});
-		btnEliminar.setBounds(501, 324, 117, 29);
+		btnEliminar.setBounds(664, 323, 117, 29);
 		contentPane.add(btnEliminar);
+		
+		JButton btnNewButton_1 = new JButton("Cambiar Estado");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int fila = table_1.getSelectedRow();
+				String matricula = (String) table_1.getModel().getValueAt(fila, 0);
+				cambiarEstado(matricula);
+			}
+		});
+		btnNewButton_1.setBounds(504, 323, 150, 27);
+		contentPane.add(btnNewButton_1);
 		
 		
 	}
@@ -146,5 +157,21 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 			break;
 		}
 		return estad;
+	}
+	
+	public void cambiarEstado(String matricula) {
+		Response response = loginController.seleccionarCocheTaller(matricula);
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			CocheTaller coche = response.readEntity(CocheTaller.class);
+			int estado = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el estado del vehiculo (0: sin comenzar; 1: en proceso; 2: terminado)"));
+			Response response1 = loginController.cambiarEstadoCocheTaller(coche, estado); //estoy aqui
+			if (response1.getStatus() == Status.OK.getStatusCode()) {
+				JOptionPane.showMessageDialog(contentPane, "El estado ha sido modificado.");
+			} else {
+				System.out.println("fallo");
+			}
+		} else {
+			System.out.println("llega mal");
+		}
 	}
 }
