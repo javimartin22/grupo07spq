@@ -17,6 +17,7 @@ import concesionario.datos.Empleado;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
+import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
 
@@ -58,6 +59,8 @@ public class BD {
 	private static final String COLUMNAS_TABLA_COCHES_MATRICULADOS = "(matricula string PRIMARY KEY, marca string, modelo string, anyomatriculacion int, revisiones int, cv int, nombreCliente string, numPuertas int, color string)";
 	private static final String TABLA_PRESUPUESTO = "Presupuesto"; 
 	private static final String COLUMNAS_TABLA_PRESUPUESTO = "(codigo string PRIMARY KEY, dniCliente string, mecanico string, marca int, modelo string, problema string, numPiezas int, piezas string, observaviones string, precio int, fecha string)";
+	private static final String TABLA_TARIFAS = "Tarifas"; 
+	private static final String COLUMNAS_TABLA_TARIFAS = "(idTarifa string PRIMARY KEY, nomTarifa string, precioAprox int, horas_manodeobra int)";
 	
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
@@ -122,6 +125,7 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_TALLER + COLUMNAS_TABLA_TALLER);
 				statement.executeUpdate("create table " + TABLA_COCHES_MATRICULADOS + COLUMNAS_TABLA_COCHES_MATRICULADOS);
 				statement.executeUpdate("create table " + TABLA_PRESUPUESTO + COLUMNAS_TABLA_PRESUPUESTO);
+				statement.executeUpdate("create table " + TABLA_TARIFAS + COLUMNAS_TABLA_TARIFAS);
 			} catch (SQLException e) {
 			} // Tabla ya existe. Nada que hacer
 			return statement;
@@ -157,6 +161,7 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_COCHES_MATRICULADOS);
 			statement.executeUpdate("drop table if exists " + TABLA_TALLER);
 			statement.executeUpdate("drop table if exists " + TABLA_PRESUPUESTO);
+			statement.executeUpdate("drop table if exists " + TABLA_TARIFAS);
 			return usarCrearTablasBD(con);
 		} catch (SQLException e) {
 			lastError = e;
@@ -419,6 +424,25 @@ public class BD {
 				}
 			}
 		
+			//Tabla TARIFAS:
+			public static boolean TarifaInsert(Statement st, String idTarifa, String nomTarifa, int precioAprox, int horas_manodeobra ) {
+				String sentSQL = "";
+				try {
+					sentSQL = "insert into " + TABLA_TARIFAS + " values ('" + secu(idTarifa) + "', '" + secu(nomTarifa) + "', '" + precioAprox + "', '"  + horas_manodeobra + "')";
+					int val = st.executeUpdate(sentSQL);
+					if (val != 1) { // Se tiene que anyadir 1 - error si no
+						return false;
+				}
+					st.close();
+					return true;
+				} catch (SQLException e) {
+					lastError = e;
+					e.printStackTrace();
+					return false;
+				}
+			}
+			
+			
 
 //METODOS SELECT:
 
@@ -932,6 +956,42 @@ public class BD {
  			}
  			return rs;
  		}	
+ 		
+ 		//Tabla TARIFAS:
+ 		public static Tarifa tarifaPrecioSelect(Statement st, int precio) {
+ 			String sentSQL = "";
+ 			Tarifa tarifa = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_TARIFAS + " where precioAprox< '" + precio + "' ";
+ 				ResultSet rs = st.executeQuery(sentSQL);
+ 				if (rs.next()) {
+ 					String idTarifa = rs.getString("idTarifa");
+ 					String nomTarifa = rs.getString("nomTarifa");
+ 					int precioAprox	= rs.getInt("precioAprox");
+ 					int horas_manodeobra = rs.getInt("horas_manodeobra");
+ 					tarifa = new Tarifa(idTarifa, nomTarifa, precioAprox, horas_manodeobra);
+				}
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+ 			return tarifa;
+		}
+ 		
+ 		
+ 		public static ResultSet tarifasTodosSelect(Statement st) {
+ 			String sentSQL = "";
+ 			ResultSet rs = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_TARIFAS;
+ 				rs = st.executeQuery(sentSQL);
+ 			} catch (Exception e) {
+ 				lastError = e;
+ 				e.printStackTrace();
+ 			}
+ 			return rs;
+ 		}	
+ 		
  		
 
 //METODOS DELETE:

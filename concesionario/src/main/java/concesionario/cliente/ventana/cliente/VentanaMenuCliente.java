@@ -70,8 +70,21 @@ public class VentanaMenuCliente extends JFrame{
 				dispose();
 			}
 		});
+		
+		//Acceder a la visualización de tarifas del taller
 		btnNewButton.setBounds(151, 36, 151, 23);
 		panel.add(btnNewButton);
+		
+		JButton btnTarifas= new JButton("Ver tarifas");
+		btnTarifas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaVisualizarTarifas vvc = new VentanaVisualizarTarifas(loginController, nickname);
+				vvc.setVisible(true);
+				dispose();
+			}
+		});
+		btnTarifas.setBounds(151, 90, 151, 23);
+		panel.add(btnTarifas);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

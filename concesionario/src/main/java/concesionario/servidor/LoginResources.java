@@ -851,6 +851,33 @@ public class LoginResources {
 		}
 	}
 	
+	@GET
+	@Path("loadTarifasTable")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Tarifa> cargarTablaTarifas()throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.tarifasTodosSelect(st);
+		List<Tarifa> tarifas_result = new ArrayList<Tarifa>();
+		
+		if (rs == null) {
+			System.out.println("No hay empleados bd");
+			return tarifas_result;
+		} else {
+			while(rs.next()) {
+				//Obtener atributos rs
+				String idTarifa = rs.getString("idTarifa");
+					String nomTarifa = rs.getString("nomTarifa");
+					int precioAprox = rs.getInt("precioAprox");
+					int horas_manodeobra = rs.getInt("horas_manodeobra");
+					Tarifa tarifa = new Tarifa(idTarifa, nomTarifa, precioAprox, horas_manodeobra);
+					tarifas_result.add(tarifa);
+			}
+			return tarifas_result;
+		}
+	}
+	
 	@DELETE
 	@Path("{code}")
 	public Response deleteUser (@PathParam("code") int codigo) {

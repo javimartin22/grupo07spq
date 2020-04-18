@@ -25,6 +25,7 @@ import concesionario.datos.Empleado;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
+import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
 
@@ -319,6 +320,13 @@ public class ClienteApp {
 		Entity<String> ent = Entity.entity(codigo, MediaType.APPLICATION_JSON);
 		Response response = selectPresupuestoTarget.request(MediaType.APPLICATION_JSON).post(ent);
 		return response;
+	}
+	
+	public List<Tarifa> cargarTablaTarifas(){
+		WebTarget loadTarifasTableTarget = loginTarget.path("loadTarifasTable");
+		GenericType<List<Tarifa>> genericType = new GenericType<List<Tarifa>>() {};
+        List<Tarifa> tarifas = loadTarifasTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
+		return tarifas;
 	}
 	
 	 public static void main(String[] args) {

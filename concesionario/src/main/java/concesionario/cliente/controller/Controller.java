@@ -15,6 +15,7 @@ import concesionario.datos.Empleado;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
+import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
 
@@ -161,5 +162,9 @@ public class Controller {
 	
 	public Response seleccionarPresupuesto(String codigo) {
 		return cliente.seleccionarPresupuesto(codigo);
+	}
+	
+	public List<Tarifa> cargarTablaTarifas(){
+		return cliente.cargarTablaTarifas();
 	}
 }
