@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -49,8 +50,8 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		JButton btnNewButton = new JButton("Regresar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaMenuMecanico vmm = new VentanaMenuMecanico(controller, nickname);
-				vmm.setVisible(true);
+				VentanaVisualizarPresupuestos vvp = new VentanaVisualizarPresupuestos(controller, nickname);
+				vvp.setVisible(true);
 				dispose();
 			}
 		});
@@ -140,6 +141,7 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		JButton btnNewButton_1 = new JButton("Crear Presupuesto");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String codigo = crearCodigo();
 				String dniCliente = textField.getText();
 				String mecanico = nickname;
 				String marca = textField_2.getText();
@@ -150,8 +152,11 @@ public class VentanaRegistroPresupuesto extends JFrame {
 				String observaciones = textPane.getText();
 				int precio = Integer.parseInt(spinner_1.getValue().toString());
 				String fecha = parseFecha();
-				Presupuesto presupuesto = new Presupuesto(dniCliente, mecanico, marca, modelo, problema, numPiezas, listaPiezas, observaciones, precio, fecha);
+				Presupuesto presupuesto = new Presupuesto(codigo, dniCliente, mecanico, marca, modelo, problema, numPiezas, listaPiezas, observaciones, precio, fecha);
 				registroPresupuesto(presupuesto);
+				VentanaVisualizarPresupuestos vvp = new VentanaVisualizarPresupuestos(controller, nickname);
+				vvp.setVisible(true);
+				dispose();
 			}
 		});
 		btnNewButton_1.setBounds(231, 390, 144, 23);
@@ -193,5 +198,17 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		Calendar c = Calendar.getInstance();
 		fecha = c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR) + " - " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE); 
 		return fecha;
+	}
+	
+	public String crearCodigo() {
+		String codigo = "";
+		List<Presupuesto> presupuestos = controller.cargarTablaPresupuesto();
+		if (presupuestos.size() != 0) {
+			int numero = presupuestos.size() + 1;
+			codigo = "P" + numero;
+		} else {
+			codigo = "P1";
+		}
+		return codigo;
 	}
 }
