@@ -29,24 +29,7 @@ public class LoginResources {
 	private Connection con;
 	private Statement st;
 	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Usuario getUser() {
-		Usuario usu= new Usuario("Una","Prueba",0);
-		return usu;
-	}
 	
-	@GET
-	@Path("all")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Usuario> getUsuarios(){
-		List<Usuario> usuarios = new ArrayList<>();
-		usuarios.add(new Usuario("Una","Loko",2));
-		usuarios.add(new Usuario("Dos","Prue",3));
-		
-		return usuarios;
-		
-	}
 	//Por ahora solo funciona este metodo
 	@POST
 	@Path("inicio")
@@ -136,7 +119,6 @@ public class LoginResources {
 	@Path("insertCocheTaller")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response registrarCocheTaller(CocheTaller cocheTaller) {
-		System.out.println(cocheTaller.getModelo());
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
@@ -154,7 +136,6 @@ public class LoginResources {
  	@Path("insertVenta")
  	@Consumes(MediaType.APPLICATION_JSON)
  	public Response registrarVenta(Venta venta) {
- 		System.out.println(venta.getModelo());
  		con =BD.initBD("Taller");
  		st = BD.usarCrearTablasBD(con);
 
@@ -311,10 +292,8 @@ public class LoginResources {
 	public Response deleteCocheTaller(String matricula) {
 		con = BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
-		System.out.println(matricula);
 		boolean b = BD.cocheTallerDelete(st, matricula);
 		if (b) {
-			System.out.println("entra true");
 			return Response.status(Response.Status.OK).build();
 		} else {
 			return Response.status(Response.Status.NOT_FOUND).build();
@@ -537,6 +516,7 @@ public class LoginResources {
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
+		String codigo = presupuesto.getCodigo();
 		String dniCliente = presupuesto.getDniCliente();
 		String mecanico = presupuesto.getMecanico();
 		String marca = presupuesto.getMarca();
@@ -548,13 +528,12 @@ public class LoginResources {
 		int precio = presupuesto.getPrecio();
 		String fecha = presupuesto.getFecha();
 		
-		BD.PresupuestoInsert(st, dniCliente, mecanico, marca, modelo, problema, numPiezas, piezas, observaciones, precio, fecha);
-		Presupuesto nuevo = BD.presupuestoSelect(st, dniCliente);
+		boolean bool = BD.PresupuestoInsert(st, codigo, dniCliente, mecanico, marca, modelo, problema, numPiezas, piezas, observaciones, precio, fecha);
 		
-		if (nuevo == null) {
-			return Response.status(Response.Status.NOT_FOUND).build();
-		} else {
+		if (bool) {
 			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
 	
@@ -820,7 +799,57 @@ public class LoginResources {
 		}
 	}
 	
+	@GET
+	@Path("loadPresupuestosTable")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Presupuesto> cargarTablaPresupuesto()throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.presupuestosTodosSelect(st);
+		List<Presupuesto> presupuestos_result = new ArrayList<Presupuesto>();
+		
+		if (rs == null) {
+			System.out.println("No hay empleados bd");
+			return presupuestos_result;
+		} else {
+			while(rs.next()) {
+				//Obtener atributos rs
+				String codigo = rs.getString("codigo");
+					String dniCliente = rs.getString("dniCliente");
+					String mecanico = rs.getString("mecanico");
+					String marca = rs.getString("marca");
+					String modelo = rs.getString("modelo");
+					String problema = rs.getString("problema");
+					int numPiezas = rs.getInt("numPiezas");
+					String listaPiezas = rs.getString("piezas");
+					String observaciones = rs.getString("observaviones");
+					int precio = rs.getInt("precio");
+					String fecha = rs.getString("fecha");
+				Presupuesto presupuesto = new Presupuesto(codigo, dniCliente, mecanico, marca, modelo, problema, numPiezas, listaPiezas, observaciones, precio, fecha);
+				presupuestos_result.add(presupuesto);
+			}
+			return presupuestos_result;
+		}
+	}
 	
+	@POST
+	@Path("selectPresupuesto")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response selectPresupuesto(String codigo) {
+
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		Presupuesto nuevo = BD.presupuestoCodigoSelect(st, codigo);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).entity(nuevo).build();
+		}
+	}
 	
 	@DELETE
 	@Path("{code}")

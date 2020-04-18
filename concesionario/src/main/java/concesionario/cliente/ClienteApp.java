@@ -137,7 +137,6 @@ public class ClienteApp {
 	public Response cambiarEstadoCocheTaller(CocheTaller coche, int estado) {
 		WebTarget deleteClienteTarget = loginTarget.path("deleteCocheTaller");
 		String matricula = coche.getMatricula();
-		System.out.println(matricula);
 		Entity<String> ent = Entity.entity(matricula, MediaType.APPLICATION_JSON);
 		Response resp = deleteClienteTarget.request(MediaType.TEXT_PLAIN).post(ent);
 		
@@ -308,8 +307,20 @@ public class ClienteApp {
 	}
 	
 	
+	public List<Presupuesto> cargarTablaPresupuestos(){
+		WebTarget loadPresupuestosTableTarget = loginTarget.path("loadPresupuestosTable");
+		GenericType<List<Presupuesto>> genericType = new GenericType<List<Presupuesto>>() {};
+        List<Presupuesto> presupuestos = loadPresupuestosTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
+		return presupuestos;
+	}
 	
-
+	public Response seleccionarPresupuesto(String codigo) {
+		WebTarget selectPresupuestoTarget = loginTarget.path("selectPresupuesto");
+		Entity<String> ent = Entity.entity(codigo, MediaType.APPLICATION_JSON);
+		Response response = selectPresupuestoTarget.request(MediaType.APPLICATION_JSON).post(ent);
+		return response;
+	}
+	
 	 public static void main(String[] args) {
 	        SwingUtilities.invokeLater(new Runnable(){
 	        

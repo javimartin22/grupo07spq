@@ -155,4 +155,11 @@ public class Controller {
 		return cliente.cambiarEstadoCocheTaller(coche, estado);
 	}
 	
+	public List<Presupuesto> cargarTablaPresupuesto(){
+		return cliente.cargarTablaPresupuestos();
+	}
+	
+	public Response seleccionarPresupuesto(String codigo) {
+		return cliente.seleccionarPresupuesto(codigo);
+	}
 }
