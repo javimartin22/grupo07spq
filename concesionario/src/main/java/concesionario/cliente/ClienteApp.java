@@ -103,6 +103,13 @@ public class ClienteApp {
 		return response;
 	}
 	
+	public Response registroTarifa(Tarifa tarifa) {
+		WebTarget insertTarifaTarget = loginTarget.path("insertTarifa");
+		Entity<Tarifa> entity = Entity.entity(tarifa, MediaType.APPLICATION_JSON);
+		Response response = insertTarifaTarget.request(MediaType.TEXT_PLAIN).post(entity);
+		return response;
+	}
+	
 	public Response cambiarContraseniaCliente(Cliente client, String contrasenia) {
 		WebTarget deleteClienteTarget = loginTarget.path("deleteClient");
 		Entity<Cliente> ent = Entity.entity(client, MediaType.APPLICATION_JSON);

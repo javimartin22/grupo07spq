@@ -76,6 +76,15 @@ public class VentanaMenuAdmin extends JFrame {
 			buttonVerUsuarios.setBounds(145, 117, 137, 23);
 			panel.add(buttonVerUsuarios);
 			
+			JButton buttonGestionTarifas = new JButton("Gestionar tarifas");
+			buttonGestionTarifas.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					gestionarTarifas(nickname);
+				}
+			});
+			buttonGestionTarifas.setBounds(145, 144, 137, 23);
+			panel.add(buttonGestionTarifas);
+			
 			
 			//boton de salir que te lleva a la ventana de VentanaLogin
 			JButton buttonSalir = new JButton("Salir");
@@ -84,13 +93,19 @@ public class VentanaMenuAdmin extends JFrame {
 					salir();
 				}
 			});
-			buttonSalir.setBounds(171, 165, 89, 23);
+			buttonSalir.setBounds(171, 172, 89, 23);
 			panel.add(buttonSalir);
 	}
 	
 	public void verUsuarios(String nickname) {
 		VentanaEmpleados ve = new VentanaEmpleados(loginController, nickname);
     	ve.setVisible(true);
+    	dispose();
+	}
+	
+	public void gestionarTarifas(String nickname) {
+		VentanaGestionTarifas vg = new VentanaGestionTarifas(loginController, nickname);
+    	vg.setVisible(true);
     	dispose();
 	}
 	

@@ -267,6 +267,31 @@ public class LoginResources {
 	}
 	
 	@POST
+	@Path("insertTarifa")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response registrarTarifa(Tarifa tarifa) {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		String idTarifa = tarifa.getIdTarifa();
+		String nomTarifa = tarifa.getNomTarifa();
+		int precioAprox = tarifa.getPrecioAprox();
+		int horas_manodeobra = tarifa.getHoras_manodeobra();
+		
+		BD.TarifaInsert(st, idTarifa, nomTarifa, precioAprox, horas_manodeobra);
+		Tarifa nuevo = BD.tarifaIdSelect(st, idTarifa);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).build();
+		}
+	}
+	
+	
+	
+	@POST
 	@Path("deleteClient")
 	@Consumes(MediaType.APPLICATION_JSON)
 	//@Produces("application/json")

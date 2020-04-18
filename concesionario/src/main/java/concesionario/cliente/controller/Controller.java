@@ -56,6 +56,10 @@ public class Controller {
 		return cliente.registroDepartamentoCompras(dep);
 	}
 	
+	public Response registroTarifa(Tarifa tarifa) {
+		return cliente.registroTarifa(tarifa);
+	}
+	
 	public Response cambiarContraseniaCliente(Cliente client, String contrasenia) {
 		return cliente.cambiarContraseniaCliente(client, contrasenia);
 	}

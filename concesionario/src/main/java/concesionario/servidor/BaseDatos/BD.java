@@ -978,6 +978,26 @@ public class BD {
  			return tarifa;
 		}
  		
+ 		public static Tarifa tarifaIdSelect(Statement st, String id_tarifa) {
+ 			String sentSQL = "";
+ 			Tarifa tarifa = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_TARIFAS + " where idTarifa= '" + id_tarifa + "' ";
+ 				ResultSet rs = st.executeQuery(sentSQL);
+ 				if (rs.next()) {
+ 					String idTarifa = rs.getString("idTarifa");
+ 					String nomTarifa = rs.getString("nomTarifa");
+ 					int precioAprox	= rs.getInt("precioAprox");
+ 					int horas_manodeobra = rs.getInt("horas_manodeobra");
+ 					tarifa = new Tarifa(idTarifa, nomTarifa, precioAprox, horas_manodeobra);
+				}
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+ 			return tarifa;
+		}
+ 		
  		
  		public static ResultSet tarifasTodosSelect(Statement st) {
  			String sentSQL = "";
