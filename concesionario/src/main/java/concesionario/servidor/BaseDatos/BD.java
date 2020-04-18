@@ -410,6 +410,7 @@ public class BD {
 					if (val != 1) { // Se tiene que anyadir 1 - error si no
 						return false;
 				}
+					st.close();
 					return true;
 				} catch (SQLException e) {
 					lastError = e;
