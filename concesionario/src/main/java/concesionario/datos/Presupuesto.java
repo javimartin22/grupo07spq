@@ -1,6 +1,7 @@
 package concesionario.datos;
 
 public class Presupuesto {
+	private String codigo;
 	private String dniCliente;
 	private String mecanico; 
 	private String marca;
@@ -16,8 +17,9 @@ public class Presupuesto {
 		
 	}
 
-	public Presupuesto(String dniCliente, String mecanico, String marca, String modelo, String problema, int numPiezas,
+	public Presupuesto(String codigo, String dniCliente, String mecanico, String marca, String modelo, String problema, int numPiezas,
 			String listaPiezas, String observaciones, int precio, String fecha) {
+		this.codigo = codigo;
 		this.dniCliente = dniCliente;
 		this.mecanico = mecanico;
 		this.marca = marca;
@@ -28,6 +30,14 @@ public class Presupuesto {
 		this.observaciones = observaciones;
 		this.precio = precio;
 		this.fecha = fecha;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getDniCliente() {
