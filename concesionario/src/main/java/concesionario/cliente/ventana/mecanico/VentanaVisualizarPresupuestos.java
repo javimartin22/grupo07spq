@@ -265,9 +265,9 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 			 contentStream.endText();
 			 
 			 contentStream.beginText();
-			 contentStream.setFont(PDType1Font.TIMES_BOLD, 12);
-			 contentStream.newLineAtOffset(150, 20);;
-			 contentStream.showText("Este ");
+			 contentStream.setFont(PDType1Font.TIMES_BOLD, 8);
+			 contentStream.newLineAtOffset(125, 20);;
+			 contentStream.showText("Este presupuesto debe sera aprobado por el cliente y cumple todas las normas de proteccion de datos");
 			 contentStream.endText();
 			 
 			
