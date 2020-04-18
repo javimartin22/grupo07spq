@@ -57,7 +57,7 @@ public class BD {
 	private static final String TABLA_COCHES_MATRICULADOS = "CochesMatriculados";
 	private static final String COLUMNAS_TABLA_COCHES_MATRICULADOS = "(matricula string PRIMARY KEY, marca string, modelo string, anyomatriculacion int, revisiones int, cv int, nombreCliente string, numPuertas int, color string)";
 	private static final String TABLA_PRESUPUESTO = "Presupuesto"; 
-	private static final String COLUMNAS_TABLA_PRESUPUESTO = "(dniCliente string, mecanico string, marca int, modelo string, problema string, numPiezas int, piezas string, observaviones string, precio int, fecha string)";
+	private static final String COLUMNAS_TABLA_PRESUPUESTO = "(codigo string PRIMARY KEY, dniCliente string, mecanico string, marca int, modelo string, problema string, numPiezas int, piezas string, observaviones string, precio int, fecha string)";
 	
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
@@ -401,11 +401,11 @@ public class BD {
 		}
 	}
 	
-	//Tabla PIEZAS_UTILIZADAS:
-			public static boolean PresupuestoInsert(Statement st, String dniCliente, String mecanico, String marca, String modelo, String problema, int numPiezas, String piezas, String observaciones, int precio, String fecha) {
+	//Tabla PRESUPUESTO:
+			public static boolean PresupuestoInsert(Statement st, String codigo, String dniCliente, String mecanico, String marca, String modelo, String problema, int numPiezas, String piezas, String observaciones, int precio, String fecha) {
 				String sentSQL = "";
 				try {
-					sentSQL = "insert into " + TABLA_PRESUPUESTO + " values ('" + secu(dniCliente) + "', '" + mecanico + "', '" + marca + "', '" + modelo  + "', '" + problema + "', " + numPiezas + ", '" + piezas + "', '" + observaciones + "', " + precio + ", '" + fecha + "')";
+					sentSQL = "insert into " + TABLA_PRESUPUESTO + " values ('" + secu(codigo) + "', '" + secu(dniCliente) + "', '" + mecanico + "', '" + marca + "', '" + modelo  + "', '" + problema + "', " + numPiezas + ", '" + piezas + "', '" + observaciones + "', " + precio + ", '" + fecha + "')";
 					int val = st.executeUpdate(sentSQL);
 					if (val != 1) { // Se tiene que anyadir 1 - error si no
 						return false;
@@ -864,13 +864,15 @@ public class BD {
  			return rs;
  		}	
  		
- 		public static Presupuesto presupuestoSelect(Statement st, String dni) {
+ 		//Tabla PRESUPUESTO:
+ 		public static Presupuesto presupuestoDNIClienteSelect(Statement st, String dni) {
  			String sentSQL = "";
  			Presupuesto presupuesto = null;
  			try {
  				sentSQL = "select * from " + TABLA_PRESUPUESTO + " where dniCliente= '" + dni + "' ";
  				ResultSet rs = st.executeQuery(sentSQL);
  				if (rs.next()) {
+ 					String codigo = rs.getString("codigo");
  					String dniCliente = rs.getString("dniCliente");
  					String mecanico = rs.getString("mecanico");
  					String marca = rs.getString("marca");
@@ -881,7 +883,7 @@ public class BD {
  					String observaciones = rs.getString("observaviones");
  					int precio = rs.getInt("precio");
  					String fecha = rs.getString("fecha");
- 					presupuesto = new Presupuesto(dniCliente, mecanico, marca, modelo, problema, numPiezas, listaPiezas, observaciones, precio, fecha);
+ 					presupuesto = new Presupuesto(codigo, dniCliente, mecanico, marca, modelo, problema, numPiezas, listaPiezas, observaciones, precio, fecha);
 				}
 			} catch (Exception e) {
 				lastError = e;
@@ -889,6 +891,47 @@ public class BD {
 			}
  			return presupuesto;
 		}
+ 		
+ 		public static Presupuesto presupuestoCodigoSelect(Statement st, String cod) {
+ 			String sentSQL = "";
+ 			Presupuesto presupuesto = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_PRESUPUESTO + " where codigo= '" + cod + "' ";
+ 				ResultSet rs = st.executeQuery(sentSQL);
+ 				if (rs.next()) {
+ 					String codigo = rs.getString("codigo");
+ 					String dniCliente = rs.getString("dniCliente");
+ 					String mecanico = rs.getString("mecanico");
+ 					String marca = rs.getString("marca");
+ 					String modelo = rs.getString("modelo");
+ 					String problema = rs.getString("problema");
+ 					int numPiezas = rs.getInt("numPiezas");
+ 					String listaPiezas = rs.getString("piezas");
+ 					String observaciones = rs.getString("observaviones");
+ 					int precio = rs.getInt("precio");
+ 					String fecha = rs.getString("fecha");
+ 					presupuesto = new Presupuesto(codigo, dniCliente, mecanico, marca, modelo, problema, numPiezas, listaPiezas, observaciones, precio, fecha);
+				}
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+ 			return presupuesto;
+		}
+ 		
+ 		public static ResultSet presupuestosTodosSelect(Statement st) {
+ 			String sentSQL = "";
+ 			ResultSet rs = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_PRESUPUESTO;
+ 				rs = st.executeQuery(sentSQL);
+ 			} catch (Exception e) {
+ 				lastError = e;
+ 				e.printStackTrace();
+ 			}
+ 			return rs;
+ 		}	
+ 		
 
 //METODOS DELETE:
 
@@ -1049,7 +1092,7 @@ public class BD {
 			return false;
 		}	
 	}
-		
+	
 	/////////////////////////////////////////////////////////////////////
 	// Metodos privados //
 	/////////////////////////////////////////////////////////////////////
