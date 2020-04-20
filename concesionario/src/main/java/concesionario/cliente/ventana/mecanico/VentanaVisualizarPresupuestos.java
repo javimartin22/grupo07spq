@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -154,6 +155,7 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 	
 	public void generarDoc(Presupuesto presupuesto) throws IOException {
 		double precioConIVA = presupuesto.getPrecio() + (presupuesto.getPrecio() * 0.21);
+		String fecha = parseFecha();
 		 try (PDDocument document = new PDDocument()) {
 			 PDPage page = new PDPage(PDRectangle.A4);
 			 document.addPage(page);
@@ -162,8 +164,14 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 
 			 // Text
 			 contentStream.beginText();
+			 contentStream.setFont(PDType1Font.TIMES_ITALIC, 10);
+			 contentStream.newLineAtOffset( 475, page.getMediaBox().getHeight() - 20);
+			 contentStream.showText(fecha);
+			 contentStream.endText();
+			 
+			 contentStream.beginText();
 			 contentStream.setFont(PDType1Font.TIMES_BOLD, 32);
-			 contentStream.newLineAtOffset( 175, page.getMediaBox().getHeight() - 50);
+			 contentStream.newLineAtOffset( 175, page.getMediaBox().getHeight() - 60);
 			 contentStream.showText("Presupuesto Taller");
 			 contentStream.endText();
 			 
@@ -171,7 +179,7 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 			 contentStream.beginText();
 			 contentStream.setFont(PDType1Font.TIMES_ROMAN, 13);
 			 contentStream.newLineAtOffset(25, 750);;
-			 contentStream.showText("A continuacion podemos ver el presupuesto de los arreglos necesarios del vehiculo " + presupuesto.getDniCliente() + ":");
+			 contentStream.showText("A continuacion podemos ver el presupuesto de los arreglos necesarios del vehiculo de " + presupuesto.getDniCliente() + ":");
 			 contentStream.endText();
 			 
 			 contentStream.beginText();
@@ -267,14 +275,25 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 			 contentStream.beginText();
 			 contentStream.setFont(PDType1Font.TIMES_BOLD, 8);
 			 contentStream.newLineAtOffset(125, 20);;
-			 contentStream.showText("Este presupuesto debe sera aprobado por el cliente y cumple todas las normas de proteccion de datos");
+			 contentStream.showText("Este presupuesto debe ser aprobado por el cliente y cumple todas las normas de proteccion de datos");
 			 contentStream.endText();
 			 
-			
+			 contentStream.beginText();
+			 contentStream.setFont(PDType1Font.TIMES_BOLD, 15);
+			 contentStream.newLineAtOffset(260, 50);;
+			 contentStream.showText("Taller JMPY SL");
+			 contentStream.endText();
 			 
 			 contentStream.close();
 			 
-			 document.save("Presupuestos/" + presupuesto.getCodigo() + ".pdf");
+			 document.save("Presupuestos/Presupusto-" + presupuesto.getCodigo() + ".pdf");
 		 }
+	}
+	
+	public String parseFecha() {
+		String fecha = "";
+		Calendar c = Calendar.getInstance();
+		fecha = c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR) + " - " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + " - Bilbao"; 
+		return fecha;
 	}
 }
