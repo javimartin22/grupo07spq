@@ -168,6 +168,11 @@ public class Controller {
 		return cliente.seleccionarPresupuesto(codigo);
 	}
 	
+	public Response filtrarTarifaPrecio(int precio) {
+		System.out.println("entra controller"+precio);
+		return cliente.filtrarTarifaPrecio(precio);
+	}
+	
 	public List<Tarifa> cargarTablaTarifas(){
 		return cliente.cargarTablaTarifas();
 	}

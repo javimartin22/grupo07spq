@@ -903,6 +903,43 @@ public class LoginResources {
 		}
 	}
 	
+
+	@POST
+	@Path("precioTarifa")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response filtrarPrecio(int precio) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		System.out.println("entra server"+precio);
+		ResultSet rs = BD.tarifaPrecioSelect(st, precio);
+		List<Tarifa> tarifas = new ArrayList<Tarifa>();
+		//"(idTarifa string PRIMARY KEY, nomTarifa string, precioAprox int, horas_manodeobra int)";
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String idTarifa = rs.getString("idTarifa");
+					String nomTarifa = rs.getString("nomTarifa");
+					int precioAprox = rs.getInt("precioAprox");
+					int horas_manodeobra = rs.getInt("horas_manodeobra");
+
+					Tarifa tarifa = new Tarifa(idTarifa, nomTarifa, precioAprox, horas_manodeobra);
+					tarifas.add(tarifa);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			for(Tarifa t:tarifas) {
+				System.out.println(t.getPrecioAprox());
+			}
+			return Response.status(Response.Status.OK).entity(tarifas).build();
+		}
+	
+	}
+	
+	
 	@DELETE
 	@Path("{code}")
 	public Response deleteUser (@PathParam("code") int codigo) {

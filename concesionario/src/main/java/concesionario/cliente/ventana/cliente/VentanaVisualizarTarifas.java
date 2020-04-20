@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -20,6 +21,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class VentanaVisualizarTarifas extends JFrame {
 
@@ -30,6 +32,7 @@ public class VentanaVisualizarTarifas extends JFrame {
 	private JPanel contentPane;
 	private Controller loginController;
 	private JTable table;
+	private DefaultTableModel model;
 
 	public VentanaVisualizarTarifas(Controller loginController, String nickname) {
 		setResizable(false);
@@ -50,9 +53,38 @@ public class VentanaVisualizarTarifas extends JFrame {
 		JMenu mnNewMenu = new JMenu("Filtros");
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Color");
+		JMenuItem mntmNewMenuItem = new JMenuItem("Precio menor que");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String respuesta = JOptionPane.showInputDialog("Introduzca cantidad");
+				if(isNumeric(respuesta)) {
+					System.out.println("entra en isnumeric");
+					int resp = Integer.parseInt(respuesta);
+					Response response = loginController.filtrarTarifaPrecio(resp);
+					if(response.getStatus() == Status.OK.getStatusCode()) {
+						GenericType<List<Tarifa>> genericType = new GenericType<List<Tarifa>>() {};
+						List<Tarifa> tarifas = response.readEntity(genericType);
+						
+						String[] columnNames = {"Id", "Nombre", "Precio Aproximado", "Mano de obra(h)"};
+						if (!tarifas.isEmpty()) {
+							  model = new DefaultTableModel();
+							   table.setModel(model);
+							   model.setColumnIdentifiers(columnNames);
+							   for (Tarifa t : tarifas) {
+								   Object[] o = new Object[5];
+								   o[0] = t.getIdTarifa();
+								   o[1] = t.getNomTarifa();
+								   o[2] = t.getPrecioAprox();
+								   o[3] = t.getHoras_manodeobra();
+								   model.addRow(o);
+								 }
+						}
+					}
+					
+				}else {
+					JOptionPane.showInputDialog("No ha introducido un numero");
+				}
+				
 			}
 		});
 		
@@ -77,7 +109,7 @@ public class VentanaVisualizarTarifas extends JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		JButton btnVerTarifas = new JButton("Visualizar tarifas");
+		JButton btnVerTarifas = new JButton("Visualizar todas las tarifas");
 		btnVerTarifas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cargarTabla(table);
@@ -104,7 +136,7 @@ public class VentanaVisualizarTarifas extends JFrame {
 		List<Tarifa> tarifas = loginController.cargarTablaTarifas();
 		String[] columnNames = {"Id", "Nombre", "Precio Aproximado", "Mano de obra(h)"};
 		if (!tarifas.isEmpty()) {
-			 DefaultTableModel model = new DefaultTableModel();
+			  model = new DefaultTableModel();
 			   table.setModel(model);
 			   model.setColumnIdentifiers(columnNames);
 			   for (Tarifa t : tarifas) {
@@ -118,6 +150,18 @@ public class VentanaVisualizarTarifas extends JFrame {
 		} else {
 			System.out.println("Llegan  mal las tarifas");
 		}
+	}
+	
+	public static boolean isNumeric(String strNum) {
+	    if (strNum == null) {
+	        return false;
+	    }
+	    try {
+	        int i = Integer.parseInt(strNum);
+	    } catch (NumberFormatException nfe) {
+	        return false;
+	    }
+	    return true;
 	}
 	
 }

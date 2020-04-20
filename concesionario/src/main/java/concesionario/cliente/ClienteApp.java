@@ -336,6 +336,16 @@ public class ClienteApp {
 		return tarifas;
 	}
 	
+	
+	public Response filtrarTarifaPrecio(int precio) {
+		System.out.println("cliente"+precio);
+		WebTarget filtroPrecioTarifaTarget = loginTarget.path("precioTarifa");
+		Entity<Integer> entity = Entity.entity(precio, MediaType.APPLICATION_JSON);
+		Response response = filtroPrecioTarifaTarget.request(MediaType.APPLICATION_JSON).post(entity);
+
+        return response;
+	}
+	
 	 public static void main(String[] args) {
 	        SwingUtilities.invokeLater(new Runnable(){
 	        
