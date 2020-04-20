@@ -4,22 +4,19 @@ package concesionario.cliente.ventana.gerente;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.Controller;
-import concesionario.datos.Mecanico;
 import concesionario.datos.Tarifa;
 
 
@@ -30,7 +27,6 @@ public class VentanaRegistroTarifa extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textFieldID;
 	private JTextField textFieldNombre;
 	private JTextField textFieldPrecioAprox;
 	private JTextField textFieldHorasManoObra;
@@ -45,7 +41,7 @@ public class VentanaRegistroTarifa extends JFrame {
 		setResizable(false);
 		setTitle("Registrar Nueva Tarifa");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 538, 395);
+		setBounds(100, 100, 510, 278);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,39 +52,30 @@ public class VentanaRegistroTarifa extends JFrame {
 		lblInfo.setBounds(22, 20, 426, 16);
 		contentPane.add(lblInfo);
 		
-		JLabel lblID = new JLabel("ID: ");
-		lblID.setBounds(53, 61, 150, 16);
-		contentPane.add(lblID);
-		
-		textFieldID = new JTextField();
-		textFieldID.setBounds(231, 56, 228, 26);
-		contentPane.add(textFieldID);
-		textFieldID.setColumns(10);
-		
 		JLabel lblNombre = new JLabel("Nombre Tarifa: ");
-		lblNombre.setBounds(53, 99, 150, 16);
+		lblNombre.setBounds(53, 52, 150, 16);
 		contentPane.add(lblNombre);
 		
 		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(231, 93, 228, 26);
+		textFieldNombre.setBounds(231, 47, 228, 26);
 		contentPane.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
 		JLabel lblPrecioAprox = new JLabel("Estimacion Precio: ");
-		lblPrecioAprox.setBounds(53, 137, 150, 16);
+		lblPrecioAprox.setBounds(53, 95, 150, 16);
 		contentPane.add(lblPrecioAprox);
 		
 		textFieldPrecioAprox = new JTextField();
-		textFieldPrecioAprox.setBounds(231, 132, 228, 26);
+		textFieldPrecioAprox.setBounds(231, 90, 228, 26);
 		contentPane.add(textFieldPrecioAprox);
 		textFieldPrecioAprox.setColumns(10);
 		
 		JLabel lblHorasManoObra = new JLabel("Estimacion en horas Mano de Obra: ");
-		lblHorasManoObra.setBounds(53, 175, 150, 16);
+		lblHorasManoObra.setBounds(53, 141, 150, 16);
 		contentPane.add(lblHorasManoObra);
 		
 		textFieldHorasManoObra = new JTextField();
-		textFieldHorasManoObra.setBounds(231, 170, 228, 26);
+		textFieldHorasManoObra.setBounds(231, 136, 228, 26);
 		contentPane.add(textFieldHorasManoObra);
 		textFieldHorasManoObra.setColumns(10);
 		
@@ -104,7 +91,7 @@ public class VentanaRegistroTarifa extends JFrame {
 			}
 		});
 		
-		btnCancelar.setBounds(109, 238, 117, 29);
+		btnCancelar.setBounds(110, 188, 117, 29);
 		contentPane.add(btnCancelar);
 		
 		JButton btnRegistrar = new JButton("Registrar");
@@ -112,7 +99,7 @@ public class VentanaRegistroTarifa extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				boolean datos = comprobarDatos();
 				if (datos) {
-					String idTarifa = textFieldID.getText();
+					String idTarifa = crearID();
 					String nombre = textFieldNombre.getText();
 					int precioAprox = Integer.parseInt(textFieldPrecioAprox.getText());
 					int horas_manodeobra = Integer.parseInt(textFieldHorasManoObra.getText());
@@ -124,13 +111,13 @@ public class VentanaRegistroTarifa extends JFrame {
 				}
 			}
 		});
-		btnRegistrar.setBounds(277, 238, 117, 29);
+		btnRegistrar.setBounds(281, 188, 117, 29);
 		contentPane.add(btnRegistrar);
 	}
 	
 	public boolean comprobarDatos() {
 		boolean datos = false;
-		if (!textFieldID.getText().isEmpty() && !textFieldNombre.getText().isEmpty() && !textFieldPrecioAprox.getText().isEmpty() && !textFieldHorasManoObra.getText().isEmpty()) {
+		if (!textFieldNombre.getText().isEmpty() && !textFieldPrecioAprox.getText().isEmpty() && !textFieldHorasManoObra.getText().isEmpty()) {
 			datos = true;
 		}
 		return datos;
@@ -138,7 +125,6 @@ public class VentanaRegistroTarifa extends JFrame {
 	
 	
 	public void vaciarCampos() {
-		textFieldID.setText("");
 		textFieldNombre.setText("");
 		textFieldPrecioAprox.setText("");
 		textFieldHorasManoObra.setText("");
@@ -167,5 +153,12 @@ public class VentanaRegistroTarifa extends JFrame {
 			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
 			dispose();
 		}
+	}
+	
+	public String crearID () {
+		List<Tarifa> tarifas = loginController.cargarTablaTarifas();
+		int numero = tarifas.size() + 1;
+		String ID  = "TA-" + numero;
+		return ID;
 	}
 }

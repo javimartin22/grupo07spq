@@ -397,7 +397,7 @@ public class BD {
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
-		}
+			}
 			return true;
 		} catch (SQLException e) {
 			lastError = e;
@@ -414,7 +414,7 @@ public class BD {
 					int val = st.executeUpdate(sentSQL);
 					if (val != 1) { // Se tiene que anyadir 1 - error si no
 						return false;
-				}
+					}
 					st.close();
 					return true;
 				} catch (SQLException e) {
@@ -432,7 +432,7 @@ public class BD {
 					int val = st.executeUpdate(sentSQL);
 					if (val != 1) { // Se tiene que anyadir 1 - error si no
 						return false;
-				}
+					}
 					st.close();
 					return true;
 				} catch (SQLException e) {
