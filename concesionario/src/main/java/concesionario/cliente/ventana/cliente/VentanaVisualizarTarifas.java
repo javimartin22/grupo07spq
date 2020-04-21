@@ -9,7 +9,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.Controller;
-import concesionario.datos.CocheConcesionario;
 import concesionario.datos.Tarifa;
 
 import javax.swing.JTable;
@@ -58,7 +57,6 @@ public class VentanaVisualizarTarifas extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String respuesta = JOptionPane.showInputDialog("Introduzca cantidad");
 				if(isNumeric(respuesta)) {
-					System.out.println("entra en isnumeric");
 					int resp = Integer.parseInt(respuesta);
 					Response response = loginController.filtrarTarifaPrecio(resp);
 					if(response.getStatus() == Status.OK.getStatusCode()) {
