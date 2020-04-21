@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import concesionario.cliente.controller.Controller;
 import concesionario.cliente.ventana.VentanaLogin;
+import concesionario.datos.Venta;
 
 public class VentanaMenuAdmin extends JFrame {
 
@@ -58,7 +59,7 @@ public class VentanaMenuAdmin extends JFrame {
 						vrm.setVisible(true);
 						dispose();
 					} else if (respuesta.equals("DC") || respuesta.equals("dc") || respuesta.equals("Dc") || respuesta.equals("dC")){
-						JOptionPane.showMessageDialog(panel, "Ventana Departamento Compras");
+						VentanaRegistroComercial vrc = new VentanaRegistroComercial(loginController, nickname);
 					} else {
 						JOptionPane.showMessageDialog(panel, "Caracter no valido");
 					}
@@ -73,7 +74,7 @@ public class VentanaMenuAdmin extends JFrame {
 					verUsuarios(nickname);
 				}
 			});
-			buttonVerUsuarios.setBounds(145, 117, 137, 23);
+			buttonVerUsuarios.setBounds(129, 100, 164, 23);
 			panel.add(buttonVerUsuarios);
 			
 			JButton buttonGestionTarifas = new JButton("Gestionar tarifas");
@@ -82,7 +83,7 @@ public class VentanaMenuAdmin extends JFrame {
 					gestionarTarifas(nickname);
 				}
 			});
-			buttonGestionTarifas.setBounds(145, 144, 137, 23);
+			buttonGestionTarifas.setBounds(129, 134, 164, 23);
 			panel.add(buttonGestionTarifas);
 			
 			
@@ -93,7 +94,7 @@ public class VentanaMenuAdmin extends JFrame {
 					salir();
 				}
 			});
-			buttonSalir.setBounds(171, 172, 89, 23);
+			buttonSalir.setBounds(166, 168, 89, 23);
 			panel.add(buttonSalir);
 	}
 	
