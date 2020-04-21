@@ -217,6 +217,13 @@ public class ClienteApp {
 		return response;
 	}
 	
+	public Response tarifaDelete(String idTarifa) {
+		WebTarget deleteComercialTarget = loginTarget.path("deleteTarifa");
+		Entity<String> ent = Entity.entity(idTarifa, MediaType.APPLICATION_JSON);
+		Response response = deleteComercialTarget.request(MediaType.TEXT_PLAIN).post(ent);
+		return response;
+	}
+	
 	public Response departamentoComprasSelect(String nickname) {
 		WebTarget selectDepartamentoComprasTarget = loginTarget.path("selectDepartamentoCompras");
 		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);

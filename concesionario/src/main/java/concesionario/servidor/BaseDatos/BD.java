@@ -433,7 +433,6 @@ public class BD {
 					if (val != 1) { // Se tiene que anyadir 1 - error si no
 						return false;
 					}
-					st.close();
 					return true;
 				} catch (SQLException e) {
 					lastError = e;
@@ -1043,6 +1042,7 @@ public class BD {
  			try {
  				sentSQL = "select * from " + TABLA_TARIFAS + " where precioAprox< '" + precio + "'";
  				rs = st.executeQuery(sentSQL);
+ 				st.close();
 			} catch (Exception e) {
 				lastError = e;
 				e.printStackTrace();
@@ -1237,6 +1237,21 @@ public class BD {
 		String sentSQL = "";
 		try {
 			sentSQL = "delete from " + TABLA_VENTAS + " where codigoVenta= '" + secu(codigoVenta) + "'";
+			int val = st.executeUpdate(sentSQL);
+			return (val == 1);
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}	
+	}
+	
+	//TABLA TARIFA:
+	public static boolean tarifasDelete(Statement st, String idTarifa) {
+		String sentSQL = "";
+		try {
+			System.out.println("llega delete");
+			sentSQL = "delete from " + TABLA_TARIFAS + " where idTarifa= '" + secu(idTarifa) + "'";
 			int val = st.executeUpdate(sentSQL);
 			return (val == 1);
 		} catch (SQLException e) {

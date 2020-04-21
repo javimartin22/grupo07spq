@@ -132,6 +132,10 @@ public class Controller {
 		return cliente.departamentoComprasDelete(nickname);
 	}
 	
+	public Response eliminarTarifa(String idTarifa) {
+		return cliente.tarifaDelete(idTarifa);
+	}
+	
 	public List<CocheTaller> cargarTablaCocheTaller(){
 		return cliente.cargarTablaCocheTaller();
 	}

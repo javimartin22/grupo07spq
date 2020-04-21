@@ -326,6 +326,22 @@ public class LoginResources {
 	}
 	
 	@POST
+	@Path("deleteTarifa")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response deleteTarifa(String idTarifa) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		boolean b = BD.tarifasDelete(st, idTarifa);
+		if (b) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
+	@POST
 	@Path("deleteMecanico")
 	@Consumes(MediaType.APPLICATION_JSON)
 	//@Produces("application/json")

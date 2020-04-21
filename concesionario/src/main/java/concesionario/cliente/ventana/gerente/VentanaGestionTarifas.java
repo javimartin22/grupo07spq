@@ -59,7 +59,9 @@ public class VentanaGestionTarifas extends JFrame {
 			JButton buttonVeryEditTarifas = new JButton("Ver y editar tarifas");
 			buttonVeryEditTarifas.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//
+					VentanaVeryEditarTarifas vtf = new VentanaVeryEditarTarifas(loginController, nickname);
+					vtf.setVisible(true);
+					dispose();
 				}
 			});
 			buttonVeryEditTarifas.setBounds(145, 117, 137, 23);
