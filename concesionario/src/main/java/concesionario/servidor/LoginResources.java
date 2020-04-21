@@ -939,6 +939,102 @@ public class LoginResources {
 	
 	}
 	
+	@POST
+	@Path("loadTablaMarcaVentas")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response filtrarVentaMarca(String marca) {
+		System.out.println(marca);
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.ventasMarcaSelect(st, marca);
+		List<Venta> ventas = new ArrayList<Venta>();
+
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String fecha = rs.getString("fecha");
+					String nicknameComercial = rs.getString("nombreVendedor");
+					String marc = rs.getString("marca");
+					String modelo = rs.getString("modelo");
+					String nombreComprador = rs.getString("nombreComprador");
+					String matricul = rs.getString("matricula");
+					Venta venta = new Venta(fecha, modelo, marc, matricul, nicknameComercial, nombreComprador);					
+					ventas.add(venta);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(ventas).build();
+		}
+	}
+
+	@POST
+	@Path("loadTablaModeloVentas")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response filtrarVentaModelo(String modelo) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.ventasModeloSelect(st, modelo);
+		List<Venta> ventas = new ArrayList<Venta>();
+
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String fecha = rs.getString("fecha");
+					String nicknameComercial = rs.getString("nombreVendedor");
+					String marca = rs.getString("marca");
+					String model = rs.getString("modelo");
+					String nombreComprador = rs.getString("nombreComprador");
+					String matricul = rs.getString("matricula");
+					Venta venta = new Venta(fecha, model, marca, matricul, nicknameComercial, nombreComprador);					
+					ventas.add(venta);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(ventas).build();
+		}
+	}
+	
+	@POST
+	@Path("loadTablaComercialVentas")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response filtrarComercialModelo(String comercial) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.ventasComercialSelect(st, comercial);
+		List<Venta> ventas = new ArrayList<Venta>();
+
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String fecha = rs.getString("fecha");
+					String nicknameComercial = rs.getString("nombreVendedor");
+					String marca = rs.getString("marca");
+					String model = rs.getString("modelo");
+					String nombreComprador = rs.getString("nombreComprador");
+					String matricul = rs.getString("matricula");
+					Venta venta = new Venta(fecha, model, marca, matricul, nicknameComercial, nombreComprador);					
+					ventas.add(venta);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(ventas).build();
+		}
+	}
 	
 	@DELETE
 	@Path("{code}")

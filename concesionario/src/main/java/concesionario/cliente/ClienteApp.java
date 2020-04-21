@@ -338,11 +338,30 @@ public class ClienteApp {
 	
 	
 	public Response filtrarTarifaPrecio(int precio) {
-		System.out.println("cliente"+precio);
 		WebTarget filtroPrecioTarifaTarget = loginTarget.path("precioTarifa");
 		Entity<Integer> entity = Entity.entity(precio, MediaType.APPLICATION_JSON);
 		Response response = filtroPrecioTarifaTarget.request(MediaType.APPLICATION_JSON).post(entity);
-
+        return response;
+	}
+	
+	public Response filtrarVentaMarca(String marca) {
+		WebTarget filtroMarcaVentaTarget = loginTarget.path("loadTablaMarcaVentas");
+		Entity<String> entity = Entity.entity(marca, MediaType.APPLICATION_JSON);
+		Response response = filtroMarcaVentaTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
+	public Response filtrarVentaModelo(String modelo) {
+		WebTarget filtroModeloVentaTarget = loginTarget.path("loadTablaModeloVentas");
+		Entity<String> entity = Entity.entity(modelo, MediaType.APPLICATION_JSON);
+		Response response = filtroModeloVentaTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
+	public Response filtrarVentaComercial(String comercial) {
+		WebTarget filtroComercialVentaTarget = loginTarget.path("loadTablaComercialVentas");
+		Entity<String> entity = Entity.entity(comercial, MediaType.APPLICATION_JSON);
+		Response response = filtroComercialVentaTarget.request(MediaType.APPLICATION_JSON).post(entity);
         return response;
 	}
 	

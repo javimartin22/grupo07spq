@@ -2,6 +2,7 @@ package concesionario.cliente.ventana.comercial;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -10,8 +11,12 @@ import javax.swing.JMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.Controller;
+import concesionario.datos.Tarifa;
 import concesionario.datos.Venta;
 
 import javax.swing.JMenuBar;
@@ -94,20 +99,16 @@ public class VentanaVisualizarVentas extends JFrame {
 		JMenuItem mntmModelo = new JMenuItem("Modelo");
 		mntmModelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				resetearTabla(table);
 			    String nombre = JOptionPane.showInputDialog("Introduzca un modelo: ");
-			    nombre =  nombre.toUpperCase();
-			   // cargarModelo(table, st,nombre);
+			    cargarTablaRestriccion(table, 1, nombre);
 			}
 		});
 		
 		JMenuItem mntmMarca = new JMenuItem("Marca");
 		mntmMarca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				resetearTabla(table);
 			    String nombre = JOptionPane.showInputDialog("Introduzca una marca: ");
-			    nombre = nombre.toUpperCase();
-			  //  cargarMarca(table,st,nombre);
+			    cargarTablaRestriccion(table, 0, nombre);
 			}
 		});
 		mnFiltro.add(mntmMarca);
@@ -118,10 +119,8 @@ public class VentanaVisualizarVentas extends JFrame {
 		JMenuItem mntmComercial = new JMenuItem("Comercial");
 		mntmComercial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				resetearTabla(table);
 				String nombre = JOptionPane.showInputDialog("Introduzca un nombre: ");
-			   nombre =  nombre.toUpperCase();
-			    //cargarComercial(table, st, nombre);
+				cargarTablaRestriccion(table, 2, nombre);
 			}
 		});
 		mnFiltro.add(mntmComercial);
@@ -133,22 +132,73 @@ public class VentanaVisualizarVentas extends JFrame {
 		String[] columnNames = {"Fecha", "Matricula", "Marca", "Modelo", "Comercial", "DNI Cliente"};
 		
 		if (!ventas.isEmpty()) {
-			 DefaultTableModel model = new DefaultTableModel();
-			   tabla.setModel(model);
-			   model.setColumnIdentifiers(columnNames);
-			   
-			   for (Venta v : ventas) {
-				   Object[] o = new Object[7];
-				   o[0] = v.getFecha();
-				   o[1] = v.getMatricula();
-				   o[2] = v.getModelo();
-				   o[3] = v.getModelo();
-				   o[4] = v.getNicknameComercial();
-				   o[5] = v.getNombreComprador();
-				   model.addRow(o);
-				 }
+			DefaultTableModel model = new DefaultTableModel();
+			tabla.setModel(model);
+			model.setColumnIdentifiers(columnNames);
+			
+			for (Venta v : ventas) {
+				Object[] o = new Object[7];
+				o[0] = v.getFecha();
+				o[1] = v.getMatricula();
+				o[2] = v.getMarca();
+				o[3] = v.getModelo();
+				o[4] = v.getNicknameComercial();
+				o[5] = v.getNombreComprador();
+				model.addRow(o);
+			}
 		} else {
 			System.out.println("llega mal");
+		}
+	}
+	
+	public void cargarTablaRestriccion (JTable table, int tipo, String restriccion) {
+		List<Venta> ventas = new ArrayList<Venta>();
+		switch (tipo) {
+		case 0:
+			Response response_1 = loginController.filtrarVentaMarca(restriccion);
+			if(response_1.getStatus() == Status.OK.getStatusCode()) {
+				GenericType<List<Venta>> genericType = new GenericType<List<Venta>>() {};
+				ventas = response_1.readEntity(genericType);
+			}else {
+				JOptionPane.showMessageDialog(this, "No hay ninguna venta con esa marca.");
+			}
+			break;
+		case 1: 
+			Response response_2 = loginController.filtrarVentaModelo(restriccion);
+			if(response_2.getStatus() == Status.OK.getStatusCode()) {
+				GenericType<List<Venta>> genericType = new GenericType<List<Venta>>() {};
+				ventas = response_2.readEntity(genericType);
+			}else {
+				JOptionPane.showMessageDialog(this, "No hay ninguna venta con este modelo.");
+			}
+			break;
+		case 2: 
+			Response response_3 = loginController.filtrarVentaComercial(restriccion);
+			if(response_3.getStatus() == Status.OK.getStatusCode()) {
+				GenericType<List<Venta>> genericType = new GenericType<List<Venta>>() {};
+				ventas = response_3.readEntity(genericType);
+			}else {
+				JOptionPane.showMessageDialog(this, "No hay ninguna venta con este comercial.");
+			}
+			break;
+		}
+		String[] columnNames = {"Fecha", "Matricula", "Marca", "Modelo", "Comercial", "DNI Cliente"};
+		
+		if (!ventas.isEmpty()) {
+			DefaultTableModel model = new DefaultTableModel();
+			table.setModel(model);
+			model.setColumnIdentifiers(columnNames);
+			
+			for (Venta v : ventas) {
+				Object[] o = new Object[7];
+				o[0] = v.getFecha();
+				o[1] = v.getMatricula();
+				o[2] = v.getMarca();
+				o[3] = v.getModelo();
+				o[4] = v.getNicknameComercial();
+				o[5] = v.getNombreComprador();
+				model.addRow(o);
+			}
 		}
 	}
 }

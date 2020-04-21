@@ -869,6 +869,7 @@ public class BD {
  							String matricul = rs.getString("matricula");
  							venta = new Venta(fecha, modelo, marca, matricul, nicknameComercial, nombreComprador);
  						}
+ 						st.close();
  					} catch (Exception e) {
  						lastError = e;
  						e.printStackTrace();
@@ -888,6 +889,45 @@ public class BD {
  			}
  			return rs;
  		}	
+ 		
+ 		public static ResultSet ventasMarcaSelect(Statement st, String marca) {
+ 			String sentSQL = "";
+ 			ResultSet rs = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_VENTAS + " where marca= '" + marca + "'";
+ 				rs = st.executeQuery(sentSQL);
+ 			} catch (Exception e) {
+ 				lastError = e;
+ 				e.printStackTrace();
+ 			}
+ 			return rs;
+ 		}
+ 		
+ 		public static ResultSet ventasModeloSelect(Statement st, String modelo) {
+ 			String sentSQL = "";
+ 			ResultSet rs = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_VENTAS + " where modelo= '" + modelo + "'";
+ 				rs = st.executeQuery(sentSQL);
+ 			} catch (Exception e) {
+ 				lastError = e;
+ 				e.printStackTrace();
+ 			}
+ 			return rs;
+ 		}
+ 		
+ 		public static ResultSet ventasComercialSelect(Statement st, String comercial) {
+ 			String sentSQL = "";
+ 			ResultSet rs = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_VENTAS + " where nombreVendedor= '" + comercial + "'";
+ 				rs = st.executeQuery(sentSQL);
+ 			} catch (Exception e) {
+ 				lastError = e;
+ 				e.printStackTrace();
+ 			}
+ 			return rs;
+ 		}
  		
  		//Tabla PRESUPUESTO:
  		public static Presupuesto presupuestoDNIClienteSelect(Statement st, String dni) {

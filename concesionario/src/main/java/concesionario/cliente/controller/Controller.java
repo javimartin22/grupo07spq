@@ -169,11 +169,22 @@ public class Controller {
 	}
 	
 	public Response filtrarTarifaPrecio(int precio) {
-		System.out.println("entra controller"+precio);
 		return cliente.filtrarTarifaPrecio(precio);
 	}
 	
 	public List<Tarifa> cargarTablaTarifas(){
 		return cliente.cargarTablaTarifas();
+	}
+	
+	public Response filtrarVentaMarca(String marca) {
+		return cliente.filtrarVentaMarca(marca);
+	}
+	
+	public Response filtrarVentaModelo(String modelo) {
+		return cliente.filtrarVentaModelo(modelo);
+	}
+	
+	public Response filtrarVentaComercial(String comercial) {
+		return cliente.filtrarVentaComercial(comercial);
 	}
 }
