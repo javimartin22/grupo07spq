@@ -1,6 +1,7 @@
 package concesionario.cliente.ventana.comercial;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -8,9 +9,17 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.Controller;
 import concesionario.datos.CocheConcesionario;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import java.awt.Font;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class VentanaCochesConcesionario extends JFrame {
 		
@@ -24,15 +33,62 @@ public class VentanaCochesConcesionario extends JFrame {
 	public VentanaCochesConcesionario(Controller loginController, String nickname) {
 		setResizable(false);
 		this.loginController = loginController;
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnNewMenu = new JMenu("Filtros");
+		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Marca");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String marca = JOptionPane.showInputDialog("Introduzca la marca que le interesa:");
+				cargarTablaFiltros(table, 0, marca);
+			}
+		});
+		mntmNewMenuItem.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		mnNewMenu.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Color");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String color = JOptionPane.showInputDialog("Introduzca el color que desee:");
+				cargarTablaFiltros(table, 1, color);
+			}
+		});
+		mntmNewMenuItem_1.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		mnNewMenu.add(mntmNewMenuItem_1);
+		
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("CV");
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cv = JOptionPane.showInputDialog("Introduzca los CV que desee:");
+				cargarTablaFiltros(table, 2, cv);
+			}
+		});
+		mntmNewMenuItem_2.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		mnNewMenu.add(mntmNewMenuItem_2);
+		
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Precio Max");
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int precio = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el precio maximo:"));
+				cargarTablaFiltros(table, 3, precio + "");
+			}
+		});
+		mntmNewMenuItem_3.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		mnNewMenu.add(mntmNewMenuItem_3);
 		iniciarVentanaCochesConcesionario(nickname);
 	}
 	
 	public void iniciarVentanaCochesConcesionario(String nickname){
 		
 		setAutoRequestFocus(false);
-		setBounds(100, 100, 992, 360);
+		setBounds(100, 100, 992, 390);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Gestion de empleados");
+		setTitle("Catalogo Comercial");
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		
@@ -45,11 +101,11 @@ public class VentanaCochesConcesionario extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(600, 299, 117, 29);
+		btnVolver.setBounds(578, 299, 117, 29);
 		getContentPane().add(btnVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 29, 980, 263);
+		scrollPane.setBounds(10, 11, 966, 263);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -83,7 +139,7 @@ public class VentanaCochesConcesionario extends JFrame {
 				cargarTabla(table);
 			}
 		});
-		btnNewButton.setBounds(729, 299, 117, 29);
+		btnNewButton.setBounds(705, 299, 141, 29);
 		getContentPane().add(btnNewButton);
 		
 	}
@@ -113,6 +169,39 @@ public class VentanaCochesConcesionario extends JFrame {
 				   o[4] = c.getNumPuertas();
 				   o[5] = c.getColor();
 				   o[6] = c.getUnidades();
+				   model.addRow(o);
+				 }
+		} else {
+			System.out.println("llega mal");
+		}
+	}
+	
+	public void cargarTablaFiltros(JTable table, int tipo, String restriccion) {
+		List<CocheConcesionario> coches = new ArrayList<CocheConcesionario>();
+		
+		String filtro = restriccion + "-" + tipo;
+		
+		Response response = loginController.filtrarCocheConcesionario(filtro);
+		if(response.getStatus() == Status.OK.getStatusCode()) {
+			GenericType<List<CocheConcesionario>> genericType = new GenericType<List<CocheConcesionario>>() {};
+			coches = response.readEntity(genericType);
+		}else {
+			JOptionPane.showMessageDialog(this, "No hay ningun con ese codigo.");
+		}
+		
+		String[] columnNames = {"Marca", "Modelo", "CV", "Precio", "Unidades"};
+		
+		if (!coches.isEmpty()) {
+			 DefaultTableModel model = new DefaultTableModel();
+			   table.setModel(model);
+			   model.setColumnIdentifiers(columnNames);
+			   for (CocheConcesionario e : coches) {
+				   Object[] o = new Object[5];
+				   o[0] = e.getMarca();
+				   o[1] = e.getModelo();
+				   o[2] = e.getCv();
+				   o[3] = e.getPrecio();
+				   o[4] = e.getUnidades();
 				   model.addRow(o);
 				 }
 		} else {
