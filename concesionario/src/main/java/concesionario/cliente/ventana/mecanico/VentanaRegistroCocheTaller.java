@@ -38,7 +38,7 @@ public class VentanaRegistroCocheTaller extends JFrame {
 	
 	private void iniciarVentanaRegistrarCocheTaller(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 367);
+		setBounds(100, 100, 450, 312);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -53,7 +53,7 @@ public class VentanaRegistroCocheTaller extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(105, 290, 117, 29);
+		btnCancelar.setBounds(106, 227, 117, 29);
 		contentPane.add(btnCancelar);
 		
 		JLabel lblMatricula = new JLabel("Matricula:");
@@ -84,21 +84,21 @@ public class VentanaRegistroCocheTaller extends JFrame {
 		txtModelo.setColumns(10);
 
 		JLabel lblCoste = new JLabel("Coste:");
-		lblCoste.setBounds(37, 187, 148, 16);
+		lblCoste.setBounds(37, 148, 148, 16);
 		contentPane.add(lblCoste);
 		
 		txtCoste = new JTextField();
-		txtCoste.setBounds(220, 182, 199, 26);
+		txtCoste.setBounds(220, 143, 199, 26);
 		contentPane.add(txtCoste);
 		txtCoste.setColumns(10);
 		
 		
 		JLabel lblDni = new JLabel("Dni cliente:");
-		lblDni.setBounds(37, 263, 148, 16);
+		lblDni.setBounds(37, 185, 148, 16);
 		contentPane.add(lblDni);
 		
 		txtDni = new JTextField();
-		txtDni.setBounds(220, 258, 199, 26);
+		txtDni.setBounds(220, 180, 199, 26);
 		contentPane.add(txtDni);
 		txtDni.setColumns(10);
 		
@@ -124,7 +124,7 @@ public class VentanaRegistroCocheTaller extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(259, 290, 117, 29);
+		btnNewButton.setBounds(258, 227, 117, 29);
 		contentPane.add(btnNewButton);
 		
 	}
