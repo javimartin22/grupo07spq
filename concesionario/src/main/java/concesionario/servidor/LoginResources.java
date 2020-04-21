@@ -1163,6 +1163,44 @@ public class LoginResources {
 		}
 	}
 	
+	@POST
+	@Path("loadTablaCocheConcesionarioFiltro")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response filtrarCocheConcesionarioFiltro(String filtro) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+
+		String [] parts = filtro.split("-");
+		String restriccion = parts[0];
+		int tipo = Integer.parseInt(parts[1]);
+		
+		ResultSet rs = BD.cochesConcesionarioFiltroSelect(st, restriccion, tipo);
+		List<CocheConcesionario> coches = new ArrayList<CocheConcesionario>();
+
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String model = rs.getString("modelo");
+					String marca = rs.getString("marca");
+					int precio = rs.getInt("precio");
+					int unidades = rs.getInt("unidades");
+					int CV = rs.getInt("CV");
+					int numPuertas = rs.getInt("numeroPuertas");
+					String color = rs.getString("color");
+					CocheConcesionario coche = new CocheConcesionario(marca, model, precio, CV, numPuertas, color, unidades);
+					coches.add(coche);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(coches).build();
+		}
+	}
+	
+	
 	@DELETE
 	@Path("{code}")
 	public Response deleteUser (@PathParam("code") int codigo) {

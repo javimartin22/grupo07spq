@@ -203,4 +203,8 @@ public class Controller {
 	public Response filtrarPresupuestoProblema(String problema) {
 		return cliente.filtrarPresupuestoProblema(problema);
 	}
+	
+	public Response filtrarCocheConcesionario(String filtro) {
+		return cliente.filtrarCocheConcesionario(filtro);
+	}
 }

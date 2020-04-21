@@ -755,6 +755,32 @@ public class BD {
 			return rs;
 		}
 		
+		public static ResultSet cochesConcesionarioFiltroSelect(Statement st, String restriccion, int tipo) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				switch (tipo) {
+				case 0:
+					sentSQL = "select * from " + TABLA_COCHES_CONCESIONARIO + " where marca= '" + restriccion + "'";
+					break;
+				case 1:
+					sentSQL = "select * from " + TABLA_COCHES_CONCESIONARIO + " where color= '" + restriccion + "'";
+					break;
+				case 2:
+					sentSQL = "select * from " + TABLA_COCHES_CONCESIONARIO + " where CV= " + restriccion;
+					break;
+				case 3:
+					sentSQL = "select * from " + TABLA_COCHES_CONCESIONARIO + " where precio< " + restriccion;
+					break;
+				}
+				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}
+		
 	//Busqueda mediante MARCA:
 		public static ResultSet cochesMarcaSelect(Statement st, String marca) {
 			String sentSQL = "";
@@ -797,7 +823,9 @@ public class BD {
 			}
 			return rs;
 		}
-			
+		
+		
+		
 	//Tabla TALLER: 
 		//Todos:
 		public static ResultSet cochesTallerSelect(Statement st) {
