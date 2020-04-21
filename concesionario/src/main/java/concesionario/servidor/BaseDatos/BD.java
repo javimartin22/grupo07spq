@@ -997,6 +997,45 @@ public class BD {
  			return rs;
  		}	
  		
+ 		public static ResultSet presupuestosFiltroCodigoSelect(Statement st, String codigo) {
+ 			String sentSQL = "";
+ 			ResultSet rs = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_PRESUPUESTO + " where codigo= '" + codigo + "'";
+ 				rs = st.executeQuery(sentSQL);
+ 			} catch (Exception e) {
+ 				lastError = e;
+ 				e.printStackTrace();
+ 			}
+ 			return rs;
+ 		}	
+ 		
+ 		public static ResultSet presupuestosFiltroClienteSelect(Statement st, String cliente) {
+ 			String sentSQL = "";
+ 			ResultSet rs = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_PRESUPUESTO + " where dniCliente= '" + cliente + "'";
+ 				rs = st.executeQuery(sentSQL);
+ 			} catch (Exception e) {
+ 				lastError = e;
+ 				e.printStackTrace();
+ 			}
+ 			return rs;
+ 		}	
+ 		
+ 		public static ResultSet presupuestosFiltroProblemaSelect(Statement st, String problema) {
+ 			String sentSQL = "";
+ 			ResultSet rs = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_PRESUPUESTO + " where problema= '" + problema + "'";
+ 				rs = st.executeQuery(sentSQL);
+ 			} catch (Exception e) {
+ 				lastError = e;
+ 				e.printStackTrace();
+ 			}
+ 			return rs;
+ 		}	
+ 		
  		//Tabla TARIFAS:
  		public static ResultSet tarifaPrecioSelect(Statement st, int precio) {
  			String sentSQL = "";

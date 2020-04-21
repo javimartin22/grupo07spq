@@ -187,4 +187,16 @@ public class Controller {
 	public Response filtrarVentaComercial(String comercial) {
 		return cliente.filtrarVentaComercial(comercial);
 	}
+	
+	public Response filtrarPresupuestoCodigo(String codigo) {
+		return cliente.filtrarPresupuestoCodigo(codigo);
+	}
+	
+	public Response filtrarPresupuestoCliente(String client) {
+		return cliente.filtrarPresupuestoCliente(client);
+	}
+	
+	public Response filtrarPresupuestoProblema(String problema) {
+		return cliente.filtrarPresupuestoProblema(problema);
+	}
 }

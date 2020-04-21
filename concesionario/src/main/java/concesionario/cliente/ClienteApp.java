@@ -365,6 +365,27 @@ public class ClienteApp {
         return response;
 	}
 	
+	public Response filtrarPresupuestoCodigo(String codigo) {
+		WebTarget filtroPresupuestoClienteTarget = loginTarget.path("loadTablaPresupuestoCodigo");
+		Entity<String> entity = Entity.entity(codigo, MediaType.APPLICATION_JSON);
+		Response response = filtroPresupuestoClienteTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
+	public Response filtrarPresupuestoCliente(String cliente) {
+		WebTarget filtroPresupuestoCodigoTarget = loginTarget.path("loadTablaPresupuestoCliente");
+		Entity<String> entity = Entity.entity(cliente, MediaType.APPLICATION_JSON);
+		Response response = filtroPresupuestoCodigoTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
+	public Response filtrarPresupuestoProblema(String problema) {
+		WebTarget filtroPresupuestoProblemaTarget = loginTarget.path("loadTablaPresupuestoProblema");
+		Entity<String> entity = Entity.entity(problema, MediaType.APPLICATION_JSON);
+		Response response = filtroPresupuestoProblemaTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
 	 public static void main(String[] args) {
 	        SwingUtilities.invokeLater(new Runnable(){
 	        

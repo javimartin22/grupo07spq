@@ -1036,6 +1036,117 @@ public class LoginResources {
 		}
 	}
 	
+	@POST
+	@Path("loadTablaPresupuestoCodigo")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response filtrarPresupuestoCodigo(String codigo) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.presupuestosFiltroCodigoSelect(st, codigo);
+		List<Presupuesto> presupuestos = new ArrayList<Presupuesto>();
+
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String cod = rs.getString("codigo");
+ 					String dniCliente = rs.getString("dniCliente");
+ 					String mecanico = rs.getString("mecanico");
+ 					String marca = rs.getString("marca");
+ 					String modelo = rs.getString("modelo");
+ 					String problema = rs.getString("problema");
+ 					int numPiezas = rs.getInt("numPiezas");
+ 					String listaPiezas = rs.getString("piezas");
+ 					String observaciones = rs.getString("observaviones");
+ 					int precio = rs.getInt("precio");
+ 					String fecha = rs.getString("fecha");
+					Presupuesto presupuesto = new Presupuesto(cod, dniCliente, mecanico, marca, modelo, problema, numPiezas, listaPiezas, observaciones, precio, fecha);		
+					presupuestos.add(presupuesto);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(presupuestos).build();
+		}
+	}
+	
+	@POST
+	@Path("loadTablaPresupuestoCliente")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response filtrarPresupuestoCliente(String cliente) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.presupuestosFiltroClienteSelect(st, cliente);
+		List<Presupuesto> presupuestos = new ArrayList<Presupuesto>();
+
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String cod = rs.getString("codigo");
+ 					String dniCliente = rs.getString("dniCliente");
+ 					String mecanico = rs.getString("mecanico");
+ 					String marca = rs.getString("marca");
+ 					String modelo = rs.getString("modelo");
+ 					String problema = rs.getString("problema");
+ 					int numPiezas = rs.getInt("numPiezas");
+ 					String listaPiezas = rs.getString("piezas");
+ 					String observaciones = rs.getString("observaviones");
+ 					int precio = rs.getInt("precio");
+ 					String fecha = rs.getString("fecha");
+					Presupuesto presupuesto = new Presupuesto(cod, dniCliente, mecanico, marca, modelo, problema, numPiezas, listaPiezas, observaciones, precio, fecha);		
+					presupuestos.add(presupuesto);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(presupuestos).build();
+		}
+	}
+	
+	@POST
+	@Path("loadTablaPresupuestoProblema")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response filtrarPresupuestoProblema(String problema) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.presupuestosFiltroProblemaSelect(st, problema);
+		List<Presupuesto> presupuestos = new ArrayList<Presupuesto>();
+
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String cod = rs.getString("codigo");
+ 					String dniCliente = rs.getString("dniCliente");
+ 					String mecanico = rs.getString("mecanico");
+ 					String marca = rs.getString("marca");
+ 					String modelo = rs.getString("modelo");
+ 					String problem = rs.getString("problema");
+ 					int numPiezas = rs.getInt("numPiezas");
+ 					String listaPiezas = rs.getString("piezas");
+ 					String observaciones = rs.getString("observaviones");
+ 					int precio = rs.getInt("precio");
+ 					String fecha = rs.getString("fecha");
+					Presupuesto presupuesto = new Presupuesto(cod, dniCliente, mecanico, marca, modelo, problem, numPiezas, listaPiezas, observaciones, precio, fecha);		
+					presupuestos.add(presupuesto);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(presupuestos).build();
+		}
+	}
+	
 	@DELETE
 	@Path("{code}")
 	public Response deleteUser (@PathParam("code") int codigo) {
