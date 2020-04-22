@@ -34,6 +34,7 @@ public class VentanaVisualizarTarifas extends JFrame {
 	private DefaultTableModel model;
 
 	public VentanaVisualizarTarifas(Controller loginController, String nickname) {
+		setTitle("Catalogo de Tarifas");
 		setResizable(false);
 		this.loginController = loginController;
 		ventanaVisualizarTarifas(loginController, nickname);
@@ -44,7 +45,7 @@ public class VentanaVisualizarTarifas extends JFrame {
 	 */
 	public void ventanaVisualizarTarifas(Controller loginController, String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 673, 361);
+		setBounds(100, 100, 664, 350);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -213,7 +214,7 @@ public class VentanaVisualizarTarifas extends JFrame {
 				
 			}
 		});
-		btnVerTarifas.setBounds(364, 268, 131, 23);
+		btnVerTarifas.setBounds(469, 268, 178, 23);
 		contentPane.add(btnVerTarifas);
 		
 		JButton btnNewButton_1 = new JButton("Regresar");
@@ -224,7 +225,7 @@ public class VentanaVisualizarTarifas extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_1.setBounds(258, 268, 89, 23);
+		btnNewButton_1.setBounds(370, 268, 89, 23);
 		contentPane.add(btnNewButton_1);
 				
 	}
