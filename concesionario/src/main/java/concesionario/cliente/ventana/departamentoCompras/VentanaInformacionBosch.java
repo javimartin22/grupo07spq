@@ -1,4 +1,4 @@
-package DepCompras;
+package concesionario.cliente.ventana.departamentoCompras;
 
 import java.awt.EventQueue;
 
@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 
 public class VentanaInformacionBosch extends JFrame{
 
-
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
@@ -37,7 +37,7 @@ public class VentanaInformacionBosch extends JFrame{
 	public VentanaInformacionBosch() {
 		setTitle("Informacion proveedores");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 370, 211);
+		setBounds(100, 100, 370, 233);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

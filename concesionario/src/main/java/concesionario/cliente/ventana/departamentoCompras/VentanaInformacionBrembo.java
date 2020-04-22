@@ -1,4 +1,4 @@
-package DepCompras;
+package concesionario.cliente.ventana.departamentoCompras;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;

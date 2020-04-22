@@ -1,12 +1,10 @@
-package DepCompras;
-
+package concesionario.cliente.ventana.departamentoCompras;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 import javax.swing.DefaultComboBoxModel;
@@ -24,6 +22,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 public class VentanaComprarPiezas extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
 	
@@ -53,7 +56,7 @@ public class VentanaComprarPiezas extends JFrame {
 		setResizable(false);
 		setTitle("Comprar piezas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 392, 282);
+		setBounds(100, 100, 412, 302);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -80,11 +83,11 @@ public class VentanaComprarPiezas extends JFrame {
 				JOptionPane.showMessageDialog(null, "Compra realizada");
 			}
 		});
-		btnComprar.setBounds(155, 191, 117, 29);
+		btnComprar.setBounds(155, 212, 117, 29);
 		contentPane.add(btnComprar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(269, 191, 117, 29);
+		btnCancelar.setBounds(282, 212, 117, 29);
 		contentPane.add(btnCancelar);
 		
 		JLabel lblProveedor = new JLabel("Proveedor");
@@ -333,7 +336,7 @@ public class VentanaComprarPiezas extends JFrame {
 		
 
 		JButton btnInfo = new JButton("Ver informacion");
-		btnInfo.setBounds(22, 191, 135, 29);
+		btnInfo.setBounds(10, 212, 135, 29);
 		contentPane.add(btnInfo);
 		btnInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -375,7 +378,7 @@ public class VentanaComprarPiezas extends JFrame {
 
 			}
 		});
-		btnVerPiezas.setBounds(269, 63, 117, 29);
+		btnVerPiezas.setBounds(282, 62, 117, 29);
 		contentPane.add(btnVerPiezas);
 		
 	
