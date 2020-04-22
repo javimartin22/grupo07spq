@@ -715,6 +715,29 @@ public class BD {
 				}
 				return rs;
 			}
+			
+			public static ResultSet piezasUtilizadasFiltroSelect(Statement st, int tipo, String restriccion) {
+				String sentSQL = "";
+				ResultSet rs = null;
+				try {
+					switch (tipo) {
+					case 0:
+						sentSQL = "select * from " + TABLA_PIEZAS_UTILIZADAS + " where unidades< " + restriccion + " order by codigo";
+						break;
+					case 1:
+						sentSQL = "select * from " + TABLA_PIEZAS_UTILIZADAS + " where unidades> " + restriccion + " order by codigo";
+						break;
+					case 2:
+						sentSQL = "select * from " + TABLA_PIEZAS_UTILIZADAS + " where codigo= '" + restriccion + "'";
+						break;
+					}					
+					rs = st.executeQuery(sentSQL);
+				} catch (Exception e) {
+					lastError = e;
+					e.printStackTrace();
+				}
+				return rs;
+			}
 				
 				
 			//Busqueda mediante CODIGO:

@@ -7,7 +7,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.Controller;
-import concesionario.cliente.ventana.mecanico.VentanaPiezasUtilizadas;
 import concesionario.datos.Pieza;
 
 import javax.swing.JLabel;

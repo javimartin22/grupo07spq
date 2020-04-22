@@ -435,6 +435,13 @@ public class ClienteApp {
         return response;
 	}
 	
+	public Response filtrarPiezaUtilizadas(String filtro) {
+		WebTarget filtroPiezaUtilizadasTarget = loginTarget.path("loadTablaPiezaUtilizadasFiltro");
+		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
+		Response response = filtroPiezaUtilizadasTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
 	 public static void main(String[] args) {
 	        SwingUtilities.invokeLater(new Runnable(){
 	        

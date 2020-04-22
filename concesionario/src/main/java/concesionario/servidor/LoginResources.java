@@ -1362,6 +1362,40 @@ public class LoginResources {
 		}
 	}
 	
+	@POST
+	@Path("loadTablaPiezaUtilizadasFiltro")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response filtrarPiezaUtilizadasFiltro(String filtro) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+
+		String [] parts = filtro.split("-");
+		String restriccion = parts[0];
+		int tipo = Integer.parseInt(parts[1]);
+		
+		ResultSet rs = BD.piezasUtilizadasFiltroSelect(st, tipo, restriccion);
+		List<Pieza> piezas = new ArrayList<Pieza>();
+
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String cod = rs.getString("codigo");
+					String nombre = rs.getString("nombre");
+					int unidades = rs.getInt("unidades");
+					String ubicacion = rs.getString("ubicacion");
+					Pieza pieza = new Pieza(cod, nombre, unidades, ubicacion);
+					piezas.add(pieza);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(piezas).build();
+		}
+	}
+	
 	@DELETE
 	@Path("{code}")
 	public Response deleteUser (@PathParam("code") int codigo) {

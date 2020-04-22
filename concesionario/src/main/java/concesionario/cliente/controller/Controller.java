@@ -227,4 +227,8 @@ public class Controller {
 	public Response filtrarPiezaMecanico(String filtro) {
 		return cliente.filtrarPiezaMecanico(filtro);
 	}
+	
+	public Response filtrarPiezaUtilizadas(String filtro) {
+		return cliente.filtrarPiezaUtilizadas(filtro);
+	}
 }
