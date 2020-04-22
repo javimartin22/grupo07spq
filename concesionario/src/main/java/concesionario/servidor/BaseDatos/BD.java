@@ -656,6 +656,29 @@ public class BD {
 			return rs;
 		}
 		
+		public static ResultSet piezaMecanicoFiltroSelect(Statement st, int tipo, String restriccion) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				switch (tipo) {
+				case 0:
+					sentSQL = "select * from " + TABLA_PIEZAS + " where codigo= '" + restriccion + "'";
+					break;
+				case 1:
+					sentSQL = "select * from " + TABLA_PIEZAS + " where nombre= '" + restriccion + "'";
+					break;
+				case 2: 
+					sentSQL = "select * from " + TABLA_PIEZAS + " where stock= " + restriccion + "";
+					break;
+				}
+				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}
+		
 		
 		//Busqueda mediante CODIGO:
 		public static Pieza piezaSelect(Statement st, String codigo) {

@@ -223,4 +223,8 @@ public class Controller {
 	public Response filtrarCocheMatriculado(String filtro) {
 		return cliente.filtrarCocheMatriculado(filtro);
 	}
+	
+	public Response filtrarPiezaMecanico(String filtro) {
+		return cliente.filtrarPiezaMecanico(filtro);
+	}
 }

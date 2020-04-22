@@ -428,6 +428,13 @@ public class ClienteApp {
         return response;
 	}
 	
+	public Response filtrarPiezaMecanico(String filtro) {
+		WebTarget filtroPiezaMecanicoTarget = loginTarget.path("loadTablaPiezaMecanicoFiltro");
+		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
+		Response response = filtroPiezaMecanicoTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
 	 public static void main(String[] args) {
 	        SwingUtilities.invokeLater(new Runnable(){
 	        
