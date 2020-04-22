@@ -7,7 +7,6 @@ import javax.swing.border.EmptyBorder;
 
 import concesionario.cliente.controller.Controller;
 import concesionario.cliente.ventana.VentanaLogin;
-import concesionario.cliente.ventana.mecanico.VentanaPiezasUtilizadas;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
