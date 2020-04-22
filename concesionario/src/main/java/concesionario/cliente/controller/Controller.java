@@ -219,4 +219,8 @@ public class Controller {
 	public Response filtrarCocheConcesionario(String filtro) {
 		return cliente.filtrarCocheConcesionario(filtro);
 	}
+	
+	public Response filtrarCocheMatriculado(String filtro) {
+		return cliente.filtrarCocheMatriculado(filtro);
+	}
 }

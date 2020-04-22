@@ -1289,6 +1289,44 @@ public class LoginResources {
 		}
 	}
 	
+	@POST
+	@Path("loadTablaCocheMatriculadoFiltro")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response filtrarCocheMatriculadoFiltro(String filtro) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+
+		String [] parts = filtro.split("-");
+		String restriccion = parts[0];
+		int tipo = Integer.parseInt(parts[1]);
+		
+		ResultSet rs = BD.cochesMatriculadosFiltroSelect(st, tipo, restriccion);
+		List<CocheMatriculado> coches = new ArrayList<CocheMatriculado>();
+
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String modelo = rs.getString("modelo");
+					String marca = rs.getString("marca");
+					String matricula = rs.getString("matricula");
+					String nombrePropietario = rs.getString("nombreCliente");
+					int anyo_matriculacion = rs.getInt("anyomatriculacion");
+					int revisiones = rs.getInt("revisiones");
+					int cv = rs.getInt("cv");
+					int numPuertas = rs.getInt("numPuertas");
+					String color = rs.getString("color");
+					CocheMatriculado coche = new CocheMatriculado(marca, modelo, matricula, nombrePropietario, color, numPuertas, anyo_matriculacion, cv, revisiones);
+					coches.add(coche);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(coches).build();
+		}
+	}
 	
 	@DELETE
 	@Path("{code}")

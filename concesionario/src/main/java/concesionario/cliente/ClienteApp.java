@@ -421,6 +421,13 @@ public class ClienteApp {
         return response;
 	}
 	
+	public Response filtrarCocheMatriculado(String filtro) {
+		WebTarget filtroCocheMatriculadoTarget = loginTarget.path("loadTablaCocheMatriculadoFiltro");
+		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
+		Response response = filtroCocheMatriculadoTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
 	 public static void main(String[] args) {
 	        SwingUtilities.invokeLater(new Runnable(){
 	        
