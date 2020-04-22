@@ -351,6 +351,27 @@ public class ClienteApp {
         return response;
 	}
 	
+	public Response filtrarTarifaPrecioMin(int precio) {
+		WebTarget filtroPrecioMinTarifaTarget = loginTarget.path("precioMinTarifa");
+		Entity<Integer> entity = Entity.entity(precio, MediaType.APPLICATION_JSON);
+		Response response = filtroPrecioMinTarifaTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
+	public Response filtrarTarifaHorasMax(int horas) {
+		WebTarget filtroHorasMaxTarifaTarget = loginTarget.path("horasMaxTarifa");
+		Entity<Integer> entity = Entity.entity(horas, MediaType.APPLICATION_JSON);
+		Response response = filtroHorasMaxTarifaTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
+	public Response filtrarTarifaHorasMin(int horas) {
+		WebTarget filtroHorasMinTarifaTarget = loginTarget.path("horasMinTarifa");
+		Entity<Integer> entity = Entity.entity(horas, MediaType.APPLICATION_JSON);
+		Response response = filtroHorasMinTarifaTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
 	public Response filtrarVentaMarca(String marca) {
 		WebTarget filtroMarcaVentaTarget = loginTarget.path("loadTablaMarcaVentas");
 		Entity<String> entity = Entity.entity(marca, MediaType.APPLICATION_JSON);

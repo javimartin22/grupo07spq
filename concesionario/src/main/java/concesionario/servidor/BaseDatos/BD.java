@@ -1070,7 +1070,45 @@ public class BD {
  			try {
  				sentSQL = "select * from " + TABLA_TARIFAS + " where precioAprox< '" + precio + "'";
  				rs = st.executeQuery(sentSQL);
- 				st.close();
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+ 			return rs;
+		}
+ 		
+ 		public static ResultSet tarifaPrecioMinSelect(Statement st, int precio) {
+ 			String sentSQL = "";
+ 			ResultSet rs = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_TARIFAS + " where precioAprox> '" + precio + "'";
+ 				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+ 			return rs;
+		}
+ 		
+ 		public static ResultSet tarifaHorasMaxSelect(Statement st, int horas) {
+ 			String sentSQL = "";
+ 			ResultSet rs = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_TARIFAS + " where horas_manodeobra< '" + horas + "'";
+ 				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+ 			return rs;
+		}
+ 		
+ 		public static ResultSet tarifaHorasMinSelect(Statement st, int horas) {
+ 			String sentSQL = "";
+ 			ResultSet rs = null;
+ 			try {
+ 				sentSQL = "select * from " + TABLA_TARIFAS + " where horas_manodeobra> '" + horas + "'";
+ 				rs = st.executeQuery(sentSQL);
 			} catch (Exception e) {
 				lastError = e;
 				e.printStackTrace();

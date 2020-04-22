@@ -176,6 +176,18 @@ public class Controller {
 		return cliente.filtrarTarifaPrecio(precio);
 	}
 	
+	public Response filtrarTarifaPrecioMin(int precio) {
+		return cliente.filtrarTarifaPrecioMin(precio);
+	}
+	
+	public Response filtrarTarifaHorasMax(int horas) {
+		return cliente.filtrarTarifaHorasMax(horas);
+	}
+	
+	public Response filtrarTarifaHorasMin(int horas) {
+		return cliente.filtrarTarifaHorasMin(horas);
+	}
+	
 	public List<Tarifa> cargarTablaTarifas(){
 		return cliente.cargarTablaTarifas();
 	}

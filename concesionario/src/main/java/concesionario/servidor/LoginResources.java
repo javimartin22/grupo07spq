@@ -927,7 +927,6 @@ public class LoginResources {
 	public Response filtrarPrecio(int precio) {
 		con = BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
-		System.out.println("entra server"+precio);
 		ResultSet rs = BD.tarifaPrecioSelect(st, precio);
 		List<Tarifa> tarifas = new ArrayList<Tarifa>();
 		//"(idTarifa string PRIMARY KEY, nomTarifa string, precioAprox int, horas_manodeobra int)";
@@ -944,11 +943,101 @@ public class LoginResources {
 					Tarifa tarifa = new Tarifa(idTarifa, nomTarifa, precioAprox, horas_manodeobra);
 					tarifas.add(tarifa);
 				}
+				for(Tarifa t :tarifas) {
+					System.out.println(t.getPrecioAprox());
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			for(Tarifa t:tarifas) {
-				System.out.println(t.getPrecioAprox());
+			return Response.status(Response.Status.OK).entity(tarifas).build();
+		}
+	
+	}
+	
+	@POST
+	@Path("precioMinTarifa")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response filtrarPrecioMin(int precio) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		ResultSet rs = BD.tarifaPrecioMinSelect(st, precio);
+		List<Tarifa> tarifas = new ArrayList<Tarifa>();
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String idTarifa = rs.getString("idTarifa");
+					String nomTarifa = rs.getString("nomTarifa");
+					int precioAprox = rs.getInt("precioAprox");
+					int horas_manodeobra = rs.getInt("horas_manodeobra");
+
+					Tarifa tarifa = new Tarifa(idTarifa, nomTarifa, precioAprox, horas_manodeobra);
+					tarifas.add(tarifa);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(tarifas).build();
+		}
+	
+	}
+	
+	@POST
+	@Path("horasMaxTarifa")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response filtrarHorasMax(int horas) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		ResultSet rs = BD.tarifaHorasMaxSelect(st, horas);
+		List<Tarifa> tarifas = new ArrayList<Tarifa>();
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String idTarifa = rs.getString("idTarifa");
+					String nomTarifa = rs.getString("nomTarifa");
+					int precioAprox = rs.getInt("precioAprox");
+					int horas_manodeobra = rs.getInt("horas_manodeobra");
+
+					Tarifa tarifa = new Tarifa(idTarifa, nomTarifa, precioAprox, horas_manodeobra);
+					tarifas.add(tarifa);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(tarifas).build();
+		}
+	
+	}
+	
+	@POST
+	@Path("horasMinTarifa")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response filtrarHorasMin(int horas) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		ResultSet rs = BD.tarifaHorasMinSelect(st, horas);
+		List<Tarifa> tarifas = new ArrayList<Tarifa>();
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String idTarifa = rs.getString("idTarifa");
+					String nomTarifa = rs.getString("nomTarifa");
+					int precioAprox = rs.getInt("precioAprox");
+					int horas_manodeobra = rs.getInt("horas_manodeobra");
+
+					Tarifa tarifa = new Tarifa(idTarifa, nomTarifa, precioAprox, horas_manodeobra);
+					tarifas.add(tarifa);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 			return Response.status(Response.Status.OK).entity(tarifas).build();
 		}

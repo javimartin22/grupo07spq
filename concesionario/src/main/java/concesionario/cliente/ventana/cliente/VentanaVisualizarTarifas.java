@@ -52,7 +52,7 @@ public class VentanaVisualizarTarifas extends JFrame {
 		JMenu mnNewMenu = new JMenu("Filtros");
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Precio menor que");
+		JMenuItem mntmNewMenuItem = new JMenuItem("Precio max");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String respuesta = JOptionPane.showInputDialog("Introduzca cantidad");
@@ -86,15 +86,114 @@ public class VentanaVisualizarTarifas extends JFrame {
 			}
 		});
 		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Marca");
-		mnNewMenu.add(mntmNewMenuItem_3);
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Precio minimo");
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String respuesta = JOptionPane.showInputDialog("Introduzca cantidad");
+				if(isNumeric(respuesta)) {
+					int resp = Integer.parseInt(respuesta);
+					Response response = loginController.filtrarTarifaPrecioMin(resp);
+					if(response.getStatus() == Status.OK.getStatusCode()) {
+						GenericType<List<Tarifa>> genericType = new GenericType<List<Tarifa>>() {};
+						List<Tarifa> tarifas = response.readEntity(genericType);
+						
+						String[] columnNames = {"Id", "Nombre", "Precio Aproximado", "Mano de obra(h)"};
+						if (!tarifas.isEmpty()) {
+							  model = new DefaultTableModel();
+							   table.setModel(model);
+							   model.setColumnIdentifiers(columnNames);
+							   for (Tarifa t : tarifas) {
+								   Object[] o = new Object[5];
+								   o[0] = t.getIdTarifa();
+								   o[1] = t.getNomTarifa();
+								   o[2] = t.getPrecioAprox();
+								   o[3] = t.getHoras_manodeobra();
+								   model.addRow(o);
+								 }
+						}
+					}
+					
+				}else {
+					JOptionPane.showInputDialog("No ha introducido un numero");
+				}
+				
+			}
+		});
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Precio Max");
-		mnNewMenu.add(mntmNewMenuItem_2);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("CV");
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Horas mano de obra Max");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String respuesta = JOptionPane.showInputDialog("Introduzca cantidad");
+				if(isNumeric(respuesta)) {
+					int horas = Integer.parseInt(respuesta);
+					Response response = loginController.filtrarTarifaHorasMax(horas);
+					if(response.getStatus() == Status.OK.getStatusCode()) {
+						GenericType<List<Tarifa>> genericType = new GenericType<List<Tarifa>>() {};
+						List<Tarifa> tarifas = response.readEntity(genericType);
+						
+						String[] columnNames = {"Id", "Nombre", "Precio Aproximado", "Mano de obra(h)"};
+						if (!tarifas.isEmpty()) {
+							  model = new DefaultTableModel();
+							   table.setModel(model);
+							   model.setColumnIdentifiers(columnNames);
+							   for (Tarifa t : tarifas) {
+								   Object[] o = new Object[5];
+								   o[0] = t.getIdTarifa();
+								   o[1] = t.getNomTarifa();
+								   o[2] = t.getPrecioAprox();
+								   o[3] = t.getHoras_manodeobra();
+								   model.addRow(o);
+								 }
+						}
+					}
+					
+				}else {
+					JOptionPane.showInputDialog("No ha introducido un numero");
+				}
+				
+			}
+		});
+		
+		
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Horas mano de obra Min");
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String respuesta = JOptionPane.showInputDialog("Introduzca cantidad");
+				if(isNumeric(respuesta)) {
+					int horas = Integer.parseInt(respuesta);
+					Response response = loginController.filtrarTarifaHorasMin(horas);
+					if(response.getStatus() == Status.OK.getStatusCode()) {
+						GenericType<List<Tarifa>> genericType = new GenericType<List<Tarifa>>() {};
+						List<Tarifa> tarifas = response.readEntity(genericType);
+						
+						String[] columnNames = {"Id", "Nombre", "Precio Aproximado", "Mano de obra(h)"};
+						if (!tarifas.isEmpty()) {
+							  model = new DefaultTableModel();
+							   table.setModel(model);
+							   model.setColumnIdentifiers(columnNames);
+							   for (Tarifa t : tarifas) {
+								   Object[] o = new Object[5];
+								   o[0] = t.getIdTarifa();
+								   o[1] = t.getNomTarifa();
+								   o[2] = t.getPrecioAprox();
+								   o[3] = t.getHoras_manodeobra();
+								   model.addRow(o);
+								 }
+						}
+					}
+					
+				}else {
+					JOptionPane.showInputDialog("No ha introducido un numero");
+				}
+				
+			}
+		});
+		
 		mnNewMenu.add(mntmNewMenuItem_1);
 		mnNewMenu.add(mntmNewMenuItem);
+		mnNewMenu.add(mntmNewMenuItem_2);
+		mnNewMenu.add(mntmNewMenuItem_3);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
