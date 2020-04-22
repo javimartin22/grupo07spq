@@ -1091,6 +1091,7 @@ public class BD {
  					int horas_manodeobra = rs.getInt("horas_manodeobra");
  					tarifa = new Tarifa(idTarifa, nomTarifa, precioAprox, horas_manodeobra);
 				}
+ 				st.close();
 			} catch (Exception e) {
 				lastError = e;
 				e.printStackTrace();
