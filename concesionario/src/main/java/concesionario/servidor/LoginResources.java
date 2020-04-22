@@ -1329,6 +1329,43 @@ public class LoginResources {
 	}
 	
 	@POST
+	@Path("loadTablaCocheTallerFiltro")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response filtrarCocheTallerFiltro(String filtro) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+
+		String [] parts = filtro.split("-");
+		String restriccion = parts[0];
+		int tipo = Integer.parseInt(parts[1]);
+		
+		ResultSet rs = BD.cochesTallerFiltroSelect(st, tipo, restriccion);
+		List<CocheTaller> coches = new ArrayList<CocheTaller>();
+
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String matriculaCoche = rs.getString("matriculaCoche");
+					String marca = rs.getString("marca");
+					String mecanico = rs.getString("mecanico");
+					String modelo = rs.getString("modelo");
+					String dniCliente = rs.getString("dniCliente");
+					double coste = rs.getDouble("coste");
+					int estado = rs.getInt("estado");
+					CocheTaller coche = new CocheTaller(matriculaCoche, marca, modelo, mecanico, dniCliente, coste, estado);
+					coches.add(coche);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(coches).build();
+		}
+	}
+	
+	@POST
 	@Path("loadTablaPiezaMecanicoFiltro")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces("application/json")

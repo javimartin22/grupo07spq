@@ -924,6 +924,33 @@ public class BD {
 			return rs;
 		}
 		
+		public static ResultSet cochesTallerFiltroSelect(Statement st, int tipo, String restriccion) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				switch (tipo) {
+				case 0:
+					sentSQL = "select * from " + TABLA_TALLER + " where matriculaCoche= '" + restriccion + "'";
+					break;
+				case 1:
+					sentSQL = "select * from " + TABLA_TALLER + " where mecanico= '" + restriccion + "'";
+					break;
+				case 2:
+					sentSQL = "select * from " + TABLA_TALLER + " where coste< " + restriccion;
+					break;
+				case 3:
+					sentSQL = "select * from " + TABLA_TALLER + " where estado= '" + restriccion + "'";
+					break;
+				}
+				
+				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}
+		
 		public static CocheTaller cocheTalleSelect(Statement st, String matricula) {
 			String sentSQL = "";
 			CocheTaller cocheTaller = null;

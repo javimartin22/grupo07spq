@@ -231,4 +231,8 @@ public class Controller {
 	public Response filtrarPiezaUtilizadas(String filtro) {
 		return cliente.filtrarPiezaUtilizadas(filtro);
 	}
+	
+	public Response filtrarCocheTaller(String filtro) {
+		return cliente.filtrarCocheTaller(filtro);
+	}
 }
