@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.ComercialController;
 import concesionario.datos.CocheConcesionario;
 
 import java.awt.Color;
@@ -21,12 +21,12 @@ public class VentanaDetallesCoche extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Controller loginController;
+	private ComercialController comercialController;
 	
-	public VentanaDetallesCoche(Controller loginController, CocheConcesionario coche, String nickname) {
+	public VentanaDetallesCoche(ComercialController comercialController, CocheConcesionario coche, String nickname) {
 		
 		setTitle("Informacion del Vehiculo");
-		this.loginController = loginController;
+		this.comercialController = comercialController;
 		iniciarVentanaDetallesCoche(coche, nickname);
 	}
 
@@ -91,7 +91,7 @@ public class VentanaDetallesCoche extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaCochesConcesionario vcc = new VentanaCochesConcesionario(loginController, nickname);
+				VentanaCochesConcesionario vcc = new VentanaCochesConcesionario(comercialController, nickname);
 				vcc.setVisible(true);
 				dispose();
 			}
@@ -107,7 +107,7 @@ public class VentanaDetallesCoche extends JFrame {
 		JButton btnRegresar = new JButton("Regresar");
 		btnRegresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaCochesConcesionario vcc = new VentanaCochesConcesionario(loginController, nickname);
+				VentanaCochesConcesionario vcc = new VentanaCochesConcesionario(comercialController, nickname);
 				vcc.setVisible(true);
 				dispose();
 			}

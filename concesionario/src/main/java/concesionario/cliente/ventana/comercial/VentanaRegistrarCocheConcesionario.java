@@ -3,10 +3,8 @@ package concesionario.cliente.ventana.comercial;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.ComercialController;
 import concesionario.datos.CocheConcesionario;
 
 import javax.swing.JButton;
@@ -27,16 +25,16 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Controller loginController; 
+	private ComercialController comercialController; 
 	private JTextField modelo;
 	private JTextField marca;
 	private JTextField precio;
 	private JTextField textField_1;
 
-	public VentanaRegistrarCocheConcesionario (Controller loginController, String nickname) {
+	public VentanaRegistrarCocheConcesionario (ComercialController comercialController, String nickname) {
 		setTitle("Registro Coche Concesionario");
 		setResizable(false);
-		this.loginController = loginController;
+		this.comercialController = comercialController;
 		iniciarVentanaRegistrarCocheConcesionario(nickname);
 	}
 	
@@ -52,7 +50,7 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaCochesConcesionario vcc = new VentanaCochesConcesionario(loginController, nickname);
+				VentanaCochesConcesionario vcc = new VentanaCochesConcesionario(comercialController, nickname);
 				vcc.setVisible(true);
 				dispose();
 			}
@@ -138,7 +136,7 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 					int cv = Integer.parseInt(textField_1.getText());
 					int numPuertas = Integer.parseInt(spinner_1.getValue().toString());
 					int c = comboBox.getSelectedIndex();
-					String color = comprobarColor(c);
+					String color = comercialController.comprobarColor(c);
 					int unidades = Integer.parseInt(spinner.getValue().toString());
 					
 					CocheConcesionario coche = new CocheConcesionario(ma, mo, pr, cv, numPuertas, color, unidades);
@@ -154,48 +152,10 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 		
 	}
 	
-	private String comprobarColor(int c) {
-		String color = "";
-		switch (c) {
-			case 0:
-				color = "Rojo";
-				break;
-			case 1:
-				color = "Azul";
-				break;
-			case 2:
-				color = "Plata";
-				break;
-			case 3:
-				color = "Amarillo";
-				break;
-			case 4:
-				color = "Verde";
-				break;
-			case 5: 
-				color = "Blanco";
-				break;
-			case 6: 
-				color = "Negro";
-				break;
-			case 7:
-				color = "Blanco Marfil";
-				break;
-			case 8: 
-				color = "Gris";
-				break;
-			case 9: 
-				color = JOptionPane.showInputDialog("¿Que color desea?");
-				break;
-		}
-		return color;
-	}
-	
 	public void registrarCoche(CocheConcesionario coche, String nickname) {
-		Response response = loginController.registrarCoche(coche);
-		if(response.getStatus() == Status.OK.getStatusCode()) {
+		if(comercialController.registrarCoche(coche)) {
 			JOptionPane.showMessageDialog(this, "Coche registrado");
-			VentanaMenuComercial vmc = new VentanaMenuComercial(loginController, nickname);
+			VentanaMenuComercial vmc = new VentanaMenuComercial(comercialController, nickname);
 			vmc.setVisible(true);
 			dispose();
 		} else {

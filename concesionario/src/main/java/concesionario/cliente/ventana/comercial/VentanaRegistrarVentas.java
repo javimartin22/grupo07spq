@@ -11,10 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.ComercialController;
 import concesionario.datos.Venta;
 
 import javax.swing.JLayeredPane;
@@ -29,12 +27,12 @@ public class VentanaRegistrarVentas extends JFrame {
 	private JPanel contentPane;
 	private JTextField textFieldMarca;
 	private JTextField textFieldModelo;
-	private Controller loginController;
+	private ComercialController comercialController;
 	private JTextField textField;
 	private JTextField textField_1;
 
-	public VentanaRegistrarVentas(Controller loginController, String nickname) {
-		this.loginController = loginController;
+	public VentanaRegistrarVentas(ComercialController comercialController, String nickname) {
+		this.comercialController = comercialController;
 		iniciarVentanaAgregarVentas(nickname);
 	}
 
@@ -62,7 +60,7 @@ public class VentanaRegistrarVentas extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaVisualizarVentas vvv = new VentanaVisualizarVentas(loginController, nickname);
+				VentanaVisualizarVentas vvv = new VentanaVisualizarVentas(comercialController, nickname);
 				vvv.setVisible(true);
 				dispose();
 			}
@@ -144,8 +142,7 @@ public class VentanaRegistrarVentas extends JFrame {
 	}
 
 	public void registrarDatos(Venta venta) {
-		Response response = loginController.registrarVenta(venta); //estoy aqui
-		if (response.getStatus() == Status.OK.getStatusCode()) {
+		if (comercialController.registrarVenta(venta)) {
 			JOptionPane.showMessageDialog(contentPane, "Venta registrada correctamente");
 		} else {
 			JOptionPane.showMessageDialog(contentPane, "Venta no regsitrada");

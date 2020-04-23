@@ -15,10 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.ClienteController;
+import concesionario.cliente.controller.ComercialController;
 import concesionario.cliente.controller.Controller;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.cliente.VentanaMenuCliente;
@@ -153,6 +152,7 @@ public class VentanaLogin extends JFrame {
 	public void login(String nickname, String password) {
 		Controller controller = new Controller(loginController.getClienteApp());
 		ClienteController clienteController = new ClienteController(loginController.getClienteApp());
+		
 		int tipoInicio = loginController.login(nickname, password);
 		switch (tipoInicio) {
 		case 0:
@@ -166,7 +166,8 @@ public class VentanaLogin extends JFrame {
 			dispose();
 			break;
 		case 2:
-			VentanaMenuComercial vmcom = new VentanaMenuComercial(controller, nickname);
+			ComercialController comercialController = new ComercialController(loginController.getClienteApp());
+			VentanaMenuComercial vmcom = new VentanaMenuComercial(comercialController, nickname);
 			vmcom.setVisible(true);
 			dispose();
 			break;

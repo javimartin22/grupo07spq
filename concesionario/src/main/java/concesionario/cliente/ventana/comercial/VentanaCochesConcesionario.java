@@ -1,7 +1,6 @@
 package concesionario.cliente.ventana.comercial;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -9,11 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.ComercialController;
 import concesionario.datos.CocheConcesionario;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -29,11 +25,11 @@ public class VentanaCochesConcesionario extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTable table;
-	private Controller loginController;
+	private ComercialController comercialController;
 	
-	public VentanaCochesConcesionario(Controller loginController, String nickname) {
+	public VentanaCochesConcesionario(ComercialController comercialController, String nickname) {
 		setResizable(false);
-		this.loginController = loginController;
+		this.comercialController = comercialController;
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -101,7 +97,7 @@ public class VentanaCochesConcesionario extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaMenuComercial vmc = new VentanaMenuComercial(loginController, nickname);
+				VentanaMenuComercial vmc = new VentanaMenuComercial(comercialController, nickname);
 				vmc.setVisible(true);
 				dispose();
 			}
@@ -130,7 +126,7 @@ public class VentanaCochesConcesionario extends JFrame {
 				int unidades = (int) table.getModel().getValueAt(fila, 6);
 				int numPuertas = (int) table.getModel().getValueAt(fila, 4);
 				CocheConcesionario coche = new CocheConcesionario(marca, modelo, precio, cv, numPuertas, color, unidades);
-				VentanaDetallesCoche vdc = new VentanaDetallesCoche(loginController, coche, nickname);
+				VentanaDetallesCoche vdc = new VentanaDetallesCoche(comercialController, coche, nickname);
 				vdc.setVisible(true);
 				dispose();
 			}
@@ -150,7 +146,7 @@ public class VentanaCochesConcesionario extends JFrame {
 	}
 	
 	public void cargarTabla(JTable table) {
-		List<CocheConcesionario> coches = loginController.cargarTablaCochesConcesionario();
+		List<CocheConcesionario> coches = comercialController.cargarTablaCochesConcesionario();
 		
 		String[] columnNames = {"MARCA",
 		        "MODELO",
@@ -182,17 +178,10 @@ public class VentanaCochesConcesionario extends JFrame {
 	}
 	
 	public void cargarTablaFiltros(JTable table, int tipo, String restriccion) {
-		List<CocheConcesionario> coches = new ArrayList<CocheConcesionario>();
+		
 		
 		String filtro = restriccion + "-" + tipo;
-		
-		Response response = loginController.filtrarCocheConcesionario(filtro);
-		if(response.getStatus() == Status.OK.getStatusCode()) {
-			GenericType<List<CocheConcesionario>> genericType = new GenericType<List<CocheConcesionario>>() {};
-			coches = response.readEntity(genericType);
-		}else {
-			JOptionPane.showMessageDialog(this, "No hay ningun con ese codigo.");
-		}
+		List<CocheConcesionario> coches = comercialController.filtrarCocheConcesionario(filtro);
 		
 		String[] columnNames = {"Marca", "Modelo", "CV", "Precio", "Unidades"};
 		

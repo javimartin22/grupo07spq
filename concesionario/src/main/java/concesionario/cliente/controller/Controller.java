@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 import concesionario.cliente.ClienteApp;
-import concesionario.datos.Cliente;
 import concesionario.datos.CocheConcesionario;
 import concesionario.datos.CocheMatriculado;
 import concesionario.datos.CocheTaller;
@@ -30,15 +29,13 @@ public class Controller {
 		return this.cliente;
 	}
 	
-	public Response registrarCoche(CocheConcesionario auto) {
-		return cliente.registrarCoche(auto);
-	}
+//	public Response registrarCoche(CocheConcesionario auto) {
+//		return cliente.registrarCoche(auto);
+//	}
 	
 	public Response registrarCocheTaller(CocheTaller cocheTaller) {
 		return cliente.registrarCocheTaller(cocheTaller);
 	}
-	
-	
 	
 	public Response registroMecanico(Mecanico mecanic) {
 		return cliente.registroMecanico(mecanic);
@@ -56,21 +53,9 @@ public class Controller {
 		return cliente.registroTarifa(tarifa);
 	}
 	
-//	public Response cambiarContraseniaCliente(Cliente client, String contrasenia) {
-//		return cliente.cambiarContraseniaCliente(client, contrasenia);
+//	public List<CocheConcesionario> cargarTablaCochesConcesionario() {
+//		return cliente.cargarTablaCochesConcesionario();
 //	}
-//	
-//	public Response cambiarNicknameCliente(Cliente client, String nickname) {
-//		return cliente.cambiarNicknameCliente(client, nickname);
-//	}
-//	
-//	public Response seleccionarCliente(String nickname) {
-//		return cliente.clienteSelect(nickname);
-//	}
-	
-	public List<CocheConcesionario> cargarTablaCochesConcesionario() {
-		return cliente.cargarTablaCochesConcesionario();
-	}
 	
 	public Response seleccionarMecanico(String nickname) {
 		return cliente.mecanicoSelect(nickname);
@@ -84,9 +69,9 @@ public class Controller {
 		return cliente.departamentoComprasSelect(nickname);
 	}
 	
-	public Response registrarVenta(Venta venta) {
-		return cliente.registroVenta(venta);
-	}
+//	public Response registrarVenta(Venta venta) {
+//		return cliente.registroVenta(venta);
+//	}
 	
 	public Response registroPieza(Pieza pieza) {
 		return cliente.regsitroPieza(pieza);
@@ -140,9 +125,9 @@ public class Controller {
 		return cliente.CocheTallerDelete(matricula);
 	}
 	
-	public List<Venta> cargarTablaVenta(){
-		return cliente.cargarTablaVenta();
-	}
+//	public List<Venta> cargarTablaVenta(){
+//		return cliente.cargarTablaVenta();
+//	}
 	
 //	public Response seleccionarCocheConcesionario(String modelo) {
 //		return cliente.seleccionarCocheConcesionario(modelo);
@@ -188,17 +173,17 @@ public class Controller {
 		return cliente.cargarTablaTarifas();
 	}
 	
-	public Response filtrarVentaMarca(String marca) {
-		return cliente.filtrarVentaMarca(marca);
-	}
-	
-	public Response filtrarVentaModelo(String modelo) {
-		return cliente.filtrarVentaModelo(modelo);
-	}
-	
-	public Response filtrarVentaComercial(String comercial) {
-		return cliente.filtrarVentaComercial(comercial);
-	}
+//	public Response filtrarVentaMarca(String marca) {
+//		return cliente.filtrarVentaMarca(marca);
+//	}
+//	
+//	public Response filtrarVentaModelo(String modelo) {
+//		return cliente.filtrarVentaModelo(modelo);
+//	}
+//	
+//	public Response filtrarVentaComercial(String comercial) {
+//		return cliente.filtrarVentaComercial(comercial);
+//	}
 	
 	public Response filtrarPresupuestoCodigo(String codigo) {
 		return cliente.filtrarPresupuestoCodigo(codigo);

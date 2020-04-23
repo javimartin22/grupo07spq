@@ -10,18 +10,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.ComercialController;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
 
 public class VentanaMenuComercial extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private Controller loginController;
+	private ComercialController comercialController;
 	private JButton buttonRegistrarCoche;
 	
-	public VentanaMenuComercial(Controller loginController, String nickname) {
-		this.loginController = loginController;
+	public VentanaMenuComercial(ComercialController comercialController, String nickname) {
+		this.comercialController = comercialController;
 		initVentanaMenuComercial(nickname);
 	}
 	
@@ -52,7 +52,7 @@ public class VentanaMenuComercial extends JFrame {
 		JButton btnVerVentas = new JButton("Ver Ventas");
 		btnVerVentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaVisualizarVentas vvv = new VentanaVisualizarVentas(loginController, nickname);
+				VentanaVisualizarVentas vvv = new VentanaVisualizarVentas(comercialController, nickname);
 				vvv.setVisible(true);
 				dispose();
 			}
@@ -63,7 +63,7 @@ public class VentanaMenuComercial extends JFrame {
 		JButton btnNewButton = new JButton("Ver Coches");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaCochesConcesionario vcc = new VentanaCochesConcesionario(loginController, nickname);
+				VentanaCochesConcesionario vcc = new VentanaCochesConcesionario(comercialController, nickname);
 				vcc.setVisible(true);
 				dispose();
 			}
@@ -74,7 +74,7 @@ public class VentanaMenuComercial extends JFrame {
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginController controller = new LoginController(loginController.getClienteApp());
+				LoginController controller = new LoginController(comercialController.getClienteApp());
 				VentanaLogin vl = new VentanaLogin(controller);
 				vl.setVisible(true);
 				dispose();
@@ -84,7 +84,7 @@ public class VentanaMenuComercial extends JFrame {
 		panel.add(btnSalir);
 		buttonRegistrarCoche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaRegistrarCocheConcesionario vrcc = new VentanaRegistrarCocheConcesionario(loginController, nickname);
+				VentanaRegistrarCocheConcesionario vrcc = new VentanaRegistrarCocheConcesionario(comercialController, nickname);
 				vrcc.setVisible(true);
 				dispose();
 			}

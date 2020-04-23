@@ -11,12 +11,8 @@ import javax.swing.JMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
-import concesionario.datos.Tarifa;
+import concesionario.cliente.controller.ComercialController;
 import concesionario.datos.Venta;
 
 import javax.swing.JMenuBar;
@@ -31,10 +27,10 @@ public class VentanaVisualizarVentas extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTable table;
-	private Controller loginController;
+	private ComercialController comercialController;
 	
-	public VentanaVisualizarVentas(Controller loginController, String nickname) {
-		this.loginController = loginController;
+	public VentanaVisualizarVentas(ComercialController comercialController, String nickname) {
+		this.comercialController = comercialController;
 		iniciarVentanaVisualizarVentas(nickname);
 	}
 
@@ -55,7 +51,7 @@ public class VentanaVisualizarVentas extends JFrame {
 		JButton btnVolver = new JButton("Agregar");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaRegistrarVentas vrv = new VentanaRegistrarVentas(loginController, nickname);
+				VentanaRegistrarVentas vrv = new VentanaRegistrarVentas(comercialController, nickname);
 				vrv.setVisible(true);
 				dispose();
 			}
@@ -82,7 +78,7 @@ public class VentanaVisualizarVentas extends JFrame {
 		JButton btnVolve = new JButton("Volver");
 		btnVolve.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaMenuComercial vmc = new VentanaMenuComercial(loginController, nickname);
+				VentanaMenuComercial vmc = new VentanaMenuComercial(comercialController, nickname);
 				vmc.setVisible(true);
 				dispose();
 			}
@@ -128,7 +124,7 @@ public class VentanaVisualizarVentas extends JFrame {
 	}
 	
 	public void resetearTabla(JTable tabla) {
-		List<Venta> ventas = loginController.cargarTablaVenta();
+		List<Venta> ventas = comercialController.cargarTablaVenta();
 		
 		String[] columnNames = {"Fecha", "Matricula", "Marca", "Modelo", "Comercial", "DNI Cliente"};
 		
@@ -156,28 +152,24 @@ public class VentanaVisualizarVentas extends JFrame {
 		List<Venta> ventas = new ArrayList<Venta>();
 		switch (tipo) {
 		case 0:
-			Response response_1 = loginController.filtrarVentaMarca(restriccion);
-			if(response_1.getStatus() == Status.OK.getStatusCode()) {
-				GenericType<List<Venta>> genericType = new GenericType<List<Venta>>() {};
-				ventas = response_1.readEntity(genericType);
+			
+			
+			if(!comercialController.filtrarVentaMarca(restriccion).isEmpty()) {
+				ventas = comercialController.filtrarVentaMarca(restriccion);
 			}else {
 				JOptionPane.showMessageDialog(this, "No hay ninguna venta con esa marca.");
 			}
 			break;
 		case 1: 
-			Response response_2 = loginController.filtrarVentaModelo(restriccion);
-			if(response_2.getStatus() == Status.OK.getStatusCode()) {
-				GenericType<List<Venta>> genericType = new GenericType<List<Venta>>() {};
-				ventas = response_2.readEntity(genericType);
+			if(!comercialController.filtrarVentaModelo(restriccion).isEmpty()) {
+				ventas = comercialController.filtrarVentaModelo(restriccion);
 			}else {
 				JOptionPane.showMessageDialog(this, "No hay ninguna venta con este modelo.");
 			}
 			break;
 		case 2: 
-			Response response_3 = loginController.filtrarVentaComercial(restriccion);
-			if(response_3.getStatus() == Status.OK.getStatusCode()) {
-				GenericType<List<Venta>> genericType = new GenericType<List<Venta>>() {};
-				ventas = response_3.readEntity(genericType);
+			if(!comercialController.filtrarVentaComercial(restriccion).isEmpty()) {
+				ventas = comercialController.filtrarVentaComercial(restriccion);
 			}else {
 				JOptionPane.showMessageDialog(this, "No hay ninguna venta con este comercial.");
 			}
