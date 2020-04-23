@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import concesionario.cliente.controller.ClienteController;
 import concesionario.cliente.controller.Controller;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
@@ -44,10 +45,10 @@ public class VentanasRegistroClientes extends JFrame {
 	private String c = "";
 	private String numTelefono = "";
 	private String ciudad = "";
-	private Controller loginController;
+	private ClienteController clienteController;
 	
-	public VentanasRegistroClientes(String nickname,String contra, Controller loginController) {
-		this.loginController = loginController;
+	public VentanasRegistroClientes(String nickname,String contra, ClienteController clienteController) {
+		this.clienteController = clienteController;
 		initVentanaRegistroCliente(nickname, contra);
 	}
 	
@@ -101,7 +102,7 @@ public class VentanasRegistroClientes extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginController controller = new LoginController(loginController.getClienteApp());
+				LoginController controller = new LoginController(clienteController.getClienteApp());
 				VentanaLogin vlogin = new VentanaLogin(controller);
 				vlogin.setVisible(true);
 				dispose();
@@ -238,15 +239,12 @@ public class VentanasRegistroClientes extends JFrame {
 	}
 	
 	public void registrar(Cliente client) {
-		Response response = loginController.registroCliente(client); //estoy aqui
-		if (response.getStatus() == Status.OK.getStatusCode()) {
-			
-			VentanaMenuCliente vmc = new VentanaMenuCliente(client.getNickname(), loginController);
+		if (clienteController.registroCliente(client)) {
+			VentanaMenuCliente vmc = new VentanaMenuCliente(client.getNickname(), clienteController);
         	vmc.setVisible(true);
         	dispose();
 		} else {
 			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
-			dispose();
 		}
 	}
 }

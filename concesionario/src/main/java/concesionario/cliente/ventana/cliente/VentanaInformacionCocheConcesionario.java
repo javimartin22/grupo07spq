@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.ClienteController;
 import concesionario.datos.CocheConcesionario;
 
 import javax.swing.JLabel;
@@ -20,12 +20,12 @@ public class VentanaInformacionCocheConcesionario extends JFrame {
 	 */
 	private static final long serialVersionUID = -543914344118437679L;
 	private JPanel contentPane;
-	private Controller loginController;
+	private ClienteController clienteController;
 	
-	public VentanaInformacionCocheConcesionario(Controller loginController, String nickname, CocheConcesionario coche) {
+	public VentanaInformacionCocheConcesionario(ClienteController clienteController, String nickname, CocheConcesionario coche) {
 		setResizable(false);
 		setTitle("Informacion del Vehiculo");
-		this.loginController = loginController;
+		this.clienteController = clienteController;
 		ventanaInformacionCocheConcesionario(nickname, coche);
 	}
 	
@@ -114,7 +114,7 @@ public class VentanaInformacionCocheConcesionario extends JFrame {
 		JButton btnNewButton = new JButton("Regresar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaVisualizarCatalogo vvc = new VentanaVisualizarCatalogo(loginController, nickname);
+				VentanaVisualizarCatalogo vvc = new VentanaVisualizarCatalogo(clienteController, nickname);
 				vvc.setVisible(true);
 				dispose();
 			}

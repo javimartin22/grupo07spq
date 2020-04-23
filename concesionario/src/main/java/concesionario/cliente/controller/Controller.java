@@ -16,7 +16,6 @@ import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
 import concesionario.datos.Tarifa;
-import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
 
 public class Controller {
@@ -39,9 +38,7 @@ public class Controller {
 		return cliente.registrarCocheTaller(cocheTaller);
 	}
 	
-	public Response registroCliente(Cliente client) {
-		return cliente.registroCliente(client);
-	}
+	
 	
 	public Response registroMecanico(Mecanico mecanic) {
 		return cliente.registroMecanico(mecanic);
@@ -59,17 +56,17 @@ public class Controller {
 		return cliente.registroTarifa(tarifa);
 	}
 	
-	public Response cambiarContraseniaCliente(Cliente client, String contrasenia) {
-		return cliente.cambiarContraseniaCliente(client, contrasenia);
-	}
-	
-	public Response cambiarNicknameCliente(Cliente client, String nickname) {
-		return cliente.cambiarNicknameCliente(client, nickname);
-	}
-	
-	public Response seleccionarCliente(String nickname) {
-		return cliente.clienteSelect(nickname);
-	}
+//	public Response cambiarContraseniaCliente(Cliente client, String contrasenia) {
+//		return cliente.cambiarContraseniaCliente(client, contrasenia);
+//	}
+//	
+//	public Response cambiarNicknameCliente(Cliente client, String nickname) {
+//		return cliente.cambiarNicknameCliente(client, nickname);
+//	}
+//	
+//	public Response seleccionarCliente(String nickname) {
+//		return cliente.clienteSelect(nickname);
+//	}
 	
 	public List<CocheConcesionario> cargarTablaCochesConcesionario() {
 		return cliente.cargarTablaCochesConcesionario();
@@ -147,9 +144,9 @@ public class Controller {
 		return cliente.cargarTablaVenta();
 	}
 	
-	public Response seleccionarCocheConcesionario(String modelo) {
-		return cliente.seleccionarCocheConcesionario(modelo);
-	}
+//	public Response seleccionarCocheConcesionario(String modelo) {
+//		return cliente.seleccionarCocheConcesionario(modelo);
+//	}
 	
 	public Response registroPresupuesto(Presupuesto presupuesto) {
 		return cliente.regsitroPresupuesto(presupuesto);

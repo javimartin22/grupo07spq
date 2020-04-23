@@ -4,18 +4,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.ClienteController;
 import concesionario.datos.CocheConcesionario;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
@@ -32,20 +28,20 @@ public class VentanaVisualizarCatalogo extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Controller loginController;
+	private ClienteController clienteController;
 	private JTable table;
 
-	public VentanaVisualizarCatalogo(Controller loginController, String nickname) {
+	public VentanaVisualizarCatalogo(ClienteController clienteController, String nickname) {
 		setTitle("Catalogo");
 		setResizable(false);
-		this.loginController = loginController;
-		ventanaVisualizarCatalogo(loginController, nickname);
+		this.clienteController = clienteController;
+		ventanaVisualizarCatalogo(nickname);
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	public void ventanaVisualizarCatalogo(Controller loginController, String nickname) {
+	public void ventanaVisualizarCatalogo(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 665, 361);
 		setLocationRelativeTo(null);
@@ -128,7 +124,7 @@ public class VentanaVisualizarCatalogo extends JFrame {
 		JButton btnNewButton_1 = new JButton("Regresar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaMenuCliente ventanaMenuCliente = new VentanaMenuCliente(nickname, loginController);
+				VentanaMenuCliente ventanaMenuCliente = new VentanaMenuCliente(nickname, clienteController);
 				ventanaMenuCliente.setVisible(true);
 				dispose();
 			}
@@ -151,7 +147,7 @@ public class VentanaVisualizarCatalogo extends JFrame {
 	}
 	
 	public void cargarTabla(JTable table) {
-		List<CocheConcesionario> coches = loginController.cargarTablaCochesConcesionario();
+		List<CocheConcesionario> coches = clienteController.cargarTablaCochesConcesionario();
 		String[] columnNames = {"Marca", "Modelo", "CV", "Precio", "Unidades"};
 		if (!coches.isEmpty()) {
 			 DefaultTableModel model = new DefaultTableModel();
@@ -174,10 +170,8 @@ public class VentanaVisualizarCatalogo extends JFrame {
 	
 	
 	public void verInfo(String modelo, String nickname) {
-		Response response = loginController.seleccionarCocheConcesionario(modelo);
-		if (response.getStatus() == Status.OK.getStatusCode()) {
-			CocheConcesionario coche = response.readEntity(CocheConcesionario.class);
-			VentanaInformacionCocheConcesionario vicc = new VentanaInformacionCocheConcesionario(loginController, nickname, coche);
+		if (clienteController.seleccionarCocheConcesionario(modelo) != null) {
+			VentanaInformacionCocheConcesionario vicc = new VentanaInformacionCocheConcesionario(clienteController, nickname, clienteController.seleccionarCocheConcesionario(modelo));
 			vicc.setVisible(true);
 			dispose();
 		} else {
@@ -186,35 +180,26 @@ public class VentanaVisualizarCatalogo extends JFrame {
 	}
 	
 	public void cargarTablaFiltros(JTable table, int tipo, String restriccion) {
-		List<CocheConcesionario> coches = new ArrayList<CocheConcesionario>();
-		
 		String filtro = restriccion + "-" + tipo;
+		List<CocheConcesionario> coches = clienteController.filtrarCocheConcesionario(filtro);
 		
-		Response response = loginController.filtrarCocheConcesionario(filtro);
-		if(response.getStatus() == Status.OK.getStatusCode()) {
-			GenericType<List<CocheConcesionario>> genericType = new GenericType<List<CocheConcesionario>>() {};
-			coches = response.readEntity(genericType);
+		if(!coches.isEmpty()) {
+			String[] columnNames = {"Marca", "Modelo", "CV", "Precio", "Unidades"};
+
+			DefaultTableModel model = new DefaultTableModel();
+			table.setModel(model);
+			model.setColumnIdentifiers(columnNames);
+			for (CocheConcesionario e : coches) {
+				Object[] o = new Object[5];
+				o[0] = e.getMarca();
+				o[1] = e.getModelo();
+				o[2] = e.getCv();
+				o[3] = e.getPrecio();
+				o[4] = e.getUnidades();
+				model.addRow(o);
+			} 
 		}else {
 			JOptionPane.showMessageDialog(this, "No hay ningun con ese codigo.");
-		}
-		
-		String[] columnNames = {"Marca", "Modelo", "CV", "Precio", "Unidades"};
-		
-		if (!coches.isEmpty()) {
-			 DefaultTableModel model = new DefaultTableModel();
-			   table.setModel(model);
-			   model.setColumnIdentifiers(columnNames);
-			   for (CocheConcesionario e : coches) {
-				   Object[] o = new Object[5];
-				   o[0] = e.getMarca();
-				   o[1] = e.getModelo();
-				   o[2] = e.getCv();
-				   o[3] = e.getPrecio();
-				   o[4] = e.getUnidades();
-				   model.addRow(o);
-				 }
-		} else {
-			System.out.println("llega mal");
 		}
 	}
 }

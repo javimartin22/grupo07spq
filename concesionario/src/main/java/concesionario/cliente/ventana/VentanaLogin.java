@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import concesionario.cliente.controller.ClienteController;
 import concesionario.cliente.controller.Controller;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.cliente.VentanaMenuCliente;
@@ -151,6 +152,7 @@ public class VentanaLogin extends JFrame {
 	
 	public void login(String nickname, String password) {
 		Controller controller = new Controller(loginController.getClienteApp());
+		ClienteController clienteController = new ClienteController(loginController.getClienteApp());
 		int tipoInicio = loginController.login(nickname, password);
 		switch (tipoInicio) {
 		case 0:
@@ -169,7 +171,7 @@ public class VentanaLogin extends JFrame {
 			dispose();
 			break;
 		case 3:
-			VentanaMenuCliente vmc = new VentanaMenuCliente(nickname, controller);
+			VentanaMenuCliente vmc = new VentanaMenuCliente(nickname, clienteController);
 	    	vmc.setVisible(true);
 	    	dispose();
 			break;
@@ -185,7 +187,7 @@ public class VentanaLogin extends JFrame {
 			int respuesta = JOptionPane.showConfirmDialog(this, "Usuario no registrado ¿Desea registrarse?");
 			switch (respuesta) {
 			case 0:
-				VentanasRegistroClientes vrc = new VentanasRegistroClientes(nickname, password, controller);
+				VentanasRegistroClientes vrc = new VentanasRegistroClientes(nickname, password, clienteController);
 				vrc.setVisible(true);
 				dispose();
 				break;

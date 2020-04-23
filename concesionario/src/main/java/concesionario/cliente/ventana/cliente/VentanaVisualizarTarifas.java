@@ -4,11 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.ClienteController;
 import concesionario.datos.Tarifa;
 
 import javax.swing.JTable;
@@ -29,21 +26,21 @@ public class VentanaVisualizarTarifas extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Controller loginController;
+	private ClienteController clienteController;
 	private JTable table;
 	private DefaultTableModel model;
 
-	public VentanaVisualizarTarifas(Controller loginController, String nickname) {
+	public VentanaVisualizarTarifas(ClienteController clienteController, String nickname) {
 		setTitle("Catalogo de Tarifas");
 		setResizable(false);
-		this.loginController = loginController;
-		ventanaVisualizarTarifas(loginController, nickname);
+		this.clienteController = clienteController;
+		ventanaVisualizarTarifas(nickname);
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	public void ventanaVisualizarTarifas(Controller loginController, String nickname) {
+	public void ventanaVisualizarTarifas(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setBounds(100, 100, 664, 350);
@@ -60,13 +57,10 @@ public class VentanaVisualizarTarifas extends JFrame {
 				String respuesta = JOptionPane.showInputDialog("Introduzca cantidad");
 				if(isNumeric(respuesta)) {
 					int resp = Integer.parseInt(respuesta);
-					Response response = loginController.filtrarTarifaPrecio(resp);
-					if(response.getStatus() == Status.OK.getStatusCode()) {
-						GenericType<List<Tarifa>> genericType = new GenericType<List<Tarifa>>() {};
-						List<Tarifa> tarifas = response.readEntity(genericType);
+					List<Tarifa> tarifas = clienteController.filtrarTarifaPrecio(resp);
+					if(!tarifas.isEmpty()) {
 						
 						String[] columnNames = {"Id", "Nombre", "Precio Aproximado", "Mano de obra(h)"};
-						if (!tarifas.isEmpty()) {
 							  model = new DefaultTableModel();
 							   table.setModel(model);
 							   model.setColumnIdentifiers(columnNames);
@@ -77,14 +71,12 @@ public class VentanaVisualizarTarifas extends JFrame {
 								   o[2] = t.getPrecioAprox();
 								   o[3] = t.getHoras_manodeobra();
 								   model.addRow(o);
-								 }
-						}
+							   }
 					}
 					
 				}else {
 					JOptionPane.showInputDialog("No ha introducido un numero");
 				}
-				
 			}
 		});
 		
@@ -94,13 +86,9 @@ public class VentanaVisualizarTarifas extends JFrame {
 				String respuesta = JOptionPane.showInputDialog("Introduzca cantidad");
 				if(isNumeric(respuesta)) {
 					int resp = Integer.parseInt(respuesta);
-					Response response = loginController.filtrarTarifaPrecioMin(resp);
-					if(response.getStatus() == Status.OK.getStatusCode()) {
-						GenericType<List<Tarifa>> genericType = new GenericType<List<Tarifa>>() {};
-						List<Tarifa> tarifas = response.readEntity(genericType);
-						
+					List<Tarifa> tarifas = clienteController.filtrarTarifaPrecioMin(resp);
+					if(!tarifas.isEmpty()) {
 						String[] columnNames = {"Id", "Nombre", "Precio Aproximado", "Mano de obra(h)"};
-						if (!tarifas.isEmpty()) {
 							  model = new DefaultTableModel();
 							   table.setModel(model);
 							   model.setColumnIdentifiers(columnNames);
@@ -112,7 +100,6 @@ public class VentanaVisualizarTarifas extends JFrame {
 								   o[3] = t.getHoras_manodeobra();
 								   model.addRow(o);
 								 }
-						}
 					}
 					
 				}else {
@@ -129,13 +116,9 @@ public class VentanaVisualizarTarifas extends JFrame {
 				String respuesta = JOptionPane.showInputDialog("Introduzca cantidad");
 				if(isNumeric(respuesta)) {
 					int horas = Integer.parseInt(respuesta);
-					Response response = loginController.filtrarTarifaHorasMax(horas);
-					if(response.getStatus() == Status.OK.getStatusCode()) {
-						GenericType<List<Tarifa>> genericType = new GenericType<List<Tarifa>>() {};
-						List<Tarifa> tarifas = response.readEntity(genericType);
-						
+					List<Tarifa> tarifas = clienteController.filtrarTarifaHorasMax(horas);
+					if(!tarifas.isEmpty()) {
 						String[] columnNames = {"Id", "Nombre", "Precio Aproximado", "Mano de obra(h)"};
-						if (!tarifas.isEmpty()) {
 							  model = new DefaultTableModel();
 							   table.setModel(model);
 							   model.setColumnIdentifiers(columnNames);
@@ -147,7 +130,6 @@ public class VentanaVisualizarTarifas extends JFrame {
 								   o[3] = t.getHoras_manodeobra();
 								   model.addRow(o);
 								 }
-						}
 					}
 					
 				}else {
@@ -164,13 +146,10 @@ public class VentanaVisualizarTarifas extends JFrame {
 				String respuesta = JOptionPane.showInputDialog("Introduzca cantidad");
 				if(isNumeric(respuesta)) {
 					int horas = Integer.parseInt(respuesta);
-					Response response = loginController.filtrarTarifaHorasMin(horas);
-					if(response.getStatus() == Status.OK.getStatusCode()) {
-						GenericType<List<Tarifa>> genericType = new GenericType<List<Tarifa>>() {};
-						List<Tarifa> tarifas = response.readEntity(genericType);
-						
+					List<Tarifa> tarifas = clienteController.filtrarTarifaHorasMin(horas);
+					if(!tarifas.isEmpty()) {
 						String[] columnNames = {"Id", "Nombre", "Precio Aproximado", "Mano de obra(h)"};
-						if (!tarifas.isEmpty()) {
+						
 							  model = new DefaultTableModel();
 							   table.setModel(model);
 							   model.setColumnIdentifiers(columnNames);
@@ -182,7 +161,9 @@ public class VentanaVisualizarTarifas extends JFrame {
 								   o[3] = t.getHoras_manodeobra();
 								   model.addRow(o);
 								 }
-						}
+						
+					} else {
+						JOptionPane.showMessageDialog(contentPane, "No hay ninguna tarifa asi.");
 					}
 					
 				}else {
@@ -221,7 +202,7 @@ public class VentanaVisualizarTarifas extends JFrame {
 		JButton btnNewButton_1 = new JButton("Regresar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaMenuCliente ventanaMenuCliente = new VentanaMenuCliente(nickname, loginController);
+				VentanaMenuCliente ventanaMenuCliente = new VentanaMenuCliente(nickname, clienteController);
 				ventanaMenuCliente.setVisible(true);
 				dispose();
 			}
@@ -232,7 +213,7 @@ public class VentanaVisualizarTarifas extends JFrame {
 	}
 	//Cargar las tarifas desde la BD
 	public void cargarTabla(JTable table) {
-		List<Tarifa> tarifas = loginController.cargarTablaTarifas();
+		List<Tarifa> tarifas = clienteController.cargarTablaTarifas();
 		String[] columnNames = {"Id", "Nombre", "Precio Aproximado", "Mano de obra(h)"};
 		if (!tarifas.isEmpty()) {
 			  model = new DefaultTableModel();
