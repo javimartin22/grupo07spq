@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.client.Entity;
 
 import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
 import concesionario.datos.Cliente;
 import concesionario.datos.CocheConcesionario;
@@ -456,7 +457,7 @@ public class ClienteApp {
 	            public void run() {
 	                ClienteApp cliente = new ClienteApp();
 	                
-	                Controller loginController = new Controller(cliente);
+	                LoginController loginController = new LoginController(cliente);
 	                VentanaLogin vlogin = new VentanaLogin(loginController);
 	                vlogin.setVisible(true);
 	                

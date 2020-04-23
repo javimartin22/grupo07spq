@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
 
 import javax.swing.JButton;
@@ -89,7 +90,8 @@ public class VentanaMenuMecanico extends JFrame {
 		buttonSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//ventana para iniciar serion
-				VentanaLogin vl = new VentanaLogin(loginController);
+				LoginController controller = new LoginController(loginController.getClienteApp());
+				VentanaLogin vl = new VentanaLogin(controller);
 				vl.setVisible(true);///ee
 				dispose();
 			}

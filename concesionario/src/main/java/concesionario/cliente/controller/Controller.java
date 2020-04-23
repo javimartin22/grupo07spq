@@ -27,9 +27,8 @@ public class Controller {
 		this.cliente = cliente;
 	}
 	
-	public Response login(String email, String password) {
-			Usuario usu = new Usuario(email,password,0);
-			return cliente.login(usu);
+	public ClienteApp getClienteApp() {
+		return this.cliente;
 	}
 	
 	public Response registrarCoche(CocheConcesionario auto) {

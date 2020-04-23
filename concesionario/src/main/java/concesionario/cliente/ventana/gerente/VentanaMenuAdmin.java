@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
 import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
 import concesionario.datos.Venta;
 
@@ -111,7 +112,8 @@ public class VentanaMenuAdmin extends JFrame {
 	}
 	
 	public void salir() {
-		VentanaLogin vlogin = new VentanaLogin(loginController);
+		LoginController controller = new LoginController(loginController.getClienteApp());
+		VentanaLogin vlogin = new VentanaLogin(controller);
 		vlogin.setVisible(true);
 		dispose();
 	}

@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.cliente.VentanaMenuCliente;
 import concesionario.cliente.ventana.cliente.VentanasRegistroClientes;
 import concesionario.cliente.ventana.comercial.VentanaMenuComercial;
@@ -34,7 +35,7 @@ public class VentanaLogin extends JFrame {
 	private JPasswordField textContrasenya;
 	private JButton buttonAceptar;
 	
-	private Controller loginController;
+	private LoginController loginController;
 	
 
 	/**
@@ -45,7 +46,7 @@ public class VentanaLogin extends JFrame {
 	 * Create the frame.
 	 */
 	
-	public VentanaLogin(Controller loginController) {
+	public VentanaLogin(LoginController loginController) {
 		this.loginController = loginController;   //errores
 		initVentanaLogin();
 	}
@@ -59,7 +60,8 @@ public class VentanaLogin extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-
+		
+		
 		//panel general
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -148,54 +150,48 @@ public class VentanaLogin extends JFrame {
 	}
 	
 	public void login(String nickname, String password) {
-		Response response = loginController.login(nickname, password); //estoy aqui
-		
-		if(response.getStatus() == Status.OK.getStatusCode()) {
-			String str = response.readEntity(String.class);
-	        int tipoInicio = Integer.parseInt(str);
-	        switch (tipoInicio) {
+		Controller controller = new Controller(loginController.getClienteApp());
+		int tipoInicio = loginController.login(nickname, password);
+		switch (tipoInicio) {
+		case 0:
+			VentanaMenuAdmin vma = new VentanaMenuAdmin(controller, nickname);
+			vma.setVisible(true);
+			dispose();
+			break;
+		case 1: 
+			VentanaMenuMecanico vmm = new VentanaMenuMecanico(controller, nickname);
+			vmm.setVisible(true);
+			dispose();
+			break;
+		case 2:
+			VentanaMenuComercial vmcom = new VentanaMenuComercial(controller, nickname);
+			vmcom.setVisible(true);
+			dispose();
+			break;
+		case 3:
+			VentanaMenuCliente vmc = new VentanaMenuCliente(nickname, controller);
+	    	vmc.setVisible(true);
+	    	dispose();
+			break;
+		case 4:
+			VentanaMenuDepartamentoCompras vmdc = new VentanaMenuDepartamentoCompras(controller, nickname);
+			vmdc.setVisible(true);
+			dispose();
+			break;
+		case 5:
+			JOptionPane.showMessageDialog(this, "Datos incorrectos");
+			break;
+		case 6: 	
+			int respuesta = JOptionPane.showConfirmDialog(this, "Usuario no registrado ¿Desea registrarse?");
+			switch (respuesta) {
 			case 0:
-				VentanaMenuAdmin vma = new VentanaMenuAdmin(loginController, nickname);
-				vma.setVisible(true);
-				dispose();
-				break;
-			case 1: 
-				VentanaMenuMecanico vmm = new VentanaMenuMecanico(loginController, nickname);
-				vmm.setVisible(true);
-				dispose();
-				break;
-			case 2:
-				VentanaMenuComercial vmcom = new VentanaMenuComercial(loginController, nickname);
-				vmcom.setVisible(true);
-				dispose();
-				break;
-			case 3:
-				VentanaMenuCliente vmc = new VentanaMenuCliente(nickname, loginController);
-	        	vmc.setVisible(true);
-	        	dispose();
-				break;
-			case 4:
-				VentanaMenuDepartamentoCompras vmdc = new VentanaMenuDepartamentoCompras(loginController, nickname);
-				vmdc.setVisible(true);
+				VentanasRegistroClientes vrc = new VentanasRegistroClientes(nickname, password, controller);
+				vrc.setVisible(true);
 				dispose();
 				break;
 			}
-		 }else if (response.getStatus() == Status.NOT_ACCEPTABLE.getStatusCode()){
-	         JOptionPane.showMessageDialog(this, "Datos incorrectos");
-
-		 } else {
-			 int respuesta = JOptionPane.showConfirmDialog(this, "Usuario no registrado ¿Desea registrarse?");
-			 switch (respuesta) {
-			case 0:
-				VentanasRegistroClientes vrc = new VentanasRegistroClientes(nickname, password, loginController);
-	        	vrc.setVisible(true);
-	        	dispose();
-				break;
-
-			default:
-				break;
-			}
-		 }
+			break;
+}
 	}
 
 }
