@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import concesionario.cliente.controller.ClienteController;
 import concesionario.cliente.controller.ComercialController;
 import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.DepartmentoComprasController;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.cliente.VentanaMenuCliente;
 import concesionario.cliente.ventana.cliente.VentanasRegistroClientes;
@@ -177,7 +178,8 @@ public class VentanaLogin extends JFrame {
 	    	dispose();
 			break;
 		case 4:
-			VentanaMenuDepartamentoCompras vmdc = new VentanaMenuDepartamentoCompras(controller, nickname);
+			DepartmentoComprasController departamComprasController = new DepartmentoComprasController(loginController.getClienteApp());
+			VentanaMenuDepartamentoCompras vmdc = new VentanaMenuDepartamentoCompras(departamComprasController, nickname);
 			vmdc.setVisible(true);
 			dispose();
 			break;

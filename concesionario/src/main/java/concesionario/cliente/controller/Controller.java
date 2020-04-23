@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 import concesionario.cliente.ClienteApp;
-import concesionario.datos.CocheConcesionario;
 import concesionario.datos.CocheMatriculado;
 import concesionario.datos.CocheTaller;
 import concesionario.datos.Comercial;
@@ -15,7 +14,6 @@ import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
 import concesionario.datos.Tarifa;
-import concesionario.datos.Venta;
 
 public class Controller {
 	
@@ -29,9 +27,6 @@ public class Controller {
 		return this.cliente;
 	}
 	
-//	public Response registrarCoche(CocheConcesionario auto) {
-//		return cliente.registrarCoche(auto);
-//	}
 	
 	public Response registrarCocheTaller(CocheTaller cocheTaller) {
 		return cliente.registrarCocheTaller(cocheTaller);
@@ -53,9 +48,6 @@ public class Controller {
 		return cliente.registroTarifa(tarifa);
 	}
 	
-//	public List<CocheConcesionario> cargarTablaCochesConcesionario() {
-//		return cliente.cargarTablaCochesConcesionario();
-//	}
 	
 	public Response seleccionarMecanico(String nickname) {
 		return cliente.mecanicoSelect(nickname);
@@ -69,9 +61,6 @@ public class Controller {
 		return cliente.departamentoComprasSelect(nickname);
 	}
 	
-//	public Response registrarVenta(Venta venta) {
-//		return cliente.registroVenta(venta);
-//	}
 	
 	public Response registroPieza(Pieza pieza) {
 		return cliente.regsitroPieza(pieza);
@@ -172,18 +161,6 @@ public class Controller {
 	public List<Tarifa> cargarTablaTarifas(){
 		return cliente.cargarTablaTarifas();
 	}
-	
-//	public Response filtrarVentaMarca(String marca) {
-//		return cliente.filtrarVentaMarca(marca);
-//	}
-//	
-//	public Response filtrarVentaModelo(String modelo) {
-//		return cliente.filtrarVentaModelo(modelo);
-//	}
-//	
-//	public Response filtrarVentaComercial(String comercial) {
-//		return cliente.filtrarVentaComercial(comercial);
-//	}
 	
 	public Response filtrarPresupuestoCodigo(String codigo) {
 		return cliente.filtrarPresupuestoCodigo(codigo);

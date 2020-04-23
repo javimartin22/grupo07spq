@@ -5,18 +5,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.DepartmentoComprasController;
 import concesionario.datos.Pieza;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
@@ -30,11 +26,11 @@ public class VentanaPiezasUtilizadas extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable tabla;
-	private Controller loginController;
+	private DepartmentoComprasController departamentoComprasController;
 
-	public VentanaPiezasUtilizadas(Controller loginController, String nickname) {
+	public VentanaPiezasUtilizadas(DepartmentoComprasController departmentoComprasController, String nickname) {
 		setResizable(false);
-		this.loginController = loginController;
+		this.departamentoComprasController = departmentoComprasController;
 		iniciarVentanaPiezasUtilizadas(nickname);
 	}
 
@@ -95,7 +91,7 @@ public class VentanaPiezasUtilizadas extends JFrame {
 		JButton btnRegresar = new JButton("Regresar");
 		btnRegresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaMenuDepartamentoCompras vmdc = new VentanaMenuDepartamentoCompras(loginController, nickname);
+				VentanaMenuDepartamentoCompras vmdc = new VentanaMenuDepartamentoCompras(departamentoComprasController, nickname);
 				vmdc.setVisible(true);
 				dispose();
 			}
@@ -116,12 +112,10 @@ public class VentanaPiezasUtilizadas extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String codigo = (String) tabla.getModel().getValueAt(tabla.getSelectedRow(), 0);
-				Response response = loginController.seleccionarPiezaUtilizada(codigo);
-				if (response.getStatus() == Status.OK.getStatusCode()) {
-					Pieza pieza = response.readEntity(Pieza.class);
-					anyadirUnidades(pieza);
+				if (departamentoComprasController.seleccionarPiezaUtilizada(codigo) != null) {
+					anyadirUnidades(departamentoComprasController.seleccionarPiezaUtilizada(codigo));
 				} else {
-					System.out.println("llega mal");
+					JOptionPane.showMessageDialog(contentPane, "La pieza seleccionada no existe.");;
 				} 
 			}
 		});
@@ -140,7 +134,7 @@ public class VentanaPiezasUtilizadas extends JFrame {
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaRegistoPiezas vrp = new VentanaRegistoPiezas(loginController, nickname);
+				VentanaRegistoPiezas vrp = new VentanaRegistoPiezas(departamentoComprasController, nickname);
 				vrp.setVisible(true);
 				dispose();
 			}
@@ -151,7 +145,7 @@ public class VentanaPiezasUtilizadas extends JFrame {
 	
 		
 	public void cargarTabla(JTable tabla) {
-		List<Pieza> piezas = loginController.cargarPiezas();
+		List<Pieza> piezas = departamentoComprasController.cargarPiezas();
 		String[] columnNames = {"Codigo", "Nombre", "Unidades", "Ubicacion"};
 		
 		if (!piezas.isEmpty()) {
@@ -175,8 +169,7 @@ public class VentanaPiezasUtilizadas extends JFrame {
 	private void anyadirUnidades(Pieza pieza) {
 		String u = JOptionPane.showInputDialog("¿Cuantas unidades desea suministrar?");
 		int unidades = Integer.parseInt(u);
-		Response response = loginController.registroPiezaUtilizada(pieza, unidades); 
-		if (response.getStatus() == Status.OK.getStatusCode()) {
+		if (departamentoComprasController.registroPiezaUtilizada(pieza, unidades)) {
 			JOptionPane.showMessageDialog(contentPane, "Unidades anyadidas correctamente");
 		} else {
 			JOptionPane.showMessageDialog(contentPane, "Error al anyadir unidades.");
@@ -184,7 +177,7 @@ public class VentanaPiezasUtilizadas extends JFrame {
 	}
 		
 	public void cargarTablaUtilizadas(JTable table) {
-		List<Pieza> piezas = loginController.cargarPiezasUtilizadas();
+		List<Pieza> piezas = departamentoComprasController.cargarPiezasUtilizadas();
 		String[] columnNames = {"Codigo", "Nombre", "Unidades", "Ubicacion"};
 		
 		if (!piezas.isEmpty()) {
@@ -206,16 +199,10 @@ public class VentanaPiezasUtilizadas extends JFrame {
 	}
 	
 	public void cargarTablaFiltro(JTable table, int tipo, String restriccion) {
-		List<Pieza> piezas = new ArrayList<Pieza>();
+		
 		
 		String filtro = restriccion + "-" + tipo;
-		Response response = loginController.filtrarPiezaUtilizadas(filtro);
-		if(response.getStatus() == Status.OK.getStatusCode()) {
-			GenericType<List<Pieza>> genericType = new GenericType<List<Pieza>>() {};
-			piezas = response.readEntity(genericType);
-		}else {
-			JOptionPane.showMessageDialog(this, "No hay ningun con ese codigo.");
-		}
+		List<Pieza> piezas = departamentoComprasController.filtrarPiezaUtilizadas(filtro);
 		
 		String[] columnNames = {"Codigo", "Nombre", "Unidades", "Ubicacion"};
 		

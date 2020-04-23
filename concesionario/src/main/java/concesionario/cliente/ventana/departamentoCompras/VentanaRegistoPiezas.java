@@ -3,10 +3,8 @@ package concesionario.cliente.ventana.departamentoCompras;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.DepartmentoComprasController;
 import concesionario.datos.Pieza;
 
 import javax.swing.JLabel;
@@ -28,10 +26,10 @@ public class VentanaRegistoPiezas extends JFrame {
 	private JTextField textField_1;
 	private JComboBox comboBox;
 	private JSpinner spinner;
-	private Controller loginController;
+	private DepartmentoComprasController departmentoComprasController;
 	
-	public VentanaRegistoPiezas(Controller loginController, String nickname){
-		this.loginController = loginController;
+	public VentanaRegistoPiezas(DepartmentoComprasController departamentoComprasController, String nickname){
+		this.departmentoComprasController = departamentoComprasController;
 		iniciarVentanaRegistoPiezas(nickname);
 	}
 	
@@ -94,7 +92,7 @@ public class VentanaRegistoPiezas extends JFrame {
 					String nombre = textField_1.getText();
 					
 						//Obtenemos el numero del combobox y lo convertimos en un String:
-						String ubicacion = parseUbicacion(comboBox.getSelectedIndex());
+						String ubicacion = departmentoComprasController.parseUbicacion(comboBox.getSelectedIndex());
 						
 						//Obtenemos el String del spinner y lo convertimos en un entero:
 						String text = spinner.getValue().toString();
@@ -112,7 +110,7 @@ public class VentanaRegistoPiezas extends JFrame {
 						} else { //En caso contrario se registra la pieza y se regresa al menu principal:
 							Pieza pieza1 = new Pieza(codigo, nombre, unidades, ubicacion);
 							registrarBD(pieza1);
-							VentanaPiezasUtilizadas vpu = new VentanaPiezasUtilizadas(loginController, nombreMecanico);
+							VentanaPiezasUtilizadas vpu = new VentanaPiezasUtilizadas(departmentoComprasController, nombreMecanico);
 							vpu.setVisible(true);
 							dispose();
 						}
@@ -127,7 +125,7 @@ public class VentanaRegistoPiezas extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaPiezasUtilizadas vpu = new VentanaPiezasUtilizadas(loginController, nombreMecanico);
+				VentanaPiezasUtilizadas vpu = new VentanaPiezasUtilizadas(departmentoComprasController, nombreMecanico);
 				vpu.setVisible(true);
 				dispose();
 			}
@@ -142,8 +140,8 @@ public class VentanaRegistoPiezas extends JFrame {
 	
 	//Conectar con el servidor para poder hacer el registro en la BD:
 	private void registrarBD(Pieza pieza) {
-		Response response = loginController.registroPieza(pieza);
-		if (response.getStatus() == Status.OK.getStatusCode()) {
+		
+		if (departmentoComprasController.registroPieza(pieza)) {
 			JOptionPane.showMessageDialog(contentPane, "Unidades anyadidas correctamente");
 		} else {
 			JOptionPane.showMessageDialog(contentPane, "Error al anyadir unidades.");
@@ -160,30 +158,7 @@ public class VentanaRegistoPiezas extends JFrame {
 	}
 	
 	//Traducir la ubicacion del entero obtenido en el ComboBox a String.
-	private String parseUbicacion(int ubicacion) {
-		String ub = "";
-		switch (ubicacion) {
-		case 0:
-			ub = "Alamacen 1 - Estanteria 1";
-			break;
-		case 1:
-			ub = "Alamacen 1 - Estanteria 2";
-			break;
-		case 2:
-			ub = "Alamacen 1 - Estanteria 3";
-			break;
-		case 3:
-			ub = "Alamacen 2 - Estanteria 1";
-			break;
-		case 4:
-			ub = "Alamacen 2 - Estanteria 2";
-			break;
-		case 5:
-			ub = "Alamacen 2 - Estanteria 3";
-			break;
-		}
-		return ub;
-	}
+	
 	
 	//Comprobar que los campos estan todos rellenados.
 	private boolean comprobarDatos() {

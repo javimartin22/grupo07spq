@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.DepartmentoComprasController;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
 
@@ -17,10 +17,10 @@ public class VentanaMenuDepartamentoCompras extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Controller loginController;
+	private DepartmentoComprasController departmentoComprasController;
 	
-	public VentanaMenuDepartamentoCompras(Controller loginController, String nickname) {
-		this.loginController = loginController;
+	public VentanaMenuDepartamentoCompras(DepartmentoComprasController departamentoComprasController, String nickname) {
+		this.departmentoComprasController = departamentoComprasController;
 		iniciarVentanaMenuDepartamentoCompras(nickname);
 	}
 
@@ -37,7 +37,7 @@ public class VentanaMenuDepartamentoCompras extends JFrame {
 		JButton btnNewButton = new JButton("Piezas");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaPiezasUtilizadas vpu = new VentanaPiezasUtilizadas(loginController, nickname);
+				VentanaPiezasUtilizadas vpu = new VentanaPiezasUtilizadas(departmentoComprasController, nickname);
 				vpu.setVisible(true);
 				dispose();
 			}
@@ -48,7 +48,7 @@ public class VentanaMenuDepartamentoCompras extends JFrame {
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginController controller = new LoginController(loginController.getClienteApp());
+				LoginController controller = new LoginController(departmentoComprasController.getClienteApp());
 				VentanaLogin vl = new VentanaLogin(controller);
 				vl.setVisible(true);
 				dispose();
