@@ -1,11 +1,17 @@
-package concesionario.cliente.ventana.departamentoCompras;
+package DepCompras;
+
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-
+import java.util.HashMap;
+import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -14,23 +20,19 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 public class VentanaComprarPiezas extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	private JPanel contentPane;
-	
+	private JPanel contentPane;	
 	private JTextField textFieldUnidades;
+
 
 
 	/**
@@ -56,8 +58,7 @@ public class VentanaComprarPiezas extends JFrame {
 		setResizable(false);
 		setTitle("Comprar piezas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 412, 302);
-		
+		setBounds(100, 100, 392, 282);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -83,11 +84,11 @@ public class VentanaComprarPiezas extends JFrame {
 				JOptionPane.showMessageDialog(null, "Compra realizada");
 			}
 		});
-		btnComprar.setBounds(155, 212, 117, 29);
+		btnComprar.setBounds(155, 191, 117, 29);
 		contentPane.add(btnComprar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(282, 212, 117, 29);
+		btnCancelar.setBounds(269, 191, 117, 29);
 		contentPane.add(btnCancelar);
 		
 		JLabel lblProveedor = new JLabel("Proveedor");
@@ -110,17 +111,17 @@ public class VentanaComprarPiezas extends JFrame {
 			comboBoxProveedor.addItem(pr.toString());
 		}
 		
-		ArrayList<String> tipos = new ArrayList<>();
-		tipos.add("Frenos");
-		tipos.add("Filtros");
-		tipos.add("Motor");
-		tipos.add("Amortiguacion");
-		tipos.add("Aceites y liquidos");
-		tipos.add("Suspension y brazos");
-		tipos.add("Carroceria");
-		tipos.add("Direccion");
-		tipos.add("Sistema electrico");
-		tipos.add("Limpieza de cristales");
+//		ArrayList<String> tipos = new ArrayList<>();
+//		tipos.add("Frenos");
+//		tipos.add("Filtros");
+//		tipos.add("Motor");
+//		tipos.add("Amortiguacion");
+//		tipos.add("Aceites y liquidos");
+//		tipos.add("Suspension y brazos");
+//		tipos.add("Carroceria");
+//		tipos.add("Direccion");
+//		tipos.add("Sistema electrico");
+//		tipos.add("Limpieza de cristales");
 		
 	
 		ArrayList<String> tiposBosch = new ArrayList<>();
@@ -336,49 +337,48 @@ public class VentanaComprarPiezas extends JFrame {
 		
 
 		JButton btnInfo = new JButton("Ver informacion");
-		btnInfo.setBounds(10, 212, 135, 29);
+		btnInfo.setBounds(22, 191, 135, 29);
 		contentPane.add(btnInfo);
 		btnInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(comboBoxProveedor.getSelectedIndex()==0) {
-					VentanaInformacionBosch vib = new VentanaInformacionBosch();
+					VentanaInformacionProveedores vib = new VentanaInformacionProveedores(0);
 					vib.setVisible(true);
 					vib.setResizable(false);
 					
 				}
 				
 				if(comboBoxProveedor.getSelectedIndex()==1) {
-					VentanaInformacionCastrol vic = new VentanaInformacionCastrol();
+					VentanaInformacionProveedores vic = new VentanaInformacionProveedores(1);
 					vic.setVisible(true);
 					vic.setResizable(false);
 					
 				}
 				
 				if(comboBoxProveedor.getSelectedIndex()==2) {
-					VentanaInformacionMonroe vim = new VentanaInformacionMonroe();
+					VentanaInformacionProveedores vim = new VentanaInformacionProveedores(2);
 					vim.setVisible(true);
 					vim.setResizable(false);
 					
 				}
 				
 				if(comboBoxProveedor.getSelectedIndex()==3) {
-					VentanaInformacionBrembo vibr = new VentanaInformacionBrembo();
+					VentanaInformacionProveedores vibr = new VentanaInformacionProveedores(3);
 					vibr.setVisible(true);
 					vibr.setResizable(false);
 					
 				}
 				
 				if(comboBoxProveedor.getSelectedIndex()==4) {
-					VentanaInformacionContitech vico = new VentanaInformacionContitech();
+					VentanaInformacionProveedores vico = new VentanaInformacionProveedores(4);
 					vico.setVisible(true);
 					vico.setResizable(false);
 					
 				}
-			
 
 			}
 		});
-		btnVerPiezas.setBounds(282, 62, 117, 29);
+		btnVerPiezas.setBounds(269, 63, 117, 29);
 		contentPane.add(btnVerPiezas);
 		
 	
@@ -389,6 +389,9 @@ public class VentanaComprarPiezas extends JFrame {
 		
 				
 			}
+	
+	
+	
 	}
 
 
