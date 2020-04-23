@@ -20,6 +20,7 @@ import concesionario.cliente.controller.ClienteController;
 import concesionario.cliente.controller.ComercialController;
 import concesionario.cliente.controller.Controller;
 import concesionario.cliente.controller.DepartmentoComprasController;
+import concesionario.cliente.controller.GerenteController;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.cliente.VentanaMenuCliente;
 import concesionario.cliente.ventana.cliente.VentanasRegistroClientes;
@@ -157,7 +158,8 @@ public class VentanaLogin extends JFrame {
 		int tipoInicio = loginController.login(nickname, password);
 		switch (tipoInicio) {
 		case 0:
-			VentanaMenuAdmin vma = new VentanaMenuAdmin(controller, nickname);
+			GerenteController gerenteController = new GerenteController(loginController.getClienteApp());
+			VentanaMenuAdmin vma = new VentanaMenuAdmin(gerenteController, nickname);
 			vma.setVisible(true);
 			dispose();
 			break;

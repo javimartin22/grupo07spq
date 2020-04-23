@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.DepartamentoCompras;
 
 import javax.swing.JLabel;
@@ -18,10 +18,10 @@ public class VentanaInformacionDepartamentoCompras extends JFrame {
 	private static final long serialVersionUID = 1L;
  
 	private JPanel contentPane;
-	private Controller loginController;
+	private GerenteController gerenteController;
 	
-	public VentanaInformacionDepartamentoCompras(Controller loginController, DepartamentoCompras departamentoCompras, String nickname) {
-		this.loginController = loginController;
+	public VentanaInformacionDepartamentoCompras(GerenteController gerenteController, DepartamentoCompras departamentoCompras, String nickname) {
+		this.gerenteController = gerenteController;
 		initVentanaInformacionDepartamentoCompras(departamentoCompras, nickname);
 	}
 	
@@ -153,7 +153,7 @@ public class VentanaInformacionDepartamentoCompras extends JFrame {
 		btnSalir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaEmpleados vempl = new VentanaEmpleados(loginController, nickname);
+				VentanaEmpleados vempl = new VentanaEmpleados(gerenteController, nickname);
 				vempl.setVisible(true);
 				dispose();
 			}

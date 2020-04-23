@@ -4,7 +4,6 @@ package concesionario.cliente.ventana.gerente;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,10 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Tarifa;
 
 
@@ -30,13 +27,20 @@ public class VentanaRegistroTarifa extends JFrame {
 	private JTextField textFieldNombre;
 	private JTextField textFieldPrecioAprox;
 	private JTextField textFieldHorasManoObra;
-	private Controller loginController;
+	private GerenteController gerenteController;
 
-	public VentanaRegistroTarifa(Controller loginController, String nickname) {
-		this.loginController = loginController;
+	public VentanaRegistroTarifa(GerenteController gerenteController, String nickname) {
+		this.gerenteController = gerenteController;
 		iniciarVentanaRegistroTarifa(nickname);
 	}
 	
+	@Override
+	public String toString() {
+		return "VentanaRegistroTarifa [contentPane=" + contentPane + ", textFieldNombre=" + textFieldNombre
+				+ ", textFieldPrecioAprox=" + textFieldPrecioAprox + ", textFieldHorasManoObra="
+				+ textFieldHorasManoObra + ", gerenteController=" + gerenteController + "]";
+	}
+
 	public void iniciarVentanaRegistroTarifa(String nickname) {
 		setResizable(false);
 		setTitle("Registrar Nueva Tarifa");
@@ -84,7 +88,7 @@ public class VentanaRegistroTarifa extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaGestionTarifas ventana = new VentanaGestionTarifas(loginController, nickname);
+				VentanaGestionTarifas ventana = new VentanaGestionTarifas(gerenteController, nickname);
 				ventana.setVisible(true);
 				dispose();
 				
@@ -99,7 +103,7 @@ public class VentanaRegistroTarifa extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				boolean datos = comprobarDatos();
 				if (datos) {
-					String idTarifa = crearID();
+					String idTarifa = gerenteController.crearID();
 					String nombre = textFieldNombre.getText();
 					int precioAprox = Integer.parseInt(textFieldPrecioAprox.getText());
 					int horas_manodeobra = Integer.parseInt(textFieldHorasManoObra.getText());
@@ -131,20 +135,19 @@ public class VentanaRegistroTarifa extends JFrame {
 	}
 	
 	public void registrarTarifa(Tarifa tarifa, String nickname){
-		Response response = loginController.registroTarifa(tarifa);
-		if (response.getStatus() == Status.OK.getStatusCode()) {
+		if (gerenteController.registroTarifa(tarifa)) {
 			int respuesta = JOptionPane.showConfirmDialog(this, "Tarifa Registrada ¿Desea registrar otra tarifa?");
 			switch (respuesta) {
 			case 0:
 				vaciarCampos();
 				break;
 			case 1:
-				VentanaGestionTarifas ve = new VentanaGestionTarifas(loginController, nickname);
+				VentanaGestionTarifas ve = new VentanaGestionTarifas(gerenteController, nickname);
 				ve.setVisible(true);
 				dispose();
 				break;
 			case 2: 
-				VentanaGestionTarifas ve2 = new VentanaGestionTarifas(loginController, nickname);
+				VentanaGestionTarifas ve2 = new VentanaGestionTarifas(gerenteController, nickname);
 				ve2.setVisible(true);
 				dispose();
 				break;
@@ -155,10 +158,5 @@ public class VentanaRegistroTarifa extends JFrame {
 		}
 	}
 	
-	public String crearID () {
-		List<Tarifa> tarifas = loginController.cargarTablaTarifas();
-		int numero = tarifas.size() + 1;
-		String ID  = "TA-" + numero;
-		return ID;
-	}
+	
 }

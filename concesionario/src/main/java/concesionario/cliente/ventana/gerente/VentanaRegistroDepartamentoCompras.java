@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.DepartamentoCompras;
 
 
@@ -42,10 +43,10 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 	private JTextField textFieldNSS;
 	private JTextField textFieldCuenta;
 	private JTextField textFieldSueldo;
-	private Controller loginController;
+	private GerenteController gerenteController;
 
-	public VentanaRegistroDepartamentoCompras(Controller loginController, String nickname) {
-		this.loginController = loginController;
+	public VentanaRegistroDepartamentoCompras(GerenteController gerenteController, String nickname) {
+		this.gerenteController = gerenteController;
 		iniciarVentanaRegistroDepartamentoCompras(nickname);
 	}
 	
@@ -95,7 +96,7 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaEmpleados ventana = new VentanaEmpleados(loginController, nickname);
+				VentanaEmpleados ventana = new VentanaEmpleados(gerenteController, nickname);
 				ventana.setVisible(true);
 				dispose();
 				
@@ -222,7 +223,7 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 					String numeroCuenta = textFieldCuenta.getText();
 					String email = textFieldEmail.getText();
 					int tipo = comboBoxSexo.getSelectedIndex();
-					String sexo = comprobarSexo(tipo);
+					String sexo = gerenteController.comprobarSexo(tipo);
 					DepartamentoCompras dep = new DepartamentoCompras(nickname, contrasenia, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, nss, numeroCuenta, sueldo, numTelefono, 2);
 					registrarDepartamentoCompras(dep, nickname);
 					
@@ -238,21 +239,17 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 	
 	public boolean comprobarDatos() {
 		boolean datos = false;
-		
 		if (!textFieldDNI.getText().isEmpty() && !textFieldNombre.getText().isEmpty() && !textFieldApellido.getText().isEmpty() && !textFieldNick.getText().isEmpty() && !textFieldEmail.getText().isEmpty() && !textFieldCiudad.getText().isEmpty() && !textFieldCP.getText().isEmpty() && !textFieldDireccion.getText().isEmpty() && !textFieldTelefono.getText().isEmpty() && !textFieldCuenta.getText().isEmpty() && !textFieldNSS.getText().isEmpty() && !textFieldSueldo.getText().isEmpty()) {
 			datos = true;
 		}
-		
 		if(textFieldDNI.getText().length()!=9) {
 			JOptionPane.showMessageDialog(contentPane, "DNI incorrecto. Introduzca este campo con el siguiente formato XXXXXXXXY siendo Y una letra");
 			datos = false;
 		}
-		
 		if(textFieldTelefono.getText().length()!=9) {
 			JOptionPane.showMessageDialog(contentPane, "Telefono incorrecto. Introduzca este campo con el siguiente formato XXXXXXXXX.");
 			datos = false;
 		}
-		
 		if(!textFieldEmail.getText().contains("@")) {
 			JOptionPane.showMessageDialog(contentPane, "Email incorrecto.");
 			datos = false;
@@ -261,46 +258,29 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 			JOptionPane.showMessageDialog(contentPane, "Codigo postal incorrecto.Escriba 5 numeros.");
 			datos = false;
 		}
-		
 		return datos;
 	}
 	
-	private String comprobarSexo(int s){
-		String sexo = "";
-		switch (s) {
-		case 0:
-			sexo = "Hombre";
-			break;
-		case 1: 
-			sexo = "Mujer";
-		case 3: 
-			sexo = "Otro";
-		}
-		return sexo;
-	}
-	
 	public void registrarDepartamentoCompras(DepartamentoCompras dep, String nickname) {
-		Response response = loginController.registroDepartamentoCompras(dep);
-		if (response.getStatus() == Status.OK.getStatusCode()) {
+		if (gerenteController.registroDepartamentoCompras(dep)) {
 			int respuesta = JOptionPane.showConfirmDialog(this, "Departamento Comercial Registrado ¿Desea registrar otro mecanico?");
 			switch (respuesta) {
 			case 0:
 				vaciarCampos();
 				break;
 			case 1:
-				VentanaEmpleados ve = new VentanaEmpleados(loginController, nickname);
+				VentanaEmpleados ve = new VentanaEmpleados(gerenteController, nickname);
 				ve.setVisible(true);
 				dispose();
 				break;
 			case 2: 
-				VentanaEmpleados ve2 = new VentanaEmpleados(loginController, nickname);
+				VentanaEmpleados ve2 = new VentanaEmpleados(gerenteController, nickname);
 				ve2.setVisible(true);
 				dispose();
 				break;
 			}
 		} else {
 			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
-			dispose();
 		}
 	}
 	

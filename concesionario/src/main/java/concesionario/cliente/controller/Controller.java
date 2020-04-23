@@ -7,13 +7,8 @@ import javax.ws.rs.core.Response;
 import concesionario.cliente.ClienteApp;
 import concesionario.datos.CocheMatriculado;
 import concesionario.datos.CocheTaller;
-import concesionario.datos.Comercial;
-import concesionario.datos.DepartamentoCompras;
-import concesionario.datos.Empleado;
-import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
-import concesionario.datos.Tarifa;
 
 public class Controller {
 	
@@ -32,34 +27,34 @@ public class Controller {
 		return cliente.registrarCocheTaller(cocheTaller);
 	}
 	
-	public Response registroMecanico(Mecanico mecanic) {
-		return cliente.registroMecanico(mecanic);
-	}
-	
-	public Response registroComercial(Comercial comercial) {
-		return cliente.registroComercial(comercial);
-	}
-	
-	public Response registroDepartamentoCompras(DepartamentoCompras dep) {
-		return cliente.registroDepartamentoCompras(dep);
-	}
-	
-	public Response registroTarifa(Tarifa tarifa) {
-		return cliente.registroTarifa(tarifa);
-	}
-	
-	
-	public Response seleccionarMecanico(String nickname) {
-		return cliente.mecanicoSelect(nickname);
-	}
-	
-	public Response seleccionarComercial(String nickname) {
-		return cliente.comercialSelect(nickname);
-	}
-	
-	public Response seleccionarDepartamentoCompras(String nickname) {
-		return cliente.departamentoComprasSelect(nickname);
-	}
+//	public Response registroMecanico(Mecanico mecanic) {
+//		return cliente.registroMecanico(mecanic);
+//	}
+//	
+//	public Response registroComercial(Comercial comercial) {
+//		return cliente.registroComercial(comercial);
+//	}
+//	
+//	public Response registroDepartamentoCompras(DepartamentoCompras dep) {
+//		return cliente.registroDepartamentoCompras(dep);
+//	}
+//	
+//	public Response registroTarifa(Tarifa tarifa) {
+//		return cliente.registroTarifa(tarifa);
+//	}
+//	
+//	
+//	public Response seleccionarMecanico(String nickname) {
+//		return cliente.mecanicoSelect(nickname);
+//	}
+//	
+//	public Response seleccionarComercial(String nickname) {
+//		return cliente.comercialSelect(nickname);
+//	}
+//	
+//	public Response seleccionarDepartamentoCompras(String nickname) {
+//		return cliente.departamentoComprasSelect(nickname);
+//	}
 	
 	
 	public Response registroPieza(Pieza pieza) {
@@ -86,25 +81,25 @@ public class Controller {
 		return cliente.cargarTablaCochesCocheMatriculados();
 	}
 	
-	public List<Empleado> cargarTablaEmpleado(){
-		return cliente.cargarTablaEmpleados();
-	}
+//	public List<Empleado> cargarTablaEmpleado(){
+//		return cliente.cargarTablaEmpleados();
+//	}
 	
-	public Response eliminarMecanico(String nickname) {
-		return cliente.mecanicoDelete(nickname);
-	}
+//	public Response eliminarMecanico(String nickname) {
+//		return cliente.mecanicoDelete(nickname);
+//	}
+//	
+//	public Response eliminarComercial(String nickname) {
+//		return cliente.comercialDelete(nickname);
+//	}
+//	
+//	public Response eliminarDepartamentoCompras(String nickname) {
+//		return cliente.departamentoComprasDelete(nickname);
+//	}
 	
-	public Response eliminarComercial(String nickname) {
-		return cliente.comercialDelete(nickname);
-	}
-	
-	public Response eliminarDepartamentoCompras(String nickname) {
-		return cliente.departamentoComprasDelete(nickname);
-	}
-	
-	public Response eliminarTarifa(String idTarifa) {
-		return cliente.tarifaDelete(idTarifa);
-	}
+//	public Response eliminarTarifa(String idTarifa) {
+//		return cliente.tarifaDelete(idTarifa);
+//	}
 	
 	public List<CocheTaller> cargarTablaCocheTaller(){
 		return cliente.cargarTablaCocheTaller();
@@ -158,9 +153,9 @@ public class Controller {
 		return cliente.filtrarTarifaHorasMin(horas);
 	}
 	
-	public List<Tarifa> cargarTablaTarifas(){
-		return cliente.cargarTablaTarifas();
-	}
+//	public List<Tarifa> cargarTablaTarifas(){
+//		return cliente.cargarTablaTarifas();
+//	}
 	
 	public Response filtrarPresupuestoCodigo(String codigo) {
 		return cliente.filtrarPresupuestoCodigo(codigo);

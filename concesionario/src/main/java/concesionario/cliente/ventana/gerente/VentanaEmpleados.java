@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
@@ -28,10 +28,10 @@ public class VentanaEmpleados extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTable table;
-	private Controller loginController;
+	private GerenteController gerenteController;
 	
-	public VentanaEmpleados(Controller loginController, String nickname){
-		this.loginController = loginController;
+	public VentanaEmpleados(GerenteController gerenteController, String nickname){
+		this.gerenteController = gerenteController;
 		iniciarVentanaEmpleados(nickname);
 	}
 	
@@ -79,7 +79,7 @@ public class VentanaEmpleados extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaMenuAdmin vma = new VentanaMenuAdmin(loginController, nickname);
+				VentanaMenuAdmin vma = new VentanaMenuAdmin(gerenteController, nickname);
 				vma.setVisible(true);
 				dispose();
 			}
@@ -114,7 +114,7 @@ public class VentanaEmpleados extends JFrame {
 
 		
 	public void cargarTabla(JTable table) {
-		List<Empleado> empleados = loginController.cargarTablaEmpleado();
+		List<Empleado> empleados = gerenteController.cargarTablaEmpleado();
 		
 		String[] columnNames = {"Nickname", "Nombre", "Apellido", "DNI", "Tipo Empleado"};
 		
@@ -129,83 +129,61 @@ public class VentanaEmpleados extends JFrame {
 				   o[1] = e.getNombre();
 				   o[2] = e.getApellido();
 				   o[3] = e.getDNI();
-				   o[4] = cambioTipo(e.getTipoEmpleado());
+				   o[4] = gerenteController.cambioTipo(e.getTipoEmpleado());
 				   model.addRow(o);
 				 }
 		} else {
-			System.out.println("llega mal");
+			JOptionPane.showMessageDialog(this, "No hay ningun empleado.");
 		}
 	}
 		
 	private void registrar(int tipo, String nickname) {
 		switch (tipo) {
 		case 0:
-			VentanaRegistroMecanico ventanaRegistrarMecanico = new VentanaRegistroMecanico(loginController, nickname);
+			VentanaRegistroMecanico ventanaRegistrarMecanico = new VentanaRegistroMecanico(gerenteController, nickname);
 			ventanaRegistrarMecanico.setVisible(true);
 			dispose();
 			break;
 		case 1: 
-			VentanaRegistroComercial ventanaComercial = new VentanaRegistroComercial(loginController, nickname);
+			VentanaRegistroComercial ventanaComercial = new VentanaRegistroComercial(gerenteController, nickname);
 			ventanaComercial.setVisible(true);
 			dispose();		
 			break;
 		case 2:
-			VentanaRegistroDepartamentoCompras ventanaCompras = new VentanaRegistroDepartamentoCompras(loginController, nickname);
+			VentanaRegistroDepartamentoCompras ventanaCompras = new VentanaRegistroDepartamentoCompras(gerenteController, nickname);
 			ventanaCompras.setVisible(true);
 			dispose();		
 			break;
 		}
 	}
 	
-	public String cambioTipo(int tipoEmpleado) {
-		String tipo = "";
-		switch (tipoEmpleado) {
-		case 0:
-			tipo = "Mecanico";
-			break;
-		case 1: 
-			tipo = "Comercial";
-			break;
-		case 2:
-			tipo = "Departamento Compras";
-			break;
-		}
-		return tipo;
-	}
-	
 	public void verInfo(String tipo, String nickname, String nombre) {
 		switch (tipo) {
 		case "Mecanico":
-			Response response = loginController.seleccionarMecanico(nombre);
-			if (response.getStatus() == Status.OK.getStatusCode()) {
-				Mecanico mecanic = response.readEntity(Mecanico.class);
-				VentanaInformacionMecanico vim = new VentanaInformacionMecanico(loginController, nickname, mecanic);
+			if (gerenteController.seleccionarMecanico(nombre) != null) {
+				VentanaInformacionMecanico vim = new VentanaInformacionMecanico(gerenteController, nickname, gerenteController.seleccionarMecanico(nombre));
 				vim.setVisible(true);
 				dispose();
 			} else {
-				System.out.println("llega mal");
+				JOptionPane.showMessageDialog(this, "El mecanico seleccionado no existe.");
 			}
 			break;
 		case "Comercial":
-			Response res = loginController.seleccionarComercial(nombre);
-			if (res.getStatus() == Status.OK.getStatusCode()) {
-				Comercial comercial = res.readEntity(Comercial.class);
-				VentanaInformacionComercial vic = new VentanaInformacionComercial(loginController, comercial, nickname);
+			if (gerenteController.seleccionarComercial(nombre) != null) {
+				VentanaInformacionComercial vic = new VentanaInformacionComercial(gerenteController, gerenteController.seleccionarComercial(nombre), nickname);
 				vic.setVisible(true);
 				dispose();
 			} else {
-				System.out.println("llega mal");
+				JOptionPane.showMessageDialog(this, "El comercial seleccionado no existe.");
 			}
 			break;
 		case "Departamento Compras":
-			Response resp = loginController.seleccionarDepartamentoCompras(nombre);
-			if (resp.getStatus() == Status.OK.getStatusCode()) {
-				DepartamentoCompras dep = resp.readEntity(DepartamentoCompras.class);
-				VentanaInformacionDepartamentoCompras vidc = new VentanaInformacionDepartamentoCompras(loginController, dep, nickname);
+			if (gerenteController.seleccionarDepartamentoCompras(nombre) != null) {
+				VentanaInformacionDepartamentoCompras vidc = new VentanaInformacionDepartamentoCompras(gerenteController, gerenteController.seleccionarDepartamentoCompras(nombre), nickname);
 				vidc.setVisible(true);
 				dispose();
 			} else {
-				System.out.println("llega mal");
+				JOptionPane.showMessageDialog(this, "El comercial seleccionado no existe.");
 			}
 			break;
 		}
@@ -214,29 +192,24 @@ public class VentanaEmpleados extends JFrame {
 	public void eliminarEmpleado(String tipo, String nickname, String nombre) {
 		switch (tipo) {
 		case "Mecanico":
-			Response response = loginController.eliminarMecanico(nombre);
-			if (response.getStatus() == Status.OK.getStatusCode()) {
+			if (gerenteController.eliminarMecanico(nombre)) {
 				JOptionPane.showMessageDialog(this, "Mecanico elimindado");
 			} else {
-				System.out.println("llega mal");
+				JOptionPane.showMessageDialog(this, "El mecanico seleccionado no existe.");
 			}
 			break;
 		case "Comercial":
-			System.out.println(nombre);
-			Response res = loginController.eliminarComercial(nombre);
-			if (res.getStatus() == Status.OK.getStatusCode()) {
+			if (gerenteController.eliminarComercial(nombre)) {
 				JOptionPane.showMessageDialog(this, "Comercial elimindado");
 			} else {
-				System.out.println("llega mal");
+				JOptionPane.showMessageDialog(this, "El comercial seleccionado no existe.");
 			}
 			break;
 		case "Departamento Compras":
-			System.out.println(nombre);
-			Response resp = loginController.eliminarDepartamentoCompras(nombre);
-			if (resp.getStatus() == Status.OK.getStatusCode()) {
-				JOptionPane.showMessageDialog(this, "Empleado del Departamento de Compras elimindado");
+			if (gerenteController.eliminarDepartamentoCompras(nombre)) {
+				JOptionPane.showMessageDialog(this, "Departamento Compras elimindado");
 			} else {
-				System.out.println("llega mal");
+				JOptionPane.showMessageDialog(this, "El empleado del Departameto de Compras seleccionado no existe.");
 			}
 			break;
 		}

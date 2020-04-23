@@ -5,23 +5,21 @@ import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
-import concesionario.cliente.controller.Controller;
-import concesionario.cliente.ventana.VentanaLogin;
+import concesionario.cliente.controller.GerenteController;
 
 public class VentanaGestionTarifas extends JFrame {
 
-	private Controller loginController;
+	private GerenteController gerenteController;
 	private static final long serialVersionUID = 1L;
 	
-	public VentanaGestionTarifas(Controller loginController, String nickname) {
-		this.loginController = loginController;   //errores
+	public VentanaGestionTarifas(GerenteController gerenteController, String nickname) {
+		this.gerenteController = gerenteController;   //errores
 		inicioVentanaGestionTarifas(nickname);
 	}
 	
@@ -48,7 +46,7 @@ public class VentanaGestionTarifas extends JFrame {
 			JButton buttonRegistroTarifa = new JButton("Registrar nueva tarifa");
 			buttonRegistroTarifa.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					VentanaRegistroTarifa vt = new VentanaRegistroTarifa(loginController, nickname);
+					VentanaRegistroTarifa vt = new VentanaRegistroTarifa(gerenteController, nickname);
 					vt.setVisible(true);
 					dispose();
 				} 
@@ -59,7 +57,7 @@ public class VentanaGestionTarifas extends JFrame {
 			JButton buttonVeryEditTarifas = new JButton("Ver y editar tarifas");
 			buttonVeryEditTarifas.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					VentanaVeryEditarTarifas vtf = new VentanaVeryEditarTarifas(loginController, nickname);
+					VentanaVeryEditarTarifas vtf = new VentanaVeryEditarTarifas(gerenteController, nickname);
 					vtf.setVisible(true);
 					dispose();
 				}
@@ -79,13 +77,13 @@ public class VentanaGestionTarifas extends JFrame {
 	}
 	
 	public void verUsuarios(String nickname) {
-		VentanaEmpleados ve = new VentanaEmpleados(loginController, nickname);
+		VentanaEmpleados ve = new VentanaEmpleados(gerenteController, nickname);
     	ve.setVisible(true);
     	dispose();
 	}
 	
 	public void volver(String nickname) {
-		VentanaMenuAdmin vmenu = new VentanaMenuAdmin(loginController, nickname);
+		VentanaMenuAdmin vmenu = new VentanaMenuAdmin(gerenteController, nickname);
 		vmenu.setVisible(true);
 		dispose();
 	}

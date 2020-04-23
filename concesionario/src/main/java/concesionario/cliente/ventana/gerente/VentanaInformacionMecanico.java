@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Mecanico;
 
 import javax.swing.JLabel;
@@ -33,7 +34,7 @@ public class VentanaInformacionMecanico extends JFrame {
 	private JLabel lblNCuenta;
 	private JLabel lblSueldo_1;
 	private JButton btnSalir;
-	private Controller loginController;
+	private GerenteController gerenteController;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
@@ -48,8 +49,8 @@ public class VentanaInformacionMecanico extends JFrame {
 	private JLabel lblNewLabel_12;
 	private JLabel lblNewLabel_13;
 	
-	public VentanaInformacionMecanico(Controller loginController, String nickname, Mecanico mecanic) {
-	this.loginController = loginController;
+	public VentanaInformacionMecanico(GerenteController gerenteController, String nickname, Mecanico mecanic) {
+	this.gerenteController = gerenteController;
 	iniciarVentanaInformacionMecanico(nickname, mecanic);
 	}
 	
@@ -118,7 +119,7 @@ public class VentanaInformacionMecanico extends JFrame {
 		btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			VentanaEmpleados ve = new VentanaEmpleados(loginController, nickname);
+			VentanaEmpleados ve = new VentanaEmpleados(gerenteController, nickname);
 			ve.setVisible(true);
 			dispose();
 			}

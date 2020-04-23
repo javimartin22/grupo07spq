@@ -15,10 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Mecanico;
 
 
@@ -42,10 +40,10 @@ public class VentanaRegistroMecanico extends JFrame {
 	private JTextField textFieldNSS;
 	private JTextField textFieldCuenta;
 	private JTextField textFieldSueldo;
-	private Controller loginController;
+	private GerenteController gerenteController;
 
-	public VentanaRegistroMecanico(Controller loginController, String nickname) {
-		this.loginController = loginController;
+	public VentanaRegistroMecanico(GerenteController gerenteController, String nickname) {
+		this.gerenteController = gerenteController;
 		iniciarVentanaRegistroMecanico(nickname);
 	}
 	
@@ -95,7 +93,7 @@ public class VentanaRegistroMecanico extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaEmpleados ventana = new VentanaEmpleados(loginController, nickname);
+				VentanaEmpleados ventana = new VentanaEmpleados(gerenteController, nickname);
 				ventana.setVisible(true);
 				dispose();
 				
@@ -222,7 +220,7 @@ public class VentanaRegistroMecanico extends JFrame {
 					String numeroCuenta = textFieldCuenta.getText();
 					String email = textFieldEmail.getText();
 					int tipo = comboBoxSexo.getSelectedIndex();
-					String sexo = comprobarSexo(tipo);
+					String sexo = gerenteController.comprobarSexo(tipo);
 					Mecanico mecanic = new Mecanico(nickname, contrasenia, 0, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, nss, numeroCuenta, sueldo, numTelefono, 0);
 					registrarMecanico(mecanic, nickname);
 				} else {
@@ -263,20 +261,6 @@ public class VentanaRegistroMecanico extends JFrame {
 		return datos;
 	}
 	
-	private String comprobarSexo(int s){
-		String sexo = "";
-		switch (s) {
-		case 0:
-			sexo = "Hombre";
-			break;
-		case 1: 
-			sexo = "Mujer";
-		case 3: 
-			sexo = "Otro";
-		}
-		return sexo;
-	}
-	
 	public void vaciarCampos() {
 		textFieldApellido.setText("");
 		textFieldCiudad.setText("");
@@ -294,27 +278,25 @@ public class VentanaRegistroMecanico extends JFrame {
 	}
 	
 	public void registrarMecanico(Mecanico mecanic, String nickname){
-		Response response = loginController.registroMecanico(mecanic); //estoy aqui
-		if (response.getStatus() == Status.OK.getStatusCode()) {
+		if (gerenteController.registroMecanico(mecanic)) {
 			int respuesta = JOptionPane.showConfirmDialog(this, "Mecanico Registrado ¿Desea registrar otro mecanico?");
 			switch (respuesta) {
 			case 0:
 				vaciarCampos();
 				break;
 			case 1:
-				VentanaEmpleados ve = new VentanaEmpleados(loginController, nickname);
+				VentanaEmpleados ve = new VentanaEmpleados(gerenteController, nickname);
 				ve.setVisible(true);
 				dispose();
 				break;
 			case 2: 
-				VentanaEmpleados ve2 = new VentanaEmpleados(loginController, nickname);
+				VentanaEmpleados ve2 = new VentanaEmpleados(gerenteController, nickname);
 				ve2.setVisible(true);
 				dispose();
 				break;
 			}
 		} else {
 			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
-			dispose();
 		}
 	}
 }
