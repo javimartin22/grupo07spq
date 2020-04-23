@@ -1,4 +1,4 @@
-package concesionario.cliente.datos;
+package concesionario.datos;
 
 public class DepartamentoComprasTest {
 

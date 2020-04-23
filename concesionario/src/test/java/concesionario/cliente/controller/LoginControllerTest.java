@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import javax.ws.rs.core.Response;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +33,7 @@ public class LoginControllerTest {
 	}
 	
 	@Test
-	public void login() {
+	public void testLogin() {
 		String tipo_admin = "0";
 		
 		Response response = Mockito.mock(Response.class);
