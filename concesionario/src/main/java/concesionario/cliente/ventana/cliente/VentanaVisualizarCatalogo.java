@@ -48,6 +48,7 @@ public class VentanaVisualizarCatalogo extends JFrame {
 	public void ventanaVisualizarCatalogo(Controller loginController, String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 665, 361);
+		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setToolTipText("");

@@ -45,6 +45,7 @@ public class VentanaVisualizarTarifas extends JFrame {
 	 */
 	public void ventanaVisualizarTarifas(Controller loginController, String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		setBounds(100, 100, 664, 350);
 		
 		JMenuBar menuBar = new JMenuBar();

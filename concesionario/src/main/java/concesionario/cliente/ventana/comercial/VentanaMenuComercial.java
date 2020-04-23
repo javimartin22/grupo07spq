@@ -25,7 +25,7 @@ public class VentanaMenuComercial extends JFrame {
 	}
 	
 	private void initVentanaMenuComercial(String nickname) {
-		this.setTitle("Menu del comercial");
+		this.setTitle("Menu Comercial");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(451,282);
 		this.setResizable(false);
@@ -44,7 +44,7 @@ public class VentanaMenuComercial extends JFrame {
 		panel.add(nombreMecanico);
 		
 		buttonRegistrarCoche = new JButton("Registrar coche");
-		buttonRegistrarCoche.setBounds(144, 68, 141, 23);
+		buttonRegistrarCoche.setBounds(140, 63, 141, 29);
 		panel.add(buttonRegistrarCoche);
 		
 		

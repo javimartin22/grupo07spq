@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSpinner;
+import java.awt.Font;
 
 public class VentanaRegistrarCocheConcesionario extends JFrame {
 
@@ -33,6 +34,7 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 	private JTextField textField_1;
 
 	public VentanaRegistrarCocheConcesionario (Controller loginController, String nickname) {
+		setTitle("Registro Coche Concesionario");
 		setResizable(false);
 		this.loginController = loginController;
 		iniciarVentanaRegistrarCocheConcesionario(nickname);
@@ -59,14 +61,17 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 		contentPane.add(btnCancelar);
 		
 		JLabel lblNombreDelModelo = new JLabel("Nombre del Modelo:");
+		lblNombreDelModelo.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNombreDelModelo.setBounds(37, 32, 171, 16);
 		contentPane.add(lblNombreDelModelo);
 		
 		JLabel lblNewLabel = new JLabel("Nombre de la Marca:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel.setBounds(37, 70, 171, 16);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Precio: ");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_1.setBounds(37, 111, 171, 16);
 		contentPane.add(lblNewLabel_1);
 		
@@ -86,6 +91,7 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 		precio.setColumns(10);
 		
 		JLabel lblColor = new JLabel("Color:");
+		lblColor.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblColor.setBounds(37, 150, 61, 16);
 		contentPane.add(lblColor);
 		
@@ -95,14 +101,17 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 		contentPane.add(comboBox);
 		
 		JLabel lblUnidades = new JLabel("Numero de Puertas:");
+		lblUnidades.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblUnidades.setBounds(37, 187, 148, 16);
 		contentPane.add(lblUnidades);
 		
 		JLabel lblNewLabel_2 = new JLabel("CV:");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_2.setBounds(37, 222, 61, 16);
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Unidades: ");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_3.setBounds(37, 258, 171, 16);
 		contentPane.add(lblNewLabel_3);
 		

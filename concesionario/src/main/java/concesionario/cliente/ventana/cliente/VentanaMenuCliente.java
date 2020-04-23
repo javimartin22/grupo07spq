@@ -39,8 +39,8 @@ public class VentanaMenuCliente extends JFrame{
 	private void initVentanaMenuCliente(String nickname) {
 		this.setTitle("Menu del cliente");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(480,282);
-		this.setResizable(true);
+		this.setSize(448,241);
+		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
 		JPanel panel = new JPanel();
@@ -59,7 +59,7 @@ public class VentanaMenuCliente extends JFrame{
 		});
 		
 		 
-		buttonSalir.setBounds(190, 196, 89, 23);
+		buttonSalir.setBounds(183, 134, 89, 23);
 		panel.add(buttonSalir);
 		
 		JButton btnNewButton = new JButton("Visualizar Catalogo");

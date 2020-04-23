@@ -26,15 +26,16 @@ public class VentanaInformacionCocheConcesionario extends JFrame {
 		setResizable(false);
 		setTitle("Informacion del Vehiculo");
 		this.loginController = loginController;
-		ventanaInformacionCocheConcesionario(loginController, nickname, coche);
+		ventanaInformacionCocheConcesionario(nickname, coche);
 	}
 	
 	/**
 	 * Create the frame.
 	 */
-	public void ventanaInformacionCocheConcesionario(Controller loginController, String nickname, CocheConcesionario coche) {
+	public void ventanaInformacionCocheConcesionario(String nickname, CocheConcesionario coche) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 427, 386);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

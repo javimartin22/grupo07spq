@@ -20,6 +20,7 @@ import javax.swing.JMenu;
 import java.awt.Font;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import java.awt.Color;
 
 public class VentanaCochesConcesionario extends JFrame {
 		
@@ -38,10 +39,11 @@ public class VentanaCochesConcesionario extends JFrame {
 		setJMenuBar(menuBar);
 		
 		JMenu mnNewMenu = new JMenu("Filtros");
-		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Marca");
+		mntmNewMenuItem.setForeground(Color.BLUE);
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String marca = JOptionPane.showInputDialog("Introduzca la marca que le interesa:");
@@ -52,6 +54,7 @@ public class VentanaCochesConcesionario extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Color");
+		mntmNewMenuItem_1.setForeground(Color.BLUE);
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String color = JOptionPane.showInputDialog("Introduzca el color que desee:");
@@ -62,6 +65,7 @@ public class VentanaCochesConcesionario extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("CV");
+		mntmNewMenuItem_2.setForeground(Color.BLUE);
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cv = JOptionPane.showInputDialog("Introduzca los CV que desee:");
@@ -72,6 +76,7 @@ public class VentanaCochesConcesionario extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem_2);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Precio Max");
+		mntmNewMenuItem_3.setForeground(Color.BLUE);
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int precio = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el precio maximo:"));

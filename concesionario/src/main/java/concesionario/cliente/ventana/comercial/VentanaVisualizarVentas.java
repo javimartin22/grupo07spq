@@ -45,9 +45,10 @@ public class VentanaVisualizarVentas extends JFrame {
 		setResizable(false);
 
 		setAutoRequestFocus(false);
-		setBounds(100, 100, 992, 400);
+		setBounds(100, 100, 1000, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Ventas");
+		setLocationRelativeTo(null);
+		setTitle("Visualizacion Ventas");
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		
@@ -59,7 +60,7 @@ public class VentanaVisualizarVentas extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(624, 304, 117, 29);
+		btnVolver.setBounds(867, 303, 117, 29);
 		getContentPane().add(btnVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -75,7 +76,7 @@ public class VentanaVisualizarVentas extends JFrame {
 				resetearTabla(table);
 			}
 		});
-		btnNewButton.setBounds(458, 304, 117, 29);
+		btnNewButton.setBounds(740, 303, 117, 29);
 		getContentPane().add(btnNewButton);
 		
 		JButton btnVolve = new JButton("Volver");
@@ -86,7 +87,7 @@ public class VentanaVisualizarVentas extends JFrame {
 				dispose();
 			}
 		});
-		btnVolve.setBounds(294, 304, 117, 29);
+		btnVolve.setBounds(613, 303, 117, 29);
 		getContentPane().add(btnVolve);
 		
 		JMenuBar menuBar_1 = new JMenuBar();

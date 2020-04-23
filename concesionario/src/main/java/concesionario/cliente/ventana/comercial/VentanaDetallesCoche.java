@@ -99,6 +99,7 @@ public class VentanaDetallesCoche extends JFrame {
 		panel.add(btnVolver);
 		
 		JLabel lblInformacionDelCoche = new JLabel("Informacion del coche seleccionado: ");
+		lblInformacionDelCoche.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblInformacionDelCoche.setForeground(Color.RED);
 		lblInformacionDelCoche.setBounds(23, 13, 276, 16);
 		panel.add(lblInformacionDelCoche);

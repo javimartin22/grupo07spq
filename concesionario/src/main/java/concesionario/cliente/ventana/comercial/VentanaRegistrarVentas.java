@@ -18,6 +18,7 @@ import concesionario.cliente.controller.Controller;
 import concesionario.datos.Venta;
 
 import javax.swing.JLayeredPane;
+import java.awt.Font;
 
 public class VentanaRegistrarVentas extends JFrame {
 
@@ -44,7 +45,7 @@ public class VentanaRegistrarVentas extends JFrame {
 	public void iniciarVentanaAgregarVentas(String nickname) {
 
 		setResizable(false);
-		setTitle("Registrar ventas");
+		setTitle("Registro Ventas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 494, 290);
 		setLocationRelativeTo(null);
@@ -54,6 +55,7 @@ public class VentanaRegistrarVentas extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Si desea registrar una venta rellene los siguientes datos:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel.setBounds(22, 20, 426, 16);
 		contentPane.add(lblNewLabel);
 
@@ -69,10 +71,12 @@ public class VentanaRegistrarVentas extends JFrame {
 		contentPane.add(btnCancelar);
 
 		JLabel lblContrasenya = new JLabel("Modelo: ");
+		lblContrasenya.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblContrasenya.setBounds(53, 98, 150, 16);
 		contentPane.add(lblContrasenya);
 
 		JLabel lblNickname = new JLabel("Marca: ");
+		lblNickname.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNickname.setBounds(53, 61, 150, 16);
 		contentPane.add(lblNickname);
 
@@ -110,6 +114,7 @@ public class VentanaRegistrarVentas extends JFrame {
 		contentPane.add(layeredPane);
 
 		JLabel lblMatricula = new JLabel("Matricula:");
+		lblMatricula.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblMatricula.setBounds(53, 135, 122, 16);
 		contentPane.add(lblMatricula);
 
@@ -119,6 +124,7 @@ public class VentanaRegistrarVentas extends JFrame {
 		textField.setColumns(10);
 
 		JLabel lblNombreComprador = new JLabel("Nombre Comprador:");
+		lblNombreComprador.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNombreComprador.setBounds(53, 173, 150, 16);
 		contentPane.add(lblNombreComprador);
 
