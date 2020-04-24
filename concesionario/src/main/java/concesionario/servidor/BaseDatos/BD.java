@@ -61,6 +61,8 @@ public class BD {
 	private static final String COLUMNAS_TABLA_PRESUPUESTO = "(codigo string PRIMARY KEY, dniCliente string, mecanico string, marca int, modelo string, problema string, numPiezas int, piezas string, observaviones string, precio int, fecha string)";
 	private static final String TABLA_TARIFAS = "Tarifas"; 
 	private static final String COLUMNAS_TABLA_TARIFAS = "(idTarifa string PRIMARY KEY, nomTarifa string, precioAprox int, horas_manodeobra int)";
+//	private static final String TABLA_PROVEEDORES = "Proveedores"; 
+//	private static final String COLUMNAS_TABLA_PROVEEDORES = "(idProveedor string PRIMARY KEY, nomProveedor string, pais string, tipo_piezas string)";
 	
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
@@ -126,6 +128,7 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_COCHES_MATRICULADOS + COLUMNAS_TABLA_COCHES_MATRICULADOS);
 				statement.executeUpdate("create table " + TABLA_PRESUPUESTO + COLUMNAS_TABLA_PRESUPUESTO);
 				statement.executeUpdate("create table " + TABLA_TARIFAS + COLUMNAS_TABLA_TARIFAS);
+//				statement.executeUpdate("create table " + TABLA_PROVEEDORES + COLUMNAS_TABLA_PROVEEDORES);
 			} catch (SQLException e) {
 			} // Tabla ya existe. Nada que hacer
 			return statement;
@@ -162,6 +165,7 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_TALLER);
 			statement.executeUpdate("drop table if exists " + TABLA_PRESUPUESTO);
 			statement.executeUpdate("drop table if exists " + TABLA_TARIFAS);
+//			statement.executeUpdate("drop table if exists " + TABLA_PROVEEDORES);
 			return usarCrearTablasBD(con);
 		} catch (SQLException e) {
 			lastError = e;
@@ -197,6 +201,26 @@ public class BD {
 	}
 
 //METODOS INSERT TODOS:	
+	
+	//proveedores
+	
+//	public static boolean proveedoresInsert(Statement st, String idProveedor, String nomProveedor, String pais, String tipo_piezas) {
+//		String sentSQL = "";
+//		try {
+//			sentSQL = "insert into " + TABLA_PROVEEDORES + " values ('" + secu(idProveedor) + "', '" + nomProveedor + "', '" + pais + "', '" + tipo_piezas +"')";
+//			int val = st.executeUpdate(sentSQL);
+//			if (val != 1) { // Se tiene que anyadir 1 - error si no
+//				return false;
+//			}
+//			System.out.println("Se ha anyadido correcatente.");
+//			return true;
+//		} catch (SQLException e) {
+//			lastError = e;
+//			e.printStackTrace();
+//			System.out.println("Error ya registrado.");
+//			return false;
+//		}
+//	}
 
 	// Tabla USUARIOS:
 	public static boolean usuariosInsert(Statement st, String nombre, String contrasenia, int tipo) {
@@ -496,6 +520,21 @@ public class BD {
 		}
 		
 	//Tabla EMPLEADOS:
+		
+		//Todas:
+//		public static ResultSet proveedoresSelect(Statement st, String cod) {
+//			String sentSQL = "";
+//			ResultSet rs = null;
+//			try {
+//				sentSQL = "select * from " + TABLA_PROVEEDORES +" where idProveedor= '" + cod + "'";;
+//				rs = st.executeQuery(sentSQL);		
+//				
+//			} catch (Exception e) {
+//				lastError = e;
+//				e.printStackTrace();
+//			}
+//			return rs;
+//		}
 		//Todas:
 		public static ResultSet empleadosTodasSelect(Statement st) {
 			String sentSQL = "";
