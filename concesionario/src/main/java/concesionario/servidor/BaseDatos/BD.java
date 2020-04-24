@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import concesionario.datos.Cliente;
 import concesionario.datos.CocheConcesionario;
@@ -20,7 +21,7 @@ import concesionario.datos.Presupuesto;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
-
+import concesionario.datos.ClienteFidelidad;
 
 
 
@@ -1286,7 +1287,28 @@ public class BD {
  			return rs;
  		}	
  		
- 		
+ 		//tabla fidelidad
+ 		public static ArrayList<ClienteFidelidad> fidelidadSelect(Statement st){
+ 			String sentSQL = "";
+ 			ArrayList<ClienteFidelidad> lista = new ArrayList<ClienteFidelidad>();
+ 			ClienteFidelidad clienteFiel;
+ 			ResultSet rs = null;
+ 			try {
+				sentSQL = "selec dniCliente count(dniCliente) as  fidelidad  from " + TABLA_TALLER;
+				rs = st.executeQuery(sentSQL);
+				while(rs.next()) {
+					clienteFiel = new ClienteFidelidad();
+					clienteFiel.setDNI(rs.getString("dniCliente"));
+					clienteFiel.setFidelidad(rs.getInt("fidelidad"));
+					lista.add(clienteFiel);
+				}
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+ 			
+ 			return lista;
+ 		}
 
 //METODOS DELETE:
 
