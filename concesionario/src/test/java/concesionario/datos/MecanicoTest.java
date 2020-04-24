@@ -11,7 +11,7 @@ public class MecanicoTest {
 	private Mecanico mecanico;
 
 	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(ComercialTest.class);
+		return new JUnit4TestAdapter(MecanicoTest.class);
 	}
 	@Before
 	public void setUp() {
