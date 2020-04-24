@@ -2,13 +2,9 @@ package concesionario.datos;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Assert.*;
 import junit.framework.JUnit4TestAdapter;
 import org.junit.Before;
 import org.junit.Test;
-
-import concesionario.datos.CocheTaller;
-
 
 public class CocheTallerTest {
 	
@@ -21,7 +17,6 @@ public class CocheTallerTest {
 	public void setUp() {
 		cocheT = new CocheTaller("2544KLB", "Honda", "Civic", "Andres", "79076345T", 1300, 0);
 	}
-	
 	
 	//Test Getters
 	@Test
@@ -89,5 +84,4 @@ public class CocheTallerTest {
 		cocheT.setEstado(1);
 		assertEquals(1, cocheT.getEstado());
 	}
-	
 }

@@ -2,13 +2,9 @@ package concesionario.datos;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Assert.*;
 import junit.framework.JUnit4TestAdapter;
 import org.junit.Before;
 import org.junit.Test;
-
-import concesionario.datos.Cliente;
-
 
 public class ClienteTest {
 	
@@ -22,7 +18,6 @@ public class ClienteTest {
 	public void setUp() {
 		cliente = new Cliente("12345678K", "user", 1, "pass", "javi", "martin", "masculino", "javi@gmail.com", "bilbo", 46009, "kalea", "666777872");
 	}
-	
 	
 	//Test Getters
 	@Test

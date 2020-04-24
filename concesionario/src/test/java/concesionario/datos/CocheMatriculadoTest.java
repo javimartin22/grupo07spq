@@ -2,13 +2,9 @@ package concesionario.datos;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Assert.*;
 import junit.framework.JUnit4TestAdapter;
 import org.junit.Before;
 import org.junit.Test;
-
-import concesionario.datos.CocheMatriculado;
-
 
 public class CocheMatriculadoTest {
 	
@@ -21,7 +17,6 @@ public class CocheMatriculadoTest {
 	public void setUp() {
 		cocheMat = new CocheMatriculado("Opel", "Corsa", "2838GBJ", "Juan", "Azul",3, 2006, 80, 4);
 	}
-	
 	
 	//Test Getters
 	@Test
@@ -103,5 +98,4 @@ public class CocheMatriculadoTest {
 		cocheMat.setNombrePropietario("Andoni");
 		assertEquals("Andoni", cocheMat.getNombrePropietario());
 	}
-	
 }
