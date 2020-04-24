@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.MecanicoController;
 import concesionario.cliente.controller.GerenteController;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;

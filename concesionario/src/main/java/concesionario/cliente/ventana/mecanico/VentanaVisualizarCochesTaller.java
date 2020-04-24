@@ -6,18 +6,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.MecanicoController;
 import concesionario.datos.CocheTaller;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
@@ -30,14 +26,14 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Controller loginController;
+	private MecanicoController mecanicoController;
 	private JTable table_1;
 	
 	
-	public VentanaVisualizarCochesTaller(Controller loginController, String nickname){
+	public VentanaVisualizarCochesTaller(MecanicoController mecanicoController, String nickname){
 		setTitle("Coches Taller");
 		setResizable(false);
-		this.loginController = loginController;
+		this.mecanicoController = mecanicoController;
 		iniciarVentanaVisualizarCochesTaller(nickname);
 	}
 	
@@ -121,7 +117,7 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 		JButton btnRegresar = new JButton("Regresar");
 		btnRegresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaMenuMecanico vmm = new VentanaMenuMecanico(loginController, nickname);
+				VentanaMenuMecanico vmm = new VentanaMenuMecanico(mecanicoController, nickname);
 				vmm.setVisible(true);
 				dispose();
 			}
@@ -170,7 +166,7 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 	}
 	
 	public void cargarTabla(JTable table) {
-		List<CocheTaller> coches = loginController.cargarTablaCocheTaller();
+		List<CocheTaller> coches = mecanicoController.cargarTablaCocheTaller();
 		
 		String[] columnNames = {"Marticula", "Marca", "Modelo", "DNI Cliente", "Mecanico", "Coste", "Estado"};
 		
@@ -187,7 +183,7 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 				   o[3] = c.getDniCliente();
 				   o[4] = c.getMecanico();
 				   o[5] = c.getCoste() + "€";
-				   o[6] = traducirEstado(c.getEstado());
+				   o[6] = mecanicoController.traducirEstado(c.getEstado());
 				   model.addRow(o);
 				 }
 		} else {
@@ -196,58 +192,33 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 	}
 	
 	public void eliminarCocheTaller(String matricula) {
-		Response response = loginController.deleteCocheTaller(matricula); //estoy aqui
-		if (response.getStatus() == Status.OK.getStatusCode()) {
+		if (mecanicoController.deleteCocheTaller(matricula)) {
 			JOptionPane.showMessageDialog(contentPane, "El coche ha salido del taller.");
 		} else {
-			System.out.println("fallo");
+			JOptionPane.showMessageDialog(contentPane, "Fallo al eliminar el vehiculo");
 		}
 	}
 	
-	public String traducirEstado(int estado) {
-		String estad = "";
-		switch (estado) {
-		case 0:
-			estad = "Sin Empezar";
-			break;
-		case 1:
-			estad = "En proceso";
-			break;
-		case 2:
-			estad = "Terminado";
-			break;
-		}
-		return estad;
-	}
+	
 	
 	public void cambiarEstado(String matricula) {
-		Response response = loginController.seleccionarCocheTaller(matricula);
-		if (response.getStatus() == Status.OK.getStatusCode()) {
-			CocheTaller coche = response.readEntity(CocheTaller.class);
+		CocheTaller coche = mecanicoController.seleccionarCocheTaller(matricula);
+		if (coche != null) {
 			int estado = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el estado del vehiculo (0: sin comenzar; 1: en proceso; 2: terminado)"));
-			Response response1 = loginController.cambiarEstadoCocheTaller(coche, estado); //estoy aqui
-			if (response1.getStatus() == Status.OK.getStatusCode()) {
+			if (mecanicoController.cambiarEstadoCocheTaller(coche, estado)) {
 				JOptionPane.showMessageDialog(contentPane, "El estado ha sido modificado.");
 			} else {
-				System.out.println("fallo");
+				JOptionPane.showMessageDialog(contentPane, "Error a la hora de moficicar el estado.");
 			}
 		} else {
-			System.out.println("llega mal");
+			JOptionPane.showMessageDialog(contentPane, "El coche seleccionado no existe.");
 		}
 	}
 	
 	public void cargarTablaFiltro(JTable table, int tipo, String restriccion) {
-		List<CocheTaller> coches = new ArrayList<CocheTaller>();
+		
 		String filtro = restriccion + "-" + tipo; 
-		
-		Response response = loginController.filtrarCocheTaller(filtro);
-		if(response.getStatus() == Status.OK.getStatusCode()) {
-			GenericType<List<CocheTaller>> genericType = new GenericType<List<CocheTaller>>() {};
-			coches = response.readEntity(genericType);
-		}else {
-			JOptionPane.showMessageDialog(this, "No hay ningun coche.");
-		}
-		
+		List<CocheTaller> coches = mecanicoController.filtrarCocheTaller(filtro);
 		String[] columnNames = {"Marticula", "Marca", "Modelo", "DNI Cliente", "Mecanico", "Coste", "Estado"};
 		
 		if (!coches.isEmpty()) {
@@ -263,11 +234,11 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 				   o[3] = c.getDniCliente();
 				   o[4] = c.getMecanico();
 				   o[5] = c.getCoste() + "€";
-				   o[6] = traducirEstado(c.getEstado());
+				   o[6] = mecanicoController.traducirEstado(c.getEstado());
 				   model.addRow(o);
 				 }
 		} else {
-			System.out.println("llega mal");
+			JOptionPane.showMessageDialog(this, "No se dispone ningun vehiculo con ese filtrado.");
 		}
 	}
 }

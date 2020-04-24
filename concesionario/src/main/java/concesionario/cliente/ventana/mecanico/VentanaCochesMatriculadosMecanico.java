@@ -1,7 +1,6 @@
 package concesionario.cliente.ventana.mecanico;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -9,12 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
-import concesionario.datos.CocheConcesionario;
+import concesionario.cliente.controller.MecanicoController;
 import concesionario.datos.CocheMatriculado;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -31,11 +26,11 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTable table;
-	private Controller loginController;
+	private MecanicoController mecanicoController;
 	
-	public VentanaCochesMatriculadosMecanico(Controller loginController, String nickname) {
+	public VentanaCochesMatriculadosMecanico(MecanicoController loginController, String nickname) {
 		setResizable(false);
-		this.loginController = loginController;
+		this.mecanicoController = loginController;
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -92,7 +87,7 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaMenuMecanico vmc = new VentanaMenuMecanico(loginController, nickname);
+				VentanaMenuMecanico vmc = new VentanaMenuMecanico(mecanicoController, nickname);
 				vmc.setVisible(true);
 				dispose();
 			}
@@ -121,7 +116,7 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 	}
 	
 	public void cargarTabla(JTable table) {
-		List<CocheMatriculado> cochesMatric = loginController.cargarCochesMatriculados();
+		List<CocheMatriculado> cochesMatric = mecanicoController.cargarCochesMatriculados();
 		
 		String[] columnNames = {"Matricula", "Marca", "Modelo", "Anio Matriculacion", "Revisiones", "CV", "Nombre Propietario", "Nº Puertas", "Color"};
 		
@@ -149,16 +144,8 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 	}
 	
 	public void cargarTablaFiltro(JTable table, int tipo, String restriccion) {
-		List<CocheMatriculado> cochesMatric = new ArrayList<CocheMatriculado>();
 		String filtro = restriccion + "-" + tipo;
-		
-		Response response = loginController.filtrarCocheMatriculado(filtro);
-		if(response.getStatus() == Status.OK.getStatusCode()) {
-			GenericType<List<CocheMatriculado>> genericType = new GenericType<List<CocheMatriculado>>() {};
-			cochesMatric = response.readEntity(genericType);
-		}else {
-			JOptionPane.showMessageDialog(this, "No hay ningun con ese codigo.");
-		}
+		List<CocheMatriculado> cochesMatric = mecanicoController.filtrarCocheMatriculado(filtro);
 		
 		String[] columnNames = {"Matricula", "Marca", "Modelo", "Anio Matriculacion", "Revisiones", "CV", "Nombre Propietario", "Nº Puertas", "Color"};
 		

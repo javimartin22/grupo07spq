@@ -18,7 +18,7 @@ import javax.swing.border.EmptyBorder;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.MecanicoController;
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.DepartamentoCompras;
 

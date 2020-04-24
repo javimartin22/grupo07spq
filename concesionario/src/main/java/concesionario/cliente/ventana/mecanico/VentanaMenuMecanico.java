@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.MecanicoController;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
 
@@ -21,10 +21,10 @@ public class VentanaMenuMecanico extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Controller loginController;
+	private MecanicoController mecanicoController;
 	
-	public VentanaMenuMecanico(Controller loginController, String nickname){
-		this.loginController = loginController;
+	public VentanaMenuMecanico(MecanicoController loginController, String nickname){
+		this.mecanicoController = loginController;
 		iniciarVentanaMenuMecanico(nickname);
 	}
 	
@@ -52,7 +52,7 @@ public class VentanaMenuMecanico extends JFrame {
 		JButton anadirPieza = new JButton("Ver Piezas");
 		anadirPieza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaPiezasMecanico vp = new VentanaPiezasMecanico(loginController, nickname);
+				VentanaPiezasMecanico vp = new VentanaPiezasMecanico(mecanicoController, nickname);
 				vp.setVisible(true);
 				dispose();
 			}
@@ -65,7 +65,7 @@ public class VentanaMenuMecanico extends JFrame {
 		verHistoial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//hace falta instanciar la ventana donde se vera el hisorial
-				VentanaCochesMatriculadosMecanico vcmm = new VentanaCochesMatriculadosMecanico(loginController, nickname);
+				VentanaCochesMatriculadosMecanico vcmm = new VentanaCochesMatriculadosMecanico(mecanicoController, nickname);
 				vcmm.setVisible(true);
 				dispose();
 			}
@@ -77,7 +77,7 @@ public class VentanaMenuMecanico extends JFrame {
 		JButton registarVehiculo = new JButton("Registrar vehiculo del taller");
 		registarVehiculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaRegistroCocheTaller vrct = new VentanaRegistroCocheTaller(loginController, nickname);
+				VentanaRegistroCocheTaller vrct = new VentanaRegistroCocheTaller(mecanicoController, nickname);
 				vrct.setVisible(true);
 				dispose();
 			}
@@ -90,8 +90,8 @@ public class VentanaMenuMecanico extends JFrame {
 		buttonSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//ventana para iniciar serion
-				LoginController controller = new LoginController(loginController.getClienteApp());
-				VentanaLogin vl = new VentanaLogin(controller);
+				LoginController loginController = new LoginController(mecanicoController.getClienteApp());
+				VentanaLogin vl = new VentanaLogin(loginController);
 				vl.setVisible(true);///ee
 				dispose();
 			}
@@ -102,7 +102,7 @@ public class VentanaMenuMecanico extends JFrame {
 		JButton btnVerCochesTaller = new JButton("Ver Coches Taller");
 		btnVerCochesTaller.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaVisualizarCochesTaller vvct = new VentanaVisualizarCochesTaller(loginController, nickname);
+				VentanaVisualizarCochesTaller vvct = new VentanaVisualizarCochesTaller(mecanicoController, nickname);
 				vvct.setVisible(true);
 				dispose();
 			}
@@ -113,7 +113,7 @@ public class VentanaMenuMecanico extends JFrame {
 		JButton verHistoial_1 = new JButton("Visualizar Presupuesto");
 		verHistoial_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaVisualizarPresupuestos vvp = new VentanaVisualizarPresupuestos(loginController, nickname);
+				VentanaVisualizarPresupuestos vvp = new VentanaVisualizarPresupuestos(mecanicoController, nickname);
 				vvp.setVisible(true);
 				dispose();
 			}

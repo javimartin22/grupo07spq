@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.MecanicoController;
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Mecanico;
 

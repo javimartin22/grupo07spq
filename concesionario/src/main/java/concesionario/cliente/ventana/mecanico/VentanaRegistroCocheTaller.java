@@ -3,10 +3,8 @@ package concesionario.cliente.ventana.mecanico;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.MecanicoController;
 import concesionario.datos.CocheTaller;
 
 import javax.swing.JButton;
@@ -23,16 +21,16 @@ public class VentanaRegistroCocheTaller extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Controller loginController; 
+	private MecanicoController mecanicoController; 
 	private JTextField txtMatricula;
 	private JTextField txtModelo;
 	private JTextField txtMarca;
 	private JTextField txtCoste;
 	private JTextField txtDni;
 
-	public VentanaRegistroCocheTaller (Controller loginController, String nickname) {
+	public VentanaRegistroCocheTaller (MecanicoController mecanicoController, String nickname) {
 		setResizable(false);
-		this.loginController = loginController;
+		this.mecanicoController = mecanicoController;
 		iniciarVentanaRegistrarCocheTaller(nickname);
 	}
 	
@@ -48,7 +46,7 @@ public class VentanaRegistroCocheTaller extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaMenuMecanico vmm = new VentanaMenuMecanico(loginController, nickname);
+				VentanaMenuMecanico vmm = new VentanaMenuMecanico(mecanicoController, nickname);
 				vmm.setVisible(true);
 				dispose();
 			}
@@ -92,7 +90,6 @@ public class VentanaRegistroCocheTaller extends JFrame {
 		contentPane.add(txtCoste);
 		txtCoste.setColumns(10);
 		
-		
 		JLabel lblDni = new JLabel("Dni cliente:");
 		lblDni.setBounds(37, 185, 148, 16);
 		contentPane.add(lblDni);
@@ -101,8 +98,6 @@ public class VentanaRegistroCocheTaller extends JFrame {
 		txtDni.setBounds(220, 180, 199, 26);
 		contentPane.add(txtDni);
 		txtDni.setColumns(10);
-		
-		
 		
 		JButton btnNewButton = new JButton("Registrar");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -121,24 +116,20 @@ public class VentanaRegistroCocheTaller extends JFrame {
 				} else {
 					JOptionPane.showMessageDialog(contentPane, "Todos los campos deben estar completos");
 				}
-				
 			}
 		});
 		btnNewButton.setBounds(258, 227, 117, 29);
 		contentPane.add(btnNewButton);
-		
 	}
 	
-	
 	public void registrarCocheTaller(CocheTaller cocheTaller, String nickname) {
-		Response response = loginController.registrarCocheTaller(cocheTaller);
-		if(response.getStatus() == Status.OK.getStatusCode()) {
+		if(mecanicoController.registrarCocheTaller(cocheTaller)) {
 			JOptionPane.showMessageDialog(this, "Coche taller registrado");
-			VentanaMenuMecanico vmm = new VentanaMenuMecanico(loginController, nickname);
+			VentanaMenuMecanico vmm = new VentanaMenuMecanico(mecanicoController, nickname);
 			vmm.setVisible(true);
 			dispose();
 		} else {
-			JOptionPane.showMessageDialog(this, "ERROR al regristar el coche taller");
+			JOptionPane.showMessageDialog(this, "Erro al regristar el coche taller");
 		}
 	}
 	

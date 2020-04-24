@@ -18,7 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import concesionario.cliente.controller.ClienteController;
 import concesionario.cliente.controller.ComercialController;
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.MecanicoController;
 import concesionario.cliente.controller.DepartmentoComprasController;
 import concesionario.cliente.controller.GerenteController;
 import concesionario.cliente.controller.LoginController;
@@ -152,7 +152,7 @@ public class VentanaLogin extends JFrame {
 	}
 	
 	public void login(String nickname, String password) {
-		Controller controller = new Controller(loginController.getClienteApp());
+		MecanicoController controller = new MecanicoController(loginController.getClienteApp());
 		ClienteController clienteController = new ClienteController(loginController.getClienteApp());
 		
 		int tipoInicio = loginController.login(nickname, password);

@@ -21,7 +21,7 @@ public class DepartmentoComprasController {
 	}
 	
 	public boolean registroPieza(Pieza pieza) {
-		Response response = cliente.regsitroPieza(pieza); 
+		Response response = cliente.registroPieza(pieza); 
 		if (response.getStatus() == Status.OK.getStatusCode()) {
 			return true;
 		} else {

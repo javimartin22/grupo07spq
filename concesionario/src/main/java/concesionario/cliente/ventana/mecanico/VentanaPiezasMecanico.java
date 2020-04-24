@@ -4,19 +4,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
-import concesionario.datos.CocheMatriculado;
+import concesionario.cliente.controller.MecanicoController;
 import concesionario.datos.Pieza;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
@@ -32,11 +27,11 @@ public class VentanaPiezasMecanico extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable tabla;
-	private Controller loginController;
+	private MecanicoController mecanicoController;
 	
-	public VentanaPiezasMecanico(Controller loginController, String nickname) {
+	public VentanaPiezasMecanico(MecanicoController mecanicoController, String nickname) {
 		setResizable(false);
-		this.loginController = loginController;
+		this.mecanicoController = mecanicoController;
 		iniciarVentanaPiezas(nickname);
 	}
 	
@@ -93,7 +88,7 @@ public class VentanaPiezasMecanico extends JFrame {
 		JButton btnRegresar = new JButton("Regresar");
 		btnRegresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaMenuMecanico vmm = new VentanaMenuMecanico(loginController, nickname);
+				VentanaMenuMecanico vmm = new VentanaMenuMecanico(mecanicoController, nickname);
 				vmm.setVisible(true);
 				dispose();
 			}
@@ -116,7 +111,7 @@ public class VentanaPiezasMecanico extends JFrame {
 	}
 	
 		public void cargarTabla(JTable table) {
-			List<Pieza> piezas = loginController.cargarPiezas();
+			List<Pieza> piezas = mecanicoController.cargarPiezas();
 			String[] columnNames = {"Codigo", "Nombre", "Unidades", "Ubicacion"};
 			
 			if (!piezas.isEmpty()) {
@@ -138,17 +133,8 @@ public class VentanaPiezasMecanico extends JFrame {
 		}
 		
 	public void cargarTablaFiltro(JTable table, int tipo, String filtro) {
-		List<Pieza> piezas = new ArrayList<Pieza>();
-		
-		
 		String restriccion = filtro + "-" + tipo;
-		Response response = loginController.filtrarPiezaMecanico(restriccion);
-		if(response.getStatus() == Status.OK.getStatusCode()) {
-			GenericType<List<Pieza>> genericType = new GenericType<List<Pieza>>() {};
-			piezas = response.readEntity(genericType);
-		}else {
-			JOptionPane.showMessageDialog(this, "No hay ningun con ese codigo.");
-		}
+		List<Pieza> piezas = mecanicoController.filtrarPiezaMecanico(restriccion);
 		
 		String[] columnNames = {"Codigo", "Nombre", "Unidades", "Ubicacion"};
 		

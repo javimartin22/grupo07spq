@@ -4,9 +4,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -14,9 +11,8 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.MecanicoController;
 import concesionario.datos.Presupuesto;
-import concesionario.datos.Venta;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -24,7 +20,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
@@ -36,11 +31,11 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Controller controller;
+	private MecanicoController mecanicoController;
 	private JTable table;
 	
-	public VentanaVisualizarPresupuestos(Controller controller, String nickname) {
-		this.controller = controller;
+	public VentanaVisualizarPresupuestos(MecanicoController controller, String nickname) {
+		this.mecanicoController = controller;
 		ventanaVisualizarPresupuestos(nickname);
 	}
 	
@@ -98,10 +93,8 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 				int fila = table.getSelectedRow();
 				String codigo = (String) table.getModel().getValueAt(fila, 1);
 				try {
-					Response response = controller.seleccionarPresupuesto(codigo); //estoy aqui
-					if (response.getStatus() == Status.OK.getStatusCode()) {
-						Presupuesto presupuesto = response.readEntity(Presupuesto.class);
-						generarDoc(presupuesto);
+					if (mecanicoController.seleccionarPresupuesto(codigo) != null) {
+						generarDoc(mecanicoController.seleccionarPresupuesto(codigo));
 					} else {
 						System.out.println("fallo");
 					}
@@ -117,7 +110,7 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 		JButton btnNewButton_2 = new JButton("Regresar");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaMenuMecanico vmm = new VentanaMenuMecanico(controller, nickname);
+				VentanaMenuMecanico vmm = new VentanaMenuMecanico(mecanicoController, nickname);
 				vmm.setVisible(true);
 				dispose();
 			}
@@ -137,7 +130,7 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 		JButton btnNewButton_4 = new JButton("Registrar Nuevo");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaRegistroPresupuesto vrp = new VentanaRegistroPresupuesto(controller, nickname, 1);
+				VentanaRegistroPresupuesto vrp = new VentanaRegistroPresupuesto(mecanicoController, nickname, 1);
 				vrp.setVisible(true);
 				dispose();
 			}
@@ -158,7 +151,7 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 	}
 	
 	public void cargarTabla(JTable table) {
-		List<Presupuesto> presupuestos = controller.cargarTablaPresupuesto();
+		List<Presupuesto> presupuestos = mecanicoController.cargarTablaPresupuesto();
 		String[] columnNames = {"Fecha", "Codigo", "DNI Cliente", "Nom Mecanico", "Marca Coche", "Modelo Coche"};
 		
 		if (!presupuestos.isEmpty()) {
@@ -177,25 +170,23 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 				model.addRow(o);
 			}
 		} else {
-			System.out.println("llega mal");
+			JOptionPane.showMessageDialog(contentPane, "No hay ningun presupuesto disponible.");
 		}
 	}
 	
 	public void verPresupuesto(String codigo, String nickname) {
-		Response response = controller.seleccionarPresupuesto(codigo); //estoy aqui
-		if (response.getStatus() == Status.OK.getStatusCode()) {
-			Presupuesto presupuesto = response.readEntity(Presupuesto.class);
-			VentanaInformacionPresupuesto vip = new VentanaInformacionPresupuesto(controller, nickname, presupuesto);
+		if (mecanicoController.seleccionarPresupuesto(codigo) != null) {
+			VentanaInformacionPresupuesto vip = new VentanaInformacionPresupuesto(mecanicoController, nickname, mecanicoController.seleccionarPresupuesto(codigo));
 			vip.setVisible(true);
 			dispose();
 		} else {
-			System.out.println("fallo");
+			JOptionPane.showMessageDialog(contentPane, "Error");
 		}
 	}
 	
 	public void generarDoc(Presupuesto presupuesto) throws IOException {
 		double precioConIVA = presupuesto.getPrecio() + (presupuesto.getPrecio() * 0.21);
-		String fecha = parseFecha();
+		String fecha = mecanicoController.parseFechaPresupuesto();
 		 try (PDDocument document = new PDDocument()) {
 			 PDPage page = new PDPage(PDRectangle.A4);
 			 document.addPage(page);
@@ -335,39 +326,28 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 		 }
 	}
 	
-	public String parseFecha() {
-		String fecha = "";
-		Calendar c = Calendar.getInstance();
-		fecha = c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR) + " - " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + " - Bilbao"; 
-		return fecha;
-	}
+	
 	
 	public void cargarTablaResctricciones(JTable table, int tipo, String restriccion) {
 		List<Presupuesto> presupuestos = new ArrayList<Presupuesto>();
 		switch (tipo) {
 		case 0:
-			Response response_1 = controller.filtrarPresupuestoCodigo(restriccion);
-			if(response_1.getStatus() == Status.OK.getStatusCode()) {
-				GenericType<List<Presupuesto>> genericType = new GenericType<List<Presupuesto>>() {};
-				presupuestos = response_1.readEntity(genericType);
+			if(!mecanicoController.filtrarPresupuestoCodigo(restriccion).isEmpty()) {
+				presupuestos = mecanicoController.filtrarPresupuestoCodigo(restriccion);
 			}else {
 				JOptionPane.showMessageDialog(this, "No hay ningun con ese codigo.");
 			}
 			break;
 		case 1:
-			Response response_2 = controller.filtrarPresupuestoCliente(restriccion);
-			if(response_2.getStatus() == Status.OK.getStatusCode()) {
-				GenericType<List<Presupuesto>> genericType = new GenericType<List<Presupuesto>>() {};
-				presupuestos = response_2.readEntity(genericType);
+			if(!mecanicoController.filtrarPresupuestoCliente(restriccion).isEmpty()) {
+				presupuestos = mecanicoController.filtrarPresupuestoCliente(restriccion);
 			}else {
 				JOptionPane.showMessageDialog(this, "No hay ningun presupuesto para ese cliente.");
 			}
 			break;
 		case 2:
-			Response response_3 = controller.filtrarPresupuestoProblema(restriccion);
-			if(response_3.getStatus() == Status.OK.getStatusCode()) {
-				GenericType<List<Presupuesto>> genericType = new GenericType<List<Presupuesto>>() {};
-				presupuestos = response_3.readEntity(genericType);
+			if(!mecanicoController.filtrarPresupuestoProblema(restriccion).isEmpty()) {
+				presupuestos = mecanicoController.filtrarPresupuestoProblema(restriccion);
 			}else {
 				JOptionPane.showMessageDialog(this, "No hay ningun presupuesto con ese problema.");
 			}
@@ -392,7 +372,7 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 				model.addRow(o);
 			}
 		} else {
-			System.out.println("llega mal");
+			JOptionPane.showMessageDialog(contentPane, "No hay ningun presupuesto con ese filtro");
 		}
 	}
 }

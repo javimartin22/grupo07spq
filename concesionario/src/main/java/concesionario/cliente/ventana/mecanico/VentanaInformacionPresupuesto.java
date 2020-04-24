@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.MecanicoController;
 import concesionario.datos.Presupuesto;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -20,11 +20,11 @@ public class VentanaInformacionPresupuesto extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Controller controller;
+	private MecanicoController mecanicoController;
 	
-	public VentanaInformacionPresupuesto(Controller controller, String nickname, Presupuesto presupuesto) {
+	public VentanaInformacionPresupuesto(MecanicoController mecanicoController, String nickname, Presupuesto presupuesto) {
 		setResizable(false);
-		this.controller = controller;
+		this.mecanicoController = mecanicoController;
 		ventanaInformacionPresupuesto(nickname, presupuesto);
 	}
 	
@@ -129,7 +129,7 @@ public class VentanaInformacionPresupuesto extends JFrame {
 		JButton btnNewButton = new JButton("Regresar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaVisualizarPresupuestos vvp = new VentanaVisualizarPresupuestos(controller, nickname);
+				VentanaVisualizarPresupuestos vvp = new VentanaVisualizarPresupuestos(mecanicoController, nickname);
 				vvp.setVisible(true);
 				dispose();
 			}

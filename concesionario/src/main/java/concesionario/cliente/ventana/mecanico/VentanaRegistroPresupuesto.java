@@ -4,17 +4,12 @@ package concesionario.cliente.ventana.mecanico;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.Controller;
+import concesionario.cliente.controller.MecanicoController;
 import concesionario.datos.Presupuesto;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,15 +21,15 @@ import java.awt.Font;
 public class VentanaRegistroPresupuesto extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Controller controller;
+	private MecanicoController mecanicoController;
 	private JTextField textField;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	
-	public VentanaRegistroPresupuesto(Controller controller, String nickname, int precio) {
+	public VentanaRegistroPresupuesto(MecanicoController mecanicoController, String nickname, int precio) {
 		setResizable(false);
-		this.controller = controller;
+		this.mecanicoController = mecanicoController;
 		ventanaPresupuesto(nickname, precio);
 	}
 
@@ -50,7 +45,7 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		JButton btnNewButton = new JButton("Regresar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaVisualizarPresupuestos vvp = new VentanaVisualizarPresupuestos(controller, nickname);
+				VentanaVisualizarPresupuestos vvp = new VentanaVisualizarPresupuestos(mecanicoController, nickname);
 				vvp.setVisible(true);
 				dispose();
 			}
@@ -141,20 +136,20 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		JButton btnNewButton_1 = new JButton("Crear Presupuesto");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String codigo = crearCodigo();
+				String codigo = mecanicoController.crearCodigo();
 				String dniCliente = textField.getText();
 				String mecanico = nickname;
 				String marca = textField_2.getText();
 				String modelo = textField_3.getText();
 				String problema = textField_4.getText();
 				int numPiezas = Integer.parseInt(spinner.getValue().toString());
-				String listaPiezas = crearPiezasString(numPiezas);
+				String listaPiezas = mecanicoController.crearPiezasString(numPiezas);
 				String observaciones = textPane.getText();
 				int precio = Integer.parseInt(spinner_1.getValue().toString());
-				String fecha = parseFecha();
+				String fecha = mecanicoController.parseFecha();
 				Presupuesto presupuesto = new Presupuesto(codigo, dniCliente, mecanico, marca, modelo, problema, numPiezas, listaPiezas, observaciones, precio, fecha);
 				registroPresupuesto(presupuesto);
-				VentanaVisualizarPresupuestos vvp = new VentanaVisualizarPresupuestos(controller, nickname);
+				VentanaVisualizarPresupuestos vvp = new VentanaVisualizarPresupuestos(mecanicoController, nickname);
 				vvp.setVisible(true);
 				dispose();
 			}
@@ -166,49 +161,14 @@ public class VentanaRegistroPresupuesto extends JFrame {
 	}
 	
 	public void registroPresupuesto(Presupuesto presupuesto) {
-		Response response = controller.registroPresupuesto(presupuesto); //estoy aqui
-		if (response.getStatus() == Status.OK.getStatusCode()) {
+		if (mecanicoController.registroPresupuesto(presupuesto)) {
 			JOptionPane.showMessageDialog(contentPane, "Presupuesto registrado correctamente");
 		} else {
 			JOptionPane.showMessageDialog(contentPane, "Presupuesto no regsitrada");
 		}
 	}
 	
-	public String crearPiezasString(int numPiezas) {
-		String listaPiezas = "";
-		ArrayList<String> piezas = new ArrayList<String>();
-		for (int i = 0; i < numPiezas; i++) {
-			int j = i + 1;
-			String pieza = JOptionPane.showInputDialog("Introduzca la pieza " + j + ":");
-			piezas.add(pieza);
-		}
-		
-		for (int i = 0; i < piezas.size(); i++) {
-			if (i == 0) {
-				listaPiezas = piezas.get(i);
-			} else {
-				listaPiezas = listaPiezas + ", " + piezas.get(i);
-			}
-		}
-		return listaPiezas;
-	}
 	
-	public String parseFecha() {
-		String fecha = "";
-		Calendar c = Calendar.getInstance();
-		fecha = c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR) + " - " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE); 
-		return fecha;
-	}
 	
-	public String crearCodigo() {
-		String codigo = "";
-		List<Presupuesto> presupuestos = controller.cargarTablaPresupuesto();
-		if (presupuestos.size() != 0) {
-			int numero = presupuestos.size() + 1;
-			codigo = "P" + numero;
-		} else {
-			codigo = "P1";
-		}
-		return codigo;
-	}
+	
 }

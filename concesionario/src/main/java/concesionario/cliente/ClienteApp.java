@@ -260,14 +260,14 @@ public class ClienteApp {
 		return response;
 	}
 	
-	public Response regsitroPieza(Pieza pieza) {
+	public Response registroPieza(Pieza pieza) {
 		WebTarget insertPiezaTarget = loginTarget.path("insertPiezas");
  		Entity<Pieza> entity = Entity.entity(pieza, MediaType.APPLICATION_JSON);
  		Response response = insertPiezaTarget.request(MediaType.TEXT_PLAIN).post(entity);
  		return response;
 	}
 	
-	public Response regsitroPresupuesto(Presupuesto presupuesto) {
+	public Response registroPresupuesto(Presupuesto presupuesto) {
 		WebTarget insertPresupuestoTarget = loginTarget.path("insertPresupuesto");
  		Entity<Presupuesto> entity = Entity.entity(presupuesto, MediaType.APPLICATION_JSON);
  		Response response = insertPresupuestoTarget.request(MediaType.TEXT_PLAIN).post(entity);
