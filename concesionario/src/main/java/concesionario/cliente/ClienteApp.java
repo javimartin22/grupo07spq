@@ -37,6 +37,7 @@ public class ClienteApp {
 	
 	private WebTarget appTarget;
 	private WebTarget loginTarget;
+	public WebTarget inicioTarget;
 	
 	public static final String URL_SERVER = "http://localhost:8080/concesionario";
 	
@@ -50,13 +51,17 @@ public class ClienteApp {
 	}
 	
 	public Response login(Usuario concat) {
-		WebTarget inicioTarget = loginTarget.path("inicio");
+		inicioTarget = loginTarget.path("inicio");
 		Entity<Usuario> entity = Entity.entity(concat, MediaType.APPLICATION_JSON);
 		Response response = inicioTarget.request(MediaType.TEXT_PLAIN).post(entity);
 
         return response;
 	}
 	
+	public void setInicioTarget(WebTarget inicioTarget) {
+		this.inicioTarget = inicioTarget;
+	}
+
 	public Response registrarCoche(CocheConcesionario auto) {
 		System.out.println(auto.getMarca());
 		WebTarget registroTarget = loginTarget.path("insertCocheConcesionario");
