@@ -44,8 +44,6 @@ public class Empleado {
 		TipoEmpleado = tipoEmpleado;
 	}
 
-
-
 	public String getNickname() {
 		return nickname;
 	}
@@ -62,19 +60,13 @@ public class Empleado {
 		this.contrasenia = contrasenia;
 	}
 
-	
-	
 	public int getTipo() {
 		return tipo;
 	}
 
-
-
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
-
-
 
 	public String getDNI() {
 		return DNI;
