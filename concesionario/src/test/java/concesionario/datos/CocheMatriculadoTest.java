@@ -15,6 +15,7 @@ public class CocheMatriculadoTest {
 	}
 	@Before
 	public void setUp() {
+		cocheMat = new CocheMatriculado();
 		cocheMat = new CocheMatriculado("Opel", "Corsa", "2838GBJ", "Juan", "Azul",3, 2006, 80, 4);
 	}
 	

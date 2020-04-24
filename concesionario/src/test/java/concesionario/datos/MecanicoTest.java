@@ -15,6 +15,7 @@ public class MecanicoTest {
 	}
 	@Before
 	public void setUp() {
+		mecanico = new Mecanico();
 		mecanico = new Mecanico("user", "pass", 1, "12345667V", "Kevin", "Ibañez", "Masculino", "em@gmail.com", "City", 48008, "Abando", "1231","1444", 1200, "665665665", 10);
 	}
 	
@@ -32,7 +33,7 @@ public class MecanicoTest {
 		assertEquals(1, mecanico.getTipo());
 	}
 	@Test
-	public void testGetDni() {
+	public void testGetDNI() {
 		assertEquals("12345667V", mecanico.getDNI());
 	}
 	@Test
@@ -101,7 +102,7 @@ public class MecanicoTest {
 		assertEquals(2, mecanico.getTipo());
 	}
 	@Test
-	public void testSetDni() {
+	public void testSetDNI() {
 		mecanico.setDNI("12345667V");
 		assertEquals("12345667V", mecanico.getDNI());
 	}

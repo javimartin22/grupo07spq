@@ -11,10 +11,11 @@ public class VentaTest {
 	private Venta venta;
 
 	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(ComercialTest.class);
+		return new JUnit4TestAdapter(VentaTest.class);
 	}
 	@Before
 	public void setUp() {
+		venta = new Venta();
 		venta = new Venta("22-1-2020", "Leon", "Seat", "9600JPT", "Jorgico", "Alberto");
 	}
 	

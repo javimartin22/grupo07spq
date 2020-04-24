@@ -11,11 +11,9 @@ import java.util.List;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -37,6 +35,13 @@ import concesionario.datos.Tarifa;
 		@Before
 		public void setUp() {
 			clienteController = new ClienteController(clienteApp);
+			clienteApp = clienteController.getClienteApp();
+		}
+		
+		@Test
+		public void testGetClienteApp() {
+			ClienteApp clientApp = null;
+			assertEquals(null, clientApp);;
 		}
 		
 		@Test
@@ -188,6 +193,25 @@ import concesionario.datos.Tarifa;
 			List<Tarifa> tarif_result = clienteController.filtrarTarifaPrecioMin(10);
 			for(int i =0; i<tarifas.size(); i++) {
 				assertTrue(tarif_result.get(i).getIdTarifa().equals(tarifas.get(i).getIdTarifa()));
+			}
+		}
+		
+		@Test
+		public void testFiltrarCocheCocesionario() {
+			CocheConcesionario coche = new CocheConcesionario("Seat", "Leon", 15000, 115, 5, "Blanco", 2);
+			List<CocheConcesionario> coches = new ArrayList<CocheConcesionario>();
+			coches.add(coche);
+			
+			Response response = Mockito.mock(Response.class);
+			Mockito.when(response.getStatus()).thenReturn(200);
+			
+			Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->coches);
+			
+			when(clienteApp.filtrarCocheConcesionario(any(String.class))).thenReturn(response);
+			
+			List<CocheConcesionario> cochesSeleccionados = clienteController.filtrarCocheConcesionario("");
+			for(int i =0; i<coches.size(); i++) {
+				assertTrue(cochesSeleccionados.get(i).getMarca().equals(coches.get(i).getMarca()));
 			}
 		}
 		

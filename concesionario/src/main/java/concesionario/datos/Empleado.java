@@ -29,6 +29,7 @@ public class Empleado {
 		
 		this.nickname = nickname;
 		this.contrasenia = contrasenia;
+		this.tipo = tipo;
 		DNI = dNI;
 		Nombre = nombre;
 		Apellido = apellido;

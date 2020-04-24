@@ -16,6 +16,7 @@ public class ClienteTest {
 
 	@Before
 	public void setUp() {
+		cliente = new Cliente();
 		cliente = new Cliente("12345678K", "user", 1, "pass", "javi", "martin", "masculino", "javi@gmail.com", "bilbo", 46009, "kalea", "666777872");
 	}
 	
@@ -103,5 +104,4 @@ public class ClienteTest {
 		cliente.setNumeroTelefono("654654654");
 		assertEquals("654654654", cliente.getNumeroTelefono());
 	}
-	
 }

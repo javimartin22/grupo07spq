@@ -15,6 +15,7 @@ public class ComercialTest {
 	}
 	@Before
 	public void setUp() {
+		comercial = new Comercial();
 		comercial = new Comercial("user", "pass", "12345667V", "Kevin", "Ibañez", "Masculino", "em@gmail.com", "City", 48008, "Abando", "1231","1444", 1200, "665665665", 0, 2, 300, 10 );
 	}
 	

@@ -11,10 +11,11 @@ public class EmpleadoTest {
 	private Empleado empleado;
 
 	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(ComercialTest.class);
+		return new JUnit4TestAdapter(EmpleadoTest.class);
 	}
 	@Before
 	public void setUp() {
+		empleado = new Empleado();
 		empleado = new Empleado("user", "pass", 1, "12345667V", "Kevin", "Ibañez", "Masculino", "em@gmail.com", "City", 48008, "Abando", "1231","1444", 1200, "665665665", 0);
 	}
 	

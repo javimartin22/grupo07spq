@@ -11,10 +11,11 @@ public class TarifaTest {
 	private Tarifa tarifa;
 
 	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(ComercialTest.class);
+		return new JUnit4TestAdapter(TarifaTest.class);
 	}
 	@Before
 	public void setUp() {
+		tarifa = new Tarifa();
 		tarifa = new Tarifa("T1", "Cambio Aceite", 50, 1);
 	}
 	

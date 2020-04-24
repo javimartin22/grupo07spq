@@ -42,6 +42,7 @@ public class MecanicoControllerTest {
 	@Before
 	public void setUp() {
 		mecanicoController = new MecanicoController(cliente);
+		cliente = mecanicoController.getClienteApp();
 	}
 	
 	@Test

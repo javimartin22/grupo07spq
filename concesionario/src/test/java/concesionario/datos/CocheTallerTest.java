@@ -1,6 +1,7 @@
 package concesionario.datos;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import junit.framework.JUnit4TestAdapter;
 import org.junit.Before;
@@ -11,10 +12,11 @@ public class CocheTallerTest {
 	private CocheTaller cocheT;
 	
 	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(CocheMatriculadoTest.class);
+		return new JUnit4TestAdapter(CocheTallerTest.class);
 	}
 	@Before
 	public void setUp() {
+		cocheT = new CocheTaller();
 		cocheT = new CocheTaller("2544KLB", "Honda", "Civic", "Andres", "79076345T", 1300, 0);
 	}
 	
@@ -41,7 +43,7 @@ public class CocheTallerTest {
 	}
 	@Test
 	public void testGetCoste() {
-		assertEquals(1300, cocheT.getCoste());
+		assertTrue(cocheT.getCoste() == 1300);
 	}
 	@Test
 	public void testGetEstado() {
@@ -72,12 +74,12 @@ public class CocheTallerTest {
 	@Test 
 	public void testSetDniCliente() {
 		cocheT.setDniCliente("76096754k");
-		assertEquals(100, cocheT.getDniCliente());
+		assertEquals("76096754k", cocheT.getDniCliente());
 	}
 	@Test 
 	public void testSetCoste() {
 		cocheT.setCoste(540);
-		assertEquals(540 , cocheT.getCoste());
+		assertTrue(cocheT.getCoste() == 540);
 	}
 	@Test 
 	public void testSetEstado() {

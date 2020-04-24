@@ -11,10 +11,11 @@ public class UsuarioTest {
 	private Usuario usuario;
 
 	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(ComercialTest.class);
+		return new JUnit4TestAdapter(UsuarioTest.class);
 	}
 	@Before
 	public void setUp() {
+		usuario = new Usuario();
 		usuario = new Usuario("Jorgico", "1234", 1);
 	}
 	
@@ -45,6 +46,7 @@ public class UsuarioTest {
 	}
 	@Test
 	public void testSetTipo() {
+		usuario.setTipo(2);
 		assertEquals(2, usuario.getTipo());
 	}
 }

@@ -34,6 +34,7 @@ public class ComercialControllerTest {
 	@Before
 	public void setUp() {
 		comercialController = new ComercialController(clienteApp);
+		clienteApp = comercialController.getClienteApp();
 	}
 	
 	@Test

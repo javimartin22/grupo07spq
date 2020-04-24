@@ -12,10 +12,11 @@ public class DepartamentoComprasTest {
 	private DepartamentoCompras departamentoCompras;
 
 	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(ComercialTest.class);
+		return new JUnit4TestAdapter(DepartamentoComprasTest.class);
 	}
 	@Before
 	public void setUp() {
+		departamentoCompras = new DepartamentoCompras();
 		departamentoCompras = new DepartamentoCompras("Jorge", "12345", "12345667Ñ", "Jorge", "Martinez", "Masculino", "em@gmail.com", "Barakaldo", 48008, "Abando", "1231","1444", 1200, "665665665", 10);
 	}
 	

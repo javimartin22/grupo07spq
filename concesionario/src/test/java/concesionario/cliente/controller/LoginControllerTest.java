@@ -29,6 +29,7 @@ public class LoginControllerTest {
 	@Before
 	public void setUp() {
 		loginController = new LoginController(cliente);
+		cliente = loginController.getClienteApp();
 	}
 	
 	@Test

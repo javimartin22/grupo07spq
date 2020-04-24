@@ -11,11 +11,12 @@ public class PresupuestoTest {
 	private Presupuesto presupuesto;
 
 	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(ClienteTest.class);
+		return new JUnit4TestAdapter(PresupuestoTest.class);
 	}
 
 	@Before
 	public void setUp() {
+		presupuesto = new Presupuesto();
 		presupuesto = new Presupuesto("PE-1", "12345678A", "Jorge", "Seat", "Leon", "Aceite", 1, "Lata Aceite", "Cambio de Aceite", 50, "22-1-2020");
 	}
 	

@@ -36,6 +36,7 @@ public class GerenteControllerTest {
 	@Before
 	public void setUp() {
 		gerenteController = new GerenteController(clienteApp);
+		clienteApp = gerenteController.getClienteApp();
 	}
 
 	@Test

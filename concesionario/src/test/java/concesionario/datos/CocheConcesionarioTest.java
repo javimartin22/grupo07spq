@@ -15,6 +15,7 @@ public class CocheConcesionarioTest {
 	}
 	@Before
 	public void setUp() {
+		cocheCon = new CocheConcesionario();
 		cocheCon = new CocheConcesionario("Renault", "Clio", 14000, 115, 5, "Blanco", 1);
 	}
 	
