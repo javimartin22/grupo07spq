@@ -9,6 +9,7 @@ import javax.ws.rs.core.Response.Status;
 import concesionario.cliente.ClienteApp;
 import concesionario.datos.Cliente;
 import concesionario.datos.CocheConcesionario;
+import concesionario.datos.CocheMatriculado;
 import concesionario.datos.Tarifa;
 
 public class ClienteController {

@@ -63,4 +63,50 @@ public class ClienteTest {
 	}
 	
 	//Setters
+	@Test 
+	public void testSetDNI() {
+		cliente.setDNI("11122233V");
+		assertEquals("11122233V", cliente.getDNI());
+	}
+	@Test 
+	public void testSetNombre() {
+		cliente.setNombre("Leire");
+		assertEquals("Leire", cliente.getNombre());
+	}
+	@Test 
+	public void testSetApellido() {
+		cliente.setApellido("Lopez");
+		assertEquals("Lopez", cliente.getApellido());
+	}
+	@Test 
+	public void testSetEmail() {
+		cliente.setEmail("hola@gmail.com");
+		assertEquals("hola@gmail.com", cliente.getEmail());
+	}
+	@Test 
+	public void testSetSexo() {
+		cliente.setSexo("Femenino");
+		assertEquals("Femenino", cliente.getSexo());
+	}
+	@Test 
+	public void testSetCiudad() {
+		cliente.setCiudad("Paris");
+		assertEquals("Paris", cliente.getCiudad());
+	}
+	@Test 
+	public void testSetCodigoPostal() {
+		cliente.setCodigoPostal(48012);
+		assertEquals(48012, cliente.getCodigoPostal());
+	}
+	@Test 
+	public void testSetDireccion() {
+		cliente.setDireccion("calle");
+		assertEquals("calle", cliente.getDireccion());
+	}
+	@Test 
+	public void testSetNumeroTelefono() {
+		cliente.setNumeroTelefono("654654654");
+		assertEquals("654654654", cliente.getNumeroTelefono());
+	}
+	
 }
