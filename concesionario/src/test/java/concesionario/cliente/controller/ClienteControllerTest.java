@@ -190,4 +190,26 @@ import concesionario.datos.Tarifa;
 				assertTrue(tarif_result.get(i).getIdTarifa().equals(tarifas.get(i).getIdTarifa()));
 			}
 		}
+		
+		@Test
+		public void testCambiarContraseniaCliente() {
+			Cliente c = new Cliente("78945612A", "Pablito", 1, "12345", "Pablo", "Gaviria", "Hombre", "pablogaviria@opendeusto.es", "bilbao", 48007, "direccion", "123456789");
+			Response response = Mockito.mock(Response.class);
+			Mockito.when(response.getStatus()).thenReturn(200);
+			
+			when(clienteApp.cambiarContraseniaCliente(any(Cliente.class),(any(String.class)))).thenReturn(response);
+			
+			assertTrue(clienteController.cambiarContraseniaCliente(c, "12345") == true);
+		}
+		
+		@Test
+		public void testCambiarNicknameCliente() {
+			Cliente c = new Cliente("78945612A", "Pablito", 1, "12345", "Pablo", "Gaviria", "Hombre", "pablogaviria@opendeusto.es", "bilbao", 48007, "direccion", "123456789");
+			Response response = Mockito.mock(Response.class);
+			Mockito.when(response.getStatus()).thenReturn(200);
+			
+			when(clienteApp.cambiarNicknameCliente(any(Cliente.class),(any(String.class)))).thenReturn(response);
+			
+			assertTrue(clienteController.cambiarNicknameCliente(c, "Pablito") == true);
+		}
 }
