@@ -154,16 +154,13 @@ public class GerenteController {
 			break;
 		case 1: 
 			sexo = "Mujer";
-		case 3: 
+			break;
+		case 2: 
 			sexo = "Otro";
+			break;
 		}
 		return sexo;
 	}
 	
-	public String crearID () {
-		List<Tarifa> tarifas = cargarTablaTarifas();
-		int numero = tarifas.size() + 1;
-		String ID  = "TA-" + numero;
-		return ID;
-	}
+	
 }
