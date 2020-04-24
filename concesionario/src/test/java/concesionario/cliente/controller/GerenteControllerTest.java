@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle.Control;
 
 import javax.ws.rs.core.Response;
 
@@ -19,14 +18,13 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import concesionario.cliente.ClienteApp;
-import concesionario.datos.CocheConcesionario;
 import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Tarifa;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class GerenteControllerTest {
 	public GerenteController gerenteController;
 	
@@ -182,12 +180,17 @@ public class GerenteControllerTest {
 		Response response = Mockito.mock(Response.class);
 		Mockito.when(response.getStatus()).thenReturn(200);
 		Mockito.when(response.readEntity(Mockito.any(Class.class))).thenReturn(mecanico);
-		
 		when(clienteApp.mecanicoSelect(any(String.class))).thenReturn(response);
 		
 		Mecanico mecanicoSeleccionado = gerenteController.seleccionarMecanico("nickname");
-		
 		assertTrue(mecanicoSeleccionado.getNickname().equals("nickname"));
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(Class.class))).thenReturn(null);
+		when(clienteApp.mecanicoSelect(any(String.class))).thenReturn(response1);
+		
+		assertTrue(gerenteController.seleccionarMecanico("nickname") == null);
 	}
 	
 	@Test
@@ -197,12 +200,17 @@ public class GerenteControllerTest {
 		Response response = Mockito.mock(Response.class);
 		Mockito.when(response.getStatus()).thenReturn(200);
 		Mockito.when(response.readEntity(Mockito.any(Class.class))).thenReturn(comercial);
-		
 		when(clienteApp.comercialSelect(any(String.class))).thenReturn(response);
 		
 		Comercial comercialSeleccionado = gerenteController.seleccionarComercial("nickname");
-		
 		assertTrue(comercialSeleccionado.getNickname().equals("nickname"));
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(Class.class))).thenReturn(null);
+		when(clienteApp.comercialSelect(any(String.class))).thenReturn(response1);
+		
+		assertTrue(gerenteController.seleccionarComercial("nickname") == null);
 	}
 	
 	@Test
@@ -218,6 +226,13 @@ public class GerenteControllerTest {
 		DepartamentoCompras departamentoComprasSeleccionado = gerenteController.seleccionarDepartamentoCompras("nickname");
 		
 		assertTrue(departamentoComprasSeleccionado.getNickname().equals("nickname"));
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(Class.class))).thenReturn(null);
+		when(clienteApp.departamentoComprasSelect(any(String.class))).thenReturn(response1);
+		
+		assertTrue(gerenteController.seleccionarDepartamentoCompras("nickname") == null);
 	}
 	
 	@Test

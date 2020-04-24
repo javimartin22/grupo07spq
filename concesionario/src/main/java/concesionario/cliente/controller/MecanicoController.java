@@ -40,10 +40,6 @@ public class MecanicoController {
 		return cliente.cargarTablaPiezas();
 	}
 	
-	public Response seleccionarPiezaUtilizada(String codigo) {
-		return cliente.piezaUtilizadaSelect(codigo);
-	}
-	
 	public List<Pieza> cargarPiezasUtilizadas(){
 		return cliente.cargarTablaPiezasUtilizadas();
 	}
@@ -175,9 +171,8 @@ public class MecanicoController {
 		return fecha;
 	}
 	
-	public String crearCodigo() {
+	public String crearCodigo(List<Presupuesto> presupuestos) {
 		String codigo = "";
-		List<Presupuesto> presupuestos = cargarTablaPresupuesto();
 		if (presupuestos.size() != 0) {
 			int numero = presupuestos.size() + 1;
 			codigo = "P" + numero;

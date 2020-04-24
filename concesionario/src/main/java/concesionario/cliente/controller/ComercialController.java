@@ -2,7 +2,6 @@ package concesionario.cliente.controller;
 
 import java.util.List;
 
-import javax.swing.JOptionPane;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -117,9 +116,6 @@ public class ComercialController {
 				break;
 			case 8: 
 				color = "Gris";
-				break;
-			case 9: 
-				color = JOptionPane.showInputDialog("¿Que color desea?");
 				break;
 		}
 		return color;

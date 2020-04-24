@@ -11,6 +11,7 @@ import concesionario.datos.Presupuesto;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -137,7 +138,8 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		JButton btnNewButton_1 = new JButton("Crear Presupuesto");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String codigo = mecanicoController.crearCodigo();
+				List<Presupuesto> presupuestos = mecanicoController.cargarTablaPresupuesto();
+				String codigo = mecanicoController.crearCodigo(presupuestos);
 				String dniCliente = textField.getText();
 				String mecanico = nickname;
 				String marca = textField_2.getText();

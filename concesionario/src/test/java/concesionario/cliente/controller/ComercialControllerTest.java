@@ -23,7 +23,7 @@ import concesionario.datos.Cliente;
 import concesionario.datos.CocheConcesionario;
 import concesionario.datos.Venta;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class ComercialControllerTest {
 	public ComercialController comercialController;
 	public Cliente cliente;
@@ -120,15 +120,20 @@ public class ComercialControllerTest {
 		
 		Response response = Mockito.mock(Response.class);
 		Mockito.when(response.getStatus()).thenReturn(200);
-		
 		Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->coches);
-		
 		when(clienteApp.filtrarCocheConcesionario(any(String.class))).thenReturn(response);
 		
 		List<CocheConcesionario> cochesSeleccionados = comercialController.filtrarCocheConcesionario("");
 		for(int i =0; i<coches.size(); i++) {
 			assertTrue(cochesSeleccionados.get(i).getMarca().equals(coches.get(i).getMarca()));
 		}
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->null);
+		when(clienteApp.filtrarCocheConcesionario(any(String.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.filtrarCocheConcesionario("") == null);
 	}
 	
 	@Test
@@ -139,15 +144,20 @@ public class ComercialControllerTest {
 		
 		Response response = Mockito.mock(Response.class);
 		Mockito.when(response.getStatus()).thenReturn(200);
-		
 		Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->ventas);
-		
 		when(clienteApp.filtrarVentaComercial(any(String.class))).thenReturn(response);
 		
 		List<Venta> ventasSeleccionados = comercialController.filtrarVentaComercial("");
 		for(int i =0; i<ventas.size(); i++) {
 			assertTrue(ventasSeleccionados.get(i).getMatricula().equals(ventas.get(i).getMatricula()));
 		}
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->null);
+		when(clienteApp.filtrarVentaComercial(any(String.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.filtrarVentaComercial("") == null);
 	}
 	
 	@Test
@@ -158,15 +168,20 @@ public class ComercialControllerTest {
 		
 		Response response = Mockito.mock(Response.class);
 		Mockito.when(response.getStatus()).thenReturn(200);
-		
 		Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->ventas);
-		
 		when(clienteApp.filtrarVentaModelo(any(String.class))).thenReturn(response);
 		
 		List<Venta> ventasSeleccionados = comercialController.filtrarVentaModelo("");
 		for(int i =0; i<ventas.size(); i++) {
 			assertTrue(ventasSeleccionados.get(i).getMarca().equals(ventas.get(i).getMarca()));
 		}
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->null);
+		when(clienteApp.filtrarVentaModelo(any(String.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.filtrarVentaModelo("") == null);
 	}
 	
 	@Test
@@ -177,14 +192,19 @@ public class ComercialControllerTest {
 		
 		Response response = Mockito.mock(Response.class);
 		Mockito.when(response.getStatus()).thenReturn(200);
-		
 		Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->ventas);
-		
 		when(clienteApp.filtrarVentaMarca(any(String.class))).thenReturn(response);
 		
 		List<Venta> ventasSeleccionados = comercialController.filtrarVentaMarca("");
 		for(int i =0; i<ventas.size(); i++) {
 			assertTrue(ventasSeleccionados.get(i).getMatricula().equals(ventas.get(i).getMatricula()));
 		}
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->null);
+		when(clienteApp.filtrarVentaMarca(any(String.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.filtrarVentaMarca("") == null);
 	}
 }

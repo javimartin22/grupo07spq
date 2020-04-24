@@ -94,7 +94,7 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 		contentPane.add(lblColor);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Rojo", "Azul ", "Plata", "Amarillo", "Verde", "Blanco", "Negro", "Blanco Marfil", "Gris", "Otro"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Rojo", "Azul ", "Plata", "Amarillo", "Verde", "Blanco", "Negro", "Blanco Marfil", "Gris"}));
 		comboBox.setBounds(220, 146, 137, 27);
 		contentPane.add(comboBox);
 		
