@@ -4,6 +4,7 @@ package concesionario.cliente.ventana.gerente;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -103,7 +104,7 @@ public class VentanaRegistroTarifa extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				boolean datos = comprobarDatos();
 				if (datos) {
-					String idTarifa = gerenteController.crearID();
+					String idTarifa = crearID();
 					String nombre = textFieldNombre.getText();
 					int precioAprox = Integer.parseInt(textFieldPrecioAprox.getText());
 					int horas_manodeobra = Integer.parseInt(textFieldHorasManoObra.getText());
@@ -158,5 +159,11 @@ public class VentanaRegistroTarifa extends JFrame {
 		}
 	}
 	
+	public String crearID () {
+		List<Tarifa> tarifas = gerenteController.cargarTablaTarifas();
+		int numero = tarifas.size() + 1;
+		String ID  = "TA-" + numero;
+		return ID;
+	}
 	
 }
