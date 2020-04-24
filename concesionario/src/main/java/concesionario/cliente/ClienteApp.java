@@ -37,9 +37,9 @@ public class ClienteApp {
 	
 	private WebTarget appTarget;
 	private WebTarget loginTarget;
-	public WebTarget inicioTarget;
+	private WebTarget inicioTarget;
 	
-	public static final String URL_SERVER = "http://localhost:8080/concesionario";
+	public  final String URL_SERVER = "http://localhost:8080/concesionario";
 	
 	public ClienteApp() {
 		
@@ -60,6 +60,9 @@ public class ClienteApp {
 	
 	public void setInicioTarget(WebTarget inicioTarget) {
 		this.inicioTarget = inicioTarget;
+	}
+	public WebTarget getInicioTarget() {
+		return this.inicioTarget;
 	}
 
 	public Response registrarCoche(CocheConcesionario auto) {

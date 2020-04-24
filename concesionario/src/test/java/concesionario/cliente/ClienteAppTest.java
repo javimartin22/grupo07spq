@@ -36,14 +36,12 @@ public class ClienteAppTest {
 	@Mock
 	WebTarget inicio_Target;
 	
-	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(ClienteAppTest.class);
-	}
 	
 	@Before
 	public void setUp() {
 		clienteApp = new ClienteApp();
 		clienteApp.setInicioTarget(inicio_Target);
+		inicio_Target = clienteApp.getInicioTarget();
 		
 	}
 	
@@ -53,7 +51,7 @@ public class ClienteAppTest {
 		Response response = Mockito.mock(Response.class);
 		Mockito.when(response.getStatus()).thenReturn(200);
 		
-		when(inicio_Target.request(MediaType.TEXT_PLAIN).post(any(javax.ws.rs.client.Entity.class))).thenReturn(response);
+		when(clienteApp.getInicioTarget().request(Mockito.any(MediaType.class)).post(Mockito.any(javax.ws.rs.client.Entity.class))).thenReturn(response);
 		
 		Response result = clienteApp.login(usu);
 		assertTrue(result.getStatus() == Status.OK.getStatusCode());
