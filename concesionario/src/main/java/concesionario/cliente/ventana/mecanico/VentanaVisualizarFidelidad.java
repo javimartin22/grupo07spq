@@ -1,29 +1,21 @@
 package concesionario.cliente.ventana.mecanico;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
 import concesionario.cliente.controller.MecanicoController;
-import concesionario.datos.CocheTaller;
-
-import java.awt.BorderLayout;
-
-
-
-
 
 public class VentanaVisualizarFidelidad extends JFrame {
 
-	private static final long serilVersionUID = 1L;
-	private JPanel contentPane;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private MecanicoController mecanicoController;
 	private JTable table1;
 	
@@ -32,12 +24,6 @@ public class VentanaVisualizarFidelidad extends JFrame {
 		iniciarVentanaVisualizarFidelidad(nickname);
 	}
 	
-	
-	/**
-	 * Create the frame
-	 * @return 
-	 */
-	
 	public void iniciarVentanaVisualizarFidelidad(String nickname) {
 		setResizable(false);
 		setTitle("Fidelidad de los clientes:");
@@ -45,7 +31,6 @@ public class VentanaVisualizarFidelidad extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
-		
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(6, 18, 980, 274);
