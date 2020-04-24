@@ -115,6 +115,8 @@ public class MecanicoController {
 		}
 	}
 	
+	
+	
 	public List<Presupuesto> filtrarPresupuestoCliente(String client) {
 		Response response_1 = cliente.filtrarPresupuestoCliente(client);
 		if(response_1.getStatus() == Status.OK.getStatusCode()) {
@@ -165,24 +167,6 @@ public class MecanicoController {
 		}
 	}
 	
-	public String crearPiezasString(int numPiezas) {
-		String listaPiezas = "";
-		ArrayList<String> piezas = new ArrayList<String>();
-		for (int i = 0; i < numPiezas; i++) {
-			int j = i + 1;
-			String pieza = JOptionPane.showInputDialog("Introduzca la pieza " + j + ":");
-			piezas.add(pieza);
-		}
-		
-		for (int i = 0; i < piezas.size(); i++) {
-			if (i == 0) {
-				listaPiezas = piezas.get(i);
-			} else {
-				listaPiezas = listaPiezas + ", " + piezas.get(i);
-			}
-		}
-		return listaPiezas;
-	}
 	
 	public String parseFecha() {
 		String fecha = "";

@@ -10,6 +10,7 @@ import concesionario.datos.Presupuesto;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -143,7 +144,7 @@ public class VentanaRegistroPresupuesto extends JFrame {
 				String modelo = textField_3.getText();
 				String problema = textField_4.getText();
 				int numPiezas = Integer.parseInt(spinner.getValue().toString());
-				String listaPiezas = mecanicoController.crearPiezasString(numPiezas);
+				String listaPiezas = crearPiezasString(numPiezas);
 				String observaciones = textPane.getText();
 				int precio = Integer.parseInt(spinner_1.getValue().toString());
 				String fecha = mecanicoController.parseFecha();
@@ -166,6 +167,25 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		} else {
 			JOptionPane.showMessageDialog(contentPane, "Presupuesto no regsitrada");
 		}
+	}
+	
+	public String crearPiezasString(int numPiezas) {
+		String listaPiezas = "";
+		ArrayList<String> piezas = new ArrayList<String>();
+		for (int i = 0; i < numPiezas; i++) {
+			int j = i + 1;
+			String pieza = JOptionPane.showInputDialog("Introduzca la pieza " + j + ":");
+			piezas.add(pieza);
+		}
+		
+		for (int i = 0; i < piezas.size(); i++) {
+			if (i == 0) {
+				listaPiezas = piezas.get(i);
+			} else {
+				listaPiezas = listaPiezas + ", " + piezas.get(i);
+			}
+		}
+		return listaPiezas;
 	}
 	
 	

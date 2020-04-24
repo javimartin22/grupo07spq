@@ -5,9 +5,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.validation.constraints.AssertTrue;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
 import org.junit.After;
@@ -27,6 +29,7 @@ import concesionario.datos.CocheTaller;
 import concesionario.datos.Pieza;
 import concesionario.datos.Usuario;
 import concesionario.datos.Presupuesto;
+import concesionario.datos.Tarifa;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MecanicoControllerTest {
@@ -177,5 +180,181 @@ public class MecanicoControllerTest {
 			
 	}
 	
+	@Test
+	public void testCambiarEstadoCocheTaller() {
+		CocheTaller coche = new CocheTaller("2544KLB", "Honda", "Civic", "Andres", "79076345T", 1300, 0);
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		
+		when(cliente.cambiarEstadoCocheTaller(any(CocheTaller.class),any(Integer.class))).thenReturn(response);
+		
+		assertTrue(mecanicoController.cambiarEstadoCocheTaller(coche,0) == true);
 	}
+	
+	@Test 
+	public void testCargarTablaPresupuesto() {
+		List<Presupuesto> presups = new ArrayList<Presupuesto>();
+		Presupuesto p1 = new Presupuesto("PE-1", "12345678A", "Jorge", "Seat", "Leon", "Aceite", 1, "Lata Aceite", "Cambio de Aceite", 50, "22-1-2020");
+		Presupuesto p2 = new Presupuesto("PE-2", "12345678A", "Jorge", "Seat", "Leon", "Aceite", 1, "Lata Aceite", "Cambio de Aceite", 50, "22-1-2020");
+		presups.add(p1);
+		presups.add(p2);
+		
+		
+		Mockito.when(cliente.cargarTablaPresupuestos()).thenAnswer(x ->presups);
+		List<Presupuesto>presup_result = mecanicoController.cargarTablaPresupuesto();
+		
+		for(int i=0; i<presups.size(); i++) {
+			assertTrue(presup_result.get(i).getCodigo().equals(presups.get(i).getCodigo()));
+		}
+		
+		}
+	
+	@Test
+	public void testSeleccionarPresupuesto() {
+		Presupuesto p =  new Presupuesto("PE-1", "12345678A", "Jorge", "Seat", "Leon", "Aceite", 1, "Lata Aceite", "Cambio de Aceite", 50, "22-1-2020");
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		Mockito.when(response.readEntity(Mockito.any(Class.class))).thenReturn(p);
+		
+		when(cliente.seleccionarPresupuesto(any(String.class))).thenReturn(response);
+		
+		assertTrue(mecanicoController.seleccionarPresupuesto("PE-1").getCodigo().equals(p.getCodigo()));
+			
+	}
+
+@Test
+public void testFiltrarPresupuestoCodigo() {
+	List<Presupuesto> presups= new ArrayList<Presupuesto>();
+	presups.add(new Presupuesto("PE-1", "12345678A", "Jorge", "Seat", "Leon", "Aceite", 1, "Lata Aceite", "Cambio de Aceite", 50, "22-1-2020"));
+	presups.add(new Presupuesto("PE-2", "12345678A", "Jorge", "Seat", "Leon", "Aceite", 1, "Lata Aceite", "Cambio de Aceite", 50, "22-1-2020"));
+	
+	Response response = Mockito.mock(Response.class);
+	Mockito.when(response.getStatus()).thenReturn(200);
+	
+	Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->presups);
+	
+	when(cliente.filtrarPresupuestoCodigo(any(String.class))).thenReturn(response);
+	
+	List<Presupuesto> presup_result = mecanicoController.filtrarPresupuestoCodigo("PE-");
+	for(int i =0; i<presups.size(); i++) {
+		assertTrue(presup_result.get(i).getCodigo().equals(presups.get(i).getCodigo()));
+	}
+		
+}
+
+@Test
+public void testFiltrarPresupuestoCliente() {
+	List<Presupuesto> presups= new ArrayList<Presupuesto>();
+	presups.add(new Presupuesto("PE-1", "12345678A", "Jorge", "Seat", "Leon", "Aceite", 1, "Lata Aceite", "Cambio de Aceite", 50, "22-1-2020"));
+	presups.add(new Presupuesto("PE-2", "12345678A", "Jorge", "Seat", "Leon", "Aceite", 1, "Lata Aceite", "Cambio de Aceite", 50, "22-1-2020"));
+	
+	Response response = Mockito.mock(Response.class);
+	Mockito.when(response.getStatus()).thenReturn(200);
+	
+	Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->presups);
+	
+	when(cliente.filtrarPresupuestoCliente(any(String.class))).thenReturn(response);
+	
+	List<Presupuesto> presup_result = mecanicoController.filtrarPresupuestoCliente("Jorge");
+	for(int i =0; i<presups.size(); i++) {
+		assertTrue(presup_result.get(i).getCodigo().equals(presups.get(i).getCodigo()));
+	}
+		
+}
+@Test
+public void testFiltrarPresupuestoProblema() {
+	List<Presupuesto> presups= new ArrayList<Presupuesto>();
+	presups.add(new Presupuesto("PE-1", "12345678A", "Jorge", "Seat", "Leon", "Aceite", 1, "Lata Aceite", "Cambio de Aceite", 50, "22-1-2020"));
+	presups.add(new Presupuesto("PE-2", "12345678A", "Jorge", "Seat", "Leon", "Aceite", 1, "Lata Aceite", "Cambio de Aceite", 50, "22-1-2020"));
+	
+	Response response = Mockito.mock(Response.class);
+	Mockito.when(response.getStatus()).thenReturn(200);
+	
+	Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->presups);
+	
+	when(cliente.filtrarPresupuestoProblema(any(String.class))).thenReturn(response);
+	
+	List<Presupuesto> presup_result = mecanicoController.filtrarPresupuestoProblema("Aceite");
+	for(int i =0; i<presups.size(); i++) {
+		assertTrue(presup_result.get(i).getCodigo().equals(presups.get(i).getCodigo()));
+	}
+		
+}
+@Test
+public void testFiltrarCocheMatriculado() {
+	List<CocheMatriculado>coches= new ArrayList<CocheMatriculado>();
+	coches.add(new CocheMatriculado("Opel", "Corsa", "2838GBJ", "Juan", "Azul",3, 2006, 80, 4));
+	coches.add(new CocheMatriculado("Opel", "Corsa", "2838KBJ", "Juan", "Azul",3, 2006, 80, 4));
+	
+	Response response = Mockito.mock(Response.class);
+	Mockito.when(response.getStatus()).thenReturn(200);
+	
+	Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->coches);
+	
+	when(cliente.filtrarCocheMatriculado(any(String.class))).thenReturn(response);
+	
+	List<CocheMatriculado> coches_result = mecanicoController.filtrarCocheMatriculado("filtro");
+	for(int i =0; i<coches.size(); i++) {
+		assertTrue(coches_result.get(i).getMatricula().equals(coches.get(i).getMatricula()));
+	}
+		
+}
+
+@Test
+public void testFiltrarPiezaMecanico() {
+	List<Pieza>piezas= new ArrayList<Pieza>();
+	piezas.add(new Pieza("P1", "Amortiguador", 5, "Almacen 1"));
+	piezas.add(new Pieza("P2", "Amortiguador", 5, "Almacen 1"));
+	
+	Response response = Mockito.mock(Response.class);
+	Mockito.when(response.getStatus()).thenReturn(200);
+	
+	Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->piezas);
+	
+	when(cliente.filtrarPiezaMecanico(any(String.class))).thenReturn(response);
+	
+	List<Pieza> piezas_result = mecanicoController.filtrarPiezaMecanico("filtro");
+	for(int i =0; i<piezas.size(); i++) {
+		assertTrue(piezas_result.get(i).getCodigo().equals(piezas.get(i).getCodigo()));
+	}
+		
+}
+
+@Test
+public void testFiltrarCocheTaller() {
+	List<CocheTaller>coches= new ArrayList<CocheTaller>();
+	coches.add(new CocheTaller("1044HLB", "Honda", "Civic", "Andres", "79076345T", 1300, 0));
+	coches.add(new CocheTaller("2544KLB", "Honda", "Civic", "Andres", "79076345T", 1300, 0));
+	
+	Response response = Mockito.mock(Response.class);
+	Mockito.when(response.getStatus()).thenReturn(200);
+	
+	Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->coches);
+	
+	when(cliente.filtrarCocheTaller(any(String.class))).thenReturn(response);
+	
+	List<CocheTaller> coches_result = mecanicoController.filtrarCocheTaller("filtro");
+	for(int i =0; i<coches.size(); i++) {
+		assertTrue(coches_result.get(i).getMatricula().equals(coches.get(i).getMatricula()));
+	}
+	
+	
+}
+	@Test
+	public void testTraducirEstado() {
+		assertEquals("Sin Empezar", mecanicoController.traducirEstado(0));
+		assertEquals("En proceso", mecanicoController.traducirEstado(1));
+		assertEquals("Terminado", mecanicoController.traducirEstado(2));
+	}
+	
+	@Test public void testParseFechaPresupuesto() {
+		Calendar c = Calendar.getInstance();
+		String fecha = c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR) + " - " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + " - Bilbao"; 
+		
+		assertEquals(fecha, mecanicoController.parseFechaPresupuesto());
+	}
+		
+
+
+}
 	
