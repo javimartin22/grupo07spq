@@ -22,8 +22,6 @@ public class Mecanico{
 	public Mecanico() {
 		
 	}
-	
-	
 
 	public Mecanico(String nickname, String contrasenia, int tipo, String dNI, String nombre, String apellido,
 			String sexo, String email, String ciudad, int codigoPostal, String direccion, String nSS,
