@@ -242,6 +242,7 @@ public class VentanasRegistroClientes extends JFrame {
 	
 	public void registrar(Cliente client) {
 		if (clienteController.registroCliente(client)) {
+			logger.info("Cliente registrado correctamente.");
 			VentanaMenuCliente vmc = new VentanaMenuCliente(client.getNickname(), clienteController);
         	vmc.setVisible(true);
         	dispose();
