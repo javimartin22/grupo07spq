@@ -24,7 +24,6 @@ public class VentanaDetallesCoche extends JFrame {
 	private ComercialController comercialController;
 	
 	public VentanaDetallesCoche(ComercialController comercialController, CocheConcesionario coche, String nickname) {
-		
 		setTitle("Informacion del Vehiculo");
 		this.comercialController = comercialController;
 		iniciarVentanaDetallesCoche(coche, nickname);

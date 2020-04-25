@@ -9,7 +9,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.ComercialController;
+import concesionario.cliente.ventana.cliente.VentanaVisualizarTarifas;
 import concesionario.datos.CocheConcesionario;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -26,6 +30,8 @@ public class VentanaCochesConcesionario extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private ComercialController comercialController;
+	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
+	static int iteration = 0;
 	
 	public VentanaCochesConcesionario(ComercialController comercialController, String nickname) {
 		setResizable(false);
@@ -148,13 +154,7 @@ public class VentanaCochesConcesionario extends JFrame {
 	public void cargarTabla(JTable table) {
 		List<CocheConcesionario> coches = comercialController.cargarTablaCochesConcesionario();
 		
-		String[] columnNames = {"MARCA",
-		        "MODELO",
-		        "PRECIO",
-		        "CV",
-		        "NUMPUERTAS",
-		        "COLOR",
-		        "UNIDADES"};
+		String[] columnNames = {"MARCA", "MODELO", "PRECIO", "CV", "NUMPUERTAS", "COLOR", "UNIDADES"};
 		
 		if (!coches.isEmpty()) {
 			 DefaultTableModel model = new DefaultTableModel();
@@ -173,13 +173,11 @@ public class VentanaCochesConcesionario extends JFrame {
 				   model.addRow(o);
 				 }
 		} else {
-			System.out.println("llega mal");
+			logger.error("No llegan correctamente los CocheConcesionario.");
 		}
 	}
 	
 	public void cargarTablaFiltros(JTable table, int tipo, String restriccion) {
-		
-		
 		String filtro = restriccion + "-" + tipo;
 		List<CocheConcesionario> coches = comercialController.filtrarCocheConcesionario(filtro);
 		
@@ -199,7 +197,7 @@ public class VentanaCochesConcesionario extends JFrame {
 				   model.addRow(o);
 				 }
 		} else {
-			System.out.println("llega mal");
+			logger.error("Fallo en el filtrado de los CocheConcesionario.");
 		}
 	}
 }

@@ -4,7 +4,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.ComercialController;
+import concesionario.cliente.ventana.cliente.VentanaVisualizarTarifas;
 import concesionario.datos.CocheConcesionario;
 
 import javax.swing.JButton;
@@ -30,6 +34,8 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 	private JTextField marca;
 	private JTextField precio;
 	private JTextField textField_1;
+	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
+	static int iteration = 0;
 
 	public VentanaRegistrarCocheConcesionario (ComercialController comercialController, String nickname) {
 		setTitle("Registro Coche Concesionario");
@@ -143,6 +149,7 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 					registrarCoche(coche, nickname);
 				} else {
 					JOptionPane.showMessageDialog(contentPane, "Todos los campos deben estar completos");
+					logger.error("Todos los campos deben estar correctamente rellenados", iteration++);
 				}
 				
 			}
@@ -154,12 +161,12 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 	
 	public void registrarCoche(CocheConcesionario coche, String nickname) {
 		if(comercialController.registrarCoche(coche)) {
-			JOptionPane.showMessageDialog(this, "Coche registrado");
+			logger.info("El vehiculo ha sido registrado correctamente.");
 			VentanaMenuComercial vmc = new VentanaMenuComercial(comercialController, nickname);
 			vmc.setVisible(true);
 			dispose();
 		} else {
-			JOptionPane.showMessageDialog(this, "ERROR al regristar el coche");
+			logger.error("Error al registrar el CocheConcesionario.");
 		}
 	}
 	

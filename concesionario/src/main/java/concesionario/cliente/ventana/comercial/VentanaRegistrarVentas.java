@@ -12,7 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.ComercialController;
+import concesionario.cliente.ventana.cliente.VentanaVisualizarTarifas;
 import concesionario.datos.Venta;
 
 import javax.swing.JLayeredPane;
@@ -30,18 +34,15 @@ public class VentanaRegistrarVentas extends JFrame {
 	private ComercialController comercialController;
 	private JTextField textField;
 	private JTextField textField_1;
+	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
+	static int iteration = 0;
 
 	public VentanaRegistrarVentas(ComercialController comercialController, String nickname) {
 		this.comercialController = comercialController;
 		iniciarVentanaAgregarVentas(nickname);
 	}
 
-
-	/**
-	 * Create the frame.
-	 */
 	public void iniciarVentanaAgregarVentas(String nickname) {
-
 		setResizable(false);
 		setTitle("Registro Ventas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,6 +97,7 @@ public class VentanaRegistrarVentas extends JFrame {
 					registrarDatos(venta);
 				} else {
 					JOptionPane.showMessageDialog(contentPane, "Debe rellenar todos los campos");
+					logger.error("Todos los campos deben de estar correctamente rellenados.", iteration++);
 				}
 			}
 		});
@@ -143,9 +145,9 @@ public class VentanaRegistrarVentas extends JFrame {
 
 	public void registrarDatos(Venta venta) {
 		if (comercialController.registrarVenta(venta)) {
-			JOptionPane.showMessageDialog(contentPane, "Venta registrada correctamente");
+			logger.info("Venta registrada correctamente.");
 		} else {
-			JOptionPane.showMessageDialog(contentPane, "Venta no regsitrada");
+			logger.error("La venta no se registro correctamente.");
 		}
 	}
 } 

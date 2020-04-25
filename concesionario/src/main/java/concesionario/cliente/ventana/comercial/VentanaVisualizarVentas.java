@@ -12,7 +12,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.ComercialController;
+import concesionario.cliente.ventana.cliente.VentanaVisualizarTarifas;
 import concesionario.datos.Venta;
 
 import javax.swing.JMenuBar;
@@ -21,25 +25,19 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 
 public class VentanaVisualizarVentas extends JFrame {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private ComercialController comercialController;
+	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
+	static int iteration = 0;
 	
 	public VentanaVisualizarVentas(ComercialController comercialController, String nickname) {
 		this.comercialController = comercialController;
 		iniciarVentanaVisualizarVentas(nickname);
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public void iniciarVentanaVisualizarVentas(String nickname) {
 		setResizable(false);
-
 		setAutoRequestFocus(false);
 		setBounds(100, 100, 1000, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,8 +109,6 @@ public class VentanaVisualizarVentas extends JFrame {
 		mnFiltro.add(mntmMarca);
 		mnFiltro.add(mntmModelo);
 		
-		
-		
 		JMenuItem mntmComercial = new JMenuItem("Comercial");
 		mntmComercial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -144,7 +140,7 @@ public class VentanaVisualizarVentas extends JFrame {
 				model.addRow(o);
 			}
 		} else {
-			System.out.println("llega mal");
+			logger.error("Las ventas no llegan correctamente.");
 		}
 	}
 	
@@ -152,12 +148,11 @@ public class VentanaVisualizarVentas extends JFrame {
 		List<Venta> ventas = new ArrayList<Venta>();
 		switch (tipo) {
 		case 0:
-			
-			
 			if(!comercialController.filtrarVentaMarca(restriccion).isEmpty()) {
 				ventas = comercialController.filtrarVentaMarca(restriccion);
 			}else {
 				JOptionPane.showMessageDialog(this, "No hay ninguna venta con esa marca.");
+				logger.info("No existe ningun venta con la marca: " + restriccion);
 			}
 			break;
 		case 1: 
@@ -165,6 +160,7 @@ public class VentanaVisualizarVentas extends JFrame {
 				ventas = comercialController.filtrarVentaModelo(restriccion);
 			}else {
 				JOptionPane.showMessageDialog(this, "No hay ninguna venta con este modelo.");
+				logger.info("No existe ninguna venta con el modelo:" + restriccion);
 			}
 			break;
 		case 2: 
@@ -172,6 +168,7 @@ public class VentanaVisualizarVentas extends JFrame {
 				ventas = comercialController.filtrarVentaComercial(restriccion);
 			}else {
 				JOptionPane.showMessageDialog(this, "No hay ninguna venta con este comercial.");
+				logger.info("No existe ninguna venta con realizada por el comercial: " + restriccion);
 			}
 			break;
 		}
@@ -192,6 +189,8 @@ public class VentanaVisualizarVentas extends JFrame {
 				o[5] = v.getNombreComprador();
 				model.addRow(o);
 			}
+		} else {
+			logger.error("Las ventas no llegan correctamente.");
 		}
 	}
 }
