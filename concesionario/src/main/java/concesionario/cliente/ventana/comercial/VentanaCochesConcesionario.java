@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import concesionario.cliente.controller.ComercialController;
-import concesionario.cliente.ventana.cliente.VentanaVisualizarTarifas;
 import concesionario.datos.CocheConcesionario;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -30,7 +29,7 @@ public class VentanaCochesConcesionario extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private ComercialController comercialController;
-	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
+	final Logger logger = LoggerFactory.getLogger(VentanaCochesConcesionario.class);
 	static int iteration = 0;
 	
 	public VentanaCochesConcesionario(ComercialController comercialController, String nickname) {

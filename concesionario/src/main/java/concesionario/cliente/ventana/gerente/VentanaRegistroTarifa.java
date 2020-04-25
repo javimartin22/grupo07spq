@@ -14,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Tarifa;
 
@@ -29,6 +32,8 @@ public class VentanaRegistroTarifa extends JFrame {
 	private JTextField textFieldPrecioAprox;
 	private JTextField textFieldHorasManoObra;
 	private GerenteController gerenteController;
+	final Logger logger = LoggerFactory.getLogger(VentanaRegistroTarifa.class);
+	static int iteration = 0;
 
 	public VentanaRegistroTarifa(GerenteController gerenteController, String nickname) {
 		this.gerenteController = gerenteController;
@@ -112,7 +117,7 @@ public class VentanaRegistroTarifa extends JFrame {
 					Tarifa tarifa = new Tarifa(idTarifa, nombre, precioAprox, horas_manodeobra);
 					registrarTarifa(tarifa, nickname);
 				} else {
-					JOptionPane.showMessageDialog(contentPane, "Todos los campos deben estar rellenados.");
+					logger.error("Todos los campos deben estar rellenados.");
 				}
 			}
 		});
@@ -137,6 +142,7 @@ public class VentanaRegistroTarifa extends JFrame {
 	
 	public void registrarTarifa(Tarifa tarifa, String nickname){
 		if (gerenteController.registroTarifa(tarifa)) {
+			logger.info("Tarifa registrada correctamente.");
 			int respuesta = JOptionPane.showConfirmDialog(this, "Tarifa Registrada ¿Desea registrar otra tarifa?");
 			switch (respuesta) {
 			case 0:
@@ -154,8 +160,7 @@ public class VentanaRegistroTarifa extends JFrame {
 				break;
 			}
 		} else {
-			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
-			dispose();
+			logger.error("Las tarifas no llegan correctamente.");
 		}
 	}
 	

@@ -6,6 +6,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.DepartmentoComprasController;
 import concesionario.datos.Pieza;
 
@@ -27,6 +30,8 @@ public class VentanaPiezasUtilizadas extends JFrame {
 	private JPanel contentPane;
 	private JTable tabla;
 	private DepartmentoComprasController departamentoComprasController;
+	final Logger logger = LoggerFactory.getLogger(VentanaPiezasUtilizadas.class);
+	static int iteration = 0;
 
 	public VentanaPiezasUtilizadas(DepartmentoComprasController departmentoComprasController, String nickname) {
 		setResizable(false);
@@ -114,7 +119,9 @@ public class VentanaPiezasUtilizadas extends JFrame {
 				String codigo = (String) tabla.getModel().getValueAt(tabla.getSelectedRow(), 0);
 				if (departamentoComprasController.seleccionarPiezaUtilizada(codigo) != null) {
 					anyadirUnidades(departamentoComprasController.seleccionarPiezaUtilizada(codigo));
+					logger.info("Unidades añdidas correctamente.");
 				} else {
+					logger.error("Fallo a la hora de añadir nuevas unidades.");
 					JOptionPane.showMessageDialog(contentPane, "La pieza seleccionada no existe.");;
 				} 
 			}
@@ -162,7 +169,7 @@ public class VentanaPiezasUtilizadas extends JFrame {
 				model.addRow(o);
 			}
 		} else {
-			System.out.println("llega mal");
+			logger.error("No hay piezas.");
 		}
 	}
 		
@@ -170,9 +177,10 @@ public class VentanaPiezasUtilizadas extends JFrame {
 		String u = JOptionPane.showInputDialog("¿Cuantas unidades desea suministrar?");
 		int unidades = Integer.parseInt(u);
 		if (departamentoComprasController.registroPiezaUtilizada(pieza, unidades)) {
+			logger.info("Unidades añadidas correctamente.");
 			JOptionPane.showMessageDialog(contentPane, "Unidades anyadidas correctamente");
 		} else {
-			JOptionPane.showMessageDialog(contentPane, "Error al anyadir unidades.");
+			logger.error("No se han añadido correctamente las unidades.");
 		}
 	}
 		
@@ -194,7 +202,7 @@ public class VentanaPiezasUtilizadas extends JFrame {
 				model.addRow(o);
 			}
 		} else {
-			System.out.println("llega mal");
+			logger.error("No hay piezas utilizadas.");
 		}
 	}
 	
@@ -220,7 +228,7 @@ public class VentanaPiezasUtilizadas extends JFrame {
 				model.addRow(o);
 			}
 		} else {
-			System.out.println("llega mal");
+			logger.error("No hay piezas utilizadas con ese filtro.");
 		}
 	}
 	

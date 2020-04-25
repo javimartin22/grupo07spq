@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.DepartmentoComprasController;
 import concesionario.datos.Pieza;
 
@@ -27,6 +30,8 @@ public class VentanaRegistoPiezas extends JFrame {
 	private JComboBox comboBox;
 	private JSpinner spinner;
 	private DepartmentoComprasController departmentoComprasController;
+	final Logger logger = LoggerFactory.getLogger(VentanaRegistoPiezas.class);
+	static int iteration = 0;
 	
 	public VentanaRegistoPiezas(DepartmentoComprasController departamentoComprasController, String nickname){
 		this.departmentoComprasController = departamentoComprasController;
@@ -142,9 +147,9 @@ public class VentanaRegistoPiezas extends JFrame {
 	private void registrarBD(Pieza pieza) {
 		
 		if (departmentoComprasController.registroPieza(pieza)) {
-			JOptionPane.showMessageDialog(contentPane, "Unidades anyadidas correctamente");
+			logger.info("Pieza añadida correctamente.");
 		} else {
-			JOptionPane.showMessageDialog(contentPane, "Error al anyadir unidades.");
+			logger.error("Error al guardar la pieza en la BD.");
 		}
 	}
 	

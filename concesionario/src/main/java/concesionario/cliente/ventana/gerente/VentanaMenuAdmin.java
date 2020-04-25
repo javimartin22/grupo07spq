@@ -12,11 +12,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
-import concesionario.cliente.controller.MecanicoController;
 import concesionario.cliente.controller.GerenteController;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
-import concesionario.datos.Venta;
 
 public class VentanaMenuAdmin extends JFrame {
 
@@ -62,6 +60,8 @@ public class VentanaMenuAdmin extends JFrame {
 						dispose();
 					} else if (respuesta.equals("DC") || respuesta.equals("dc") || respuesta.equals("Dc") || respuesta.equals("dC")){
 						VentanaRegistroComercial vrc = new VentanaRegistroComercial(gerenteController, nickname);
+						vrc.setVisible(true);
+						dispose();
 					} else {
 						JOptionPane.showMessageDialog(panel, "Caracter no valido");
 					}

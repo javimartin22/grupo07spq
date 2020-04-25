@@ -16,6 +16,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Mecanico;
 
@@ -41,6 +44,8 @@ public class VentanaRegistroMecanico extends JFrame {
 	private JTextField textFieldCuenta;
 	private JTextField textFieldSueldo;
 	private GerenteController gerenteController;
+	final Logger logger = LoggerFactory.getLogger(VentanaRegistroMecanico.class);
+	static int iteration = 0;
 
 	public VentanaRegistroMecanico(GerenteController gerenteController, String nickname) {
 		this.gerenteController = gerenteController;
@@ -96,7 +101,6 @@ public class VentanaRegistroMecanico extends JFrame {
 				VentanaEmpleados ventana = new VentanaEmpleados(gerenteController, nickname);
 				ventana.setVisible(true);
 				dispose();
-				
 			}
 		});
 		btnCancelar.setBounds(109, 638, 117, 29);
@@ -279,6 +283,7 @@ public class VentanaRegistroMecanico extends JFrame {
 	
 	public void registrarMecanico(Mecanico mecanic, String nickname){
 		if (gerenteController.registroMecanico(mecanic)) {
+			logger.info("Mecanico registrado correctamente.");
 			int respuesta = JOptionPane.showConfirmDialog(this, "Mecanico Registrado ¿Desea registrar otro mecanico?");
 			switch (respuesta) {
 			case 0:
@@ -296,7 +301,7 @@ public class VentanaRegistroMecanico extends JFrame {
 				break;
 			}
 		} else {
-			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
+			logger.error("Fallo a la hora de registrar.");
 		}
 	}
 }

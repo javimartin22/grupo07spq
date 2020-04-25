@@ -33,7 +33,7 @@ public class VentanaVisualizarCatalogo extends JFrame {
 	private JPanel contentPane;
 	private ClienteController clienteController;
 	private JTable table;
-	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
+	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarCatalogo.class);
 	static int iteration = 0;
 
 	public VentanaVisualizarCatalogo(ClienteController clienteController, String nickname) {

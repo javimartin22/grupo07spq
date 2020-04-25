@@ -4,8 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Tarifa;
@@ -28,6 +29,8 @@ public class VentanaVeryEditarTarifas extends JFrame {
 	private GerenteController gerenteController;
 	private JTable table;
 	private DefaultTableModel model;
+	final Logger logger = LoggerFactory.getLogger(VentanaVeryEditarTarifas.class);
+	static int iteration = 0;
 
 	public VentanaVeryEditarTarifas(GerenteController gerenteController, String nickname) {
 		setResizable(false);
@@ -53,7 +56,6 @@ public class VentanaVeryEditarTarifas extends JFrame {
 		
 		table = new JTable() {
 			   private static final long serialVersionUID = 1L;
-
 		       public boolean isCellEditable(int row, int column) {                
 		    	   if(column == 0) {
 		    		   return false;
@@ -87,10 +89,11 @@ public class VentanaVeryEditarTarifas extends JFrame {
 					//Eliminar tarifa previa (No se puede modificar el ID, esta bloqueado)
 					if (gerenteController.eliminarTarifa(idTarifa)) {
 						if(gerenteController.registroTarifa(editada)) {
+							logger.info("Tarifa editada correctamente.");
 							JOptionPane.showMessageDialog(null, "Tarifa editada correctamente");
 						}
 					}else {
-						JOptionPane.showMessageDialog(contentPane, "Ha habido un error al editar la tarifa");
+						logger.error("Ha habido un error al editar la tarifa");
 					}
 			}
 		});
@@ -127,7 +130,7 @@ public class VentanaVeryEditarTarifas extends JFrame {
 				   model.addRow(o);
 				 }
 		} else {
-			System.out.println("Llegan  mal las tarifas");
+			logger.error("Llegan  mal las tarifas");
 		}
 	}
 }

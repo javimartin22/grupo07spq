@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Comercial;
 
@@ -39,6 +42,8 @@ public class VentanaRegistroComercial extends JFrame {
 	private JTextField textFieldCuenta;
 	private JTextField textFieldSueldo;
 	private GerenteController gerenteController;
+	final Logger logger = LoggerFactory.getLogger(VentanaRegistroComercial.class);
+	static int iteration = 0;
 
 	public VentanaRegistroComercial(GerenteController gerenteController, String nickname) {
 		this.gerenteController = gerenteController;
@@ -257,6 +262,7 @@ public class VentanaRegistroComercial extends JFrame {
 	
 	public void registrarComercial(Comercial comercial, String nickname){
 		if (gerenteController.registroComercial(comercial)) {
+			logger.info("Comercial registrado.");
 			int respuesta = JOptionPane.showConfirmDialog(this, "Comercial Registrado ¿Desea registrar otro comercial?");
 			switch (respuesta) {
 			case 0:
@@ -274,7 +280,7 @@ public class VentanaRegistroComercial extends JFrame {
 				break;
 			}
 		} else {
-			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
+			logger.error("Fallo a la hora de registrar.");
 		}
 	}
 	

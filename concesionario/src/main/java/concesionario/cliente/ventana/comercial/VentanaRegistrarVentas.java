@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import concesionario.cliente.controller.ComercialController;
-import concesionario.cliente.ventana.cliente.VentanaVisualizarTarifas;
 import concesionario.datos.Venta;
 
 import javax.swing.JLayeredPane;
@@ -34,7 +33,7 @@ public class VentanaRegistrarVentas extends JFrame {
 	private ComercialController comercialController;
 	private JTextField textField;
 	private JTextField textField_1;
-	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
+	final Logger logger = LoggerFactory.getLogger(VentanaRegistrarVentas.class);
 	static int iteration = 0;
 
 	public VentanaRegistrarVentas(ComercialController comercialController, String nickname) {

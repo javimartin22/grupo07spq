@@ -15,10 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import concesionario.cliente.controller.MecanicoController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.DepartamentoCompras;
 
@@ -44,6 +44,8 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 	private JTextField textFieldCuenta;
 	private JTextField textFieldSueldo;
 	private GerenteController gerenteController;
+	final Logger logger = LoggerFactory.getLogger(VentanaRegistroDepartamentoCompras.class);
+	static int iteration = 0;
 
 	public VentanaRegistroDepartamentoCompras(GerenteController gerenteController, String nickname) {
 		this.gerenteController = gerenteController;
@@ -91,15 +93,12 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 		lblSexo.setBounds(53, 173, 150, 16);
 		contentPane.add(lblSexo);
 		
-		
-		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VentanaEmpleados ventana = new VentanaEmpleados(gerenteController, nickname);
 				ventana.setVisible(true);
 				dispose();
-				
 			}
 		});
 		btnCancelar.setBounds(109, 638, 117, 29);
@@ -226,7 +225,6 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 					String sexo = gerenteController.comprobarSexo(tipo);
 					DepartamentoCompras dep = new DepartamentoCompras(nickname, contrasenia, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, dir, nss, numeroCuenta, sueldo, numTelefono, 2);
 					registrarDepartamentoCompras(dep, nickname);
-					
 				} else {
 					JOptionPane.showMessageDialog(contentPane, "Todos los campos deben estar rellenados.");
 				}
@@ -263,6 +261,7 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 	
 	public void registrarDepartamentoCompras(DepartamentoCompras dep, String nickname) {
 		if (gerenteController.registroDepartamentoCompras(dep)) {
+			logger.info("Empleado Departamento Compras registrado.");
 			int respuesta = JOptionPane.showConfirmDialog(this, "Departamento Comercial Registrado ¿Desea registrar otro mecanico?");
 			switch (respuesta) {
 			case 0:
@@ -280,7 +279,7 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 				break;
 			}
 		} else {
-			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
+			logger.error("Fallo a la hora de registrar el empleado Departamento Compras.");
 		}
 	}
 	

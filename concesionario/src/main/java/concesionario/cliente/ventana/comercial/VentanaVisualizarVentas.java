@@ -28,7 +28,7 @@ public class VentanaVisualizarVentas extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private ComercialController comercialController;
-	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
+	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarVentas.class);
 	static int iteration = 0;
 	
 	public VentanaVisualizarVentas(ComercialController comercialController, String nickname) {

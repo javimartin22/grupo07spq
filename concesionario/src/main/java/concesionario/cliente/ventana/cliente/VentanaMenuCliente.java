@@ -28,7 +28,7 @@ public class VentanaMenuCliente extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JButton buttonSalir;
-	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
+	final Logger logger = LoggerFactory.getLogger(VentanaMenuCliente.class);
 	static int iteration = 0;
 	private ClienteController clienteController;
 	

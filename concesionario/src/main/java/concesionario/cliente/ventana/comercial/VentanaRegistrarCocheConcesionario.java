@@ -34,7 +34,7 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 	private JTextField marca;
 	private JTextField precio;
 	private JTextField textField_1;
-	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
+	final Logger logger = LoggerFactory.getLogger(VentanaRegistrarCocheConcesionario.class);
 	static int iteration = 0;
 
 	public VentanaRegistrarCocheConcesionario (ComercialController comercialController, String nickname) {

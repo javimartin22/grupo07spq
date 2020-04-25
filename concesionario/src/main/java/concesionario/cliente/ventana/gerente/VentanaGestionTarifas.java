@@ -11,12 +11,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.GerenteController;
 
 public class VentanaGestionTarifas extends JFrame {
-
 	private GerenteController gerenteController;
 	private static final long serialVersionUID = 1L;
+	final Logger logger = LoggerFactory.getLogger(VentanaGestionTarifas.class);
+	static int iteration = 0;
 	
 	public VentanaGestionTarifas(GerenteController gerenteController, String nickname) {
 		this.gerenteController = gerenteController;   //errores

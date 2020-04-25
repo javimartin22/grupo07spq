@@ -6,14 +6,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import concesionario.cliente.controller.GerenteController;
-import concesionario.datos.Comercial;
-import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
-import concesionario.datos.Mecanico;
 
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -29,6 +27,8 @@ public class VentanaEmpleados extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private GerenteController gerenteController;
+	final Logger logger = LoggerFactory.getLogger(VentanaEmpleados.class);
+	static int iteration = 0;
 	
 	public VentanaEmpleados(GerenteController gerenteController, String nickname){
 		this.gerenteController = gerenteController;
@@ -133,7 +133,7 @@ public class VentanaEmpleados extends JFrame {
 				   model.addRow(o);
 				 }
 		} else {
-			JOptionPane.showMessageDialog(this, "No hay ningun empleado.");
+			logger.error("No hay ningun empleado.");
 		}
 	}
 		
@@ -165,7 +165,7 @@ public class VentanaEmpleados extends JFrame {
 				vim.setVisible(true);
 				dispose();
 			} else {
-				JOptionPane.showMessageDialog(this, "El mecanico seleccionado no existe.");
+				logger.error("El mecanico seleccionado no existe.");
 			}
 			break;
 		case "Comercial":
@@ -174,7 +174,7 @@ public class VentanaEmpleados extends JFrame {
 				vic.setVisible(true);
 				dispose();
 			} else {
-				JOptionPane.showMessageDialog(this, "El comercial seleccionado no existe.");
+				logger.error("El comercial seleccionado no existe.");
 			}
 			break;
 		case "Departamento Compras":
@@ -183,7 +183,7 @@ public class VentanaEmpleados extends JFrame {
 				vidc.setVisible(true);
 				dispose();
 			} else {
-				JOptionPane.showMessageDialog(this, "El comercial seleccionado no existe.");
+				logger.error("El comercial seleccionado no existe.");
 			}
 			break;
 		}
@@ -195,21 +195,21 @@ public class VentanaEmpleados extends JFrame {
 			if (gerenteController.eliminarMecanico(nombre)) {
 				JOptionPane.showMessageDialog(this, "Mecanico elimindado");
 			} else {
-				JOptionPane.showMessageDialog(this, "El mecanico seleccionado no existe.");
+				logger.error("El mecanico seleccionado no existe.");
 			}
 			break;
 		case "Comercial":
 			if (gerenteController.eliminarComercial(nombre)) {
 				JOptionPane.showMessageDialog(this, "Comercial elimindado");
 			} else {
-				JOptionPane.showMessageDialog(this, "El comercial seleccionado no existe.");
+				logger.error("El comercial seleccionado no existe.");
 			}
 			break;
 		case "Departamento Compras":
 			if (gerenteController.eliminarDepartamentoCompras(nombre)) {
 				JOptionPane.showMessageDialog(this, "Departamento Compras elimindado");
 			} else {
-				JOptionPane.showMessageDialog(this, "El empleado del Departameto de Compras seleccionado no existe.");
+				logger.error("El empleado del Departameto de Compras seleccionado no existe.");
 			}
 			break;
 		}
