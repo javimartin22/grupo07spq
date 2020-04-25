@@ -57,7 +57,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		anadirPieza.setBounds(124, 71, 201, 23);
+		anadirPieza.setBounds(124, 74, 201, 23);
 		panel.add(anadirPieza);
 		
 		//boton para poder ver el historial de los vehiculos que han pasado por el taller 
@@ -70,7 +70,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		verHistoial.setBounds(124, 203, 201, 23);
+		verHistoial.setBounds(124, 176, 201, 23);
 		panel.add(verHistoial);
 		
 		//boton para poder registrar los vehiculos que pasan por el taller
@@ -82,7 +82,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		registarVehiculo.setBounds(124, 110, 201, 23);
+		registarVehiculo.setBounds(124, 108, 201, 23);
 		panel.add(registarVehiculo);
 		
 		//boton de salir que te lleva a la ventana de VentanaLogin donde se inicia la sesion
@@ -107,7 +107,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		btnVerCochesTaller.setBounds(124, 157, 201, 23);
+		btnVerCochesTaller.setBounds(124, 142, 201, 23);
 		panel.add(btnVerCochesTaller);
 		
 		JButton verHistoial_1 = new JButton("Visualizar Presupuesto");
@@ -118,7 +118,18 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		verHistoial_1.setBounds(124, 246, 201, 23);
+		verHistoial_1.setBounds(124, 210, 201, 23);
 		panel.add(verHistoial_1);
+		
+		JButton verHistoial_1_1 = new JButton("Visualizar Fidelidad");
+		verHistoial_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaVisualizarFidelidad vvf = new VentanaVisualizarFidelidad(mecanicoController, nickname);
+				vvf.setVisible(true);
+				dispose();
+			}
+		});
+		verHistoial_1_1.setBounds(124, 244, 201, 23);
+		panel.add(verHistoial_1_1);
 	}
 }
