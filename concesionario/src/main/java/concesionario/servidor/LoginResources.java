@@ -1433,6 +1433,33 @@ public class LoginResources {
 		}
 	}
 	
+	@GET
+	@Path("loadClientesFidelidadTable")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ClienteFidelidad> cargarTablaClienteFidelidad()throws SQLException {
+		System.out.println("Llega al server");
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.fidelidadSelect(st);
+		List<ClienteFidelidad> clientes = new ArrayList<ClienteFidelidad>();
+		
+		if (rs == null) {
+			System.out.println("No hay empleados bd");
+		} else {
+			while(rs.next()) {
+				//Obtener atributos rs
+				String dni = rs.getString("dniCliente");
+				int fidelidad = rs.getInt("fidelidad");
+				ClienteFidelidad cliente = new ClienteFidelidad(dni, fidelidad);
+				clientes.add(cliente);
+			}
+		}
+		System.out.println(clientes.size());
+		System.out.println("Regresa");
+		return clientes;
+	}
+	
 	@DELETE
 	@Path("{code}")
 	public Response deleteUser (@PathParam("code") int codigo) {

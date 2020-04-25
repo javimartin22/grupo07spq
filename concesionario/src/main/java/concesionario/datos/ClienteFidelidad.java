@@ -1,29 +1,29 @@
 package concesionario.datos;
 
-public class ClienteFidelidad extends Cliente {
+public class ClienteFidelidad  {
 
+	private String dni;
 	private int fidelidad;
+	
+	public ClienteFidelidad() {
+	}
 
-	public ClienteFidelidad(String dni, String nickname, int tipo, String contrasenya, String nombre, String apellido,
-			String sexo, String email, String ciudad, int codigoPostal, String direccion, String numeroTelefono,
-			int fidelidad) {
-		super(dni, nickname, tipo, contrasenya, nombre, apellido, sexo, email, ciudad, codigoPostal, direccion,
-				numeroTelefono);
+	public ClienteFidelidad(String dni, int fidelidad) {
+		this.dni = dni;
 		this.fidelidad = fidelidad;
 	}
 	
-	public ClienteFidelidad() {
-		
+	public String getDni() {
+		return dni;
 	}
-
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
 	public int getFidelidad() {
 		return fidelidad;
 	}
-
 	public void setFidelidad(int fidelidad) {
 		this.fidelidad = fidelidad;
-	}
-	
-	
+	}	
 	
 }
