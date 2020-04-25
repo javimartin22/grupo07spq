@@ -1,4 +1,4 @@
-//package concesionario.cliente.ventana.departamentoCompras;
+//package DepCompras;
 //
 //
 //import java.awt.EventQueue;
@@ -58,7 +58,7 @@
 //		setResizable(false);
 //		setTitle("Comprar piezas");
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		setBounds(100, 100, 392, 282);
+//		setBounds(100, 100, 395, 345);
 //		JMenuBar menuBar = new JMenuBar();
 //		setJMenuBar(menuBar);
 //		
@@ -75,20 +75,8 @@
 //		lblNewLabel.setBounds(22, 20, 426, 16);
 //		contentPane.add(lblNewLabel);
 //		
-//		
-//		
-//		
-//		JButton btnComprar = new JButton("Comprar");
-//		btnComprar.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				JOptionPane.showMessageDialog(null, "Compra realizada");
-//			}
-//		});
-//		btnComprar.setBounds(155, 191, 117, 29);
-//		contentPane.add(btnComprar);
-//		
 //		JButton btnCancelar = new JButton("Cancelar");
-//		btnCancelar.setBounds(269, 191, 117, 29);
+//		btnCancelar.setBounds(269, 266, 117, 29);
 //		contentPane.add(btnCancelar);
 //		
 //		JLabel lblProveedor = new JLabel("Proveedor");
@@ -102,27 +90,10 @@
 //		proveedores.add("BREMBO");
 //		proveedores.add("CONTITECH");
 //		
-//		
-//
-//		
-//		
 //		JComboBox comboBoxProveedor = new JComboBox();
 //		for (String pr : proveedores) {
 //			comboBoxProveedor.addItem(pr.toString());
 //		}
-//		
-////		ArrayList<String> tipos = new ArrayList<>();
-////		tipos.add("Frenos");
-////		tipos.add("Filtros");
-////		tipos.add("Motor");
-////		tipos.add("Amortiguacion");
-////		tipos.add("Aceites y liquidos");
-////		tipos.add("Suspension y brazos");
-////		tipos.add("Carroceria");
-////		tipos.add("Direccion");
-////		tipos.add("Sistema electrico");
-////		tipos.add("Limpieza de cristales");
-//		
 //	
 //		ArrayList<String> tiposBosch = new ArrayList<>();
 //		tiposBosch.add("Frenos");
@@ -223,7 +194,7 @@
 //						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Pastillas de Freno", "Discos de freno", "Kit reparacion frenos"}));
 //						}
 //					});
-//					
+//										
 //					
 //					JMenuItem mntmFiltros= new JMenuItem("Filtros");
 //					mnFiltrar.add(mntmFiltros);
@@ -337,7 +308,7 @@
 //		
 //
 //		JButton btnInfo = new JButton("Ver informacion");
-//		btnInfo.setBounds(22, 191, 135, 29);
+//		btnInfo.setBounds(23, 266, 135, 29);
 //		contentPane.add(btnInfo);
 //		btnInfo.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
@@ -381,6 +352,55 @@
 //		btnVerPiezas.setBounds(269, 63, 117, 29);
 //		contentPane.add(btnVerPiezas);
 //		
+//		/*
+//		 * Comprobamos compra
+//		 */
+//		JButton btnComprar = new JButton("Comprar");
+//		btnComprar.setEnabled(false);
+//		btnComprar.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				
+//				if(textFieldUnidades.getText().isEmpty() || comboBoxPieza.getSelectedItem()==null) {
+//					JOptionPane.showMessageDialog(null, "Error , rellene todos los campos.");
+//				}
+//				else {
+//					JOptionPane.showMessageDialog(null, "Compra realizada");
+//				}
+//				
+//			}
+//		});
+//		btnComprar.setBounds(155, 266, 117, 29);
+//		contentPane.add(btnComprar);
+//		
+//		JLabel lblPrecioTotal = new JLabel("Precio");
+//		lblPrecioTotal.setBounds(22, 219, 81, 16);
+//		contentPane.add(lblPrecioTotal);
+//		
+//		JLabel lblPrecio = new JLabel("");
+//		lblPrecio.setBounds(106, 219, 177, 16);
+//		contentPane.add(lblPrecio);
+//		
+//		JButton btnVerPrecio = new JButton("Ver precio");
+//		btnVerPrecio.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				if(textFieldUnidades.getText().isEmpty()) {
+//					JOptionPane.showMessageDialog(null, "Error, rellene todos los campos.");
+//				}
+//				else {
+//					btnComprar.setEnabled(true);
+//				}
+//				String unidades  = textFieldUnidades.getText();
+//				int uds = Integer.parseInt(unidades);
+//				String piezas = comboBoxPieza.getSelectedItem().toString();
+//				
+//				int precio = calcularPrecio(piezas,uds);
+//				String precioFinal = String.valueOf(precio);
+//				
+//				lblPrecio.setText(precioFinal +" €");
+//			}
+//		});
+//		btnVerPrecio.setBounds(269, 214, 117, 29);
+//		contentPane.add(btnVerPrecio);
 //	
 //		
 //		
@@ -390,8 +410,156 @@
 //				
 //			}
 //	
-//	
-//	
+//	private static int calcularPrecio (String piezas, int unidades) {
+//		int precio = 0;
+//		int precioPorUnidad;
+//		if(piezas.equals("Pastillas de freno")) {
+//			precioPorUnidad =  15;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Discos de freno")) {
+//			precioPorUnidad =  9;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Kit reparacion frenos")) {
+//			precioPorUnidad =  6;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Filtro de aceite")) {
+//			precioPorUnidad =  4;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Filtro de aire")) {
+//			precioPorUnidad =  6;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Filtro de combustible")) {
+//			precioPorUnidad =  8;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Taco de motor")) {
+//			precioPorUnidad =  28;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Polea polv")) {
+//			precioPorUnidad =  39;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Tapon de carter")) {
+//			precioPorUnidad =  2;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		if(piezas.equals("Amortiguadores")) {
+//			precioPorUnidad =  28;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Copela")) {
+//			precioPorUnidad =  10;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Guardapolvos")) {
+//			precioPorUnidad =  9;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		if(piezas.equals("Aceite de motor")) {
+//			precioPorUnidad =  5;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Aceite de transmision")) {
+//			precioPorUnidad =  9;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Liquido de frenos")) {
+//			precioPorUnidad =  2;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		if(piezas.equals("Buje de rueda")) {
+//			precioPorUnidad =  24;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Silentblock")) {
+//			precioPorUnidad =  2;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Bieletas")) {
+//			precioPorUnidad =  8;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		if(piezas.equals("Amortiguadores maletero")) {
+//			precioPorUnidad =  6;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Retrovisor")) {
+//			precioPorUnidad =  21;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Piloto trasero")) {
+//			precioPorUnidad =  27;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		if(piezas.equals("Rotula")) {
+//			precioPorUnidad =  8;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Rotula axial")) {
+//			precioPorUnidad =  10;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Barra")) {
+//			precioPorUnidad =  6;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		if(piezas.equals("Alternador")) {
+//			precioPorUnidad =  30;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Motor de arranque")) {
+//			precioPorUnidad =  80;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Regulador del alternador")) {
+//			precioPorUnidad =  18;
+//			precio = precioPorUnidad * unidades;
+//		}
+//				
+//		if(piezas.equals("Escobillas")) {
+//			precioPorUnidad =  2;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Bomba")) {
+//			precioPorUnidad =  3;
+//			precio = precioPorUnidad * unidades;
+//		}
+//		
+//		if(piezas.equals("Detergente")) {
+//			precioPorUnidad =  2;
+//			precio = precioPorUnidad * unidades;
+//		}
+//
+//		
+//		return precio;
+//	}
 //	}
 //
 //
