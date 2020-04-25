@@ -10,6 +10,8 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import concesionario.cliente.controller.MecanicoController;
 import concesionario.datos.Presupuesto;
@@ -33,6 +35,8 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 	private JPanel contentPane;
 	private MecanicoController mecanicoController;
 	private JTable table;
+	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarPresupuestos.class);
+	static int iteration = 0;
 	
 	public VentanaVisualizarPresupuestos(MecanicoController controller, String nickname) {
 		this.mecanicoController = controller;
@@ -95,8 +99,9 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 				try {
 					if (mecanicoController.seleccionarPresupuesto(codigo) != null) {
 						generarDoc(mecanicoController.seleccionarPresupuesto(codigo));
+						logger.info("Creado presupuesto en documento.");
 					} else {
-						System.out.println("fallo");
+						logger.error("Error al crear documento del presupuesto.");
 					}
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
@@ -170,7 +175,7 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 				model.addRow(o);
 			}
 		} else {
-			JOptionPane.showMessageDialog(contentPane, "No hay ningun presupuesto disponible.");
+			logger.error("No llegan correctamente los Presupuestos.");
 		}
 	}
 	
@@ -180,7 +185,7 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 			vip.setVisible(true);
 			dispose();
 		} else {
-			JOptionPane.showMessageDialog(contentPane, "Error");
+			logger.error("No llega correctamente el presupuesto.");
 		}
 	}
 	
@@ -323,6 +328,7 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 			 contentStream.close();
 			 
 			 document.save("Presupuestos/Presupusto-" + presupuesto.getCodigo() + ".pdf");
+			 logger.info("DocumentoCreado");
 		 }
 	}
 	
@@ -335,21 +341,21 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 			if(!mecanicoController.filtrarPresupuestoCodigo(restriccion).isEmpty()) {
 				presupuestos = mecanicoController.filtrarPresupuestoCodigo(restriccion);
 			}else {
-				JOptionPane.showMessageDialog(this, "No hay ningun con ese codigo.");
+				logger.error("No hay ningun con ese codigo.");
 			}
 			break;
 		case 1:
 			if(!mecanicoController.filtrarPresupuestoCliente(restriccion).isEmpty()) {
 				presupuestos = mecanicoController.filtrarPresupuestoCliente(restriccion);
 			}else {
-				JOptionPane.showMessageDialog(this, "No hay ningun presupuesto para ese cliente.");
+				logger.error("No hay ningun presupuesto para ese cliente.");
 			}
 			break;
 		case 2:
 			if(!mecanicoController.filtrarPresupuestoProblema(restriccion).isEmpty()) {
 				presupuestos = mecanicoController.filtrarPresupuestoProblema(restriccion);
 			}else {
-				JOptionPane.showMessageDialog(this, "No hay ningun presupuesto con ese problema.");
+				logger.error("No hay ningun presupuesto con ese problema.");
 			}
 			break;
 		}
@@ -372,7 +378,7 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 				model.addRow(o);
 			}
 		} else {
-			JOptionPane.showMessageDialog(contentPane, "No hay ningun presupuesto con ese filtro");
+			logger.error("No hay ningun presupuesto con ese filtro");
 		}
 	}
 }

@@ -16,6 +16,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.Font;
 import java.awt.Color;
 
@@ -27,10 +30,13 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private MecanicoController mecanicoController;
+	final Logger logger = LoggerFactory.getLogger(VentanaCochesMatriculadosMecanico.class);
+	static int iteration = 0;
 	
 	public VentanaCochesMatriculadosMecanico(MecanicoController loginController, String nickname) {
 		setResizable(false);
 		this.mecanicoController = loginController;
+		
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -139,7 +145,7 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 				   model.addRow(o);
 				 }
 		} else {
-			System.out.println("llega mal");
+			logger.error("No llega correctamente el CocheMatriculado.");
 		}
 	}
 	
@@ -168,7 +174,7 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 				   model.addRow(o);
 				 }
 		} else {
-			System.out.println("llega mal");
+			logger.error("No llega correctamente el CocheMatriculado con este filtrado.");
 		}
 	}
 }

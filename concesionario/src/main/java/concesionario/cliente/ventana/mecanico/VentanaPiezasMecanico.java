@@ -5,6 +5,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.MecanicoController;
 import concesionario.datos.Pieza;
 
@@ -28,6 +31,8 @@ public class VentanaPiezasMecanico extends JFrame {
 	private JPanel contentPane;
 	private JTable tabla;
 	private MecanicoController mecanicoController;
+	final Logger logger = LoggerFactory.getLogger(VentanaPiezasMecanico.class);
+	static int iteration = 0;
 	
 	public VentanaPiezasMecanico(MecanicoController mecanicoController, String nickname) {
 		setResizable(false);
@@ -128,7 +133,7 @@ public class VentanaPiezasMecanico extends JFrame {
 					   model.addRow(o);
 					 }
 			} else {
-				System.out.println("llega mal");
+				logger.error("No llegan correctamente las piezas.");
 			}
 		}
 		
@@ -152,7 +157,7 @@ public class VentanaPiezasMecanico extends JFrame {
 				model.addRow(o);
 			}
 		} else {
-			System.out.println("llega mal");
+			logger.error("No llegan correctamente las piezas con este filtro.");
 		}
 	}
 }

@@ -5,6 +5,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.MecanicoController;
 import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.Presupuesto;
@@ -29,6 +32,8 @@ public class VentanaRegistroPresupuesto extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
+	final Logger logger = LoggerFactory.getLogger(VentanaRegistroPresupuesto.class);
+	static int iteration = 0;
 	
 	public VentanaRegistroPresupuesto(MecanicoController mecanicoController, String nickname, int precio) {
 		setResizable(false);
@@ -166,9 +171,9 @@ public class VentanaRegistroPresupuesto extends JFrame {
 	
 	public void registroPresupuesto(Presupuesto presupuesto) {
 		if (mecanicoController.registroPresupuesto(presupuesto)) {
-			JOptionPane.showMessageDialog(contentPane, "Presupuesto registrado correctamente");
+			logger.info("El presupuesto se ha registrado correctamente.");
 		} else {
-			JOptionPane.showMessageDialog(contentPane, "Presupuesto no regsitrada");
+			logger.error("El presupuesto no se ha registrado correctamente.");
 		}
 	}
 	

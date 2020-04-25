@@ -21,7 +21,7 @@ public class VentanaInformacionPresupuesto extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private MecanicoController mecanicoController;
-	
+
 	public VentanaInformacionPresupuesto(MecanicoController mecanicoController, String nickname, Presupuesto presupuesto) {
 		setResizable(false);
 		this.mecanicoController = mecanicoController;

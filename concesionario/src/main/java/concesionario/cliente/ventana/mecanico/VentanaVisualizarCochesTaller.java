@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.MecanicoController;
 import concesionario.datos.CocheTaller;
 
@@ -28,7 +31,8 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 	private JPanel contentPane;
 	private MecanicoController mecanicoController;
 	private JTable table_1;
-	
+	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarCochesTaller.class);
+	static int iteration = 0;
 	
 	public VentanaVisualizarCochesTaller(MecanicoController mecanicoController, String nickname){
 		setTitle("Coches Taller");
@@ -187,15 +191,16 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 				   model.addRow(o);
 				 }
 		} else {
-			System.out.println("llega mal");
+			logger.error("No llegan correctamente los CocheTaller");
 		}
 	}
 	
 	public void eliminarCocheTaller(String matricula) {
 		if (mecanicoController.deleteCocheTaller(matricula)) {
 			JOptionPane.showMessageDialog(contentPane, "El coche ha salido del taller.");
+			logger.info("El coche ha salido del taller.");
 		} else {
-			JOptionPane.showMessageDialog(contentPane, "Fallo al eliminar el vehiculo");
+			logger.error("Error al eliminar el CocheTaller");
 		}
 	}
 	
@@ -206,12 +211,12 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 		if (coche != null) {
 			int estado = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el estado del vehiculo (0: sin comenzar; 1: en proceso; 2: terminado)"));
 			if (mecanicoController.cambiarEstadoCocheTaller(coche, estado)) {
-				JOptionPane.showMessageDialog(contentPane, "El estado ha sido modificado.");
+				logger.info("El estado ha sido modificado.");
 			} else {
-				JOptionPane.showMessageDialog(contentPane, "Error a la hora de moficicar el estado.");
+				logger.error("Error a la hora de moficicar el estado.");
 			}
 		} else {
-			JOptionPane.showMessageDialog(contentPane, "El coche seleccionado no existe.");
+			logger.error("El coche seleccionado no existe.");
 		}
 	}
 	
@@ -238,7 +243,7 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 				   model.addRow(o);
 				 }
 		} else {
-			JOptionPane.showMessageDialog(this, "No se dispone ningun vehiculo con ese filtrado.");
+			logger.error("No se dispone ningun vehiculo con ese filtrado.");
 		}
 	}
 }

@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.MecanicoController;
 import concesionario.datos.CocheTaller;
 
@@ -27,6 +30,8 @@ public class VentanaRegistroCocheTaller extends JFrame {
 	private JTextField txtMarca;
 	private JTextField txtCoste;
 	private JTextField txtDni;
+	final Logger logger = LoggerFactory.getLogger(VentanaRegistroCocheTaller.class);
+	static int iteration = 0;
 
 	public VentanaRegistroCocheTaller (MecanicoController mecanicoController, String nickname) {
 		setResizable(false);
@@ -124,11 +129,12 @@ public class VentanaRegistroCocheTaller extends JFrame {
 	
 	public void registrarCocheTaller(CocheTaller cocheTaller, String nickname) {
 		if(mecanicoController.registrarCocheTaller(cocheTaller)) {
-			JOptionPane.showMessageDialog(this, "Coche taller registrado");
+			logger.info("El coche se ha registrado correctamente");
 			VentanaMenuMecanico vmm = new VentanaMenuMecanico(mecanicoController, nickname);
 			vmm.setVisible(true);
 			dispose();
 		} else {
+			logger.error("Error al registrar el CocheTaller.");
 			JOptionPane.showMessageDialog(this, "Erro al regristar el coche taller");
 		}
 	}

@@ -6,21 +6,26 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import concesionario.cliente.controller.MecanicoController;
 import concesionario.datos.ClienteFidelidad;
 
 public class VentanaVisualizarFidelidad extends JFrame {
 
-	private static final long serilVersionUID = 1L;
-	private JPanel contentPane;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private MecanicoController mecanicoController;
 	private JTable table1;
+	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarFidelidad.class);
+	static int iteration = 0;
 
 	public VentanaVisualizarFidelidad(MecanicoController mecanicoController, String nickname) {
 		this.mecanicoController = mecanicoController;
@@ -85,7 +90,7 @@ public class VentanaVisualizarFidelidad extends JFrame {
 				model.addRow(o);
 			}
 		} else {
-			JOptionPane.showMessageDialog(contentPane, "No hay clientes.");
+			logger.error("No hay clientes.");
 		}
 
 	}
