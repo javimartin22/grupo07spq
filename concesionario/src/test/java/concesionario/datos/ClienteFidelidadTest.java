@@ -27,7 +27,7 @@ public class ClienteFidelidadTest {
 		}
 		@Test
 		public void testGetFidelidad() {
-			assertEquals(0, cliente.getFidelidad());
+			assertEquals(2, cliente.getFidelidad());
 		}
 		
 		//Setters

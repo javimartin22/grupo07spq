@@ -1,10 +1,8 @@
 package concesionario.cliente.controller;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.swing.JOptionPane;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;

@@ -19,6 +19,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import concesionario.cliente.ClienteApp;
+import concesionario.datos.Cliente;
+import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.CocheMatriculado;
 import concesionario.datos.CocheTaller;
 import concesionario.datos.Pieza;
@@ -393,6 +395,20 @@ public class MecanicoControllerTest {
 		
 		List<Presupuesto> presupuestos1 = new ArrayList<Presupuesto>();
 		assertEquals("P1", mecanicoController.crearCodigo(presupuestos1));
+	}
+	
+	@Test 
+	public void testCargarClienteFidelidad() {
+		List<ClienteFidelidad> clientes= new ArrayList<ClienteFidelidad>();
+		clientes.add(new ClienteFidelidad("dni", 1));
+		clientes.add(new ClienteFidelidad("dni1", 3));
+		
+		Mockito.when(cliente.cargarTablaClientesFidelidad()).thenAnswer(x ->clientes);
+		List<ClienteFidelidad> clientesFidelidad = mecanicoController.cargarClienteFidelidad();
+		
+		for(int i=0; i<clientes.size(); i++) {
+			assertTrue(clientesFidelidad.get(i).getDni().equals(clientes.get(i).getDni()));
+		}
 	}
 }
 	

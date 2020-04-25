@@ -159,8 +159,6 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		});
 		btnNewButton_1.setBounds(231, 390, 144, 23);
 		contentPane.add(btnNewButton_1);
-		
-		
 	}
 	
 	public void registroPresupuesto(Presupuesto presupuesto) {
@@ -189,8 +187,4 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		}
 		return listaPiezas;
 	}
-	
-	
-	
-	
 }
