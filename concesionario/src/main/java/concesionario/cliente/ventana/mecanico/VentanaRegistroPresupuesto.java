@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import concesionario.cliente.controller.MecanicoController;
+import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.Presupuesto;
 
 import javax.swing.JButton;
@@ -135,10 +136,12 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		spinner_1.setValue(cost);
 		contentPane.add(spinner_1);
 		
+		
 		JButton btnNewButton_1 = new JButton("Crear Presupuesto");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				List<Presupuesto> presupuestos = mecanicoController.cargarTablaPresupuesto();
+				double descuento =  presupuestoDescuento(textField.getText());
 				String codigo = mecanicoController.crearCodigo(presupuestos);
 				String dniCliente = textField.getText();
 				String mecanico = nickname;
@@ -148,7 +151,7 @@ public class VentanaRegistroPresupuesto extends JFrame {
 				int numPiezas = Integer.parseInt(spinner.getValue().toString());
 				String listaPiezas = crearPiezasString(numPiezas);
 				String observaciones = textPane.getText();
-				int precio = Integer.parseInt(spinner_1.getValue().toString());
+				int precio = (int) ((Integer.parseInt(spinner_1.getValue().toString())) * descuento);
 				String fecha = mecanicoController.parseFecha();
 				Presupuesto presupuesto = new Presupuesto(codigo, dniCliente, mecanico, marca, modelo, problema, numPiezas, listaPiezas, observaciones, precio, fecha);
 				registroPresupuesto(presupuesto);
@@ -167,6 +170,23 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		} else {
 			JOptionPane.showMessageDialog(contentPane, "Presupuesto no regsitrada");
 		}
+	}
+	
+	public double presupuestoDescuento(String dni) {
+		double descuento = 1.0;
+		List<ClienteFidelidad> cleinteFidelidad = mecanicoController.cargarClienteFidelidad();
+		for (ClienteFidelidad c : cleinteFidelidad) {
+			if (c.getDni().equals(dni)) {
+				if (c.getFidelidad() <= 5) {
+					descuento  = 1.0;
+				} else if (c.getFidelidad() >= 6 && c.getFidelidad() <=10) {
+					descuento = 0.90;
+				} else if (c.getFidelidad() > 10) {
+					descuento = 0.80;
+				} 
+			} 
+		}
+		return descuento;
 	}
 	
 	public String crearPiezasString(int numPiezas) {
