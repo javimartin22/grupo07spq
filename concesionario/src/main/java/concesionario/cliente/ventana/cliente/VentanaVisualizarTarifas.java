@@ -5,8 +5,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+
 import concesionario.cliente.controller.ClienteController;
 import concesionario.datos.Tarifa;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -29,6 +33,8 @@ public class VentanaVisualizarTarifas extends JFrame {
 	private ClienteController clienteController;
 	private JTable table;
 	private DefaultTableModel model;
+	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
+	static int iteration = 0;
 
 	public VentanaVisualizarTarifas(ClienteController clienteController, String nickname) {
 		setTitle("Catalogo de Tarifas");
@@ -43,7 +49,7 @@ public class VentanaVisualizarTarifas extends JFrame {
 	public void ventanaVisualizarTarifas(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setBounds(100, 100, 664, 350);
+		setBounds(100, 100, 706, 365);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -72,10 +78,13 @@ public class VentanaVisualizarTarifas extends JFrame {
 								   o[3] = t.getHoras_manodeobra();
 								   model.addRow(o);
 							   }
+					} else {
+						logger.error("No llega ninguna tarifa.");
 					}
 					
 				}else {
 					JOptionPane.showInputDialog("No ha introducido un numero");
+					
 				}
 			}
 		});
@@ -183,7 +192,7 @@ public class VentanaVisualizarTarifas extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 637, 242);
+		scrollPane.setBounds(10, 11, 663, 242);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -196,7 +205,7 @@ public class VentanaVisualizarTarifas extends JFrame {
 				
 			}
 		});
-		btnVerTarifas.setBounds(469, 268, 178, 23);
+		btnVerTarifas.setBounds(469, 268, 204, 23);
 		contentPane.add(btnVerTarifas);
 		
 		JButton btnNewButton_1 = new JButton("Regresar");

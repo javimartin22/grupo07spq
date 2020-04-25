@@ -2,6 +2,10 @@ package concesionario.cliente.ventana.cliente;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.BorderLayout;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -24,7 +28,8 @@ public class VentanaMenuCliente extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JButton buttonSalir;
-	
+	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
+	static int iteration = 0;
 	private ClienteController clienteController;
 	
 	
@@ -98,7 +103,7 @@ public class VentanaMenuCliente extends JFrame{
 				if (client != null) {
 					cambiarNickname(client);
 				} else {
-					JOptionPane.showMessageDialog(panel, "Este usuario no existe.");
+					logger.error("Este usuario no existe.");
 				}
 			}
 		});
@@ -111,7 +116,7 @@ public class VentanaMenuCliente extends JFrame{
 				if (client != null) {
 					cambiarContrasenia(client);
 				} else {
-					JOptionPane.showMessageDialog(panel, "Este usuario no existe.");
+					logger.error("Este usuario no existe.");
 				}
 				
 			}
@@ -126,7 +131,7 @@ public class VentanaMenuCliente extends JFrame{
         	vmc.setVisible(true);
         	dispose();
 		} else {
-			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
+			logger.error("Fallo en el registro del nuevo nickname.");
 		}
 	}
 
@@ -137,15 +142,7 @@ public class VentanaMenuCliente extends JFrame{
         	vmc.setVisible(true);
         	dispose();
 		} else {
-			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
+			logger.error("Fallo en el registro de la nueva contrasenia.");
 		}
-	}
-	
-	public JButton getButtonSalir() {
-		return buttonSalir;
-	}
-
-	public void setButtonSalir(JButton buttonSalir) {
-		this.buttonSalir = buttonSalir;
 	}
 }

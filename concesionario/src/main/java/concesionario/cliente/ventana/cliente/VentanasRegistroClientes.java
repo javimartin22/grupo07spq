@@ -3,11 +3,11 @@ package concesionario.cliente.ventana.cliente;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import concesionario.cliente.controller.ClienteController;
-import concesionario.cliente.controller.MecanicoController;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
 import concesionario.datos.Cliente;
@@ -46,6 +46,8 @@ public class VentanasRegistroClientes extends JFrame {
 	private String numTelefono = "";
 	private String ciudad = "";
 	private ClienteController clienteController;
+	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
+	static int iteration = 0;
 	
 	public VentanasRegistroClientes(String nickname,String contra, ClienteController clienteController) {
 		this.clienteController = clienteController;
@@ -244,7 +246,7 @@ public class VentanasRegistroClientes extends JFrame {
         	vmc.setVisible(true);
         	dispose();
 		} else {
-			JOptionPane.showMessageDialog(this, "Fallo a la hora de registrar.");
+			logger.error("Fallo en el registro del Cliente.");
 		}
 	}
 }

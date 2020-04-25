@@ -5,6 +5,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.ClienteController;
 import concesionario.datos.CocheConcesionario;
 
@@ -30,6 +33,8 @@ public class VentanaVisualizarCatalogo extends JFrame {
 	private JPanel contentPane;
 	private ClienteController clienteController;
 	private JTable table;
+	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
+	static int iteration = 0;
 
 	public VentanaVisualizarCatalogo(ClienteController clienteController, String nickname) {
 		setTitle("Catalogo");
@@ -163,7 +168,7 @@ public class VentanaVisualizarCatalogo extends JFrame {
 				   model.addRow(o);
 				 }
 		} else {
-			System.out.println("llega mal");
+			logger.error("No llegan correctamente los vehiculos.");
 		}
 	}
 	
@@ -175,7 +180,7 @@ public class VentanaVisualizarCatalogo extends JFrame {
 			vicc.setVisible(true);
 			dispose();
 		} else {
-			System.out.println("llega mal");
+			logger.error("No llega correctamente el vehiculo.");
 		}
 	}
 	
@@ -199,7 +204,7 @@ public class VentanaVisualizarCatalogo extends JFrame {
 				model.addRow(o);
 			} 
 		}else {
-			JOptionPane.showMessageDialog(this, "No hay ningun con ese codigo.");
+			logger.error("Fallo en el filtrado de vehiculos.");
 		}
 	}
 }
