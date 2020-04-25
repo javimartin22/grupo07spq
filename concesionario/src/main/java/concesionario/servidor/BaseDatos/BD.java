@@ -1288,26 +1288,17 @@ public class BD {
  		}	
  		
  		//tabla fidelidad
- 		public static ArrayList<ClienteFidelidad> fidelidadSelect(Statement st){
+ 		public static ResultSet fidelidadSelect(Statement st){
  			String sentSQL = "";
- 			ArrayList<ClienteFidelidad> lista = new ArrayList<ClienteFidelidad>();
- 			ClienteFidelidad clienteFiel;
  			ResultSet rs = null;
  			try {
-				sentSQL = "selec dniCliente count(dniCliente) as  fidelidad  from " + TABLA_TALLER;
+ 				sentSQL = "select dniCliente, count(*) as fidelidad from " + TABLA_TALLER + " group by dniCliente";
 				rs = st.executeQuery(sentSQL);
-				while(rs.next()) {
-					clienteFiel = new ClienteFidelidad();
-					clienteFiel.setDNI(rs.getString("dniCliente"));
-					clienteFiel.setFidelidad(rs.getInt("fidelidad"));
-					lista.add(clienteFiel);
-				}
 			} catch (Exception e) {
 				lastError = e;
 				e.printStackTrace();
-			}
- 			
- 			return lista;
+			} 			
+ 			return rs;
  		}
 
 //METODOS DELETE:
