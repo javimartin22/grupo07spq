@@ -16,6 +16,7 @@ import javax.ws.rs.client.Entity;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
 import concesionario.datos.Cliente;
+import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.CocheConcesionario;
 import concesionario.datos.CocheMatriculado;
 import concesionario.datos.CocheTaller;
@@ -455,6 +456,14 @@ public class ClienteApp {
 		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
 		Response response = filtroPiezaUtilizadasTarget.request(MediaType.APPLICATION_JSON).post(entity);
         return response;
+	}
+	
+	public List<ClienteFidelidad> cargarTablaClientesFidelidad(){
+		WebTarget loadClienteFidelidadTableTarget = loginTarget.path("loadClientesFidelidadTable");
+		GenericType<List<ClienteFidelidad>> genericType = new GenericType<List<ClienteFidelidad>>() {};
+        List<ClienteFidelidad> clientes = loadClienteFidelidadTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
+        System.out.println(clientes.size());
+		return clientes;
 	}
 	
 	 public static void main(String[] args) {

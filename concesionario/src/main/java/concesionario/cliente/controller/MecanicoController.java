@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.ClienteApp;
+import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.CocheMatriculado;
 import concesionario.datos.CocheTaller;
 import concesionario.datos.Pieza;
@@ -203,5 +204,9 @@ public class MecanicoController {
 		Calendar c = Calendar.getInstance();
 		fecha = c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR) + " - " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + " - Bilbao"; 
 		return fecha;
+	}
+	
+	public List<ClienteFidelidad> cargarClienteFidelidad(){
+		return cliente.cargarTablaClientesFidelidad();
 	}
 }
