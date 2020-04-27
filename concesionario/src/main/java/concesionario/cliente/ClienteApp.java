@@ -40,7 +40,7 @@ public class ClienteApp {
 	private WebTarget loginTarget;
 	private WebTarget inicioTarget;
 	
-	public  final String URL_SERVER = "http://localhost:8080/concesionario";
+	public final  String URL_SERVER = "http://localhost:8080/concesionario";
 	
 	public ClienteApp() {
 		
