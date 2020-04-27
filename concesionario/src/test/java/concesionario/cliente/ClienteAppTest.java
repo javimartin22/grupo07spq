@@ -1,3 +1,5 @@
+
+
 package concesionario.cliente;
 
 
@@ -9,12 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.AssertTrue;
+import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,13 +31,17 @@ import concesionario.cliente.controller.ClienteController;
 import concesionario.datos.Cliente;
 import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.CocheConcesionario;
+import concesionario.datos.CocheMatriculado;
 import concesionario.datos.CocheTaller;
 import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
+import concesionario.datos.Empleado;
 import concesionario.datos.Mecanico;
+import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
+import concesionario.datos.Venta;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class ClienteAppTest {
@@ -136,6 +144,25 @@ public class ClienteAppTest {
 	}
 	
 	@Test
+	public void testCambiarEstadoCocheTaller() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("deleteCocheTaller")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		when(webtarget.path(eq("insertCocheTaller")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		CocheTaller cocheTaller = new CocheTaller("2544KLB", "Honda", "Civic", "Andres", "79076345T", 1300, 0);
+		int estado = 0;
+		
+		Response result = clienteApp.cambiarEstadoCocheTaller(cocheTaller, estado);
+		assertEquals(200, result.getStatus());	
+		
+		Response response2 = mock(Response.class);
+		Mockito.when(response2.getStatus()).thenReturn(406);
+		when(webtarget.path(eq("deleteCocheTaller")).request(anyString()).post(any(Entity.class))).thenReturn(response2);
+		assertEquals(null, clienteApp.cambiarEstadoCocheTaller(cocheTaller, estado));
+	}
+	
+	@Test
 	public void testRegistroDepartamentoCompras() {
 		Response response = mock(Response.class);
 		Mockito.when(response.getStatus()).thenReturn(200);
@@ -201,25 +228,6 @@ public class ClienteAppTest {
 		assertEquals(null, clienteApp.cambiarNicknameCliente(cliente, nickname));
 	}
 	
-	@Test
-	public void testCambiarEstadoCocheTaller() {
-		Response response = mock(Response.class);
-		Mockito.when(response.getStatus()).thenReturn(200);
-		when(webtarget.path(eq("deleteCocheTaller")).request(anyString()).post(any(Entity.class))).thenReturn(response);
-		when(webtarget.path(eq("insertCocheTaller")).request(anyString()).post(any(Entity.class))).thenReturn(response);
-		
-		CocheTaller cocheTaller = new CocheTaller("2544KLB", "Honda", "Civic", "Andres", "79076345T", 1300, 0);
-		int estado = 0;
-		
-		Response result = clienteApp.cambiarEstadoCocheTaller(cocheTaller, estado);
-		assertEquals(200, result.getStatus());	
-		
-		Response response2 = mock(Response.class);
-		Mockito.when(response2.getStatus()).thenReturn(406);
-		when(webtarget.path(eq("deleteCocheTaller")).request(anyString()).post(any(Entity.class))).thenReturn(response2);
-		assertEquals(null, clienteApp.cambiarEstadoCocheTaller(cocheTaller, estado));
-	}
-	
 	// Test Selecciones
 	@Test
 	public void testSeleccionarCocheTaller() {
@@ -246,6 +254,241 @@ public class ClienteAppTest {
 	}
 	
 	@Test
+	public void testMecanicoSelect() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("selectMecanico")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String nickname = "user";
+		
+		Response result = clienteApp.mecanicoSelect(nickname);
+		assertEquals(200, result.getStatus());
+	}
+	
+	@Test 
+	public void testMecanicoDelete() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("deleteMecanico")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String nickname = "user";
+		
+		Response result = clienteApp.mecanicoDelete(nickname);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test
+	public void testComercialSelect() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("selectComercial")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String nickname = "Jorgico";
+		
+		Response result = clienteApp.comercialSelect(nickname);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test
+	public void testComercialDelete() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("deleteComercial")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String nickname = "Jorgico";
+		
+		Response result = clienteApp.comercialDelete(nickname);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test
+	public void testCocheTallerDelete() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("deleteCocheTaller")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String matricula = "matricul";
+		
+		Response result = clienteApp.CocheTallerDelete(matricula);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test
+	public void testTarifaDelete() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("deleteTarifa")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String idTarifa = "T1";
+		
+		Response result = clienteApp.tarifaDelete(idTarifa);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test
+	public void testDepartamentoComprasSelect() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("selectDepartamentoCompras")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String nickname = "user";
+		
+		Response result = clienteApp.departamentoComprasSelect(nickname);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test
+	public void testDepartamentoComprasDelete() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("deleteDepartamentoCompras")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String nickname = "user";
+		
+		Response result = clienteApp.departamentoComprasDelete(nickname);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test
+	public void testRegistroVenta() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(anyString()).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		Venta venta = new Venta("", "Leon", "Seat", "1234JJJ", "Jorge", "Pablo"); 
+		Response result = clienteApp.registroVenta(venta);
+		
+		assertEquals(200, result.getStatus());		
+
+	}
+	
+	@Test
+	public void testCargarTablaPiezas() {
+		Pieza pieza1 = new Pieza("P1", "pieza1", 0, "");
+		Pieza pieza2 = new Pieza("P2", "", 0, "");
+		List<Pieza> piezas = new ArrayList<Pieza>();
+		piezas.add(pieza1);
+		piezas.add(pieza2);
+		
+		when(webtarget.path(eq("loadPiezaTable")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->piezas);
+		List<Pieza> piezasSelect = clienteApp.cargarTablaPiezas();
+		
+		for (int i = 0; i < piezas.size(); i++) {
+			assertTrue(piezasSelect.get(i).getCodigo().equals(piezas.get(i).getCodigo()));
+		}
+	}
+	
+	@Test
+	public void testPiezaUtilizadaSelect() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("selectPiezaUtilizada")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String codigo = "P1";
+		
+		Response result = clienteApp.piezaUtilizadaSelect(codigo);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test
+	public void testRegistroPieza() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(anyString()).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		Pieza pieza = new Pieza("P1", "", 0, "");
+		Response result = clienteApp.registroPieza(pieza);
+		
+		assertEquals(200, result.getStatus());		
+	}
+	
+	@Test
+	public void testRegistroPresupuesto() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(anyString()).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		Presupuesto presupuesto = new Presupuesto("PE1", "", "", "", "·", "", 0, "", "", 0, "");
+		Response result = clienteApp.registroPresupuesto(presupuesto);
+		
+		assertEquals(200, result.getStatus());		
+	}
+	
+	@Test
+	public void testCargarTablaPiezasUtilizadas() {
+		Pieza pieza1 = new Pieza("P1", "pieza1", 0, "");
+		Pieza pieza2 = new Pieza("P2", "", 0, "");
+		List<Pieza> piezas = new ArrayList<Pieza>();
+		piezas.add(pieza1);
+		piezas.add(pieza2);
+		
+		when(webtarget.path(eq("loadPiezaUtilizadasTable")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->piezas);
+		List<Pieza> piezasSelect = clienteApp.cargarTablaPiezasUtilizadas();
+		
+		for (int i = 0; i < piezas.size(); i++) {
+			assertTrue(piezasSelect.get(i).getCodigo().equals(piezas.get(i).getCodigo()));
+		}
+	}
+	
+	@Test
+	public void testCargarTablaCochesCocheMatriculados() {
+		CocheMatriculado cocheMatriculado1 = new CocheMatriculado("Seat", "Leon", "", "", "", 0, 0, 0, 0);
+		CocheMatriculado cocheMatriculado2 = new CocheMatriculado("Renault", "Clio", "", "", "", 0, 0, 0, 0);
+		List<CocheMatriculado> coches = new ArrayList<CocheMatriculado>();
+		coches.add(cocheMatriculado1);
+		coches.add(cocheMatriculado2);
+		
+		when(webtarget.path(eq("loadCochesMatricTable")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->coches);
+		List<CocheMatriculado> cochesSelect = clienteApp.cargarTablaCochesCocheMatriculados();
+		
+		for (int i = 0; i < coches.size(); i++) {
+			assertTrue(cochesSelect.get(i).getMarca().equals(coches.get(i).getMarca()));
+		}
+	}
+	
+	@Test
+	public void testCargarTablaEmpleados() {
+		Empleado empleado = new Empleado("Pablo", "", 0, "", "", "", "", "", "", 0, "", "", "", 0, "", 0);
+		List<Empleado> empleados = new ArrayList<Empleado>();
+		empleados.add(empleado);
+		
+		when(webtarget.path(eq("loadEmpleadosTable")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->empleados);
+		List<Empleado> empleadoSelect = clienteApp.cargarTablaEmpleados();
+		
+		for (int i = 0; i < empleados.size(); i++) {
+			assertTrue(empleadoSelect.get(i).getNickname().equals(empleados.get(i).getNickname()));
+		}
+	}
+	
+	@Test 
+	public void testCargarTablaVenta() {
+		Venta venta = new Venta("V1", "", "", "", "", "");
+		List<Venta> ventas = new ArrayList<Venta>();
+		ventas.add(venta);
+		
+		when(webtarget.path(eq("loadVentaTable")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->ventas);
+		List<Venta> ventasSelect = clienteApp.cargarTablaVenta();
+		
+		for (int i = 0; i < ventas.size(); i++) {
+			assertTrue(ventasSelect.get(i).getFecha().equals(ventas.get(i).getFecha()));
+		}
+	}
+	
+	@Test 
+	public void testCargarTablaCocheTaller() {
+		CocheTaller coche = new CocheTaller("12345JJJ", "", "", "", "", 0, 0);
+		List<CocheTaller> coches = new ArrayList<CocheTaller>();
+		coches.add(coche);
+		
+		when(webtarget.path(eq("loadCocheTallerTable")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->coches);
+		List<CocheTaller> cochesSelect = clienteApp.cargarTablaCocheTaller();
+		
+		for (int i = 0; i < coches.size(); i++) {
+			assertTrue(cochesSelect.get(i).getMatricula().equals(coches.get(i).getMatricula()));
+		}
+	}
+	
+	@Test
 	public void testCargarTablaCochesConcesionario() {
 		CocheConcesionario coche1 = new CocheConcesionario("Renault", "Clio", 14000, 115, 5, "Blanco", 1);
 		CocheConcesionario coche2 = new CocheConcesionario("Ford", "Mondeo", 14000, 115, 5, "Blanco", 1);
@@ -261,7 +504,6 @@ public class ClienteAppTest {
 		}
 	}
 	
-	//Test Filtros
 	@Test
 	public void testFiltrarTarifaPrecio() {
 		Response response = mock(Response.class);
@@ -514,6 +756,11 @@ public class ClienteAppTest {
 		assertEquals(200, result.getStatus());	
 	}
 	
+	@After
+	public void setDown() {
+		Cliente cliente = new Cliente();
+		clienteApp.main(null);
+	}
 	
 }
 
