@@ -201,6 +201,25 @@ public class ClienteAppTest {
 		assertEquals(null, clienteApp.cambiarNicknameCliente(cliente, nickname));
 	}
 	
+	@Test
+	public void testCambiarEstadoCocheTaller() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("deleteCocheTaller")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		when(webtarget.path(eq("insertCocheTaller")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		CocheTaller cocheTaller = new CocheTaller("2544KLB", "Honda", "Civic", "Andres", "79076345T", 1300, 0);
+		int estado = 0;
+		
+		Response result = clienteApp.cambiarEstadoCocheTaller(cocheTaller, estado);
+		assertEquals(200, result.getStatus());	
+		
+		Response response2 = mock(Response.class);
+		Mockito.when(response2.getStatus()).thenReturn(406);
+		when(webtarget.path(eq("deleteCocheTaller")).request(anyString()).post(any(Entity.class))).thenReturn(response2);
+		assertEquals(null, clienteApp.cambiarEstadoCocheTaller(cocheTaller, estado));
+	}
+	
 	// Test Selecciones
 	@Test
 	public void testSeleccionarCocheTaller() {
