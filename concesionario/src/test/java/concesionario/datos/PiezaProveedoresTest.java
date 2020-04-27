@@ -16,7 +16,7 @@ public class PiezaProveedoresTest {
 	@Before
 	public void setUp() {
 		pieza = new PiezaProveedores();
-		pieza = new PiezaProveedores("P1", "Amortiguador", 5, "Ok");
+		pieza = new PiezaProveedores("P1", "Amortiguador", 5, "Ok", "Prov-1");
 	}
 	
 	//Test Getters:
@@ -34,7 +34,7 @@ public class PiezaProveedoresTest {
 	}
 	@Test
 	public void testGetUbicacion() {
-		assertEquals("Ok", pieza.getEstado());
+		assertEquals("Ok", pieza.getTipo());
 	}
 	
 	//Test Setters:
@@ -55,7 +55,13 @@ public class PiezaProveedoresTest {
 		}
 	@Test
 		public void testSetUbicacion() {
-			pieza.setEstado("Acabado");
-			assertEquals("Acabado", pieza.getEstado());
-		}
+			pieza.setTipo("Acabado");
+			assertEquals("Acabado", pieza.getTipo());
+	}
+	
+	@Test 
+	public void testSetCodProveedor() {
+		pieza.setCodProveedor("Prov-2");
+		assertEquals("Prov-2", pieza.getCodProveedor());
+	}
 }

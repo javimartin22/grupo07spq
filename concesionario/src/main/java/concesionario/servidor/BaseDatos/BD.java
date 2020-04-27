@@ -539,21 +539,20 @@ public class BD {
 		
 	//Tabla EMPLEADOS:
 		
-		//Todas:
 		public static ResultSet proveedoresSelect(Statement st) {
-		String sentSQL = "";
-		ResultSet rs = null;
-		try {
-			sentSQL = "select * from " + TABLA_PROVEEDORES;
-			rs = st.executeQuery(sentSQL);		
-			
-		} catch (Exception e) {
-			lastError = e;
-			e.printStackTrace();
-		}
-		return rs;
-	}
-	
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				sentSQL = "select * from " + TABLA_PROVEEDORES;
+				rs = st.executeQuery(sentSQL);		
+				
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}	
+		
 	public static ResultSet piezasProveedoresSelect(Statement st) {
 		String sentSQL = "";
 		ResultSet rs = null;

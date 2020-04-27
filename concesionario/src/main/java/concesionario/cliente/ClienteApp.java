@@ -25,7 +25,9 @@ import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
+import concesionario.datos.PiezaProveedores;
 import concesionario.datos.Presupuesto;
+import concesionario.datos.Proveedor;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
@@ -194,7 +196,6 @@ public class ClienteApp {
 	public Response comercialDelete(String nickname) {
 		WebTarget deleteComercialTarget = loginTarget.path("deleteComercial");
 		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
-		System.out.println(nickname);
 		Response response = deleteComercialTarget.request(MediaType.TEXT_PLAIN).post(ent);
 		return response;
 	}
@@ -223,7 +224,6 @@ public class ClienteApp {
 	public Response departamentoComprasDelete(String nickname) {
 		WebTarget deleteDepartamentoComprasTarget = loginTarget.path("deleteDepartamentoCompras");
 		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
-		System.out.println(nickname);
 		Response response = deleteDepartamentoComprasTarget.request(MediaType.TEXT_PLAIN).post(ent);
 		return response;
 	}
@@ -442,8 +442,22 @@ public class ClienteApp {
 		WebTarget loadClienteFidelidadTableTarget = loginTarget.path("loadClientesFidelidadTable");
 		GenericType<List<ClienteFidelidad>> genericType = new GenericType<List<ClienteFidelidad>>() {};
         List<ClienteFidelidad> clientes = loadClienteFidelidadTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
-        System.out.println(clientes.size());
 		return clientes;
+	}
+	
+		
+	public List<PiezaProveedores> cargarListaPiezasProveedores(){
+		WebTarget loadPiezasProveedorListTarget = loginTarget.path("loadPiezasProveedoresList");
+		GenericType<List<PiezaProveedores>> genericType = new GenericType<List<PiezaProveedores>>() {};
+        List<PiezaProveedores> piezasProveedores = loadPiezasProveedorListTarget.request(MediaType.APPLICATION_JSON).get(genericType);
+		return piezasProveedores;
+	}
+	
+	public List<Proveedor> cargarListaProveedores(){
+		WebTarget loadPiezasProveedorListTarget = loginTarget.path("loadProveedores");
+		GenericType<List<Proveedor>> genericType = new GenericType<List<Proveedor>>() {};
+        List<Proveedor> piezasProveedores = loadPiezasProveedorListTarget.request(MediaType.APPLICATION_JSON).get(genericType);
+		return piezasProveedores;
 	}
 	
 	 public static void main(String[] args) {

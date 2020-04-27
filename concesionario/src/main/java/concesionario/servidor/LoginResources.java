@@ -579,7 +579,7 @@ public class LoginResources {
 	}
 	
 	@POST
-	@Path("insertPiezasUtilizadas")
+	@Path("insertPiezaUtilizada")
 	@Consumes(MediaType.APPLICATION_JSON)
 	//@Produces("application/json")
 	public Response registrarPiezaUtilizada(Pieza pieza) {
@@ -605,12 +605,12 @@ public class LoginResources {
 	@Path("deletePiezaUtilizada")
 	@Consumes(MediaType.APPLICATION_JSON)
 	//@Produces("application/json")
-	public Response deletePiezaUtilizada(Pieza pieza) {
+	public Response deletePiezaUtilizada(String codigo) {
 		con = BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
-		BD.piezaUtilizadaDelete(st, pieza.getCodigo());
-		Pieza nuevo = BD.piezaSelect(st, pieza.getCodigo());
+		BD.piezaUtilizadaDelete(st, codigo);
+		Pieza nuevo = BD.piezaSelect(st, codigo);
 		
 		if (nuevo == null) {
 			return Response.status(Response.Status.OK).build();
@@ -678,6 +678,65 @@ public class LoginResources {
 	}
 	
 	@GET
+	@Path("loadPiezasProveedoresList")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<PiezaProveedores> cargarPiezaProveedores()throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		ResultSet rs = BD.piezasProveedoresSelect(st);
+		List<PiezaProveedores> pieza_result = new ArrayList<PiezaProveedores>();
+		
+		if (rs == null) {
+			return pieza_result;
+		} else {
+			
+			while(rs.next()) {
+				//Obtener atributos rs
+				String codigo = rs.getString("codigo");
+				String nombre = rs.getString("nombre");
+				int tiempo = rs.getInt("tiempo");
+				String tipo = rs.getString("tipo");
+				String codProveedor = rs.getString("codProveedor");
+				
+				PiezaProveedores pieza = new PiezaProveedores(codigo, nombre, tiempo, tipo, codProveedor);	
+				pieza_result.add(pieza);
+			}
+			 
+			return pieza_result;
+		}
+	}
+	
+	@GET
+	@Path("loadProveedores")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Proveedor> cargarProveedores()throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		ResultSet rs = BD.proveedoresSelect(st);
+		List<Proveedor> pieza_result = new ArrayList<Proveedor>();
+		
+		if (rs == null) {
+			return pieza_result;
+		} else {
+			
+			while(rs.next()) {
+				//Obtener atributos rs
+				String codigo = rs.getString("idProveedor");
+				String nombre = rs.getString("nombre");
+				String pais = rs.getString("pais");
+				String tipo = rs.getString("tipo");
+				System.out.println(codigo + " " + nombre + pais + tipo);
+				
+				Proveedor proveedor = new Proveedor(codigo, nombre, pais, tipo);	
+				pieza_result.add(proveedor);
+			}
+			return pieza_result;
+		}
+	}
+	
+	
+	
+	@GET
 	@Path("loadCocheTallerTable")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<CocheTaller> cargarCocheTallerTabla()throws SQLException {
@@ -703,7 +762,6 @@ public class LoginResources {
 				CocheTaller coche = new CocheTaller(matricula, marca, modelo, mecanico, dniCliente, coste, estado);
 				coches_result.add(coche);
 			}
-			 
 			return coches_result;
 		}
 	}

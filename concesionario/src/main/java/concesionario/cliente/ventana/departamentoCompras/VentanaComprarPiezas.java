@@ -1,17 +1,10 @@
 package concesionario.cliente.ventana.departamentoCompras;
 
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Vector;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -20,19 +13,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
 import concesionario.cliente.controller.DepartmentoComprasController;
+import concesionario.datos.PiezaProveedores;
+import concesionario.datos.Proveedor;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import java.awt.Color;
+import java.awt.Font;
 
 public class VentanaComprarPiezas extends JFrame {
-
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;	
 	private JTextField textFieldUnidades;
 	private DepartmentoComprasController departamentoComprasController;
@@ -48,10 +43,9 @@ public class VentanaComprarPiezas extends JFrame {
 	 * Create the frame.
 	 */
 	public void iniciarVentanaComprarPiezas() {
-		setResizable(false);
 		setTitle("Comprar piezas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 395, 345);
+		setBounds(100, 100, 540, 367);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -69,10 +63,12 @@ public class VentanaComprarPiezas extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(269, 266, 117, 29);
+		btnCancelar.setBounds(396, 266, 117, 29);
 		contentPane.add(btnCancelar);
 		
 		JLabel lblProveedor = new JLabel("Proveedor");
+		lblProveedor.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblProveedor.setForeground(new Color(0, 0, 0));
 		lblProveedor.setBounds(22, 68, 71, 16);
 		contentPane.add(lblProveedor);
 		
@@ -153,23 +149,27 @@ public class VentanaComprarPiezas extends JFrame {
 		piezasContitech.add("Detergente");
 
 		
-		comboBoxProveedor.setBounds(95, 64, 177, 27);
+		comboBoxProveedor.setBounds(155, 63, 177, 27);
 		contentPane.add(comboBoxProveedor);
 		
 		JLabel lblPieza = new JLabel("Pieza");
+		lblPieza.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblPieza.setForeground(new Color(0, 0, 0));
 		lblPieza.setBounds(22, 107, 52, 16);
 		contentPane.add(lblPieza);
 		
 		JComboBox comboBoxPieza = new JComboBox();
-		comboBoxPieza.setBounds(95, 103, 177, 27);
+		comboBoxPieza.setBounds(155, 102, 177, 27);
 		contentPane.add(comboBoxPieza);
 		
 		JLabel lblUnidades = new JLabel("Unidades");
+		lblUnidades.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblUnidades.setForeground(new Color(0, 0, 0));
 		lblUnidades.setBounds(22, 147, 61, 16);
 		contentPane.add(lblUnidades);
 		
 		textFieldUnidades = new JTextField();
-		textFieldUnidades.setBounds(95, 142, 177, 26);
+		textFieldUnidades.setBounds(155, 142, 177, 26);
 		contentPane.add(textFieldUnidades);
 		textFieldUnidades.setColumns(10);
 		
@@ -177,123 +177,121 @@ public class VentanaComprarPiezas extends JFrame {
 		btnVerPiezas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if((comboBoxProveedor.getSelectedIndex()==0)) {
-					comboBoxPieza.removeAllItems();
-					mnFiltrar.removeAll();
-					JMenuItem mntmFrenos = new JMenuItem("Frenos");
-					mnFiltrar.add(mntmFrenos);
-					
-					mntmFrenos.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Pastillas de Freno", "Discos de freno", "Kit reparacion frenos"}));
-						}
-					});
-										
-					
-					JMenuItem mntmFiltros= new JMenuItem("Filtros");
-					mnFiltrar.add(mntmFiltros);
-					mntmFiltros.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Filtro de aceite", "Filtro de aire", "Filtro de combustible"}));
-						}
-					});
-					
-					JMenuItem mntmMotor = new JMenuItem("Motor");
-					mnFiltrar.add(mntmMotor);
-					
-					mntmMotor.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Taco de motor", "Correa poly v", "Tapon de carter"}));
-						}
-					});
-					
-					
-					for (String pr : piezasBosch) {
-						
-						comboBoxPieza.addItem(pr.toString());
-					}
+//				if((comboBoxProveedor.getSelectedIndex()==0)) {
+//					comboBoxPieza.removeAllItems();
+//					mnFiltrar.removeAll();
+//					JMenuItem mntmFrenos = new JMenuItem("Frenos");
+//					mnFiltrar.add(mntmFrenos);
+//					
+//					mntmFrenos.addActionListener(new ActionListener() {
+//						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Pastillas de Freno", "Discos de freno", "Kit reparacion frenos"}));
+//						}
+//					});
+//										
+//					
+//					JMenuItem mntmFiltros= new JMenuItem("Filtros");
+//					mnFiltrar.add(mntmFiltros);
+//					mntmFiltros.addActionListener(new ActionListener() {
+//						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Filtro de aceite", "Filtro de aire", "Filtro de combustible"}));
+//						}
+//					});
+//					
+//					JMenuItem mntmMotor = new JMenuItem("Motor");
+//					mnFiltrar.add(mntmMotor);
+//					
+//					mntmMotor.addActionListener(new ActionListener() {
+//						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Taco de motor", "Correa poly v", "Tapon de carter"}));
+//						}
+//					});
+//					
+//					
+//					for (String pr : piezasBosch) {
+//						
+//						comboBoxPieza.addItem(pr.toString());
+//					}
+////				
+//
+//				}
 //				
-
-				}
-				
-				if((comboBoxProveedor.getSelectedIndex()==1)) {
-					comboBoxPieza.removeAllItems();
-					mnFiltrar.removeAll();
-					JMenuItem mntmAmort= new JMenuItem("Amortiguacion");
-					mnFiltrar.add(mntmAmort);
-					mntmAmort.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Amortiguadores", "Copela", "Guardapolvos"}));
-						}
-					});
-					
-					JMenuItem mntmAceite = new JMenuItem("Aceites y liquidos");
-					mnFiltrar.add(mntmAceite);
-					
-					mntmAceite.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Aceite de motor", "Aceite de transmision", "Liquido de frenos"}));
-						}
-					});
-					
-					for (String pr : piezasCastrol) {
-						comboBoxPieza.addItem(pr.toString());
-					}
-				}
-				
-				if((comboBoxProveedor.getSelectedIndex()==2)) {
-					comboBoxPieza.removeAllItems();
-
-					mnFiltrar.removeAll();
-					JMenuItem mntmSuspension= new JMenuItem("Suspension y brazos");
-					mnFiltrar.add(mntmSuspension);
-					mntmSuspension.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Buje de rueda", "Silentblock", "Bieletas"}));
-						}
-					});
-					
-					JMenuItem mntmCarroceria = new JMenuItem("Carroceria");
-					mnFiltrar.add(mntmCarroceria);
-					
-					mntmCarroceria.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Amortiguadores maletero", "Retrovisor", "Piloto trasero"}));
-						}
-					});
-					
-					for (String pr : piezasMonroe) {
-						comboBoxPieza.addItem(pr.toString());
-					}
-				}
-				
-				if((comboBoxProveedor.getSelectedIndex()==3)) {
-					comboBoxPieza.removeAllItems();
-					mnFiltrar.removeAll();
-					JMenuItem mntmDireccion= new JMenuItem("Direccion");
-					mnFiltrar.add(mntmDireccion);
-					mntmDireccion.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Rotula", "Rotula axial", "Barra"}));
-						}
-					});
-					
-					JMenuItem mntmSistElect = new JMenuItem("Sistema electrico");
-					mnFiltrar.add(mntmSistElect);
-					
-					mntmSistElect.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Alternador", "Motor de arranque", "Regulador de alternador"}));
-						}
-					});
-					
-					for (String pr : piezasBrembo) {
-						comboBoxPieza.addItem(pr.toString());
-					}
-				
-				}
-				
-				if((comboBoxProveedor.getSelectedIndex()==4)) {
-					comboBoxPieza.removeAllItems();
-					mnFiltrar.removeAll();
-					for (String pr : piezasContitech) {
-						comboBoxPieza.addItem(pr.toString());
-					}				
-				}
-				
-				
-				
+//				if((comboBoxProveedor.getSelectedIndex()==1)) {
+//					comboBoxPieza.removeAllItems();
+//					mnFiltrar.removeAll();
+//					JMenuItem mntmAmort= new JMenuItem("Amortiguacion");
+//					mnFiltrar.add(mntmAmort);
+//					mntmAmort.addActionListener(new ActionListener() {
+//						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Amortiguadores", "Copela", "Guardapolvos"}));
+//						}
+//					});
+//					
+//					JMenuItem mntmAceite = new JMenuItem("Aceites y liquidos");
+//					mnFiltrar.add(mntmAceite);
+//					
+//					mntmAceite.addActionListener(new ActionListener() {
+//						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Aceite de motor", "Aceite de transmision", "Liquido de frenos"}));
+//						}
+//					});
+//					
+//					for (String pr : piezasCastrol) {
+//						comboBoxPieza.addItem(pr.toString());
+//					}
+//				}
+//				
+//				if((comboBoxProveedor.getSelectedIndex()==2)) {
+//					comboBoxPieza.removeAllItems();
+//
+//					mnFiltrar.removeAll();
+//					JMenuItem mntmSuspension= new JMenuItem("Suspension y brazos");
+//					mnFiltrar.add(mntmSuspension);
+//					mntmSuspension.addActionListener(new ActionListener() {
+//						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Buje de rueda", "Silentblock", "Bieletas"}));
+//						}
+//					});
+//					
+//					JMenuItem mntmCarroceria = new JMenuItem("Carroceria");
+//					mnFiltrar.add(mntmCarroceria);
+//					
+//					mntmCarroceria.addActionListener(new ActionListener() {
+//						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Amortiguadores maletero", "Retrovisor", "Piloto trasero"}));
+//						}
+//					});
+//					
+//					for (String pr : piezasMonroe) {
+//						comboBoxPieza.addItem(pr.toString());
+//					}
+//				}
+//				
+//				if((comboBoxProveedor.getSelectedIndex()==3)) {
+//					comboBoxPieza.removeAllItems();
+//					mnFiltrar.removeAll();
+//					JMenuItem mntmDireccion= new JMenuItem("Direccion");
+//					mnFiltrar.add(mntmDireccion);
+//					mntmDireccion.addActionListener(new ActionListener() {
+//						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Rotula", "Rotula axial", "Barra"}));
+//						}
+//					});
+//					
+//					JMenuItem mntmSistElect = new JMenuItem("Sistema electrico");
+//					mnFiltrar.add(mntmSistElect);
+//					
+//					mntmSistElect.addActionListener(new ActionListener() {
+//						public void actionPerformed(ActionEvent e) {comboBoxPieza.setModel(new DefaultComboBoxModel(new String[] {"Alternador", "Motor de arranque", "Regulador de alternador"}));
+//						}
+//					});
+//					
+//					for (String pr : piezasBrembo) {
+//						comboBoxPieza.addItem(pr.toString());
+//					}
+//				
+//				}
+//				
+//				if((comboBoxProveedor.getSelectedIndex()==4)) {
+//					comboBoxPieza.removeAllItems();
+//					mnFiltrar.removeAll();
+//					for (String pr : piezasContitech) {
+//						comboBoxPieza.addItem(pr.toString());
+//					}				
+//				}
+//				
 			}
 			
 			
@@ -342,7 +340,7 @@ public class VentanaComprarPiezas extends JFrame {
 
 			}
 		});
-		btnVerPiezas.setBounds(269, 63, 117, 29);
+		btnVerPiezas.setBounds(396, 62, 117, 29);
 		contentPane.add(btnVerPiezas);
 		
 		/*
@@ -362,15 +360,17 @@ public class VentanaComprarPiezas extends JFrame {
 				
 			}
 		});
-		btnComprar.setBounds(155, 266, 117, 29);
+		btnComprar.setBounds(215, 266, 117, 29);
 		contentPane.add(btnComprar);
 		
 		JLabel lblPrecioTotal = new JLabel("Precio");
+		lblPrecioTotal.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblPrecioTotal.setForeground(new Color(0, 0, 0));
 		lblPrecioTotal.setBounds(22, 219, 81, 16);
 		contentPane.add(lblPrecioTotal);
 		
 		JLabel lblPrecio = new JLabel("");
-		lblPrecio.setBounds(106, 219, 177, 16);
+		lblPrecio.setBounds(155, 219, 177, 16);
 		contentPane.add(lblPrecio);
 		
 		JButton btnVerPrecio = new JButton("Ver precio");
@@ -392,7 +392,7 @@ public class VentanaComprarPiezas extends JFrame {
 				lblPrecio.setText(precioFinal +" €");
 			}
 		});
-		btnVerPrecio.setBounds(269, 214, 117, 29);
+		btnVerPrecio.setBounds(396, 213, 117, 29);
 		contentPane.add(btnVerPrecio);
 	
 		
@@ -553,6 +553,19 @@ public class VentanaComprarPiezas extends JFrame {
 		
 		return precio;
 	}
+	
+	public List<Proveedor> cargarListaProveedores() {
+		System.out.println("Hola");
+		return departamentoComprasController.cargarListaProveedores();
 	}
+	
+	public List<PiezaProveedores> cargarListaPiezaProveedores(){
+		for (PiezaProveedores pieza : departamentoComprasController.cargarListaPiezasProveedores()) {
+			System.out.println(pieza.getCodigo());
+			
+		}
+		return departamentoComprasController.cargarListaPiezasProveedores();
+	}
+}
 
 

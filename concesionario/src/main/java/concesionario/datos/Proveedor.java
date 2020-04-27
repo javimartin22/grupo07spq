@@ -8,9 +8,7 @@ public class Proveedor {
 	
 	
 	public Proveedor() {
-		super();
 	}
-	
 	
 	public Proveedor(String idProveedor, String nombre, String pais, String tipoPiezas) {
 		super();
