@@ -38,70 +38,60 @@ public class ClienteApp {
 	
 	private WebTarget appTarget;
 	private WebTarget loginTarget;
-	private WebTarget inicioTarget;
 	
 	public final  String URL_SERVER = "http://localhost:8080/concesionario";
 	
-	public ClienteApp() {
+	public ClienteApp(WebTarget loginTarget) {
+		this.loginTarget = loginTarget;
 		
+	}
+	
+	public ClienteApp() {
 		client = ClientBuilder.newClient();
 		
 		 appTarget = client.target(URL_SERVER);
 		 loginTarget= appTarget.path("loginp");
-		
 	}
 	
 	public Response login(Usuario concat) {
-		inicioTarget = loginTarget.path("inicio");
 		Entity<Usuario> entity = Entity.entity(concat, MediaType.APPLICATION_JSON);
-		Response response = inicioTarget.request(MediaType.TEXT_PLAIN).post(entity);
+		Response response = loginTarget.path("inicio").request(MediaType.TEXT_PLAIN).post(entity);
 
         return response;
 	}
-	
-	public void setInicioTarget(WebTarget inicioTarget) {
-		this.inicioTarget = inicioTarget;
-	}
-	public WebTarget getInicioTarget() {
-		return this.inicioTarget;
+	public WebTarget getLoginTarget() {
+		return this.loginTarget;
 	}
 
 	public Response registrarCoche(CocheConcesionario auto) {
-		System.out.println(auto.getMarca());
-		WebTarget registroTarget = loginTarget.path("insertCocheConcesionario");
 		Entity<CocheConcesionario> entity = Entity.entity(auto, MediaType.APPLICATION_JSON);
-		Response response = registroTarget.request(MediaType.TEXT_PLAIN).post(entity);
+		Response response =  loginTarget.path("insertCocheConcesionario").request(MediaType.TEXT_PLAIN).post(entity);
 
         return response;
 	}
 	
 	public Response registrarCocheTaller(CocheTaller cocheTaller) {
-		System.out.println(cocheTaller.getMarca());
-		WebTarget registroTarget = loginTarget.path("insertCocheTaller");
 		Entity<CocheTaller> entity = Entity.entity(cocheTaller, MediaType.APPLICATION_JSON);
-		Response response = registroTarget.request(MediaType.TEXT_PLAIN).post(entity);
+		Response response = loginTarget.path("insertCocheTaller").request(MediaType.TEXT_PLAIN).post(entity);
 
         return response;
 	}
 	
 	public Response registroCliente (Cliente client) {
-		WebTarget insertClientTarget = loginTarget.path("insertClient");
 		Entity<Cliente> entity = Entity.entity(client, MediaType.APPLICATION_JSON);
-		Response response = insertClientTarget.request(MediaType.TEXT_PLAIN).post(entity);
+		Response response = loginTarget.path("insertClient").request(MediaType.TEXT_PLAIN).post(entity);
 		return response;
 	}
 	
 	public Response registroMecanico(Mecanico mecanic) {
-		WebTarget insertMecanicTarget = loginTarget.path("insertMecanic");
 		Entity<Mecanico> entity = Entity.entity(mecanic, MediaType.APPLICATION_JSON);
-		Response response = insertMecanicTarget.request(MediaType.TEXT_PLAIN).post(entity);
+		Response response = loginTarget.path("insertMecanic").request(MediaType.TEXT_PLAIN).post(entity);
 		return response;
 	}
 	
 	public Response registroComercial(Comercial comercial) {
-		WebTarget insertComercialTarget = loginTarget.path("insertComercial");
 		Entity<Comercial> entity = Entity.entity(comercial, MediaType.APPLICATION_JSON);
-		Response response = insertComercialTarget.request(MediaType.TEXT_PLAIN).post(entity);
+		Response response = loginTarget.path("insertComercial").request(MediaType.TEXT_PLAIN).post(entity);
 		return response;
 	}
 	
@@ -113,22 +103,18 @@ public class ClienteApp {
 	}
 	
 	public Response registroTarifa(Tarifa tarifa) {
-		WebTarget insertTarifaTarget = loginTarget.path("insertTarifa");
 		Entity<Tarifa> entity = Entity.entity(tarifa, MediaType.APPLICATION_JSON);
-		Response response = insertTarifaTarget.request(MediaType.TEXT_PLAIN).post(entity);
+		Response response = loginTarget.path("insertTarifa").request(MediaType.TEXT_PLAIN).post(entity);
 		return response;
 	}
 	
 	public Response cambiarContraseniaCliente(Cliente client, String contrasenia) {
-		WebTarget deleteClienteTarget = loginTarget.path("deleteClient");
 		Entity<Cliente> ent = Entity.entity(client, MediaType.APPLICATION_JSON);
-		Response resp = deleteClienteTarget.request(MediaType.TEXT_PLAIN).post(ent);
-		
+		Response resp =  loginTarget.path("deleteClient").request(MediaType.TEXT_PLAIN).post(ent);
 		if (resp.getStatus() == Status.OK.getStatusCode()) {
 			client.setContrasenya(contrasenia);
-			WebTarget insertClientTarget = loginTarget.path("insertClient");
 			Entity<Cliente> entity = Entity.entity(client, MediaType.APPLICATION_JSON);
-			Response response = insertClientTarget.request(MediaType.TEXT_PLAIN).post(entity);
+			Response response = loginTarget.path("insertClient").request(MediaType.TEXT_PLAIN).post(entity);
 			return response;
 		} else {
 			return null;
@@ -136,15 +122,12 @@ public class ClienteApp {
 	}
 	
 	public Response cambiarNicknameCliente(Cliente client, String nickname) {
-		WebTarget deleteClienteTarget = loginTarget.path("deleteClient");
 		Entity<Cliente> ent = Entity.entity(client, MediaType.APPLICATION_JSON);
-		Response resp = deleteClienteTarget.request(MediaType.TEXT_PLAIN).post(ent);
-		
+		Response resp = loginTarget.path("deleteClient").request(MediaType.TEXT_PLAIN).post(ent);
 		if (resp.getStatus() == Status.OK.getStatusCode()) {
 			client.setNickname(nickname);
-			WebTarget insertClientTarget = loginTarget.path("insertClient");
 			Entity<Cliente> entity = Entity.entity(client, MediaType.APPLICATION_JSON);
-			Response response = insertClientTarget.request(MediaType.TEXT_PLAIN).post(entity);
+			Response response = loginTarget.path("insertClient").request(MediaType.TEXT_PLAIN).post(entity);
 			return response;
 		} else {
 			return null;
@@ -152,16 +135,13 @@ public class ClienteApp {
 	}
 	
 	public Response cambiarEstadoCocheTaller(CocheTaller coche, int estado) {
-		WebTarget deleteClienteTarget = loginTarget.path("deleteCocheTaller");
 		String matricula = coche.getMatricula();
 		Entity<String> ent = Entity.entity(matricula, MediaType.APPLICATION_JSON);
-		Response resp = deleteClienteTarget.request(MediaType.TEXT_PLAIN).post(ent);
-		
+		Response resp =  loginTarget.path("deleteCocheTaller").request(MediaType.TEXT_PLAIN).post(ent);
 		if (resp.getStatus() == Status.OK.getStatusCode()) {
 			coche.setEstado(estado);
-			WebTarget insertClientTarget = loginTarget.path("insertCocheTaller");
 			Entity<CocheTaller> entity = Entity.entity(coche, MediaType.APPLICATION_JSON);
-			Response response = insertClientTarget.request(MediaType.TEXT_PLAIN).post(entity);
+			Response response = loginTarget.path("insertCocheTaller").request(MediaType.TEXT_PLAIN).post(entity);
 			return response;
 		} else {
 			return null;
