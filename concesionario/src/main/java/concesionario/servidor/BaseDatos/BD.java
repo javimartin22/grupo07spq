@@ -7,7 +7,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 import concesionario.datos.Cliente;
 import concesionario.datos.CocheConcesionario;
@@ -21,7 +20,6 @@ import concesionario.datos.Presupuesto;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
-import concesionario.datos.ClienteFidelidad;
 
 
 
@@ -249,12 +247,10 @@ public class BD {
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
 			}
-			System.out.println("Se ha anyadido correcatente.");
 			return true;
 		} catch (SQLException e) {
 			lastError = e;
 			e.printStackTrace();
-			System.out.println("Error ya registrado.");
 			return false;
 		}
 	}
@@ -302,7 +298,6 @@ public class BD {
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
 		}
-			System.out.println("TODO OK");
 			return true;
 		} catch (SQLException e) {
 			lastError = e;
@@ -1435,10 +1430,7 @@ public class BD {
 			String sentSQL = "";
 			try {
 				sentSQL = "delete from " + TABLA_TALLER + " where matriculaCoche= '" + secu(matricula) + "'";
-				System.out.println(sentSQL);
 				int val = st.executeUpdate(sentSQL);
-				System.out.println("ha pasado o se queda en update");
-				System.out.println(val);
 				return (val == 1);
 			} catch (SQLException e) {
 				lastError = e;
@@ -1465,7 +1457,6 @@ public class BD {
 	public static boolean tarifasDelete(Statement st, String idTarifa) {
 		String sentSQL = "";
 		try {
-			System.out.println("llega delete");
 			sentSQL = "delete from " + TABLA_TARIFAS + " where idTarifa= '" + secu(idTarifa) + "'";
 			int val = st.executeUpdate(sentSQL);
 			return (val == 1);
