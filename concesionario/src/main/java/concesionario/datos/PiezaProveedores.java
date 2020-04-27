@@ -4,13 +4,15 @@ public class PiezaProveedores {
 	private String codigo;
 	private String nombre;
 	private int tiempo; 
-	private String estado;
+	private String tipo;
+	private String codProveedor;
 	
-	public PiezaProveedores(String codigo, String nombre, int tiempo, String estado) {
+	public PiezaProveedores(String codigo, String nombre, int tiempo, String tipo, String codProveedor) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.tiempo = tiempo;
-		this.estado = estado;
+		this.tipo = tipo;
+		this.codProveedor = codProveedor;
 	}
 	
 	public PiezaProveedores() {
@@ -41,11 +43,21 @@ public class PiezaProveedores {
 		this.tiempo = tiempo;
 	}
 
-	public String getEstado() {
-		return estado;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
+
+	public String getCodProveedor() {
+		return codProveedor;
+	}
+
+	public void setCodProveedor(String codProveedor) {
+		this.codProveedor = codProveedor;
+	}
+	
+	
 }

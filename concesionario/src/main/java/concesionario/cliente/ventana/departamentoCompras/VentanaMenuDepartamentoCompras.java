@@ -54,8 +54,18 @@ public class VentanaMenuDepartamentoCompras extends JFrame {
 				dispose();
 			}
 		});
-		btnSalir.setBounds(168, 116, 117, 29);
+		btnSalir.setBounds(168, 146, 117, 29);
 		contentPane.add(btnSalir);
+		
+		JButton btnComprar = new JButton("Comprar");
+		btnComprar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaComprarPiezas vcp = new VentanaComprarPiezas(departmentoComprasController);
+				vcp.setVisible(true);
+				dispose();
+			}
+		});
+		btnComprar.setBounds(168, 105, 117, 29);
+		contentPane.add(btnComprar);
 	}
-
 }

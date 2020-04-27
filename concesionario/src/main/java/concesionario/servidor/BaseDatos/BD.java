@@ -17,6 +17,7 @@ import concesionario.datos.Empleado;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
+import concesionario.datos.Proveedor;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
@@ -60,8 +61,10 @@ public class BD {
 	private static final String COLUMNAS_TABLA_PRESUPUESTO = "(codigo string PRIMARY KEY, dniCliente string, mecanico string, marca int, modelo string, problema string, numPiezas int, piezas string, observaviones string, precio int, fecha string)";
 	private static final String TABLA_TARIFAS = "Tarifas"; 
 	private static final String COLUMNAS_TABLA_TARIFAS = "(idTarifa string PRIMARY KEY, nomTarifa string, precioAprox int, horas_manodeobra int)";
-//	private static final String TABLA_PROVEEDORES = "Proveedores"; 
-//	private static final String COLUMNAS_TABLA_PROVEEDORES = "(idProveedor string PRIMARY KEY, nomProveedor string, pais string, tipo_piezas string)";
+	private static final String TABLA_PROVEEDORES = "Proveedores"; 
+	private static final String COLUMNAS_TABLA_PROVEEDORES = "(idProveedor string PRIMARY KEY, nombre string, pais string, tipo string)";
+	private static final String TABLA_PIEZAS_PROVEEDORES = "PiezasProveedor"; 
+	private static final String COLUMNAS_TABLA_PIEZAS_PROVEEDORES = "(codigo string PRIMARY KEY, nombre string, tiempo int, tipo string, codProveedor string)";
 	
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
@@ -127,7 +130,9 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_COCHES_MATRICULADOS + COLUMNAS_TABLA_COCHES_MATRICULADOS);
 				statement.executeUpdate("create table " + TABLA_PRESUPUESTO + COLUMNAS_TABLA_PRESUPUESTO);
 				statement.executeUpdate("create table " + TABLA_TARIFAS + COLUMNAS_TABLA_TARIFAS);
-//				statement.executeUpdate("create table " + TABLA_PROVEEDORES + COLUMNAS_TABLA_PROVEEDORES);
+				statement.executeUpdate("create table " + TABLA_PROVEEDORES + COLUMNAS_TABLA_PROVEEDORES);
+				statement.executeUpdate("create table " + TABLA_PIEZAS_PROVEEDORES + COLUMNAS_TABLA_PIEZAS_PROVEEDORES);
+
 			} catch (SQLException e) {
 			} // Tabla ya existe. Nada que hacer
 			return statement;
@@ -164,7 +169,9 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_TALLER);
 			statement.executeUpdate("drop table if exists " + TABLA_PRESUPUESTO);
 			statement.executeUpdate("drop table if exists " + TABLA_TARIFAS);
-//			statement.executeUpdate("drop table if exists " + TABLA_PROVEEDORES);
+			statement.executeUpdate("drop table if exists " + TABLA_PROVEEDORES);
+			statement.executeUpdate("drop table if exists " + TABLA_PIEZAS_PROVEEDORES);
+
 			return usarCrearTablasBD(con);
 		} catch (SQLException e) {
 			lastError = e;
@@ -202,24 +209,39 @@ public class BD {
 //METODOS INSERT TODOS:	
 	
 	//proveedores
+
+	public static boolean proveedoresInsert(Statement st, String idProveedor, String nomProveedor, String pais, String tipo_piezas) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into " + TABLA_PROVEEDORES + " values ('" + secu(idProveedor) + "', '" + nomProveedor + "', '" + pais + "', '" + tipo_piezas +"')";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+			}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
 	
-//	public static boolean proveedoresInsert(Statement st, String idProveedor, String nomProveedor, String pais, String tipo_piezas) {
-//		String sentSQL = "";
-//		try {
-//			sentSQL = "insert into " + TABLA_PROVEEDORES + " values ('" + secu(idProveedor) + "', '" + nomProveedor + "', '" + pais + "', '" + tipo_piezas +"')";
-//			int val = st.executeUpdate(sentSQL);
-//			if (val != 1) { // Se tiene que anyadir 1 - error si no
-//				return false;
-//			}
-//			System.out.println("Se ha anyadido correcatente.");
-//			return true;
-//		} catch (SQLException e) {
-//			lastError = e;
-//			e.printStackTrace();
-//			System.out.println("Error ya registrado.");
-//			return false;
-//		}
-//	}
+	public static boolean piezasProveedoresInsert(Statement st, String codigo, String nombre, int tiempo , String tipo, String codProveedor) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into " + TABLA_PIEZAS_PROVEEDORES + " values ('" + secu(codigo) + "', '" + nombre + "', " + tiempo + ", '" + tipo +"', '"+ codProveedor +"')";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+			}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 
 	// Tabla USUARIOS:
 	public static boolean usuariosInsert(Statement st, String nombre, String contrasenia, int tipo) {
@@ -518,19 +540,55 @@ public class BD {
 	//Tabla EMPLEADOS:
 		
 		//Todas:
-//		public static ResultSet proveedoresSelect(Statement st, String cod) {
-//			String sentSQL = "";
-//			ResultSet rs = null;
-//			try {
-//				sentSQL = "select * from " + TABLA_PROVEEDORES +" where idProveedor= '" + cod + "'";;
-//				rs = st.executeQuery(sentSQL);		
-//				
-//			} catch (Exception e) {
-//				lastError = e;
-//				e.printStackTrace();
-//			}
-//			return rs;
-//		}
+		public static ResultSet proveedoresSelect(Statement st) {
+		String sentSQL = "";
+		ResultSet rs = null;
+		try {
+			sentSQL = "select * from " + TABLA_PROVEEDORES;
+			rs = st.executeQuery(sentSQL);		
+			
+		} catch (Exception e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public static ResultSet piezasProveedoresSelect(Statement st) {
+		String sentSQL = "";
+		ResultSet rs = null;
+		try {
+			sentSQL = "select * from " + TABLA_PIEZAS_PROVEEDORES;
+			rs = st.executeQuery(sentSQL);		
+			
+		} catch (Exception e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public static Proveedor proveedorSelect(Statement st, String cod) {
+		String sentSQL = "";
+		Proveedor pr = null;
+		try {
+			sentSQL = "select * from " + TABLA_PROVEEDORES + " where idProveedor= '" + cod + "' ";
+			ResultSet rs = st.executeQuery(sentSQL);
+			if (rs.next()) {	
+				String codigo = rs.getString("idProveedor");
+				String pais = rs.getString("pais");
+				String tipoPieza = rs.getString("tipo");
+				String nombre = rs.getString("nombre");
+				pr = new Proveedor(codigo, nombre, pais, tipoPieza);
+			}
+			
+		} catch (Exception e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+		return pr;
+	}
+	
 		//Todas:
 		public static ResultSet empleadosTodasSelect(Statement st) {
 			String sentSQL = "";
