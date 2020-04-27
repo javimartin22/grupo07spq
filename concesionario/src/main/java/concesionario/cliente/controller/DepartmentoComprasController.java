@@ -8,6 +8,8 @@ import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.ClienteApp;
 import concesionario.datos.Pieza;
+import concesionario.datos.PiezaProveedores;
+import concesionario.datos.Proveedor;
 
 public class DepartmentoComprasController {
 	private ClienteApp cliente;
@@ -63,6 +65,14 @@ public class DepartmentoComprasController {
 		}else {
 			return null;
 		}
+	}
+	
+	public List<Proveedor> cargarListaProveedores(){
+		return cliente.cargarListaProveedores();
+	}
+	
+	public List<PiezaProveedores> cargarListaPiezasProveedores(){
+		return cliente.cargarListaPiezasProveedores();
 	}
 	
 	public String parseUbicacion(int ubicacion) {

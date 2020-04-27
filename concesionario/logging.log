@@ -1,3 +1,8 @@
 25 abr. 2020 - 14:12:27,761 (AWT-EventQueue-0) ERROR [concesionario.cliente.ventana.cliente.VentanaVisualizarTarifas] - No llega ninguna tarifa.
 26 abr. 2020 - 00:07:32,869 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.cliente.VentanaVisualizarTarifas] - Cliente registrado correctamente.
 27 abr. 2020 - 15:34:01,882 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.cliente.VentanaVisualizarTarifas] - Cliente registrado correctamente.
+27 abr. 2020 - 20:37:45,679 (AWT-EventQueue-0) ERROR [concesionario.cliente.ventana.gerente.VentanaEmpleados] - No hay ningun empleado.
+27 abr. 2020 - 20:38:23,432 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.gerente.VentanaRegistroDepartamentoCompras] - Empleado Departamento Compras registrado.
+27 abr. 2020 - 20:38:45,965 (AWT-EventQueue-0) ERROR [concesionario.cliente.ventana.departamentoCompras.VentanaPiezasUtilizadas] - No hay piezas utilizadas.
+27 abr. 2020 - 20:39:24,601 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.departamentoCompras.VentanaRegistoPiezas] - Pieza añadida correctamente.
+27 abr. 2020 - 21:16:19,708 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.gerente.VentanaRegistroDepartamentoCompras] - Empleado Departamento Compras registrado.

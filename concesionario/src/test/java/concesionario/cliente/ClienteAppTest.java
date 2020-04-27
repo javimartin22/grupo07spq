@@ -759,7 +759,6 @@ public class ClienteAppTest {
 	@After
 	public void setDown() {
 		Cliente cliente = new Cliente();
-		clienteApp.main(null);
 	}
 	
 }
