@@ -9,36 +9,33 @@ import org.slf4j.LoggerFactory;
 
 import concesionario.cliente.controller.DepartmentoComprasController;
 import concesionario.datos.Pieza;
+import concesionario.datos.PiezaProveedores;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.Color;
-import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
-import javax.swing.JSpinner;
+import java.awt.Font;
 
 public class VentanaRegistoPiezas extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
 	private JComboBox comboBox;
-	private JSpinner spinner;
 	private DepartmentoComprasController departmentoComprasController;
 	final Logger logger = LoggerFactory.getLogger(VentanaRegistoPiezas.class);
 	static int iteration = 0;
 	
-	public VentanaRegistoPiezas(DepartmentoComprasController departamentoComprasController, String nickname){
+	public VentanaRegistoPiezas(DepartmentoComprasController departamentoComprasController, PiezaProveedores piezaProveedor, int cantidad, String nickname){
 		this.departmentoComprasController = departamentoComprasController;
-		iniciarVentanaRegistoPiezas(nickname);
+		iniciarVentanaRegistoPiezas(piezaProveedor, cantidad, nickname);
 	}
 	
-	public void iniciarVentanaRegistoPiezas(String nombreMecanico) {
+	public void iniciarVentanaRegistoPiezas(PiezaProveedores piezaProveedor, int cantidad, String nombreMecanico) {
 		setResizable(false);
 		setTitle("Registro de Nuevas Piezas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,79 +46,39 @@ public class VentanaRegistoPiezas extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		
 		String ubicaciones [] = {"Alamacen 1 - Estanteria 1", "Almacen 1 - Estanteria 2", "Almacen 1 - Estanteria 3", "Almacen 2 - Estanteria 1", "Almacen 2 - Estanteria 2", "Almacen 2 - Estanteria 3"};
 		
-		JLabel lblNewLabel = new JLabel("Si desea registrar una nueva pieza rellene los siguintes datos:");
+		JLabel lblNewLabel = new JLabel("Indique donde se almacenara la pieza:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel.setForeground(Color.RED);
 		lblNewLabel.setBounds(22, 20, 426, 16);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblCodigoIdentificativo = new JLabel("Codigo Identificativo:");
-		lblCodigoIdentificativo.setBounds(53, 61, 150, 16);
-		contentPane.add(lblCodigoIdentificativo);
-		
-		textField = new JTextField();
-		textField.setBounds(231, 56, 228, 26);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblNombreDeLa = new JLabel("Nombre de la Pieza");
-		lblNombreDeLa.setBounds(53, 97, 150, 16);
+		JLabel lblNombreDeLa = new JLabel("Nombre de la Pieza:");
+		lblNombreDeLa.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNombreDeLa.setBounds(53, 83, 150, 16);
 		contentPane.add(lblNombreDeLa);
 		
 		JLabel lblNewLabel_1 = new JLabel("Numero de Piezas:");
-		lblNewLabel_1.setBounds(53, 135, 150, 16);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_1.setBounds(53, 122, 150, 16);
 		contentPane.add(lblNewLabel_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(231, 92, 228, 26);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
-		
-		JLabel lblUbicacionDeLa = new JLabel("Ubicacion de la Pieza");
-		lblUbicacionDeLa.setBounds(53, 173, 150, 16);
+		JLabel lblUbicacionDeLa = new JLabel("Ubicacion de la Pieza:");
+		lblUbicacionDeLa.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblUbicacionDeLa.setBounds(53, 166, 150, 16);
 		contentPane.add(lblUbicacionDeLa);
 		
 		comboBox = new JComboBox(ubicaciones);
-		comboBox.setBounds(231, 168, 228, 27);
+		comboBox.setBounds(233, 161, 228, 27);
 		contentPane.add(comboBox);
 		
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean bool = comprobarDatos();
-				if (bool) {
-					//Obtenemos los textos de los textfield y los asignamos a dos variables de tipo String:
-					String codigo = textField.getText();
-					String nombre = textField_1.getText();
-					
-						//Obtenemos el numero del combobox y lo convertimos en un String:
-						String ubicacion = departmentoComprasController.parseUbicacion(comboBox.getSelectedIndex());
-						
-						//Obtenemos el String del spinner y lo convertimos en un entero:
-						String text = spinner.getValue().toString();
-						int unidades = Integer.parseInt(text);
-						
-						//Preguntamos si desea realizar registrar una nueva pieza:
-						int respuesta = JOptionPane.showConfirmDialog(contentPane, "¿Desea registrar una nueva pieza?");
-						if (respuesta == 0){ //En caso afirmativo la pieza se registra en la base de datos y se vacian los campos:
-							Pieza pieza = new Pieza(codigo, nombre, unidades, ubicacion);
-							registrarBD(pieza);
-							vaciarCampos();
-						} else if (respuesta == 2){//En caso de pulsar cancel, se cancela el registro de la pieza en la base de datos y continuan todos los datos correctamente
-							JOptionPane.showMessageDialog(contentPane, "La pieza no ha sido registrada.");
-							vaciarCampos();
-						} else { //En caso contrario se registra la pieza y se regresa al menu principal:
-							Pieza pieza1 = new Pieza(codigo, nombre, unidades, ubicacion);
-							registrarBD(pieza1);
-							VentanaPiezasUtilizadas vpu = new VentanaPiezasUtilizadas(departmentoComprasController, nombreMecanico);
-							vpu.setVisible(true);
-							dispose();
-						}
-				} else {
-					JOptionPane.showMessageDialog(contentPane, "Todos los campos deben estar rellenados.");
-				}
+				String ubicacion = departmentoComprasController.parseUbicacion(comboBox.getSelectedIndex());
+				Pieza pieza = new Pieza(obtenerCodigo(), piezaProveedor.getNombre(), cantidad, ubicacion);
+				registrarBD(pieza);
 			}
 		});
 		btnRegistrar.setBounds(265, 207, 117, 29);
@@ -138,14 +95,26 @@ public class VentanaRegistoPiezas extends JFrame {
 		btnCancelar.setBounds(126, 207, 117, 29);
 		contentPane.add(btnCancelar);
 		
-		spinner = new JSpinner();
-		spinner.setBounds(231, 130, 79, 26);
-		contentPane.add(spinner);
+		JLabel lblNewLabel_2 = new JLabel(piezaProveedor.getNombre());
+		lblNewLabel_2.setBounds(231, 84, 217, 14);
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel(cantidad + "");
+		lblNewLabel_3.setBounds(232, 123, 46, 14);
+		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblCodigoIdentificativo = new JLabel("Codigo Identificativo:");
+		lblCodigoIdentificativo.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblCodigoIdentificativo.setBounds(53, 47, 150, 16);
+		contentPane.add(lblCodigoIdentificativo);
+		
+		JLabel lblNewLabel_2_1 = new JLabel(obtenerCodigo());
+		lblNewLabel_2_1.setBounds(231, 47, 217, 14);
+		contentPane.add(lblNewLabel_2_1);
 	}
 	
 	//Conectar con el servidor para poder hacer el registro en la BD:
 	private void registrarBD(Pieza pieza) {
-		
 		if (departmentoComprasController.registroPieza(pieza)) {
 			logger.info("Pieza añadida correctamente.");
 		} else {
@@ -153,26 +122,8 @@ public class VentanaRegistoPiezas extends JFrame {
 		}
 	}
 	
-	
-	//Borrar todos los campos de tipo textfield y inicializar los demas tipos.
-	private void vaciarCampos() {
-		textField.setText(""); //Borrar contenido.
-		textField_1.setText(""); //Borrar contenido.
-		comboBox.setSelectedIndex(0); //Poner valor predeterminado, en este caso el que se encuentra en el index 0.
-		spinner.setValue(0); //Poner valor prederminado, en este caso 0.
+	public String obtenerCodigo() {
+		List<Pieza> piezas = departmentoComprasController.cargarPiezas();
+		return departmentoComprasController.carlcularCodigo(piezas);
 	}
-	
-	//Traducir la ubicacion del entero obtenido en el ComboBox a String.
-	
-	
-	//Comprobar que los campos estan todos rellenados.
-	private boolean comprobarDatos() {
-		boolean datos = false;
-		if (!textField.getText().isEmpty() && !textField_1.getText().isEmpty()) {
-			datos = true;
-		} 
-		return datos;
-	}
-	
-	
 }

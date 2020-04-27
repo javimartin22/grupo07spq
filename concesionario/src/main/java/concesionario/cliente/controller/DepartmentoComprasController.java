@@ -100,4 +100,8 @@ public class DepartmentoComprasController {
 		return ub;
 	}
 	
+	public String carlcularCodigo(List<Pieza> piezas) {
+		int numero = piezas.size() + 1;
+		return "PI-" + numero;
+	}
 }

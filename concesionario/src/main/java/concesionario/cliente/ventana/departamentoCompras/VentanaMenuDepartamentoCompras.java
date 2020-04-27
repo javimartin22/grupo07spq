@@ -60,7 +60,7 @@ public class VentanaMenuDepartamentoCompras extends JFrame {
 		JButton btnComprar = new JButton("Comprar");
 		btnComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaComprarPiezas vcp = new VentanaComprarPiezas(departmentoComprasController);
+				VentanaComprarPiezas vcp = new VentanaComprarPiezas(departmentoComprasController, nickname);
 				vcp.setVisible(true);
 				dispose();
 			}

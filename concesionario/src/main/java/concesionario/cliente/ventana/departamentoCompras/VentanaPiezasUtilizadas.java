@@ -137,17 +137,6 @@ public class VentanaPiezasUtilizadas extends JFrame {
 		});
 		btnNewButton_1.setBounds(274, 267, 143, 29);
 		contentPane.add(btnNewButton_1);
-		
-		JButton btnRegistrar = new JButton("Registrar");
-		btnRegistrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				VentanaRegistoPiezas vrp = new VentanaRegistoPiezas(departamentoComprasController, nickname);
-				vrp.setVisible(true);
-				dispose();
-			}
-		});
-		btnRegistrar.setBounds(429, 267, 117, 29);
-		contentPane.add(btnRegistrar);
 	}
 	
 		
