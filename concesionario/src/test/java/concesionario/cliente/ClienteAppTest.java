@@ -39,6 +39,7 @@ import concesionario.datos.Empleado;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
+import concesionario.datos.Proveedor;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
@@ -415,22 +416,6 @@ public class ClienteAppTest {
 	}
 	
 	@Test
-	public void testCargarTablaPiezasUtilizadas() {
-		Pieza pieza1 = new Pieza("P1", "pieza1", 0, "");
-		Pieza pieza2 = new Pieza("P2", "", 0, "");
-		List<Pieza> piezas = new ArrayList<Pieza>();
-		piezas.add(pieza1);
-		piezas.add(pieza2);
-		
-		when(webtarget.path(eq("loadPiezaUtilizadasTable")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->piezas);
-		List<Pieza> piezasSelect = clienteApp.cargarTablaPiezasUtilizadas();
-		
-		for (int i = 0; i < piezas.size(); i++) {
-			assertTrue(piezasSelect.get(i).getCodigo().equals(piezas.get(i).getCodigo()));
-		}
-	}
-	
-	@Test
 	public void testCargarTablaCochesCocheMatriculados() {
 		CocheMatriculado cocheMatriculado1 = new CocheMatriculado("Seat", "Leon", "", "", "", 0, 0, 0, 0);
 		CocheMatriculado cocheMatriculado2 = new CocheMatriculado("Renault", "Clio", "", "", "", 0, 0, 0, 0);
@@ -754,6 +739,23 @@ public class ClienteAppTest {
 		
 		Response result = clienteApp.seleccionarCocheConcesionario(modelo);
 		assertEquals(200, result.getStatus());	
+	}
+	
+		
+	@Test
+	public void testCargarListaProveedores() {
+		Proveedor p1 = new Proveedor("idProveedor1", "nombre1", "pais1", "tipoPiezas1");
+		Proveedor p2 = new Proveedor("idProveedor2", "nombre2", "pais2", "tipoPiezas2");
+		List<Proveedor> proveedores = new ArrayList<Proveedor>();
+		proveedores.add(p1);
+		proveedores.add(p2);
+		
+		when(webtarget.path(eq("loadProveedores")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->proveedores);
+		List<Proveedor> proveedoresSelect = clienteApp.cargarListaProveedores();
+		
+		for (int i = 0; i < proveedores.size(); i++) {
+			assertTrue(proveedoresSelect.get(i).getIdProveedor().equals(proveedores.get(i).getIdProveedor()));
+		}
 	}
 	
 	@After

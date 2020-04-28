@@ -1522,18 +1522,6 @@ public class LoginResources {
 		System.out.println("Regresa");
 		return clientes;
 	}
-	
-	@DELETE
-	@Path("{code}")
-	public Response deleteUser (@PathParam("code") int codigo) {
-		if(codigo==10) {
-			System.out.println("borrando usuario");
-			return Response.status(Response.Status.OK).build();
-		}else {
-			System.out.println("usuario no encontrado");
-			return Response.status(Response.Status.NOT_FOUND).build();
-		}
-	}
 }
 
 

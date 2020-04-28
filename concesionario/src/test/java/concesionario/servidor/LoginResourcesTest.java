@@ -3,49 +3,35 @@ package concesionario.servidor;
 import static org.junit.Assert.*;
 
 
-import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.mockito.BDDMockito;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.matchers.Any;
-import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.when;
 
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import concesionario.datos.Cliente;
+import concesionario.datos.ClienteFidelidad;
+import concesionario.datos.CocheConcesionario;
 import concesionario.datos.CocheTaller;
 import concesionario.datos.Comercial;
+import concesionario.datos.DepartamentoCompras;
+import concesionario.datos.Mecanico;
+import concesionario.datos.Pieza;
+import concesionario.datos.Presupuesto;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.servidor.BaseDatos.BD;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.when;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -75,33 +61,93 @@ public class LoginResourcesTest {
 	@Test
 	public void testAnadirUsuario() {
 		try {
-			
 			PowerMockito.mockStatic(BD.class);
 			Usuario usu = new Usuario("Prueba","test",0);
-			
 			when(BD.usuarioSelect(st, usu.getNickname())).thenReturn(usu);
-			
 			Response r= loginResources.anadirUsuario(usu);
-		        
 			assertEquals(200, r.getStatus());
 			
 			Usuario usu_null = null;
 			when(BD.usuarioSelect(st, usu.getNickname())).thenReturn(usu_null);
-			
 			Response r2= loginResources.anadirUsuario(usu);
 			assertEquals(404, r2.getStatus()); 
 			
 			Usuario usu3 = new Usuario("pr","t",0);
 			when(BD.usuarioSelect(st, usu.getNickname())).thenReturn(usu3);
 			loginResources.anadirUsuario(usu);
-			
 			Response r3= loginResources.anadirUsuario(usu);
 			assertEquals(406, r3.getStatus()); 
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		 
+	}
+	
+	@Test
+	public void testRegistrarClientete() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			Cliente client = new Cliente("dni", "nickname", 3, "contrasenya", "nombre", "apellido", "sexo", "email", "ciudad", 12345, "direccion", "numeroTelefono");
+			when(BD.clienteSelect(st, "nickname")).thenReturn(client);
+			Response r= loginResources.registrarCliente(client);
+			assertEquals(200, r.getStatus());
+			
+			Cliente cliente_null = null;
+			when(BD.clienteSelect(st, client.getNickname())).thenReturn(cliente_null);
+			Response r2 = loginResources.registrarCliente(client);
+			assertEquals(404, r2.getStatus()); 
+			
+			Cliente clientePrueba = new Cliente("dn1i", "nickname1", 3, "contrasenya1", "nombre1", "apellido1", "sexo1", "email1", "ciudad1", 12345, "direccio1n", "numero1Telefono");
+			when(BD.clienteSelect(st, client.getNickname())).thenReturn(clientePrueba);
+			loginResources.registrarCliente(client);
+			Response r3= loginResources.registrarCliente(client);
+			assertEquals(200, r3.getStatus()); 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testRegistrarMecanico() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			Mecanico client = new Mecanico("user", "pass", 1, "12345667V", "Kevin", "Ibañez", "Masculino", "em@gmail.com", "City", 48008, "Abando", "1231","1444", 1200, "665665665", 10);
+			Usuario usuario = new Usuario(client.getNickname(), client.getContrasenia(), 1);
+			  
+	        BD.mecanicosInsert(st, client.getDNI(), client.getNickname(), client.getContrasenia(), client.getNombre(), client.getApellido(), client.getSexo(), client.getEmail(), client.getCiudad(), client.getCodigoPostal(), client.getDireccion(), client.getNumeroTelefono(), client.getNSS(), client.getNumeroCuenta(), 1200, client.getHoras());
+	        BD.empleadosInsert(st, client.getDNI(), client.getNickname(), client.getContrasenia(), client.getNombre(), client.getApellido(), client.getSexo(), client.getEmail(), client.getCiudad(), client.getCodigoPostal(), client.getDireccion(), client.getNumeroTelefono(), client.getNSS(), client.getNumeroCuenta(), 1200, 0);
+	        BD.usuariosInsert(st, client.getNickname(), client.getContrasenia(), 1);
+			when(BD.usuarioSelect(st, client.getNickname())).thenReturn(usuario);
+			Response r= loginResources.registrarMecanico(client);
+			assertEquals(200, r.getStatus());
+			
+			Usuario cliente_null = null;
+			when(BD.usuarioSelect(st, client.getNickname())).thenReturn(cliente_null);
+			Response r2 = loginResources.registrarMecanico(client);
+			assertEquals(404, r2.getStatus());  
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testRegistrarCocheConcesionario() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			CocheConcesionario usu = new CocheConcesionario("marca", "modelo", 1, 1, 1, "Color", 1);
+			when(BD.cocheConcesionarioSelect(st, usu.getModelo())).thenReturn(usu);
+			Response r= loginResources.registrarCocheConcesionario(usu);
+			assertEquals(200, r.getStatus());
+			
+			CocheConcesionario usu_null = null;
+			when(BD.cocheConcesionarioSelect(st, usu.getModelo())).thenReturn(usu_null);
+			Response r2= loginResources.registrarCocheConcesionario(usu);
+			assertEquals(404, r2.getStatus()); 			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
@@ -125,7 +171,6 @@ public class LoginResourcesTest {
 	@Test
 	public void testDeleteCliente() {
 		try {
-			
 			PowerMockito.mockStatic(BD.class);
 			Cliente cliente =  new Cliente("12345678K", "user", 1, "pass", "javi", "martin", "masculino", "javi@gmail.com", "bilbo", 46009, "kalea", "666777872");
 			
@@ -156,22 +201,16 @@ public class LoginResourcesTest {
 	@Test
 	public void testSelectComercial() {
 		try {
-			
 			PowerMockito.mockStatic(BD.class);
 			Comercial comercial = new Comercial("user", "pass", "12345667V", "Kevin", "Ibañez", "Masculino", "em@gmail.com", "City", 48008, "Abando", "1231","1444", 1200, "665665665", 0, 2, 300, 10 );
-			
 			when(BD.ComercialSelect(st, comercial.getNickname())).thenReturn(comercial);
-			
 			Response r= loginResources.selectComercial(comercial.getNickname());
-		        
 			assertEquals(200, r.getStatus());
 			
 			Comercial com_null = null;
 			when(BD.ComercialSelect(st, comercial.getNickname())).thenReturn(com_null);
-			
 			Response r2= loginResources.selectComercial(comercial.getNickname());
 			assertEquals(404, r2.getStatus()); 
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -179,47 +218,204 @@ public class LoginResourcesTest {
 	}
 	
 	@Test
-	public void testRegistrarCocheTaller() {
+	public void testSelectMecanico() {
 		try {
+			PowerMockito.mockStatic(BD.class);
+			Mecanico mecanico = new Mecanico("dni", "nickname", 3, "contrasenya", "nombre", "apellido", "sexo", "email", "ciudad", 12345, "direccion", "", "", 1, "", 1);
+			when(BD.mecanicoSelect(st, mecanico.getNickname())).thenReturn(mecanico);
+			Response r= loginResources.selectMecanico(mecanico.getNickname());
+			assertEquals(200, r.getStatus());
 			
+			Mecanico com_null = null;
+			when(BD.mecanicoSelect(st, mecanico.getNickname())).thenReturn(com_null);
+			Response r2= loginResources.selectMecanico(mecanico.getNickname());
+			assertEquals(404, r2.getStatus()); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testSelectClient() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			Cliente cliente = new Cliente("12345678K", "user", 1, "pass", "javi", "martin", "masculino", "javi@gmail.com", "bilbo", 46009, "kalea", "666777872");
+			when(BD.clienteSelect(st, cliente.getNickname())).thenReturn(cliente);
+			Response r= loginResources.selectCliente(cliente.getNickname());
+			assertEquals(200, r.getStatus());
+			
+			Cliente com_null = null;
+			when(BD.clienteSelect(st, cliente.getNickname())).thenReturn(com_null);
+			Response r2= loginResources.selectCliente(cliente.getNickname());
+			assertEquals(404, r2.getStatus()); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testSelectCocheTaller() {
+		try {
 			PowerMockito.mockStatic(BD.class);
 			CocheTaller cocheTaller = new CocheTaller("2544KLB", "Honda", "Civic", "Andres", "79076345T", 1300, 0);
+			when(BD.cocheTalleSelect(st, cocheTaller.getMatricula())).thenReturn(cocheTaller);
+			Response r= loginResources.selectCocheTaller(cocheTaller.getMatricula());
+			assertEquals(200, r.getStatus());
+			
+			CocheTaller com_null = null;
+			when(BD.cocheTalleSelect(st, cocheTaller.getMatricula())).thenReturn(com_null);
+			Response r2= loginResources.selectCocheTaller(cocheTaller.getMatricula());
+			assertEquals(404, r2.getStatus()); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testSelectCocheConcesionario() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			CocheConcesionario cocheTaller = new CocheConcesionario("Honda", "Civic", 10000, 115, 5, "Rojo", 1);
+			when(BD.cocheConcesionarioSelect(st, cocheTaller.getModelo())).thenReturn(cocheTaller);
+			Response r= loginResources.selectCocheConcesionario(cocheTaller.getModelo());
+			assertEquals(200, r.getStatus());
+			
+			CocheConcesionario com_null = null;
+			when(BD.cocheConcesionarioSelect(st, cocheTaller.getModelo())).thenReturn(com_null);
+			Response r2= loginResources.selectCocheConcesionario(cocheTaller.getModelo());
+			assertEquals(404, r2.getStatus()); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testSelectDepartamentoCompras() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			DepartamentoCompras cocheTaller = new DepartamentoCompras("user", "pass", "12345667V", "Kevin", "Ibañez", "Masculino", "em@gmail.com", "City", 48008, "Abando", "1231","1444", 1200, "665665665", 0);
+			when(BD.departamentoCompraSelect(st, cocheTaller.getNickname())).thenReturn(cocheTaller);
+			Response r= loginResources.selectDepartamentoCompras(cocheTaller.getNickname());
+			assertEquals(200, r.getStatus());
+			
+			DepartamentoCompras com_null = null;
+			when(BD.departamentoCompraSelect(st, cocheTaller.getNickname())).thenReturn(com_null);
+			Response r2= loginResources.selectDepartamentoCompras(cocheTaller.getNickname());
+			assertEquals(404, r2.getStatus()); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testSelectPiezaUtilizada() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			Pieza cocheTaller = new Pieza("P1", "Amortiguador", 12, "Almacen 1");
+			when(BD.piezaUtilizadaSelect(st, cocheTaller.getCodigo())).thenReturn(cocheTaller);
+			Response r= loginResources.selectPiezaUtilizada(cocheTaller.getCodigo());
+			assertEquals(200, r.getStatus());
+			
+			Pieza com_null = null;
+			when(BD.piezaUtilizadaSelect(st, cocheTaller.getCodigo())).thenReturn(com_null);
+			Response r2= loginResources.selectPiezaUtilizada(cocheTaller.getCodigo());
+			assertEquals(404, r2.getStatus()); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testSelectPresupuesto() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			Presupuesto presupuesto = new Presupuesto("PE1", "12345678D", "Jorge", "Seat", "Leon", "Aceite", 1, "Lata Aceite", "Cambio de Aceite", 50, "Hoy");
+			when(BD.presupuestoCodigoSelect(st, presupuesto.getCodigo())).thenReturn(presupuesto);
+			Response r= loginResources.selectPresupuesto(presupuesto.getCodigo());
+			assertEquals(200, r.getStatus());
+			
+			Presupuesto com_null = null;
+			when(BD.presupuestoCodigoSelect(st, presupuesto.getCodigo())).thenReturn(com_null);
+			Response r2= loginResources.selectPresupuesto(presupuesto.getCodigo());
+			assertEquals(404, r2.getStatus()); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testRegistrarCocheTaller() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			CocheTaller cocheTaller = new CocheTaller("2544KLB", "Honda", "Civic", "Andres", "79076345T", 1300, 0);
+			
 			boolean b = true;
 			when(BD.cocheTallerInsert(st, cocheTaller.getMatricula(), cocheTaller.getMarca(), cocheTaller.getModelo(), cocheTaller.getMecanico(),cocheTaller.getDniCliente(),cocheTaller.getCoste(), cocheTaller.getEstado())).thenReturn(b);
-			
 			Response r= loginResources.registrarCocheTaller(cocheTaller);
-		        
 			assertEquals(200, r.getStatus());
 			
 			boolean f = false;
 			when(BD.cocheTallerInsert(st, cocheTaller.getMatricula(), cocheTaller.getMarca(), cocheTaller.getModelo(), cocheTaller.getMecanico(),cocheTaller.getDniCliente(),cocheTaller.getCoste(), cocheTaller.getEstado())).thenReturn(f);
-			
 			Response r2= loginResources.registrarCocheTaller(cocheTaller);
 			assertEquals(404, r2.getStatus()); 
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		 
+	}
+	
+	@Test
+	public void testDeletePiezaUtilizada() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			Pieza pieza = new Pieza("P1", "Amortiguador", 12, "Almacen 1");
+			
+			boolean b = true;
+			when(BD.piezaUtilizadaDelete(st, pieza.getCodigo())).thenReturn(b);
+			Response r= loginResources.deletePiezaUtilizada(pieza.getCodigo());
+			assertEquals(200, r.getStatus()); // AQUI AL REVES PORQUE HAGO DELETE
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testCargarTablaTarifas() {
 		try {
-			PowerMockito.mockStatic(BD.class);
-			
+			Connection con = BD.initBD("TallerTest");
+			Statement st = BD.usarBD(con);
 			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
-//			List<Tarifa> tarifas= loginResources.cargarTablaTarifas();
-//			System.out.println(tarifas);
-//		    assertTrue(tarifas.size() > 0);
-			
+			List<Tarifa> tarifas= loginResources.cargarTablaTarifas();
+		    assertTrue(tarifas.size() > 0);
 		    
+			PowerMockito.mockStatic(BD.class);
 			//Opcion 2 con mock al poder poner null
 			ResultSet res = null;
 			when(BD.tarifasTodosSelect(st)).thenReturn(res);
 			
-			List<Tarifa> resultado= loginResources.cargarTablaTarifas();
+			List<Tarifa> resultado = loginResources.cargarTablaTarifas();
+			assertTrue(resultado.size() == 0);
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCargarTablaClienteFidelidad() {
+		try {
+			Connection con = BD.initBD("TallerTest");
+			Statement st = BD.usarBD(con);
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			List<ClienteFidelidad> tarifas= loginResources.cargarTablaClienteFidelidad();
+		    assertTrue(tarifas.size() > 0);
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.fidelidadSelect(st)).thenReturn(res);
+			
+			List<ClienteFidelidad> resultado = loginResources.cargarTablaClienteFidelidad();
 			assertTrue(resultado.size() == 0);
 			
 		} catch (Exception e) {

@@ -20,6 +20,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import concesionario.cliente.ClienteApp;
 import concesionario.datos.Pieza;
+import concesionario.datos.PiezaProveedores;
+import concesionario.datos.Proveedor;
 
 @RunWith(MockitoJUnitRunner.Silent.class) 
 public class DepartamentoComprasControllerTest {
@@ -88,7 +90,7 @@ public class DepartamentoComprasControllerTest {
 	
 	@Test
 	public void testRegistroPiezaUtilizada() {
-Pieza pieza = new Pieza("P1", "Amortiguador", 2, "Almacen 1");
+		Pieza pieza = new Pieza("P1", "Amortiguador", 2, "Almacen 1");
 		
 		Response response = Mockito.mock(Response.class);
 		Mockito.when(response.getStatus()).thenReturn(200);
@@ -153,5 +155,39 @@ Pieza pieza = new Pieza("P1", "Amortiguador", 2, "Almacen 1");
 		assertEquals("Alamacen 2 - Estanteria 1", departamentoComprasController.parseUbicacion(3));
 		assertEquals("Alamacen 2 - Estanteria 2", departamentoComprasController.parseUbicacion(4));
 		assertEquals("Alamacen 2 - Estanteria 3", departamentoComprasController.parseUbicacion(5));
+	}
+	
+	@Test 
+	public void testCargarListaProveedores() {
+		List<Proveedor> proveedores = new ArrayList<Proveedor>();
+		Proveedor p1 = new Proveedor("idProveedor1", "nombre1", "pais1", "tipoPiezas1");
+		Proveedor p2 = new Proveedor("idProveedor2", "nombre2", "pais2", "tipoPiezas2");
+		proveedores.add(p1);
+		proveedores.add(p2);
+		
+		
+		Mockito.when(clienteApp.cargarListaProveedores()).thenAnswer(x ->proveedores);
+		List<Proveedor> proveedoresSelect = departamentoComprasController.cargarListaProveedores();
+		
+		for(int i=0; i<proveedores.size(); i++) {
+			assertTrue(proveedoresSelect.get(i).getNombre().equals(proveedores.get(i).getNombre()));
+		}
+	}
+	
+	@Test 
+	public void testCargarListaPiezasProveedores() {
+		List<PiezaProveedores> piezas = new ArrayList<PiezaProveedores>();
+		PiezaProveedores p1 = new PiezaProveedores("idProveedor1", "nombre1", 5, "tipoPiezas1", "Codigo1");
+		PiezaProveedores p2 = new PiezaProveedores("idProveedor2", "nombre2", 5, "tipoPiezas2", "Codigo2");
+		piezas.add(p1);
+		piezas.add(p2);
+		
+		
+		Mockito.when(clienteApp.cargarListaPiezasProveedores()).thenAnswer(x ->piezas);
+		List<PiezaProveedores> piezasSelect = departamentoComprasController.cargarListaPiezasProveedores();
+		
+		for(int i=0; i<piezas.size(); i++) {
+			assertTrue(piezasSelect.get(i).getNombre().equals(piezas.get(i).getNombre()));
+		}
 	}
 }

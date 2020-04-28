@@ -6,3 +6,4 @@
 27 abr. 2020 - 20:38:45,965 (AWT-EventQueue-0) ERROR [concesionario.cliente.ventana.departamentoCompras.VentanaPiezasUtilizadas] - No hay piezas utilizadas.
 27 abr. 2020 - 20:39:24,601 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.departamentoCompras.VentanaRegistoPiezas] - Pieza añadida correctamente.
 27 abr. 2020 - 21:16:19,708 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.gerente.VentanaRegistroDepartamentoCompras] - Empleado Departamento Compras registrado.
+28 abr. 2020 - 00:56:32,759 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.departamentoCompras.VentanaRegistoPiezas] - Pieza añadida correctamente.
