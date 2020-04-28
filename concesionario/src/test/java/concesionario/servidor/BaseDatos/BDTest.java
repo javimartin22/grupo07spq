@@ -112,11 +112,11 @@ public class BDTest {
 //		assertFalse(BD.cochesInsert(st, "", "", "", 1, 0, 0, 0));
 //	}
 	
-	@Test 
-	public void testCochesMatriculadosInsert() {
-		assertTrue(BD.cochesMatriculadosInsert(st, "", "", "", 0, 0, 0, "", 0, ""));
-		assertFalse(BD.cochesMatriculadosInsert(st, "", "", "", 0, 0, 0, "", 0, ""));
-	}
+//	@Test 
+//	public void testCochesMatriculadosInsert() {
+//		assertTrue(BD.cochesMatriculadosInsert(st, "", "", "", 0, 0, 0, "", 0, ""));
+//		assertFalse(BD.cochesMatriculadosInsert(st, "", "", "", 0, 0, 0, "", 0, ""));
+//	}
 	
 	@Test
 	public void testCochesVendidodsInsert() {

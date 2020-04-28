@@ -175,4 +175,5 @@ public class DepartamentoComprasControllerTest {
 			assertTrue(piezasSelect.get(i).getNombre().equals(piezas.get(i).getNombre()));
 		}
 	}
+	
 }
