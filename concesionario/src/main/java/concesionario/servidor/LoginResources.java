@@ -39,12 +39,9 @@ public class LoginResources {
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
-		
 		String username = concat.getNickname();
 		String pass = concat.getContrasenya();
-		
 		Usuario nuevo = BD.usuarioSelect(st, username);
-		
 		
 		if (nuevo == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
@@ -766,6 +763,14 @@ public class LoginResources {
 		}
 	}
 	
+	public Statement getSt() {
+		return st;
+	}
+
+	public void setSt(Statement st) {
+		this.st = st;
+	}
+
 	@GET
 	@Path("loadPiezaUtilizadasTable")
 	@Produces(MediaType.APPLICATION_JSON)
