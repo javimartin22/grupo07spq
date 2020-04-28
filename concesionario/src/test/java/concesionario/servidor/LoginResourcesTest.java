@@ -21,6 +21,7 @@ import java.util.List;
 import concesionario.datos.Cliente;
 import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.CocheConcesionario;
+import concesionario.datos.CocheMatriculado;
 import concesionario.datos.CocheTaller;
 import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
@@ -30,6 +31,7 @@ import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
+import concesionario.datos.Venta;
 import concesionario.servidor.BaseDatos.BD;
 
 
@@ -456,6 +458,86 @@ public class LoginResourcesTest {
 			when(BD.empleadosTodasSelect(st)).thenReturn(res);
 			
 			List<Empleado> resultado = loginResources.cargarEmpleadoTabla();
+			assertTrue(resultado.size() == 0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCargarCochesMatriculadosTabla() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			List<CocheMatriculado> coches= loginResources.cargarCochesMatriculadosTabla();
+		    assertTrue(coches.size() > 0);
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.cochesMatricTodosSelect(st)).thenReturn(res);
+			
+			List<CocheMatriculado> resultado = loginResources.cargarCochesMatriculadosTabla();
+			assertTrue(resultado.size() == 0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCargarVentaTabla() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			List<Venta> ventas= loginResources.cargarVentaTabla();
+		    assertTrue(ventas.size() > 0);
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.ventasTodasSelect(st)).thenReturn(res);
+			
+			List<Venta> resultado = loginResources.cargarVentaTabla();
+			assertTrue(resultado.size() == 0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCargarPiezaUtilizadaTabla() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			List<Pieza> piezas= loginResources.cargarPiezaUtilizadaTabla();
+		    assertTrue(piezas.size() > 0);
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.piezasUtilizadasTodasSelect(st)).thenReturn(res);
+			
+			List<Pieza> resultado = loginResources.cargarPiezaUtilizadaTabla();
+			assertTrue(resultado.size() == 0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCargarCocheTallerTabla() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			List<CocheTaller> coches= loginResources.cargarCocheTallerTabla();
+		    assertTrue(coches.size() > 0);
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.cochesTallerSelect(st)).thenReturn(res);
+			
+			List<CocheTaller> resultado = loginResources.cargarCocheTallerTabla();
 			assertTrue(resultado.size() == 0);
 			
 		} catch (Exception e) {
