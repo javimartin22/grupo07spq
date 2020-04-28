@@ -2,9 +2,7 @@ package concesionario.servidor;
 
 import static org.junit.Assert.*;
 
-
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -35,7 +33,6 @@ import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
 import concesionario.servidor.BaseDatos.BD;
-
 
 import org.junit.Test;
 import org.powermock.api.mockito.PowerMockito;
@@ -696,6 +693,26 @@ public class LoginResourcesTest {
 			
 			List<CocheConcesionario> resultado = loginResources.cargarCocheConcesionarioTabla();
 			assertTrue(resultado.size() == 0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarVentaModelo() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			Response piezas= loginResources.filtrarVentaModelo("1");
+		    assertEquals(200, piezas.getStatus());;
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.ventasModeloSelect(st, "")).thenReturn(res);
+			
+			Response resultado = loginResources.filtrarVentaModelo("");
+			assertEquals(404, resultado.getStatus());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
