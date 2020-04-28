@@ -384,6 +384,81 @@ public class LoginResourcesTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void testDeleteDepartamentoCompras() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			DepartamentoCompras dep =  new DepartamentoCompras("Jorge", "12345", "12345667Ñ", "Jorge", "Martinez", "Masculino", "em@gmail.com", "Barakaldo", 48008, "Abando", "1231","1444", 1200, "665665665", 10);
+			
+			boolean b = true;
+			when(BD.departamentoComprasDelete(st, dep.getDNI())).thenReturn(b);
+			Response r= loginResources.deleteDepartamentoCompras(dep.getDNI());
+			assertEquals(200, r.getStatus()); // AQUI AL REVES PORQUE HAGO DELETE
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testDeleteComercial() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			Comercial comercial =  new Comercial("user", "pass", "12345667V", "Kevin", "Ibañez", "Masculino", "em@gmail.com", "City", 48008, "Abando", "1231","1444", 1200, "665665665", 0, 2, 300, 10 );
+			
+			boolean b = true;
+			when(BD.comercialesDelete(st, comercial.getDNI())).thenReturn(b);
+			Response r= loginResources.deleteComercial(comercial.getDNI());
+			assertEquals(200, r.getStatus()); // AQUI AL REVES PORQUE HAGO DELETE
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testDeleteMecanico() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			Mecanico mecanico =  new Mecanico("user", "pass", 1, "12345667V", "Kevin", "Ibañez", "Masculino", "em@gmail.com", "City", 48008, "Abando", "1231","1444", 1200, "665665665", 10);
+			
+			boolean b = true;
+			when(BD.mecanicosDelete(st, mecanico.getDNI())).thenReturn(b);
+			Response r= loginResources.deleteMecanico(mecanico.getDNI());
+			assertEquals(200, r.getStatus()); // AQUI AL REVES PORQUE HAGO DELETE
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testDeleteTarifa() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			Tarifa mecanico =  new Tarifa("T1", "Cambio Aceite", 50, 1);
+			
+			boolean b = true;
+			when(BD.tarifasDelete(st, mecanico.getIdTarifa())).thenReturn(b);
+			Response r= loginResources.deleteTarifa(mecanico.getIdTarifa());
+			assertEquals(200, r.getStatus()); // AQUI AL REVES PORQUE HAGO DELETE
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testDeleteCocheTaller() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			CocheTaller coches =  new CocheTaller("2544KLB", "Honda", "Civic", "Andres", "79076345T", 1300, 0);
+			
+			boolean b = true;
+			when(BD.cocheTallerDelete(st, coches.getMatricula())).thenReturn(b);
+			Response r= loginResources.deleteCocheTaller(coches.getMatricula());
+			assertEquals(200, r.getStatus()); // AQUI AL REVES PORQUE HAGO DELETE
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Test
 	public void testCargarTablaTarifas() {
