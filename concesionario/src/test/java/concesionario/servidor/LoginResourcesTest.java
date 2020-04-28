@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -23,6 +24,7 @@ import concesionario.datos.CocheConcesionario;
 import concesionario.datos.CocheTaller;
 import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
+import concesionario.datos.Empleado;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
@@ -404,8 +406,6 @@ public class LoginResourcesTest {
 	@Test
 	public void testCargarTablaClienteFidelidad() {
 		try {
-			Connection con = BD.initBD("TallerTest");
-			Statement st = BD.usarBD(con);
 			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
 			List<ClienteFidelidad> tarifas= loginResources.cargarTablaClienteFidelidad();
 		    assertTrue(tarifas.size() > 0);
@@ -421,6 +421,45 @@ public class LoginResourcesTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		 
+	}
+	
+	@Test
+	public void testCargarTablaPresupuestos() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			List<Presupuesto> tarifas= loginResources.cargarTablaPresupuesto();
+		    assertTrue(tarifas.size() > 0);
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.presupuestosTodosSelect(st)).thenReturn(res);
+			
+			List<Presupuesto> resultado = loginResources.cargarTablaPresupuesto();
+			assertTrue(resultado.size() == 0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCargarEmpleadoTabla() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			List<Empleado> empleados= loginResources.cargarEmpleadoTabla();
+		    assertTrue(empleados.size() > 0);
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.empleadosTodasSelect(st)).thenReturn(res);
+			
+			List<Empleado> resultado = loginResources.cargarEmpleadoTabla();
+			assertTrue(resultado.size() == 0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
