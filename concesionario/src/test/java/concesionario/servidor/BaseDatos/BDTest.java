@@ -118,23 +118,23 @@ public class BDTest {
 //		assertFalse(BD.cochesMatriculadosInsert(st, "", "", "", 0, 0, 0, "", 0, ""));
 //	}
 	
-	@Test
-	public void testCochesVendidodsInsert() {
-		assertTrue(BD.cochesVendidodsInsert(st, "", "", "", "", "", ""));
-		assertFalse(BD.cochesVendidodsInsert(st, "", "", "", "", "", ""));
-	}
-	
-	@Test 
-	public void testCocheTallerInsert() {
-		assertTrue(BD.cocheTallerInsert(st, "", "", "", "", "", 0, 0));
-		assertFalse(BD.cocheTallerInsert(st, "", "", "", "", "", 0, 0));
-	}
-	
-	@Test 
-	public void testPresupuestoInsert() {
-		assertTrue(BD.PresupuestoInsert(st, "", "", "", "", "", "", 0, "", "", 0, ""));
-		assertFalse(BD.PresupuestoInsert(st, "", "", "", "", "", "", 0, "", "", 0, ""));
-	}
+//	@Test
+//	public void testCochesVendidodsInsert() {
+//		assertTrue(BD.cochesVendidodsInsert(st, "", "", "", "", "", ""));
+//		assertFalse(BD.cochesVendidodsInsert(st, "", "", "", "", "", ""));
+//	}
+//	
+//	@Test 
+//	public void testCocheTallerInsert() {
+//		assertTrue(BD.cocheTallerInsert(st, "", "", "", "", "", 0, 0));
+//		assertFalse(BD.cocheTallerInsert(st, "", "", "", "", "", 0, 0));
+//	}
+//	
+//	@Test 
+//	public void testPresupuestoInsert() {
+//		assertTrue(BD.PresupuestoInsert(st, "", "", "", "", "", "", 0, "", "", 0, ""));
+//		assertFalse(BD.PresupuestoInsert(st, "", "", "", "", "", "", 0, "", "", 0, ""));
+//	}
 	
 	@Test
 	public void testTarifaInsert() {

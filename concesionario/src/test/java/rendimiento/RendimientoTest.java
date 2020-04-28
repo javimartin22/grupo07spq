@@ -1,24 +1,18 @@
 package rendimiento;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import junit.framework.JUnit4TestAdapter;
 import org.junit.Before;
 import org.junit.Test;
 
 import concesionario.cliente.ClienteApp;
-import concesionario.datos.Usuario;
 import concesionario.servidor.Main;
 
 import org.junit.Rule;
-import org.databene.contiperf.Required;
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.junit.ContiPerfRule;
-import org.databene.contiperf.report.EmptyReportModule;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 @PerfTest(invocations = 5)
 public class RendimientoTest {
@@ -44,19 +38,18 @@ public class RendimientoTest {
 		logger.info("Exiting setUp");
 	}
 	
-	@Test
-	@PerfTest(invocations = 100, threads = 10)
-	public void testConectividadLogin(){
-		ClienteApp clienteapp = new ClienteApp();
-		Usuario admin = new Usuario("admin","admin",0);
-		assertEquals(200, clienteapp.login(admin).getStatus());
-	}
+//	@Test
+//	@PerfTest(invocations = 100, threads = 10)
+//	public void testConectividadLogin(){
+//		ClienteApp clienteapp = new ClienteApp();
+//		Usuario admin = new Usuario("admin","admin",0);
+//		assertEquals(200, clienteapp.login(admin).getStatus());
+//	}
 	
 	@Test
 	@PerfTest(invocations = 100, threads = 10)
-	public void testConectividadSelect(){
+	public void testConectividadClienteSelect(){
 		ClienteApp clienteapp = new ClienteApp();
-		String comercial = "Jorgico";
-		assertEquals(200, clienteapp.comercialSelect(comercial).getStatus());
+		assertEquals(200, clienteapp.clienteSelect("Pablito").getStatus());
 	}
 }

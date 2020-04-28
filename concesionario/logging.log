@@ -7,3 +7,21 @@
 27 abr. 2020 - 20:39:24,601 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.departamentoCompras.VentanaRegistoPiezas] - Pieza añadida correctamente.
 27 abr. 2020 - 21:16:19,708 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.gerente.VentanaRegistroDepartamentoCompras] - Empleado Departamento Compras registrado.
 28 abr. 2020 - 00:56:32,759 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.departamentoCompras.VentanaRegistoPiezas] - Pieza añadida correctamente.
+28 abr. 2020 - 15:56:57,142 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+28 abr. 2020 - 15:56:58,697 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+28 abr. 2020 - 15:57:01,515 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+28 abr. 2020 - 15:59:02,066 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+28 abr. 2020 - 15:59:03,537 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+28 abr. 2020 - 15:59:42,388 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+28 abr. 2020 - 15:59:43,957 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+28 abr. 2020 - 16:02:47,914 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+28 abr. 2020 - 16:02:49,504 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+28 abr. 2020 - 16:02:52,694 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+28 abr. 2020 - 16:03:41,227 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+28 abr. 2020 - 16:03:42,955 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+28 abr. 2020 - 16:03:45,814 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+28 abr. 2020 - 16:04:30,806 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+28 abr. 2020 - 16:04:32,161 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+28 abr. 2020 - 16:04:34,813 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+28 abr. 2020 - 16:04:59,193 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+28 abr. 2020 - 16:05:00,633 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
