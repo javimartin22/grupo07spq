@@ -89,21 +89,6 @@ public class DepartamentoComprasControllerTest {
 	}
 	
 	@Test
-	public void testRegistroPiezaUtilizada() {
-		Pieza pieza = new Pieza("P1", "Amortiguador", 2, "Almacen 1");
-		
-		Response response = Mockito.mock(Response.class);
-		Mockito.when(response.getStatus()).thenReturn(200);
-		when(clienteApp.registroPiezaUtilizada(any(Pieza.class), any(Integer.class))).thenReturn(response);
-		assertTrue(departamentoComprasController.registroPiezaUtilizada(pieza, 1) == true);
-		
-		Response response1 = Mockito.mock(Response.class);
-		Mockito.when(response1.getStatus()).thenReturn(404);
-		when(clienteApp.registroPiezaUtilizada(any(Pieza.class), any(Integer.class))).thenReturn(response1);
-		assertTrue(departamentoComprasController.registroPiezaUtilizada(pieza, 1) == false);
-	}
-	
-	@Test
 	public void testCargarPiezasUtilizadas() {
 		List<Pieza> piezas = new ArrayList<Pieza>();
 		Pieza p1 = new Pieza("P1", "Amortiguador", 5, "Almacen 1");

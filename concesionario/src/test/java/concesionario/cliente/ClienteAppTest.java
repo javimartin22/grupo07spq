@@ -38,6 +38,7 @@ import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
+import concesionario.datos.PiezaProveedores;
 import concesionario.datos.Presupuesto;
 import concesionario.datos.Proveedor;
 import concesionario.datos.Tarifa;
@@ -755,6 +756,38 @@ public class ClienteAppTest {
 		
 		for (int i = 0; i < proveedores.size(); i++) {
 			assertTrue(proveedoresSelect.get(i).getIdProveedor().equals(proveedores.get(i).getIdProveedor()));
+		}
+	}
+	
+	@Test
+	public void testCargarListaPiezasProveedores() {
+		PiezaProveedores p1 = new PiezaProveedores("P1", "Amortiguador", 0, "", "");
+		PiezaProveedores p2 = new PiezaProveedores("P2", "Amortiguador", 0, "", "");
+		List<PiezaProveedores> proveedores = new ArrayList<PiezaProveedores>();
+		proveedores.add(p1);
+		proveedores.add(p2);
+		
+		when(webtarget.path(eq("loadPiezasProveedoresList")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->proveedores);
+		List<PiezaProveedores> proveedoresSelect = clienteApp.cargarListaPiezasProveedores();
+		
+		for (int i = 0; i < proveedores.size(); i++) {
+			assertTrue(proveedoresSelect.get(i).getCodigo().equals(proveedores.get(i).getCodigo()));
+		}
+	}
+	
+	@Test
+	public void testCargarTablaPiezasUtilizadas() {
+		Pieza pieza1 = new Pieza("P1", "pieza1", 0, "");
+		Pieza pieza2 = new Pieza("P2", "", 0, "");
+		List<Pieza> piezas = new ArrayList<Pieza>();
+		piezas.add(pieza1);
+		piezas.add(pieza2);
+		
+		when(webtarget.path(eq("loadPiezaUtilizadasTable")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->piezas);
+		List<Pieza> piezasSelect = clienteApp.cargarTablaPiezasUtilizadas();
+		
+		for (int i = 0; i < piezas.size(); i++) {
+			assertTrue(piezasSelect.get(i).getCodigo().equals(piezas.get(i).getCodigo()));
 		}
 	}
 	

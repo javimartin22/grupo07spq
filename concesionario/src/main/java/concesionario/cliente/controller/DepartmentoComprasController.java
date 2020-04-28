@@ -44,14 +44,6 @@ public class DepartmentoComprasController {
 		} 
 	}
 	
-	public boolean registroPiezaUtilizada(Pieza pieza, int unidades) {
-		Response response = cliente.registroPiezaUtilizada(pieza, unidades); 
-		if (response.getStatus() == Status.OK.getStatusCode()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 	
 	public List<Pieza> cargarPiezasUtilizadas(){
 		return cliente.cargarTablaPiezasUtilizadas();

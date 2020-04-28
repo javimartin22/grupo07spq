@@ -263,11 +263,6 @@ public class ClienteApp {
  		return response;
 	}
 	
-	public Response registroPiezaUtilizada(Pieza pieza, int unidades) {
-		return null;
- 		
-	}
-	
 	public List<Pieza> cargarTablaPiezasUtilizadas(){
 		WebTarget loadPiezaUtilizadaTableTarget = loginTarget.path("loadPiezaUtilizadasTable");
 		GenericType<List<Pieza>> genericType = new GenericType<List<Pieza>>() {};

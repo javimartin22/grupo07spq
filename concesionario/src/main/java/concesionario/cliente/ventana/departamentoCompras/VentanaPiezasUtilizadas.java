@@ -165,12 +165,6 @@ public class VentanaPiezasUtilizadas extends JFrame {
 	private void anyadirUnidades(Pieza pieza) {
 		String u = JOptionPane.showInputDialog("¿Cuantas unidades desea suministrar?");
 		int unidades = Integer.parseInt(u);
-		if (departamentoComprasController.registroPiezaUtilizada(pieza, unidades)) {
-			logger.info("Unidades añadidas correctamente.");
-			JOptionPane.showMessageDialog(contentPane, "Unidades anyadidas correctamente");
-		} else {
-			logger.error("No se han añadido correctamente las unidades.");
-		}
 	}
 		
 	public void cargarTablaUtilizadas(JTable table) {
