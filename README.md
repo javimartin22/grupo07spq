@@ -19,6 +19,7 @@ Será necesario descargar Maven para poder ejecutar el proyecto.
 ```
 * [Maven](https://maven.apache.org/) - Manejador de dependencias
 ```
+Esta aplicació utiliza una Base de Datos SQLite la cual no es necesario crear ni configurarla, ya que en caso de que esta no exista la propia aplicación la desarrolla. 
 
 ### Ejecución 🔧
 
@@ -40,7 +41,8 @@ Ejecutar el siguiente comando, que hace referencia al profiles del Cliente en el
 -mvn exec:java -Pclient
 ```
 
-_A continuacion se detallan las diferentes variantes de iniciar sesión como distintos usuarios_
+_A continuacion se detallan los ejemplos para las diferentes variantes de iniciar sesión como distintos usuarios que se 
+encuentran en nuestra BD._
 
 _Entrar como gerente_
 
@@ -49,65 +51,62 @@ Iniciar sesión con los siguientes datos:
 -Nickname: admin
 -Password: admin
 
-Una vez iniciado sesión, un gerente puede acceder al registro de nuevos empleados, ver los empleados de la aplicación y gestionarlos.
-
 ```
 
 _Entrar como mecanico_
 
 ```
-El inicio de sesión como mecánico se puede realizar con todos los usuarios de tipo Mecánico que haya creado el gerente. De partida, se dispone de un mecánico ya creado con los siguientes datos:
-
--Nickname: Jose
+Iniciar sesión con los siguientes datos:
+-Nickname: Javiertxu
 -Password: 1234
-
-Una vez iniciado sesión, un mecánico puede acceder a la visualización de las piezas, acceder al registro de vehículos en el taller, ver los vehículos en el taller y el historial de los vehículos.
 
 ```
 
 _Entrar como comercial_
 
 ```
-El inicio de sesión como comercial se puede realizar con todos los usuarios de tipo Comercial que haya creado el gerente. De partida, se dispone de un comercial ya creado con los siguientes datos:
-
--Nickname: Arturo
+Iniciar sesión con los siguientes datos:
+-Nickname: Jorgico
 -Password: 1234
-
-Una vez iniciado sesión, un comercial puede acceder al registro de nuevos vehículos en el concesionario, visualización de las ventas donde se podrá registrar una nueva venta, ver vehículos del concesionario donde se podrá ver la información detallada de estos y la opción de salir.
 
 ```
 
 _Entrar como Departamento de Compras_
 
 ```
-El inicio de sesión como Departamento de Compras se puede realizar con todos los usuarios de tipo Departamento de Compras que haya creado el gerente. De partida, se dispone de un Departamento de Compras ya creado con los siguientes datos:
-
--Nickname: Jorge
+Iniciar sesión con los siguientes datos:
+-Nickname: Arturito
 -Password: 1234
-
-Una vez iniciado sesión, un Departamento Compras puede acceder a la visualización de piezas distinguiendo de las piezas que han sido utilizadas de las piezas que aún se encuentran dispnibles.
 
 ```
 
 _Entrar como Cliente_
 
 ```
-El registro como Cliente se puede realizar rellenando un username y una contraseña deseada, si el cliente no está registrado se visualizará un panel para completar el proceso de registro. Para iniciar sesión, se accede con el username y password ya realizado en el registro. Cliente por defecto:
-
--Nickname: Pablo
+Iniciar sesión con los siguientes datos:ado en el registro. Cliente por defecto:
+-Nickname: Pablito
 -Password: 1234
 
-Una vez iniciado sesión, un cliente dispone de la posibilidad de cambiar la contraseña y el nickname.
-
+En caso de que el usuario no se encuentre registrado en la Base de Datos se dispondra de la posibilidad de registrarse.
 ```
 
 ## Construido con 🛠️
 
 * [Jersey](http://www.dropwizard.io/1.0.2/docs/) - Framwework de aplicacion REST-Ful Web Services
 * [Maven](https://maven.apache.org/) - Manejador de dependencias
+* [SQLite](https://www.sqlite.org/index.html) - Sistema de gestión de Base de Datos.
+* [PDFBox](https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox/2.0.1) - Creación de Documentos PDF.
+* [PDFBox Tutorial](https://www.tutorialspoint.com/pdfbox/index.htm) - Tutorial de PDFBox.
+* [Mockito](https://mvnrepository.com/artifact/org.mockito/mockito-core/2.18.0) - Mockito for Test Unitarios
+* [PowerMock](https://mvnrepository.com/artifact/org.powermock/powermock-module-junit4/2.0.2) - PowerMock para testear métodos estáticos.
+* [Contiperf](https://mvnrepository.com/artifact/org.databene/contiperf/2.3.4) - Contiperf para Test Rendimiento.
+* [Jacoco](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin/0.8.3) - Jacoco para Generar informe de cobertura.
+* [Logger](https://mvnrepository.com/artifact/log4j/log4j/1.2.17) - Logger para realizar documentos Logs.
+
 
 ## Autores ✒️
 
+**BSPQ20-S11:**
 * **Pablo Gaviria Lengaran** 
 * **Javier Martin Aizpuru** 
 * **Mikel Romero Bermejo**
