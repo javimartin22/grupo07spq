@@ -54,8 +54,6 @@ public class LoginResourcesTest {
 	
 	@Before
 	public void setUp() {
-//		loginResources = new LoginResources();
-//        HttpServer server = Main.startServer();
 		 MockitoAnnotations.initMocks(this);
 		 loginResources = new LoginResources();
 		 st = loginResources.getSt();
@@ -460,8 +458,6 @@ public class LoginResourcesTest {
 	@Test
 	public void testCargarTablaTarifas() {
 		try {
-			Connection con = BD.initBD("TallerTest");
-			Statement st = BD.usarBD(con);
 			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
 			List<Tarifa> tarifas= loginResources.cargarTablaTarifas();
 		    assertTrue(tarifas.size() > 0);
@@ -703,7 +699,7 @@ public class LoginResourcesTest {
 	public void testFiltrarVentaModelo() {
 		try {
 			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
-			Response piezas= loginResources.filtrarVentaModelo("1");
+			Response piezas= loginResources.filtrarVentaModelo("Leon");
 		    assertEquals(200, piezas.getStatus());;
 		    
 			PowerMockito.mockStatic(BD.class);
@@ -723,7 +719,7 @@ public class LoginResourcesTest {
 	public void testFiltrarVentaMarca() {
 		try {
 			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
-			Response piezas= loginResources.filtrarVentaMarca("1");
+			Response piezas= loginResources.filtrarVentaMarca("Seat");
 		    assertEquals(200, piezas.getStatus());;
 		    
 			PowerMockito.mockStatic(BD.class);
@@ -763,7 +759,7 @@ public class LoginResourcesTest {
 	public void testFiltrarHorasMax() {
 		try {
 			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
-			Response tarifas= loginResources.filtrarHorasMax(3);
+			Response tarifas= loginResources.filtrarHorasMax(4);
 		    assertEquals(200, tarifas.getStatus());;
 		    
 			PowerMockito.mockStatic(BD.class);
@@ -823,7 +819,7 @@ public class LoginResourcesTest {
 	public void testFiltrarComercialModelo() {
 		try {
 			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
-			Response tarifas= loginResources.filtrarComercialModelo("Juan");
+			Response tarifas= loginResources.filtrarComercialModelo("Jorgico");
 		    assertEquals(200, tarifas.getStatus());;
 		    
 			PowerMockito.mockStatic(BD.class);
