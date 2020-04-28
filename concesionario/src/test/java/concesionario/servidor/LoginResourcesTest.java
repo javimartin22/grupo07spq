@@ -818,5 +818,85 @@ public class LoginResourcesTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void testFiltrarComercialModelo() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			Response tarifas= loginResources.filtrarComercialModelo("Juan");
+		    assertEquals(200, tarifas.getStatus());;
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.ventasComercialSelect(st, "")).thenReturn(res);
+			
+			Response resultado = loginResources.filtrarComercialModelo("");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarPresupuestoCodigo() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			Response tarifas= loginResources.filtrarPresupuestoCodigo("P1");
+		    assertEquals(200, tarifas.getStatus());;
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			Presupuesto res = null;
+			when(BD.presupuestoCodigoSelect(st, "")).thenReturn(res);
+			
+			Response resultado = loginResources.filtrarPresupuestoCodigo("");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarPresupuestoCliente() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			Response tarifas= loginResources.filtrarPresupuestoCliente("12345678A");
+		    assertEquals(200, tarifas.getStatus());
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			Presupuesto res = null;
+			when(BD.presupuestoDNIClienteSelect(st, "")).thenReturn(res);
+			
+			Response resultado = loginResources.filtrarPresupuestoCliente("");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarPresupuestoProbema() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			Response tarifas= loginResources.filtrarPresupuestoProblema("Aceite");
+		    assertEquals(200, tarifas.getStatus());
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.presupuestosFiltroProblemaSelect(st, "")).thenReturn(res);
+			
+			Response resultado = loginResources.filtrarPresupuestoProblema("");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
 
