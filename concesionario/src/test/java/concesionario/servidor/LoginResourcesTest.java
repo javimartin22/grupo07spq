@@ -718,4 +718,105 @@ public class LoginResourcesTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void testFiltrarVentaMarca() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			Response piezas= loginResources.filtrarVentaMarca("1");
+		    assertEquals(200, piezas.getStatus());;
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.ventasModeloSelect(st, "")).thenReturn(res);
+			
+			Response resultado = loginResources.filtrarVentaMarca("");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarHorasMin() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			Response tarifas= loginResources.filtrarHorasMin(0);
+		    assertEquals(200, tarifas.getStatus());;
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.tarifaHorasMinSelect(st, 0)).thenReturn(res);
+			
+			Response resultado = loginResources.filtrarHorasMin(0);
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarHorasMax() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			Response tarifas= loginResources.filtrarHorasMax(3);
+		    assertEquals(200, tarifas.getStatus());;
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.tarifaHorasMaxSelect(st, 0)).thenReturn(res);
+			
+			Response resultado = loginResources.filtrarHorasMax(0);
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarPrecioMin() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			Response tarifas= loginResources.filtrarPrecioMin(0);
+		    assertEquals(200, tarifas.getStatus());;
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.tarifaPrecioMinSelect(st, 0)).thenReturn(res);
+			
+			Response resultado = loginResources.filtrarPrecioMin(0);
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarPrecio() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			Response tarifas= loginResources.filtrarPrecio(100);
+		    assertEquals(200, tarifas.getStatus());;
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.tarifaPrecioSelect(st, 0)).thenReturn(res);
+			
+			Response resultado = loginResources.filtrarPrecio(0);
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
+
