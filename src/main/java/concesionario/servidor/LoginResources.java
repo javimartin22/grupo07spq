@@ -4,7 +4,6 @@ import concesionario.datos.*;
 import concesionario.servidor.BaseDatos.BD;
 
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,7 +16,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -1518,9 +1516,28 @@ public class LoginResources {
 				clientes.add(cliente);
 			}
 		}
-		System.out.println(clientes.size());
-		System.out.println("Regresa");
 		return clientes;
+	}
+	
+	@POST
+	@Path("selectCitaComercial")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response citaComercialSelect(String restriccion)throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		String [] strings = restriccion.split(";");
+		String fecha = strings[0];
+		String hora = strings [1];
+		
+		CitaComercial nuevo = BD.citaComercialSelect(st, fecha, hora);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).entity(nuevo).build();
+		}
 	}
 }
 

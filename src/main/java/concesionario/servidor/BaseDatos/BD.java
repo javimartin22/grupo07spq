@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import concesionario.datos.CitaComercial;
 import concesionario.datos.Cliente;
 import concesionario.datos.CocheConcesionario;
 import concesionario.datos.CocheTaller;
@@ -65,6 +66,8 @@ public class BD {
 	private static final String COLUMNAS_TABLA_PROVEEDORES = "(idProveedor string PRIMARY KEY, nombre string, pais string, tipo string)";
 	private static final String TABLA_PIEZAS_PROVEEDORES = "PiezasProveedor"; 
 	private static final String COLUMNAS_TABLA_PIEZAS_PROVEEDORES = "(codigo string PRIMARY KEY, nombre string, tiempo int, tipo string, codProveedor string)";
+	private static final String TABLA_CITAS_COMERCIAL = "CitasComercial"; 
+	private static final String COLUMNAS_TABLA_CITAS_COMERCIAL = "(nombre string, dniCliente string, fecha string, hora string)";
 	
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
@@ -132,7 +135,7 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_TARIFAS + COLUMNAS_TABLA_TARIFAS);
 				statement.executeUpdate("create table " + TABLA_PROVEEDORES + COLUMNAS_TABLA_PROVEEDORES);
 				statement.executeUpdate("create table " + TABLA_PIEZAS_PROVEEDORES + COLUMNAS_TABLA_PIEZAS_PROVEEDORES);
-
+				statement.executeUpdate("create table " + TABLA_CITAS_COMERCIAL + COLUMNAS_TABLA_CITAS_COMERCIAL);
 			} catch (SQLException e) {
 			} // Tabla ya existe. Nada que hacer
 			return statement;
@@ -171,7 +174,7 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_TARIFAS);
 			statement.executeUpdate("drop table if exists " + TABLA_PROVEEDORES);
 			statement.executeUpdate("drop table if exists " + TABLA_PIEZAS_PROVEEDORES);
-
+			statement.executeUpdate("drop table if exists " + TABLA_CITAS_COMERCIAL);
 			return usarCrearTablasBD(con);
 		} catch (SQLException e) {
 			lastError = e;
@@ -482,7 +485,21 @@ public class BD {
 					return false;
 				}
 			}
-			
+	public static boolean CitaComercialInsert(Statement st, String nombre, String DNICliente, String fecha, String hora ) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into " + TABLA_CITAS_COMERCIAL + " values ('" + secu(nombre) + "', '" + secu(DNICliente) + "', '" + fecha + "', '"  + hora + "')";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+			}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}		
 			
 
 //METODOS SELECT:
@@ -1352,6 +1369,27 @@ public class BD {
 			} 			
  			return rs;
  		}
+ 		
+ 	public static CitaComercial citaComercialSelect(Statement st, String fecha, String hora) {
+ 		String sentSQL = "";
+ 		CitaComercial citaComercial = null;
+ 		try {
+ 			sentSQL = "select * from " + TABLA_CITAS_COMERCIAL + " where fecha= '" + fecha + "' and hora= '" + hora + "'";
+ 			ResultSet rs = st.executeQuery(sentSQL);
+ 			if (rs.next()) {
+ 				String nombre = rs.getString("nombre");
+ 				String dniCliente = rs.getString("dniCliente");
+ 				String f	= rs.getString("fecha");
+ 				String h = rs.getString("hora");
+ 				citaComercial = new CitaComercial(nombre, dniCliente, f, h);
+			}
+ 			st.close();
+		} catch (Exception e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+ 		return citaComercial;
+	}
 
 //METODOS DELETE:
 

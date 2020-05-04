@@ -455,6 +455,13 @@ public class ClienteApp {
 		return piezasProveedores;
 	}
 	
+	public Response seleccionarCitaComercial (String restriccion) {
+		WebTarget selectCitaComercialTarget = loginTarget.path("selectCitaComercial");
+		Entity<String> ent = Entity.entity(restriccion, MediaType.APPLICATION_JSON);
+		Response response = selectCitaComercialTarget.request(MediaType.APPLICATION_JSON).post(ent);
+		return response;
+	}
+	
 	 public static void main(String[] args) {
 	        SwingUtilities.invokeLater(new Runnable(){
 	        

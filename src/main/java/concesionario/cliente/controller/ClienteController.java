@@ -50,6 +50,15 @@ public class ClienteController {
 		}
 	}
 	
+	public boolean comprobarCitaComercial(String restriccion) {
+		Response response = cliente.seleccionarCitaComercial(restriccion);
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	public List<CocheConcesionario> cargarTablaCochesConcesionario() {
 		return cliente.cargarTablaCochesConcesionario();
 	}

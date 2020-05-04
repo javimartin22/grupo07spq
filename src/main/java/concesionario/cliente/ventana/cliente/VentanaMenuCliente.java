@@ -43,7 +43,7 @@ public class VentanaMenuCliente extends JFrame{
 	private void initVentanaMenuCliente(String nickname) {
 		this.setTitle("Menu del cliente");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(448,241);
+		this.setSize(449,312);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
@@ -89,6 +89,17 @@ public class VentanaMenuCliente extends JFrame{
 		});
 		btnTarifas.setBounds(151, 90, 151, 23);
 		panel.add(btnTarifas);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaSolicitudCitasComercial vscc = new VentanaSolicitudCitasComercial(clienteController, nickname);
+				vscc.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_1.setBounds(183, 188, 89, 23);
+		panel.add(btnNewButton_1);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
