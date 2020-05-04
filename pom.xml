@@ -127,7 +127,13 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.25</version>
 			<scope>compile</scope>
-		</dependency> 
+		</dependency>
+		
+		<dependency>
+    		<groupId>com.toedter</groupId>
+   			<artifactId>jcalendar</artifactId>
+    		<version>1.4</version>
+		</dependency>
 	      
     </dependencies>
 
