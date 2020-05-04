@@ -88,11 +88,11 @@ public class BDTest {
 		boolean bool1 = BD.mecanicosInsert(st, "", "", "", "", "", "", "", "", 1, "", "", "", "", 1, 1);
 	}
 	
-	@Test
-	public void testDepartamentoComprasInsert() {
-		assertTrue(BD.departamentoComprasInsert(st, "", "", "", "", "", "", "", "", 1, "", "", "", "", 1, 1));
-		assertFalse(BD.departamentoComprasInsert(st, "", "", "", "", "", "", "", "", 1, "", "", "", "", 1, 1));
-	}
+//	@Test
+//	public void testDepartamentoComprasInsert() {
+//		assertTrue(BD.departamentoComprasInsert(st, "", "", "", "", "", "", "", "", 1, "", "", "", "", 1, 1));
+//		assertFalse(BD.departamentoComprasInsert(st, "", "", "", "", "", "", "", "", 1, "", "", "", "", 1, 1));
+//	}
 	
 	@Test 
 	public void testPiezasInsert() {
