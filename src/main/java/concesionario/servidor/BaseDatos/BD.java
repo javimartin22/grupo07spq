@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import concesionario.datos.CitaComercial;
+import concesionario.datos.CitaTaller;
 import concesionario.datos.Cliente;
 import concesionario.datos.CocheConcesionario;
 import concesionario.datos.CocheTaller;
@@ -68,6 +69,8 @@ public class BD {
 	private static final String COLUMNAS_TABLA_PIEZAS_PROVEEDORES = "(codigo string PRIMARY KEY, nombre string, tiempo int, tipo string, codProveedor string)";
 	private static final String TABLA_CITAS_COMERCIAL = "CitasComercial"; 
 	private static final String COLUMNAS_TABLA_CITAS_COMERCIAL = "(nombre string, dniCliente string, fecha string, hora string, comercial string)";
+	private static final String TABLA_CITAS_TALLER = "CitasTaller"; 
+	private static final String COLUMNAS_TABLA_CITAS_TALLER = "(nombre string, dniCliente string, fecha string, hora string, mecanico string, problema string)";
 	
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
@@ -136,6 +139,7 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_PROVEEDORES + COLUMNAS_TABLA_PROVEEDORES);
 				statement.executeUpdate("create table " + TABLA_PIEZAS_PROVEEDORES + COLUMNAS_TABLA_PIEZAS_PROVEEDORES);
 				statement.executeUpdate("create table " + TABLA_CITAS_COMERCIAL + COLUMNAS_TABLA_CITAS_COMERCIAL);
+				statement.executeUpdate("create table " + TABLA_CITAS_TALLER + COLUMNAS_TABLA_CITAS_TALLER);
 			} catch (SQLException e) {
 			} // Tabla ya existe. Nada que hacer
 			return statement;
@@ -175,6 +179,7 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_PROVEEDORES);
 			statement.executeUpdate("drop table if exists " + TABLA_PIEZAS_PROVEEDORES);
 			statement.executeUpdate("drop table if exists " + TABLA_CITAS_COMERCIAL);
+			statement.executeUpdate("drop table if exists " + TABLA_CITAS_TALLER);
 			return usarCrearTablasBD(con);
 		} catch (SQLException e) {
 			lastError = e;
@@ -500,7 +505,22 @@ public class BD {
 			return false;
 		}
 	}		
-			
+		
+	public static boolean CitaTallerInsert(Statement st, String nombre, String DNICliente, String fecha, String hora, String mecanico, String problema ) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into " + TABLA_CITAS_TALLER + " values ('" + secu(nombre) + "', '" + secu(DNICliente) + "', '" + fecha + "', '"  + hora + "', '"  + mecanico + "', '"  + problema + "')";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+			}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}		
 
 //METODOS SELECT:
 
@@ -724,6 +744,19 @@ public class BD {
 		ResultSet rs = null;
 		try {
 			sentSQL = "select * from " + TABLA_COMERCIAL;
+			rs = st.executeQuery(sentSQL);
+		} catch (Exception e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public static ResultSet mecanicosTodasSelect(Statement st) {
+		String sentSQL = "";
+		ResultSet rs = null;
+		try {
+			sentSQL = "select * from " + TABLA_MECANICO;
 			rs = st.executeQuery(sentSQL);
 		} catch (Exception e) {
 			lastError = e;
@@ -1404,6 +1437,29 @@ public class BD {
 			e.printStackTrace();
 		}
  		return citaComercial;
+	}
+ 	
+ 	public static CitaTaller citaTallerSelect(Statement st, String fecha, String hora, String mecanico) {
+ 		String sentSQL = "";
+ 		CitaTaller citaTaller = null;
+ 		try {
+ 			sentSQL = "select * from " + TABLA_CITAS_TALLER + " where fecha= '" + fecha + "' and hora= '" + hora + "' and mecanico= '" + mecanico + "'";
+ 			ResultSet rs = st.executeQuery(sentSQL);
+ 			if (rs.next()) {
+ 				String nombre = rs.getString("nombre");
+ 				String dniCliente = rs.getString("dniCliente");
+ 				String f	= rs.getString("fecha");
+ 				String h = rs.getString("hora");
+ 				String m = rs.getString("mecanico");
+ 				String problema = rs.getString("problema");
+ 				citaTaller = new CitaTaller(nombre, dniCliente, f, h, m, problema);
+			}
+ 			st.close();
+		} catch (Exception e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+ 		return citaTaller;
 	}
 
 //METODOS DELETE:

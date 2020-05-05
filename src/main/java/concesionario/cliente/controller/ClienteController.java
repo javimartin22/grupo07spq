@@ -9,9 +9,11 @@ import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.ClienteApp;
 import concesionario.datos.CitaComercial;
+import concesionario.datos.CitaTaller;
 import concesionario.datos.Cliente;
 import concesionario.datos.CocheConcesionario;
 import concesionario.datos.Comercial;
+import concesionario.datos.Mecanico;
 import concesionario.datos.Tarifa;
 
 public class ClienteController {
@@ -153,6 +155,33 @@ public class ClienteController {
 		List<Comercial> comerciales = cliente.cargarTablaComercial();
 		List<String> nombres = new ArrayList<String>();
 		for (Comercial comercial : comerciales) {
+			nombres.add(comercial.getNombre());
+		}
+		return nombres;
+	}
+	
+	public boolean comprobarCitaTaller(String restriccion) {
+		Response response = cliente.seleccionarCitaTaller(restriccion);
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public boolean registroCitaTaller(CitaTaller citaTaller) {
+		Response response = cliente.registroCitaTaller(citaTaller);
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public List<String> cargarTablaMecanicos(){
+		List<Mecanico> mecanicos = cliente.cargarTablaMecanico();
+		List<String> nombres = new ArrayList<String>();
+		for (Mecanico comercial : mecanicos) {
 			nombres.add(comercial.getNombre());
 		}
 		return nombres;
