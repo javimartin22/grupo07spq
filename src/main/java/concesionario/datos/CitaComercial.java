@@ -9,7 +9,6 @@ public class CitaComercial {
 	private String comercial;
 	
 	public CitaComercial() {
-		super();
 	}
 
 	public CitaComercial(String nombre, String dniCliente, String fecha, String hora, String comercial) {
