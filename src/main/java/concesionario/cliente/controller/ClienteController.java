@@ -1,5 +1,6 @@
 package concesionario.cliente.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.core.GenericType;
@@ -7,8 +8,10 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.ClienteApp;
+import concesionario.datos.CitaComercial;
 import concesionario.datos.Cliente;
 import concesionario.datos.CocheConcesionario;
+import concesionario.datos.Comercial;
 import concesionario.datos.Tarifa;
 
 public class ClienteController {
@@ -135,5 +138,23 @@ public class ClienteController {
 		} else {
 			return false;
 		}
+	}
+	
+	public boolean registroCitaComercial(CitaComercial citaComercial) {
+		Response response = cliente.registroCitaComercial(citaComercial);
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public List<String> cargarTablaComercial(){
+		List<Comercial> comerciales = cliente.cargarTablaComercial();
+		List<String> nombres = new ArrayList<String>();
+		for (Comercial comercial : comerciales) {
+			nombres.add(comercial.getNombre());
+		}
+		return nombres;
 	}
 }

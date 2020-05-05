@@ -1498,7 +1498,6 @@ public class LoginResources {
 	@Path("loadClientesFidelidadTable")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<ClienteFidelidad> cargarTablaClienteFidelidad()throws SQLException {
-		System.out.println("Llega al server");
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
@@ -1519,6 +1518,45 @@ public class LoginResources {
 		return clientes;
 	}
 	
+	@GET
+	@Path("loadComercialTable")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Comercial> cargarComercialTable()throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.comercialesTodasSelect(st);
+		List<Comercial> comerciales = new ArrayList<Comercial>();
+		
+		if (rs == null) {
+			System.out.println("No hay empleados bd");
+		} else {
+			while(rs.next()) {
+				//Obtener atributos rs
+				String dni = rs.getString("dni");
+				String nick = rs.getString("nickname");
+				String contrasenya = rs.getString("contrasenia");
+				String nombre = rs.getString("nombre");
+				String apellido = rs.getString("apellido");
+				String sexo = rs.getString("sexo");
+				String email = rs.getString("email");
+				String ciudad = rs.getString("ciudad");
+				int codigoPostal = rs.getInt("codigoPostal");
+				String direccion = rs.getString("dir");
+				String numeroTelefono = rs.getString("numTelefono");
+				String NSS = rs.getString("NSS");
+				String numeroCuenta = rs.getString("numeroCuenta");
+				int sueldo = rs.getInt("sueldo");
+				int cochesVendidos = rs.getInt("cochesVendidos");
+				int importeObtenido = rs.getInt("importeObtenido");
+				int horas = rs.getInt("horas");
+				Comercial comercial = new Comercial(nick, contrasenya, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, direccion, NSS, numeroCuenta, sueldo, numeroTelefono, 1, cochesVendidos, importeObtenido, horas);
+				comerciales.add(comercial);
+			}
+		}
+		return comerciales;
+	}
+	
 	@POST
 	@Path("selectCitaComercial")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1530,13 +1568,31 @@ public class LoginResources {
 		String [] strings = restriccion.split(";");
 		String fecha = strings[0];
 		String hora = strings [1];
+		String comercial = strings[2];
 		
-		CitaComercial nuevo = BD.citaComercialSelect(st, fecha, hora);
+		CitaComercial nuevo = BD.citaComercialSelect(st, fecha, hora, comercial);
 		
 		if (nuevo == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		} else {
 			return Response.status(Response.Status.OK).entity(nuevo).build();
+		}
+	}
+	
+	@POST
+	@Path("insertCitaComercial")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response registrarCitaComercial(CitaComercial citaComercial) {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		boolean bool = BD.CitaComercialInsert(st, citaComercial.getNombre(), citaComercial.getDniCliente(), citaComercial.getFecha(), citaComercial.getHora(), citaComercial.getComercial());
+		
+		if (bool) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
 }

@@ -67,7 +67,7 @@ public class BD {
 	private static final String TABLA_PIEZAS_PROVEEDORES = "PiezasProveedor"; 
 	private static final String COLUMNAS_TABLA_PIEZAS_PROVEEDORES = "(codigo string PRIMARY KEY, nombre string, tiempo int, tipo string, codProveedor string)";
 	private static final String TABLA_CITAS_COMERCIAL = "CitasComercial"; 
-	private static final String COLUMNAS_TABLA_CITAS_COMERCIAL = "(nombre string, dniCliente string, fecha string, hora string)";
+	private static final String COLUMNAS_TABLA_CITAS_COMERCIAL = "(nombre string, dniCliente string, fecha string, hora string, comercial string)";
 	
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
@@ -485,10 +485,10 @@ public class BD {
 					return false;
 				}
 			}
-	public static boolean CitaComercialInsert(Statement st, String nombre, String DNICliente, String fecha, String hora ) {
+	public static boolean CitaComercialInsert(Statement st, String nombre, String DNICliente, String fecha, String hora, String comercial ) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into " + TABLA_CITAS_COMERCIAL + " values ('" + secu(nombre) + "', '" + secu(DNICliente) + "', '" + fecha + "', '"  + hora + "')";
+			sentSQL = "insert into " + TABLA_CITAS_COMERCIAL + " values ('" + secu(nombre) + "', '" + secu(DNICliente) + "', '" + fecha + "', '"  + hora + "', '"  + comercial + "')";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -717,6 +717,20 @@ public class BD {
 			}
 			return comercial;
 		}
+		
+		//Todas:
+	public static ResultSet comercialesTodasSelect(Statement st) {
+		String sentSQL = "";
+		ResultSet rs = null;
+		try {
+			sentSQL = "select * from " + TABLA_COMERCIAL;
+			rs = st.executeQuery(sentSQL);
+		} catch (Exception e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+		return rs;
+	}
 		
 	//Tabla DEPARTAMENTO_COMPRAS:
 	public static DepartamentoCompras departamentoCompraSelect(Statement st, String nickname) {
@@ -1370,18 +1384,19 @@ public class BD {
  			return rs;
  		}
  		
- 	public static CitaComercial citaComercialSelect(Statement st, String fecha, String hora) {
+ 	public static CitaComercial citaComercialSelect(Statement st, String fecha, String hora, String comercial) {
  		String sentSQL = "";
  		CitaComercial citaComercial = null;
  		try {
- 			sentSQL = "select * from " + TABLA_CITAS_COMERCIAL + " where fecha= '" + fecha + "' and hora= '" + hora + "'";
+ 			sentSQL = "select * from " + TABLA_CITAS_COMERCIAL + " where fecha= '" + fecha + "' and hora= '" + hora + "' and comercial= '" + comercial + "'";
  			ResultSet rs = st.executeQuery(sentSQL);
  			if (rs.next()) {
  				String nombre = rs.getString("nombre");
  				String dniCliente = rs.getString("dniCliente");
  				String f	= rs.getString("fecha");
  				String h = rs.getString("hora");
- 				citaComercial = new CitaComercial(nombre, dniCliente, f, h);
+ 				String c = rs.getString("comercial");
+ 				citaComercial = new CitaComercial(nombre, dniCliente, f, h, c);
 			}
  			st.close();
 		} catch (Exception e) {

@@ -15,6 +15,7 @@ import javax.ws.rs.client.Entity;
 
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
+import concesionario.datos.CitaComercial;
 import concesionario.datos.Cliente;
 import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.CocheConcesionario;
@@ -455,10 +456,23 @@ public class ClienteApp {
 		return piezasProveedores;
 	}
 	
+	public List<Comercial> cargarTablaComercial(){
+		WebTarget loadComercialTableTarget = loginTarget.path("loadComercialTable");
+		GenericType<List<Comercial>> genericType = new GenericType<List<Comercial>>() {};
+        List<Comercial> comerciales = loadComercialTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
+		return comerciales;
+	}
+	
 	public Response seleccionarCitaComercial (String restriccion) {
 		WebTarget selectCitaComercialTarget = loginTarget.path("selectCitaComercial");
 		Entity<String> ent = Entity.entity(restriccion, MediaType.APPLICATION_JSON);
 		Response response = selectCitaComercialTarget.request(MediaType.APPLICATION_JSON).post(ent);
+		return response;
+	}
+	
+	public Response registroCitaComercial(CitaComercial citaComercial) {
+		Entity<CitaComercial> entity = Entity.entity(citaComercial, MediaType.APPLICATION_JSON);
+		Response response = loginTarget.path("insertCitaComercial").request(MediaType.TEXT_PLAIN).post(entity);
 		return response;
 	}
 	
