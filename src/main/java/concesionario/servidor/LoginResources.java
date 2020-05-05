@@ -1557,6 +1557,43 @@ public class LoginResources {
 		return comerciales;
 	}
 	
+	@GET
+	@Path("loadMecanicoTable")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Mecanico> cargarMecanicoTable()throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.mecanicosTodasSelect(st);
+		List<Mecanico> mecanicos = new ArrayList<Mecanico>();
+		
+		if (rs == null) {
+			System.out.println("No hay empleados bd");
+		} else {
+			while(rs.next()) {
+				//Obtener atributos rs
+				String dni = rs.getString("dni");
+				String nick = rs.getString("nickname");
+				String contrasenya = rs.getString("contrasenia");
+				String nombre = rs.getString("nombre");
+				String apellido = rs.getString("apellido");
+				String sexo = rs.getString("sexo");
+				String email = rs.getString("email");
+				String ciudad = rs.getString("ciudad");
+				int codigoPostal = rs.getInt("codigoPostal");
+				String direccion = rs.getString("dir");
+				String numeroTelefono = rs.getString("numTelefono");
+				String NSS = rs.getString("NSS");
+				String numeroCuenta = rs.getString("numeroCuenta");
+				int sueldo = rs.getInt("sueldo");
+				int horas = rs.getInt("horas");
+				Mecanico mecanico = new Mecanico(nick, contrasenya, 1, dni, nombre, apellido, sexo, email, ciudad, codigoPostal, direccion, NSS, numeroCuenta, sueldo, numeroTelefono, horas);
+				mecanicos.add(mecanico);
+			}
+		}
+		return mecanicos;
+	}
+	
 	@POST
 	@Path("selectCitaComercial")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1588,6 +1625,45 @@ public class LoginResources {
 		st = BD.usarCrearTablasBD(con);
 		
 		boolean bool = BD.CitaComercialInsert(st, citaComercial.getNombre(), citaComercial.getDniCliente(), citaComercial.getFecha(), citaComercial.getHora(), citaComercial.getComercial());
+		
+		if (bool) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
+	@POST
+	@Path("selectCitaTaller")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response citaTallerSelect(String restriccion)throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		String [] strings = restriccion.split(";");
+		String fecha = strings[0];
+		String hora = strings [1];
+		String mecanico = strings[2];
+		
+		CitaTaller nuevo = BD.citaTallerSelect(st, fecha, hora, mecanico);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).entity(nuevo).build();
+		}
+	}
+	
+	@POST
+	@Path("insertCitaTaller")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response registrarCitaComercial(CitaTaller citaTaller) {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		boolean bool = BD.CitaTallerInsert(st, citaTaller.getNombre(), citaTaller.getDniCliente(), citaTaller.getFecha(), citaTaller.getHora(), citaTaller.getComercial(), citaTaller.getProblema());
 		
 		if (bool) {
 			return Response.status(Response.Status.OK).build();
