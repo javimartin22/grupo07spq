@@ -71,7 +71,11 @@ public class BD {
 	private static final String COLUMNAS_TABLA_CITAS_COMERCIAL = "(nombre string, dniCliente string, fecha string, hora string, comercial string)";
 	private static final String TABLA_CITAS_TALLER = "CitasTaller"; 
 	private static final String COLUMNAS_TABLA_CITAS_TALLER = "(nombre string, dniCliente string, fecha string, hora string, mecanico string, problema string)";
-	
+	private static final String TABLA_HERRAMIENTAS = "Herramientas"; 
+	private static final String COLUMNAS_TABLA_HERRAMIENTAS = "(codigo string PRIMARY KEY, nombre string, tipo string ,tiempo int, codProveedor string)";
+	private static final String TABLA_PROVEEDORES_HERRAMIENTAS = "ProveedorHerramienta"; 
+	private static final String COLUMNAS_TABLA_PROVEEDORES_HERRAMIENTAS = "(idProveedor string PRIMARY KEY, nombre string, pais string, tipo string)";
+			
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
 	 * 
@@ -140,6 +144,8 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_PIEZAS_PROVEEDORES + COLUMNAS_TABLA_PIEZAS_PROVEEDORES);
 				statement.executeUpdate("create table " + TABLA_CITAS_COMERCIAL + COLUMNAS_TABLA_CITAS_COMERCIAL);
 				statement.executeUpdate("create table " + TABLA_CITAS_TALLER + COLUMNAS_TABLA_CITAS_TALLER);
+				statement.executeUpdate("create table " + TABLA_HERRAMIENTAS + COLUMNAS_TABLA_HERRAMIENTAS);
+				statement.executeUpdate("create table " + TABLA_PROVEEDORES_HERRAMIENTAS+ COLUMNAS_TABLA_PROVEEDORES_HERRAMIENTAS);
 			} catch (SQLException e) {
 			} // Tabla ya existe. Nada que hacer
 			return statement;
@@ -180,6 +186,8 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_PIEZAS_PROVEEDORES);
 			statement.executeUpdate("drop table if exists " + TABLA_CITAS_COMERCIAL);
 			statement.executeUpdate("drop table if exists " + TABLA_CITAS_TALLER);
+			statement.executeUpdate("drop table if exists " + TABLA_HERRAMIENTAS);
+			statement.executeUpdate("drop table if exists " + TABLA_PROVEEDORES_HERRAMIENTAS);
 			return usarCrearTablasBD(con);
 		} catch (SQLException e) {
 			lastError = e;
@@ -217,6 +225,39 @@ public class BD {
 //METODOS INSERT TODOS:	
 	
 	//proveedores
+
+	public static boolean herramientasInsert(Statement st, String codigo, String nombre, String tipo, String tiempo, String codProveedor) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into " + TABLA_HERRAMIENTAS + " values ('" + secu(codigo) + "', '" + nombre + "', '" + tipo + "', '" + tiempo +"', '" +codProveedor+"')";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+			}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	public static boolean proveedoresHerramientasInsert(Statement st, String idProveedor, String nomProveedor, String pais, String tipo) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into " + TABLA_PROVEEDORES_HERRAMIENTAS + " values ('" + secu(idProveedor) + "', '" + nomProveedor + "', '" + pais + "', '" + tipo +"')";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+			}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	public static boolean proveedoresInsert(Statement st, String idProveedor, String nomProveedor, String pais, String tipo_piezas) {
 		String sentSQL = "";
@@ -523,6 +564,36 @@ public class BD {
 	}		
 
 //METODOS SELECT:
+	
+
+		public static ResultSet herramientasSelect(Statement st) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				sentSQL = "select * from " + TABLA_HERRAMIENTAS;
+				rs = st.executeQuery(sentSQL);		
+				
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}	
+		
+
+		public static ResultSet proveedoresHerramientasSelect(Statement st) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				sentSQL = "select * from " + TABLA_PROVEEDORES_HERRAMIENTAS;
+				rs = st.executeQuery(sentSQL);		
+				
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}
 
 	// Tabla USUARIOS:
 	public static Usuario usuarioSelect(Statement st, String nickname) {
