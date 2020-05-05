@@ -43,7 +43,7 @@ public class VentanaMenuCliente extends JFrame{
 	private void initVentanaMenuCliente(String nickname) {
 		this.setTitle("Menu del cliente");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(366,259);
+		this.setSize(396,259);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
@@ -63,7 +63,7 @@ public class VentanaMenuCliente extends JFrame{
 			}
 		});
 		 
-		buttonSalir.setBounds(124, 155, 97, 23);
+		buttonSalir.setBounds(140, 155, 97, 23);
 		panel.add(buttonSalir);
 		
 		JButton btnNewButton = new JButton("Visualizar Catalogo");
@@ -76,7 +76,7 @@ public class VentanaMenuCliente extends JFrame{
 		});
 		
 		//Acceder a la visualización de tarifas del taller
-		btnNewButton.setBounds(26, 35, 137, 43);
+		btnNewButton.setBounds(26, 35, 154, 43);
 		panel.add(btnNewButton);
 		
 		JButton btnTarifas= new JButton("Ver tarifas");
@@ -87,7 +87,7 @@ public class VentanaMenuCliente extends JFrame{
 				dispose();
 			}
 		});
-		btnTarifas.setBounds(26, 89, 137, 43);
+		btnTarifas.setBounds(26, 89, 154, 43);
 		panel.add(btnTarifas);
 		
 		JButton btnNewButton_1 = new JButton("Cita Concesionario");
@@ -98,7 +98,7 @@ public class VentanaMenuCliente extends JFrame{
 				dispose();
 			}
 		});
-		btnNewButton_1.setBounds(183, 35, 137, 43);
+		btnNewButton_1.setBounds(210, 35, 154, 43);
 		panel.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Cita Taller");
@@ -109,7 +109,7 @@ public class VentanaMenuCliente extends JFrame{
 				dispose();
 			}
 		});
-		btnNewButton_2.setBounds(183, 89, 137, 43);
+		btnNewButton_2.setBounds(210, 89, 154, 43);
 		panel.add(btnNewButton_2);
 		
 		JMenuBar menuBar = new JMenuBar();

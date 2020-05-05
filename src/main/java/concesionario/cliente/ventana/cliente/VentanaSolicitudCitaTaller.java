@@ -33,18 +33,19 @@ public class VentanaSolicitudCitaTaller extends JFrame {
 	public VentanaSolicitudCitaTaller(ClienteController clienteController, String nickname) {
 		setTitle("Solicitud Cita Taller");
 		setResizable(false);
-		setLocationRelativeTo(null);
+		
 		this.clienteController = clienteController;
 		ventanaSolicitudCitaTaller(nickname);
 	}
 	
 	public void ventanaSolicitudCitaTaller(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 377);
+		setBounds(100, 100, 435, 368);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JButton btnNewButton = new JButton("Regresar");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -121,7 +122,7 @@ public class VentanaSolicitudCitaTaller extends JFrame {
 		textField_2.setBounds(172, 240, 201, 20);
 		contentPane.add(textField_2);
 		
-		JLabel lblNewLabel_1 = new JLabel("Incribase para solicitar una cita con un Comercial:");
+		JLabel lblNewLabel_1 = new JLabel("Incribase para solicitar una cita con un Mecanico:");
 		lblNewLabel_1.setForeground(Color.RED);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(10, 11, 373, 28);
