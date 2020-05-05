@@ -6,17 +6,19 @@ public class CitaComercial {
 	private String dniCliente;
 	private String fecha;
 	private String hora;
+	private String comercial;
 	
 	public CitaComercial() {
 		super();
 	}
 
-	public CitaComercial(String nombre, String dniCliente, String fecha, String hora) {
+	public CitaComercial(String nombre, String dniCliente, String fecha, String hora, String comercial) {
 		super();
 		this.nombre = nombre;
 		this.dniCliente = dniCliente;
 		this.fecha = fecha;
 		this.hora = hora;
+		this.comercial = comercial;
 	}
 	
 	public String getNombre() {
@@ -42,5 +44,11 @@ public class CitaComercial {
 	}
 	public void setHora(String hora) {
 		this.hora = hora;
+	}
+	public String getComercial() {
+		return comercial;
+	}
+	public void setComercial(String comercial) {
+		this.comercial = comercial;
 	}
 }
