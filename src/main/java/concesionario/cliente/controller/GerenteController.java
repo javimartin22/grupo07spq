@@ -11,6 +11,7 @@ import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Tarifa;
+import concesionario.datos.Venta;
 
 public class GerenteController {
 	private ClienteApp cliente;
@@ -25,6 +26,10 @@ public class GerenteController {
 	
 	public List<Empleado> cargarTablaEmpleado(){
 		return cliente.cargarTablaEmpleados();
+	}
+	
+	public List<Venta> cargarTablaVenta(){
+		return cliente.cargarTablaVenta();
 	}
 	
 	public boolean registroMecanico(Mecanico mecanic) {

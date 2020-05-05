@@ -88,6 +88,16 @@ public class VentanaMenuAdmin extends JFrame {
 			buttonGestionTarifas.setBounds(129, 134, 164, 23);
 			panel.add(buttonGestionTarifas);
 			
+			//Boton para acceder a los estudios de Mercado
+			JButton buttonEstudioMercado = new JButton("Estudios Mercado");
+			buttonEstudioMercado.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					estudiosMercado(nickname);
+				}
+			});
+			buttonEstudioMercado.setBounds(60, 168, 100, 23);
+			panel.add(buttonEstudioMercado);
+			
 			
 			//boton de salir que te lleva a la ventana de VentanaLogin
 			JButton buttonSalir = new JButton("Salir");
@@ -109,6 +119,12 @@ public class VentanaMenuAdmin extends JFrame {
 	public void gestionarTarifas(String nickname) {
 		VentanaGestionTarifas vg = new VentanaGestionTarifas(gerenteController, nickname);
     	vg.setVisible(true);
+    	dispose();
+	}
+	
+	public void estudiosMercado(String nickname) {
+		VentanaGestionEstudioMercado vgem = new VentanaGestionEstudioMercado(gerenteController, nickname);
+    	vgem.setVisible(true);
     	dispose();
 	}
 	

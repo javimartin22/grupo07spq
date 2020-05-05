@@ -35,3 +35,12 @@
 04 may. 2020 - 13:33:53,490 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
 04 may. 2020 - 13:36:30,287 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
 04 may. 2020 - 13:36:32,662 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+05 may. 2020 - 19:11:18,673 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.gerente.VentanaRegistroComercial] - Comercial registrado.
+05 may. 2020 - 21:01:57,359 (AWT-EventQueue-0) ERROR [concesionario.cliente.ventana.comercial.VentanaRegistrarVentas] - Todos los campos deben de estar correctamente rellenados.
+05 may. 2020 - 21:02:27,413 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.comercial.VentanaRegistrarVentas] - Venta registrada correctamente.
+05 may. 2020 - 21:02:30,856 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.comercial.VentanaRegistrarVentas] - Venta registrada correctamente.
+05 may. 2020 - 21:03:16,177 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.comercial.VentanaRegistrarVentas] - Venta registrada correctamente.
+05 may. 2020 - 21:04:05,550 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.comercial.VentanaRegistrarVentas] - Venta registrada correctamente.
+05 may. 2020 - 21:08:39,845 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.comercial.VentanaRegistrarVentas] - Venta registrada correctamente.
+05 may. 2020 - 21:09:09,458 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.comercial.VentanaRegistrarVentas] - Venta registrada correctamente.
+05 may. 2020 - 21:09:40,161 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.comercial.VentanaRegistrarVentas] - Venta registrada correctamente.
