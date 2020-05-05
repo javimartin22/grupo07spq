@@ -43,7 +43,7 @@ public class VentanaMenuCliente extends JFrame{
 	private void initVentanaMenuCliente(String nickname) {
 		this.setTitle("Menu del cliente");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(449,312);
+		this.setSize(366,259);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
@@ -63,7 +63,7 @@ public class VentanaMenuCliente extends JFrame{
 			}
 		});
 		 
-		buttonSalir.setBounds(183, 134, 89, 23);
+		buttonSalir.setBounds(124, 155, 97, 23);
 		panel.add(buttonSalir);
 		
 		JButton btnNewButton = new JButton("Visualizar Catalogo");
@@ -76,7 +76,7 @@ public class VentanaMenuCliente extends JFrame{
 		});
 		
 		//Acceder a la visualización de tarifas del taller
-		btnNewButton.setBounds(151, 36, 151, 23);
+		btnNewButton.setBounds(26, 35, 137, 43);
 		panel.add(btnNewButton);
 		
 		JButton btnTarifas= new JButton("Ver tarifas");
@@ -87,10 +87,10 @@ public class VentanaMenuCliente extends JFrame{
 				dispose();
 			}
 		});
-		btnTarifas.setBounds(151, 90, 151, 23);
+		btnTarifas.setBounds(26, 89, 137, 43);
 		panel.add(btnTarifas);
 		
-		JButton btnNewButton_1 = new JButton("New button");
+		JButton btnNewButton_1 = new JButton("Cita Concesionario");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaSolicitudCitasComercial vscc = new VentanaSolicitudCitasComercial(clienteController, nickname);
@@ -98,8 +98,19 @@ public class VentanaMenuCliente extends JFrame{
 				dispose();
 			}
 		});
-		btnNewButton_1.setBounds(183, 188, 89, 23);
+		btnNewButton_1.setBounds(183, 35, 137, 43);
 		panel.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Cita Taller");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaSolicitudCitaTaller vsct = new VentanaSolicitudCitaTaller(clienteController, nickname);
+				vsct.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_2.setBounds(183, 89, 137, 43);
+		panel.add(btnNewButton_2);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
