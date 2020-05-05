@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 
 import concesionario.cliente.controller.ClienteController;
+import concesionario.datos.CitaComercial;
 
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -28,6 +29,8 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JDateChooser dateChooser;
+	private JComboBox comboBox;
 
 	public VentanaSolicitudCitasComercial(ClienteController clienteController, String nickname) {
 		this.clienteController = clienteController;
@@ -41,7 +44,7 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 		setTitle("Solicitud Cita Comercial");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 413, 322);
+		setBounds(100, 100, 413, 356);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -63,7 +66,7 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(74, 240, 89, 23);
+		btnNewButton.setBounds(75, 280, 89, 23);
 		contentPane.add(btnNewButton);
 		
 		
@@ -92,7 +95,7 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 		lblNewLabel_1_3.setBounds(32, 188, 94, 14);
 		contentPane.add(lblNewLabel_1_3);
 		
-		JDateChooser dateChooser = new JDateChooser();
+		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("dd-MM-yyyy");
 		dateChooser.setBounds(193, 153, 166, 20);
 		contentPane.add(dateChooser);
@@ -107,12 +110,19 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		comboBox.setBounds(193, 185, 79, 20);
 		for (String hora : horas) {
 			comboBox.addItem(hora);
 		}
 		contentPane.add(comboBox);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(193, 225, 166, 20);
+		for (String nombre : clienteController.cargarTablaComercial()) {
+			comboBox_1.addItem(nombre);
+		}
+		contentPane.add(comboBox_1);
 		
 		JButton btnNewButton_1 = new JButton("Solicitar Cita");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -125,8 +135,10 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 						int anyo = dateChooser.getDate().getYear() + 1900;
 						String fecha = dateChooser.getDate().getDate() + "-" + mes + "-" + anyo;
 						String hora = comboBox.getSelectedItem().toString();
-						if (comprobarFecha(fecha, hora)){
-							registrarCitaComercial();
+						String comercial = comboBox_1.getSelectedItem().toString();
+						if (comprobarFecha(fecha, hora, comercial)){
+							CitaComercial cita = new CitaComercial(textField.getText(), textField_1.getText(), fecha, hora, comercial);
+							registrarCitaComercial(cita);
 						} else {
 							JOptionPane.showMessageDialog(contentPane, "La hora seleccionada no se encuentra disponible.");
 						}
@@ -136,8 +148,15 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 				}
 			}
 		});
-		btnNewButton_1.setBounds(206, 240, 132, 23);
+		btnNewButton_1.setBounds(207, 280, 132, 23);
 		contentPane.add(btnNewButton_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Comercial:");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_2.setBounds(32, 228, 94, 14);
+		contentPane.add(lblNewLabel_2);
+		
+		
 	}
 	
 	public List<String> crearHoras(){
@@ -166,12 +185,14 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 		return false;
 	}
 	
-	public boolean comprobarFecha(String fecha, String hora) {
-		String restriccion = fecha + ";" + hora;
+	public boolean comprobarFecha(String fecha, String hora, String comercial) {
+		String restriccion = fecha + ";" + hora + ";" + comercial;
 		return clienteController.comprobarCitaComercial(restriccion);
 	}
 	
-	public void registrarCitaComercial() {
-		JOptionPane.showMessageDialog(contentPane, "Registrando...");
+	public void registrarCitaComercial(CitaComercial citaComercial) {
+		if (clienteController.registroCitaComercial(citaComercial)) {
+			JOptionPane.showMessageDialog(contentPane, "Registrada");
+		}
 	}
 }
