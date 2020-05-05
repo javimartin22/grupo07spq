@@ -702,6 +702,35 @@ public class LoginResources {
 	}
 	
 	@GET
+	@Path("loadHerramientasList")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Herramientas> cargarListaHerramientas()throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		ResultSet rs = BD.herramientasSelect(st);
+		List<Herramientas> herramienta_result = new ArrayList<Herramientas>();
+		
+		if (rs == null) {
+			return herramienta_result;
+		} else {
+			
+			while(rs.next()) {
+				//Obtener atributos rs
+				String codigo = rs.getString("codigo");
+				String nombre = rs.getString("nombre");
+				int tiempo = rs.getInt("tiempo");
+				String tipo = rs.getString("tipo");
+				String codProveedor = rs.getString("codProveedor");
+				
+				Herramientas pieza = new Herramientas(codigo, nombre, tiempo, tipo, codProveedor);	
+				herramienta_result.add(pieza);
+			}
+			 
+			return herramienta_result;
+		}
+	}
+	
+	@GET
 	@Path("loadProveedores")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Proveedor> cargarProveedores()throws SQLException {
@@ -729,7 +758,33 @@ public class LoginResources {
 		}
 	}
 	
-	
+	@GET
+	@Path("loadProveedoresHerramientaList")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ProveedorHerramientas> cargarProveedoresHerramientas()throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		ResultSet rs = BD.proveedoresHerramientasSelect(st);
+		List<ProveedorHerramientas> pieza_result = new ArrayList<ProveedorHerramientas>();
+		
+		if (rs == null) {
+			return pieza_result;
+		} else {
+			
+			while(rs.next()) {
+				//Obtener atributos rs
+				String codigo = rs.getString("idProveedor");
+				String nombre = rs.getString("nombre");
+				String pais = rs.getString("pais");
+				String tipo = rs.getString("tipo");
+				System.out.println(codigo + " " + nombre + pais + tipo);
+				
+				ProveedorHerramientas proveedor = new ProveedorHerramientas(codigo, nombre, pais, tipo);	
+				pieza_result.add(proveedor);
+			}
+			return pieza_result;
+		}
+	}
 	
 	@GET
 	@Path("loadCocheTallerTable")

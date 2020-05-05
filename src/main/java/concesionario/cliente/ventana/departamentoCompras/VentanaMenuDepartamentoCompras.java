@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import concesionario.cliente.ventana.departamentoCompras.VentanaComprarHerramientas;
 import concesionario.cliente.controller.DepartmentoComprasController;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
@@ -42,7 +43,7 @@ public class VentanaMenuDepartamentoCompras extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(158, 75, 132, 29);
+		btnNewButton.setBounds(158, 87, 132, 29);
 		contentPane.add(btnNewButton);
 		
 		JButton btnSalir = new JButton("Salir");
@@ -54,10 +55,10 @@ public class VentanaMenuDepartamentoCompras extends JFrame {
 				dispose();
 			}
 		});
-		btnSalir.setBounds(168, 146, 117, 29);
+		btnSalir.setBounds(173, 172, 117, 29);
 		contentPane.add(btnSalir);
 		
-		JButton btnComprar = new JButton("Comprar");
+		JButton btnComprar = new JButton("Comprar Piezas");
 		btnComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VentanaComprarPiezas vcp = new VentanaComprarPiezas(departmentoComprasController, nickname);
@@ -65,7 +66,18 @@ public class VentanaMenuDepartamentoCompras extends JFrame {
 				dispose();
 			}
 		});
-		btnComprar.setBounds(168, 105, 117, 29);
+		btnComprar.setBounds(158, 116, 132, 29);
 		contentPane.add(btnComprar);
+		
+		JButton btnComprarHerramientas = new JButton("Comprar herramientas");
+		btnComprarHerramientas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaComprarHerramientas vch = new VentanaComprarHerramientas(departmentoComprasController, nickname);
+				vch.setVisible(true);
+				dispose();
+			}
+		});
+		btnComprarHerramientas.setBounds(140, 146, 177, 29);
+		contentPane.add(btnComprarHerramientas);
 	}
 }

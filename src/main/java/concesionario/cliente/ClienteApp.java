@@ -25,11 +25,13 @@ import concesionario.datos.CocheTaller;
 import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
+import concesionario.datos.Herramientas;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.PiezaProveedores;
 import concesionario.datos.Presupuesto;
 import concesionario.datos.Proveedor;
+import concesionario.datos.ProveedorHerramientas;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
@@ -495,6 +497,24 @@ public class ClienteApp {
 		GenericType<List<Mecanico>> genericType = new GenericType<List<Mecanico>>() {};
         List<Mecanico> comerciales = loadMecanicoTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
 		return comerciales;
+	}
+	
+	public List<ProveedorHerramientas> cargarListaProveedoresHerramientas() {
+		WebTarget loadHerramiemtasProveedorListTarget = loginTarget.path("loadProveedoresHerramientaList");
+		GenericType<List<ProveedorHerramientas>> genericType = new GenericType<List<ProveedorHerramientas>>() {
+		};
+		List<ProveedorHerramientas> Proveedores = loadHerramiemtasProveedorListTarget
+				.request(MediaType.APPLICATION_JSON).get(genericType);
+		return Proveedores;
+}
+
+	public List<Herramientas> cargarListaHerramientas() {
+		WebTarget loadHerramiemtasProveedorListTarget = loginTarget.path("loadHerramientasList");
+		GenericType<List<Herramientas>> genericType = new GenericType<List<Herramientas>>() {
+		};
+		List<Herramientas> herramientasProveedores = loadHerramiemtasProveedorListTarget
+				.request(MediaType.APPLICATION_JSON).get(genericType);
+		return herramientasProveedores;
 	}
 	
 	 public static void main(String[] args) {

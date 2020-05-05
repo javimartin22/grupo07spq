@@ -7,9 +7,11 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.ClienteApp;
+import concesionario.datos.Herramientas;
 import concesionario.datos.Pieza;
 import concesionario.datos.PiezaProveedores;
 import concesionario.datos.Proveedor;
+import concesionario.datos.ProveedorHerramientas;
 
 public class DepartmentoComprasController {
 	private ClienteApp cliente;
@@ -63,8 +65,19 @@ public class DepartmentoComprasController {
 		return cliente.cargarListaProveedores();
 	}
 	
+	
+	public List<ProveedorHerramientas> cargarListaProveedoresHerramientas(){
+		return cliente.cargarListaProveedoresHerramientas();
+	}
+	
+	
 	public List<PiezaProveedores> cargarListaPiezasProveedores(){
 		return cliente.cargarListaPiezasProveedores();
+	}
+	
+	
+	public List<Herramientas> cargarListaHerramientas(){
+		return cliente.cargarListaHerramientas();
 	}
 	
 	public String parseUbicacion(int ubicacion) {

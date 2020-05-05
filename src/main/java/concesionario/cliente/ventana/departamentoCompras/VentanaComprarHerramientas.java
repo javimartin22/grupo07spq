@@ -17,7 +17,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import concesionario.cliente.controller.DepartmentoComprasController;
+import concesionario.datos.Herramientas;
 import concesionario.datos.Proveedor;
+import concesionario.datos.ProveedorHerramientas;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -73,15 +75,15 @@ public class VentanaComprarHerramientas extends JFrame {
 		comboBoxProveedor.setBounds(155, 63, 177, 27);
 		contentPane.add(comboBoxProveedor);
 		
-		JLabel lblPieza = new JLabel("Pieza:");
-		lblPieza.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblPieza.setForeground(new Color(0, 0, 0));
-		lblPieza.setBounds(22, 107, 52, 16);
-		contentPane.add(lblPieza);
+		JLabel lblHerramienta = new JLabel("Herramienta:");
+		lblHerramienta.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblHerramienta.setForeground(new Color(0, 0, 0));
+		lblHerramienta.setBounds(22, 107, 81, 16);
+		contentPane.add(lblHerramienta);
 		
-		JComboBox comboBoxPieza = new JComboBox();
-		comboBoxPieza.setBounds(155, 102, 177, 27);
-		contentPane.add(comboBoxPieza);
+		JComboBox comboBoxHerramienta = new JComboBox();
+		comboBoxHerramienta.setBounds(155, 102, 177, 27);
+		contentPane.add(comboBoxHerramienta);
 		
 		JLabel lblUnidades = new JLabel("Unidades:");
 		lblUnidades.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -94,15 +96,16 @@ public class VentanaComprarHerramientas extends JFrame {
 		contentPane.add(textFieldUnidades);
 		textFieldUnidades.setColumns(10);
 		
-//		JButton btnVerPiezas = new JButton("Ver piezas");
-//		btnVerPiezas.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				String nombre = comboBoxProveedor.getSelectedItem().toString();
-//				for (String nom : crearPiezasProveedores(nombre)) {
-//					comboBoxPieza.addItem(nom);
-//				}
-//			}
-//		});
+		JButton btnVerHerramientas = new JButton("Ver herramientas");
+		btnVerHerramientas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comboBoxHerramienta.removeAllItems();
+				String nombre = comboBoxProveedor.getSelectedItem().toString();
+				for (String nom : crearHerramientasProveedores(nombre)) {
+					comboBoxHerramienta.addItem(nom);
+				}
+			}
+		});
 
 		JButton btnInfo = new JButton("Ver informacion");
 		btnInfo.setBounds(23, 266, 135, 29);
@@ -115,8 +118,8 @@ public class VentanaComprarHerramientas extends JFrame {
 				dispose();
 			}
 		});
-//		btnVerPiezas.setBounds(396, 62, 117, 29);
-//		contentPane.add(btnVerPiezas);
+		btnVerHerramientas.setBounds(396, 62, 138, 29);
+		contentPane.add(btnVerHerramientas);
 		
 		JButton btnComprar = new JButton("Comprar");
 		btnComprar.addActionListener(new ActionListener() {
@@ -140,32 +143,32 @@ public class VentanaComprarHerramientas extends JFrame {
 		contentPane.add(lblPrecio);
 		
 		JButton btnVerPrecio = new JButton("Ver Tiempo");
-//		btnVerPrecio.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				String nombre = comboBoxPieza.getSelectedItem().toString();
-//				int tiempo = calcularTiempo(nombre);
-//				if (tiempo > -1) {
-//					lblPrecio.setText(tiempo +" dias");
-//				}
-//			}
-//		});
+		btnVerPrecio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nombre = comboBoxHerramienta.getSelectedItem().toString();
+				int tiempo = calcularTiempo(nombre);
+				if (tiempo > -1) {
+					lblPrecio.setText(tiempo +" dias");
+				}
+			}
+		});
 		btnVerPrecio.setBounds(396, 213, 117, 29);
 		contentPane.add(btnVerPrecio);
 }
-//	
-//	public int calcularTiempo (String nombre) {
-//		int tiempo = 0;
-//		List<PiezaProveedores> lista = departamentoComprasController.cargarListaPiezasProveedores();
-//		for (PiezaProveedores piezaProveedores : lista) {
-//			if (piezaProveedores.getNombre().equals(nombre)) {
-//				tiempo = piezaProveedores.getTiempo();
-//			} 
-//		}
-//		return tiempo;
-//	}
-//	
-	public List<Proveedor> cargarListaProveedores() {
-		return departamentoComprasController.cargarListaProveedores();
+	
+	public int calcularTiempo (String nombre) {
+		int tiempo = 0;
+		List<Herramientas> lista = departamentoComprasController.cargarListaHerramientas();
+		for (Herramientas piezaProveedores : lista) {
+			if (piezaProveedores.getNombre().equals(nombre)) {
+				tiempo = piezaProveedores.getTiempo();
+			} 
+		}
+		return tiempo;
+	}
+	
+	public List<ProveedorHerramientas> cargarListaProveedoresHerramientas() {
+		return departamentoComprasController.cargarListaProveedoresHerramientas();
 	}
 	
 //	public List<PiezaProveedores> cargarListaPiezaProveedores(){
@@ -173,35 +176,35 @@ public class VentanaComprarHerramientas extends JFrame {
 //	}
 //	
 	public ArrayList<String> crearProveedores() {
-		List<Proveedor> proveedores = cargarListaProveedores();
+		List<ProveedorHerramientas> proveedores = cargarListaProveedoresHerramientas();
 		ArrayList<String> nombres = new ArrayList<String>();
-		for (Proveedor proveedor : proveedores) {
+		for (ProveedorHerramientas proveedor : proveedores) {
 			nombres.add(proveedor.getNombre());
 		}
 		return nombres;
 	}
 	
-//	public ArrayList<String> crearPiezasProveedores(String nombre){
-//		List<Proveedor> proveedores = departamentoComprasController.cargarListaProveedores();
-//		List<PiezaProveedores> piezas = departamentoComprasController.cargarListaPiezasProveedores();
-//		String codigo = "";
-//		for (Proveedor proveedor : proveedores) {
-//			if (proveedor.getNombre().equals(nombre)) {
-//				codigo = proveedor.getIdProveedor();
-//			}
-//		}
-//		ArrayList<String> lista = new ArrayList<String>();
-//		for (PiezaProveedores piezaProveedores : piezas) {
-//			if (piezaProveedores.getCodProveedor().equals(codigo)) {
-//				lista.add(piezaProveedores.getNombre());
-//			}
-//		}
-//		return lista;
-//	}
-//	
-	public Proveedor obtenerProveedor(String nombre) {
-		List<Proveedor> proveedores = cargarListaProveedores();
-		for (Proveedor prov : proveedores) {
+	public ArrayList<String> crearHerramientasProveedores(String nombre){
+		List<ProveedorHerramientas> proveedores = departamentoComprasController.cargarListaProveedoresHerramientas();
+		List<Herramientas> herramientas = departamentoComprasController.cargarListaHerramientas();
+		String codigo = "";
+		for (ProveedorHerramientas proveedor : proveedores) {
+			if (proveedor.getNombre().equals(nombre)) {
+				codigo = proveedor.getIdProveedor();
+			}
+		}
+		ArrayList<String> lista = new ArrayList<String>();
+		for (Herramientas piezaProveedores : herramientas) {
+			if (piezaProveedores.getCodProveedor().equals(codigo)) {
+				lista.add(piezaProveedores.getNombre());
+			}
+		}
+		return lista;
+	}
+	
+	public ProveedorHerramientas obtenerProveedor(String nombre) {
+		List<ProveedorHerramientas> proveedores = cargarListaProveedoresHerramientas();
+		for (ProveedorHerramientas prov : proveedores) {
 			if (prov.getNombre().equals(nombre)) {
 				return prov;
 			}

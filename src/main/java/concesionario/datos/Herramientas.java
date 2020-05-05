@@ -9,6 +9,10 @@ public class Herramientas {
 	private String tipo;
 	private String codProveedor;
 	
+
+	public Herramientas() {
+	}
+	
 	
 	public Herramientas(String codigo, String nombre, int tiempo, String tipo, String codProveedor) {
 		this.codigo = codigo;
