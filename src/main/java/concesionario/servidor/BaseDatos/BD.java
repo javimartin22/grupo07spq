@@ -75,6 +75,10 @@ public class BD {
 	private static final String COLUMNAS_TABLA_HERRAMIENTAS = "(codigo string PRIMARY KEY, nombre string, tipo string ,tiempo int, codProveedor string)";
 	private static final String TABLA_PROVEEDORES_HERRAMIENTAS = "ProveedorHerramienta"; 
 	private static final String COLUMNAS_TABLA_PROVEEDORES_HERRAMIENTAS = "(idProveedor string PRIMARY KEY, nombre string, pais string, tipo string)";
+	
+	//Añadir commit4
+	private static final String TABLA_HERRAMIENTAS_TALLER = "HerramientasTaller"; 
+	private static final String COLUMNAS_TABLA_HERRAMIENTAS_TALLER = "(codigo string PRIMARY KEY, nombre string, stock int, ubicacion string)";
 			
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
@@ -146,6 +150,8 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_CITAS_TALLER + COLUMNAS_TABLA_CITAS_TALLER);
 				statement.executeUpdate("create table " + TABLA_HERRAMIENTAS + COLUMNAS_TABLA_HERRAMIENTAS);
 				statement.executeUpdate("create table " + TABLA_PROVEEDORES_HERRAMIENTAS+ COLUMNAS_TABLA_PROVEEDORES_HERRAMIENTAS);
+				//Añadir commit4
+				statement.executeUpdate("create table " + TABLA_HERRAMIENTAS_TALLER+ COLUMNAS_TABLA_HERRAMIENTAS_TALLER);
 			} catch (SQLException e) {
 			} // Tabla ya existe. Nada que hacer
 			return statement;
@@ -188,6 +194,9 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_CITAS_TALLER);
 			statement.executeUpdate("drop table if exists " + TABLA_HERRAMIENTAS);
 			statement.executeUpdate("drop table if exists " + TABLA_PROVEEDORES_HERRAMIENTAS);
+			//Añadir commit4
+			statement.executeUpdate("drop table if exists " + TABLA_HERRAMIENTAS_TALLER);
+			
 			return usarCrearTablasBD(con);
 		} catch (SQLException e) {
 			lastError = e;
@@ -382,6 +391,23 @@ public class BD {
 		String sentSQL = "";
 		try {
 			sentSQL = "insert into " + TABLA_DEPARTAMENTO_COMPRAS + " values ('" + secu(dni) + "', '" + nickname + "', '" + contrasenia + "', '" + nombre + "', '" + apellido + "', '" + sexo + "', '" + email + "', '" + ciudad + "', " + codigoPostal + ",'" + dir + "', '" + numTelefono + "', '" + NSS + "', '" + numeroCuenta + "', " + sueldo + ", " + pedidos +")";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+		}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	//Añadir commit4
+	public static boolean herramientasTallerInsert(Statement st, String codigo, String nombre, int stock, String ubicacion) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into " + TABLA_HERRAMIENTAS_TALLER + " values ('" + secu(codigo) + "', '" + nombre + "', " + stock + ", '" + ubicacion + "')";
 			int val = st.executeUpdate(sentSQL);
 			if (val != 1) { // Se tiene que anyadir 1 - error si no
 				return false;
@@ -868,6 +894,19 @@ public class BD {
 		return depar;
 	}
 	
+	//Añadir commit4
+	public static ResultSet herramientasTallerTodasSelect(Statement st) {
+		String sentSQL = "";
+		ResultSet rs = null;
+		try {
+			sentSQL = "select * from " + TABLA_HERRAMIENTAS_TALLER + " order by codigo";
+			rs = st.executeQuery(sentSQL);
+		} catch (Exception e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+		return rs;
+	}
 	//Tabla PIEZAS:
 		//Todas:
 		public static ResultSet piezasTodasSelect(Statement st) {
@@ -875,6 +914,30 @@ public class BD {
 			ResultSet rs = null;
 			try {
 				sentSQL = "select * from " + TABLA_PIEZAS + " order by codigo";
+				rs = st.executeQuery(sentSQL);
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return rs;
+		}
+		
+		//Añadir commit4
+		public static ResultSet herramientasMecanicoFiltroSelect(Statement st, int tipo, String restriccion) {
+			String sentSQL = "";
+			ResultSet rs = null;
+			try {
+				switch (tipo) {
+				case 0:
+					sentSQL = "select * from " + TABLA_HERRAMIENTAS_TALLER + " where codigo= '" + restriccion + "'";
+					break;
+				case 1:
+					sentSQL = "select * from " + TABLA_HERRAMIENTAS_TALLER + " where nombre= '" + restriccion + "'";
+					break;
+				case 2: 
+					sentSQL = "select * from " + TABLA_HERRAMIENTAS_TALLER + " where stock= " + restriccion + "";
+					break;
+				}
 				rs = st.executeQuery(sentSQL);
 			} catch (Exception e) {
 				lastError = e;
