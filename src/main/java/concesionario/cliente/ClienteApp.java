@@ -542,7 +542,6 @@ public class ClienteApp {
 	}
 	
 	public Response filtrarCitaComercial(String filtro) {
-		System.out.println("Llega al cliente APP");
 		WebTarget filtrarCitaComercialTarget = loginTarget.path("filtrarTablaCitaComercial");
 		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
 		Response response = filtrarCitaComercialTarget.request(MediaType.APPLICATION_JSON).post(entity);

@@ -99,7 +99,6 @@ public class ComercialController {
 	}
 	
 	public List<CitaComercial> filtrarCitaComercial(String filtro) {
-		System.out.println("llega al controller");
 		Response response_1 = cliente.filtrarCitaComercial(filtro);
 		if(response_1.getStatus() == Status.OK.getStatusCode()) {
 			GenericType<List<CitaComercial>> genericType = new GenericType<List<CitaComercial>>() {};

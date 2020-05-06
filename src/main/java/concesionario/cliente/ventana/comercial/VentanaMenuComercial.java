@@ -70,7 +70,7 @@ public class VentanaMenuComercial extends JFrame {
 		});
 		btnNewButton.setBounds(150, 135, 117, 29);
 		panel.add(btnNewButton);
-		
+		 
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

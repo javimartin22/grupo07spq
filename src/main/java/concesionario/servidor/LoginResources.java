@@ -1828,7 +1828,6 @@ public class LoginResources {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces("application/json")
 	public Response citasComercialesFiltrar(String filtro) {
-		System.out.println("llega al resource " + filtro);
 		con = BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		

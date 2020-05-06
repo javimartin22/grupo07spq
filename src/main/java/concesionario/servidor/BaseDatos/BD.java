@@ -1637,7 +1637,7 @@ public class BD {
  			lastError = e;
  			e.printStackTrace();		
  		} 		
- 		try {
+ 		try { 
 			sentSQL = "select * from " + TABLA_CITAS_COMERCIAL + " where comercial= '" + nombre + "' and fecha= '" + fecha + "'";
 			rsFinal = st.executeQuery(sentSQL);
 		} catch (Exception e) {

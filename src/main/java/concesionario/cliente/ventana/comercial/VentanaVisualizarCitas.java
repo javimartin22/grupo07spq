@@ -138,7 +138,7 @@ public class VentanaVisualizarCitas extends JFrame {
 				o[3] = c.getHora();
 				o[4] = c.getComercial();
 				model.addRow(o);
-			}
+			} 
 		} else {
 			//logger.error("No hay citas.");
 		}
@@ -165,7 +165,7 @@ public class VentanaVisualizarCitas extends JFrame {
 		} else {
 			//logger.error("No hay citas este día.");
 		}
-	}
+	} 
 	
 	public static boolean validarFecha(String fecha) {
         try {
