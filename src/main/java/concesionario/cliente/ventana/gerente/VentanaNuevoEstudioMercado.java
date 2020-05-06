@@ -69,8 +69,9 @@ public class VentanaNuevoEstudioMercado extends JFrame {
 		btnMarca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Venta> ventas = gerenteController.cargarTablaVenta();
-				VentanaEstudioMercado vem = new VentanaEstudioMercado("Ventas por Marca", ventas);
+				VentanaEstudioMercado vem = new VentanaEstudioMercado("Ventas por Marca", ventas, gerenteController, nickname);
 				vem.setVisible(true);
+				dispose();
 			}
 		});
 		btnMarca.setBounds(100, 50, 117, 29);
@@ -79,8 +80,7 @@ public class VentanaNuevoEstudioMercado extends JFrame {
 		JButton btnComerciales = new JButton("Ventas por Comerciales");
 		btnComerciales.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//VentanaEstudioMercado vem = new VentanaEstudioMercado("Ventas por Comerciales");
-				//vem.setVisible(true);
+				
 			}
 		});
 		btnComerciales.setBounds(100, 90, 117, 29);
@@ -89,8 +89,10 @@ public class VentanaNuevoEstudioMercado extends JFrame {
 		JButton btnMes = new JButton("Ventas por Mes");
 		btnMes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//VentanaEstudioMercado vem = new VentanaEstudioMercado("Ventas por Mes");
-				//vem.setVisible(true);
+				List<Venta> ventas = gerenteController.cargarTablaVenta();
+				VentanaEstudioMes vem = new VentanaEstudioMes("Ventas por mensualidad", "Ventas por Mes", ventas);
+				vem.setVisible(true);
+				dispose();
 			}
 		});
 		btnMes.setBounds(100, 130, 117, 29);
