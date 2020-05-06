@@ -26,6 +26,7 @@ import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
 import concesionario.datos.Herramientas;
+import concesionario.datos.HerramientasTaller;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.PiezaProveedores;
@@ -246,6 +247,14 @@ public class ClienteApp {
 		return piezas;
 	}
 	
+	//añadir commit4
+	public List<HerramientasTaller> cargarTablaHerramientasTaller(){
+		WebTarget loadPiezaTableTarget = loginTarget.path("loadHerramientaTable");
+		GenericType<List<HerramientasTaller>> genericType = new GenericType<List<HerramientasTaller>>() {};
+        List<HerramientasTaller> herramientas = loadPiezaTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
+		return herramientas;
+	}
+	
 	public Response piezaUtilizadaSelect(String codigo) {
 		WebTarget selectPiezaUtilizadaTarget = loginTarget.path("selectPiezaUtilizada");
 		Entity<String> ent = Entity.entity(codigo, MediaType.APPLICATION_JSON);
@@ -420,6 +429,14 @@ public class ClienteApp {
 		WebTarget filtroCocheTallerTarget = loginTarget.path("loadTablaCocheTallerFiltro");
 		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
 		Response response = filtroCocheTallerTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
+	//añadir commit4
+	public Response filtrarHerramientaMecanico(String filtro) {
+		WebTarget filtroHerramientaMecanicoTarget = loginTarget.path("loadTablaHerramientaMecanicoFiltro");
+		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
+		Response response = filtroHerramientaMecanicoTarget.request(MediaType.APPLICATION_JSON).post(entity);
         return response;
 	}
 	

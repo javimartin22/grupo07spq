@@ -672,6 +672,36 @@ public class LoginResources {
 		}
 	}
 	
+	//añadir commit4 
+
+	@GET
+	@Path("loadHerramientaTable")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<HerramientasTaller> cargarTablaHerramientasTaller()throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		ResultSet rs = BD.herramientasTallerTodasSelect(st);
+		List<HerramientasTaller> herramienta_result = new ArrayList<HerramientasTaller>();
+		
+		if (rs == null) {
+			return herramienta_result;
+		} else {
+			
+			while(rs.next()) {
+				//Obtener atributos rs
+				String codigo = rs.getString("codigo");
+				String nombre = rs.getString("nombre");
+				int unidades = rs.getInt("stock");
+				String ubicacion = rs.getString("ubicacion");
+				
+				HerramientasTaller herramienta = new HerramientasTaller(codigo, nombre, unidades, ubicacion);	
+				herramienta_result.add(herramienta);
+			}
+			 
+			return herramienta_result;
+		}
+	}
+	
 	@GET
 	@Path("loadPiezasProveedoresList")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -1478,6 +1508,41 @@ public class LoginResources {
 				e.printStackTrace();
 			}
 			return Response.status(Response.Status.OK).entity(coches).build();
+		}
+	}
+	
+	//añadir commit4 loadTablaHerramientaMecanicoFiltro
+	@POST
+	@Path("loadTablaHerramientaMecanicoFiltro")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response filtrarHerramientaMecanicoFiltro(String filtro) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+
+		String [] parts = filtro.split("-");
+		String restriccion = parts[0];
+		int tipo = Integer.parseInt(parts[1]);
+		
+		ResultSet rs = BD.herramientasMecanicoFiltroSelect(st, tipo, restriccion);
+		List<HerramientasTaller> herramientas = new ArrayList<HerramientasTaller>();
+
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String cod = rs.getString("codigo");
+					String nombre = rs.getString("nombre");
+					int unidades = rs.getInt("stock");
+					String ubicacion = rs.getString("ubicacion");
+					HerramientasTaller herramienta = new HerramientasTaller(cod, nombre, unidades, ubicacion);
+					herramientas.add(herramienta);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(herramientas).build();
 		}
 	}
 	

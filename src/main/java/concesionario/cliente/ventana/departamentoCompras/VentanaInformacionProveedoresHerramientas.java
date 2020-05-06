@@ -64,17 +64,17 @@ public class VentanaInformacionProveedoresHerramientas extends JFrame {
 		
 		JLabel lblTiposDePieza = new JLabel("Tipos de herramientas:");
 		lblTiposDePieza.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		lblTiposDePieza.setBounds(6, 115, 135, 16);
+		lblTiposDePieza.setBounds(6, 115, 156, 16);
 		contentPane.add(lblTiposDePieza);
 		
-//		JLabel lbltiposProv = new JLabel(proveedor.getTipoPiezas());
-//		lbltiposProv.setBounds(169, 115, 276, 16);
-//		contentPane.add(lbltiposProv);
+		JLabel lbltiposProv = new JLabel(proveedor.gettipoHerramientas());
+		lbltiposProv.setBounds(169, 115, 276, 16);
+		contentPane.add(lbltiposProv);
 		
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
-				VentanaComprarPiezas vcp = new VentanaComprarPiezas(departamentoComprasController, nickname);
+				VentanaComprarHerramientas vcp = new VentanaComprarHerramientas(departamentoComprasController, nickname);
 				vcp.setVisible(true);
 				dispose();
 			}

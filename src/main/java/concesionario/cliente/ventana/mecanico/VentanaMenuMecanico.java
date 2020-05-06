@@ -70,7 +70,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		verHistoial.setBounds(124, 176, 201, 23);
+		verHistoial.setBounds(124, 173, 201, 23);
 		panel.add(verHistoial);
 		
 		//boton para poder registrar los vehiculos que pasan por el taller
@@ -82,7 +82,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		registarVehiculo.setBounds(124, 108, 201, 23);
+		registarVehiculo.setBounds(124, 125, 201, 23);
 		panel.add(registarVehiculo);
 		
 		//boton de salir que te lleva a la ventana de VentanaLogin donde se inicia la sesion
@@ -96,7 +96,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		buttonSalir.setBounds(172, 295, 89, 23);
+		buttonSalir.setBounds(173, 259, 89, 23);
 		panel.add(buttonSalir);
 		
 		JButton btnVerCochesTaller = new JButton("Ver Coches Taller");
@@ -107,7 +107,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		btnVerCochesTaller.setBounds(124, 142, 201, 23);
+		btnVerCochesTaller.setBounds(124, 149, 201, 23);
 		panel.add(btnVerCochesTaller);
 		
 		JButton verHistoial_1 = new JButton("Visualizar Presupuesto");
@@ -118,7 +118,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		verHistoial_1.setBounds(124, 210, 201, 23);
+		verHistoial_1.setBounds(124, 200, 201, 23);
 		panel.add(verHistoial_1);
 		
 		JButton verHistoial_1_1 = new JButton("Visualizar Fidelidad");
@@ -129,7 +129,19 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		verHistoial_1_1.setBounds(124, 244, 201, 23);
+		verHistoial_1_1.setBounds(124, 224, 201, 23);
 		panel.add(verHistoial_1_1);
+		
+		JButton btnverHerramientas = new JButton("Ver Herramientas");
+		btnverHerramientas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaHerramientasMecanico vhm = new VentanaHerramientasMecanico(mecanicoController, nickname);
+				vhm.setVisible(true);
+				dispose();
+				
+			}
+		});
+		btnverHerramientas.setBounds(124, 98, 201, 29);
+		panel.add(btnverHerramientas);
 	}
 }

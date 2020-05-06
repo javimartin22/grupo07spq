@@ -11,6 +11,7 @@ import concesionario.cliente.ClienteApp;
 import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.CocheMatriculado;
 import concesionario.datos.CocheTaller;
+import concesionario.datos.HerramientasTaller;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
 
@@ -37,6 +38,11 @@ public class MecanicoController {
 	
 	public List<Pieza> cargarPiezas(){
 		return cliente.cargarTablaPiezas();
+	}
+	
+	//añadir commit4
+	public List<HerramientasTaller> cargarHerramientasTaller(){
+		return cliente.cargarTablaHerramientasTaller();
 	}
 	
 	public List<Pieza> cargarPiezasUtilizadas(){
@@ -136,6 +142,17 @@ public class MecanicoController {
 		Response response = cliente.filtrarCocheMatriculado(filtro);
 		if(response.getStatus() == Status.OK.getStatusCode()) {
 			GenericType<List<CocheMatriculado>> genericType = new GenericType<List<CocheMatriculado>>() {};
+			return response.readEntity(genericType);
+		}else {
+			return null;
+		}
+	}
+	
+	//añadir commit 4
+	public List<HerramientasTaller> filtrarHerramientaMecanico(String filtro) {
+		Response response = cliente.filtrarHerramientaMecanico(filtro);
+		if(response.getStatus() == Status.OK.getStatusCode()) {
+			GenericType<List<HerramientasTaller>> genericType = new GenericType<List<HerramientasTaller>>() {};
 			return response.readEntity(genericType);
 		}else {
 			return null;
