@@ -72,7 +72,7 @@ public class VentanaVisualizarCitasMecanico extends JFrame {
 				cargarTablaFiltro(table1, nickname, fechaCompleta);
 				
 			}
-		});
+		}); 
 		mnNewMenu.add(mntmNewMenuItem);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Citas mañana");
