@@ -148,7 +148,7 @@ public class MecanicoController {
 		}
 	}
 	
-	//añadir commit 4
+	
 	public List<HerramientasTaller> filtrarHerramientaMecanico(String filtro) {
 		Response response = cliente.filtrarHerramientaMecanico(filtro);
 		if(response.getStatus() == Status.OK.getStatusCode()) {

@@ -7,13 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import concesionario.cliente.controller.DepartmentoComprasController;
@@ -22,8 +19,6 @@ import concesionario.datos.ProveedorHerramientas;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JSpinner;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 
 public class VentanaComprarHerramientas extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -116,13 +111,17 @@ public class VentanaComprarHerramientas extends JFrame {
 		btnVerHerramientas.setBounds(396, 62, 138, 29);
 		contentPane.add(btnVerHerramientas);
 		
+		JSpinner spinner = new JSpinner();
+		spinner.setBounds(155, 141, 44, 26);
+		contentPane.add(spinner);
+		
 		JButton btnComprar = new JButton("Comprar");
 		btnComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//					Herramientas herramienta = obtenerPiezaProveedor(comboBoxPieza.getSelectedItem().toString());
-//					int unidades = Integer.parseInt(textFieldUnidades.getText());
-//					realizarCompra(pieza, unidades, nickname);
-					JOptionPane.showMessageDialog(null, "Operación realizada correctamente");
+					Herramientas herramienta = obtenerHerramientaProveedor(comboBoxHerramienta.getSelectedItem().toString());
+					Integer unidades = (Integer)spinner.getValue();		
+					realizarCompra(herramienta, unidades, nickname);
+					
 			}
 		});
 		btnComprar.setBounds(215, 266, 117, 29);
@@ -151,9 +150,7 @@ public class VentanaComprarHerramientas extends JFrame {
 		btnVerPrecio.setBounds(396, 213, 117, 29);
 		contentPane.add(btnVerPrecio);
 		
-		JSpinner spinner = new JSpinner();
-		spinner.setBounds(155, 141, 44, 26);
-		contentPane.add(spinner);
+		
 }
 	
 	public int calcularTiempo (String nombre) {
@@ -212,7 +209,7 @@ public class VentanaComprarHerramientas extends JFrame {
 		return null;
 	}
 	
-	public Herramientas obtenerPiezaProveedor(String nombre) {
+	public Herramientas obtenerHerramientaProveedor(String nombre) {
 		List<Herramientas> herramientas = cargarListaHerramientas();
 		for (Herramientas herramienta : herramientas) {
 			if (herramienta.getNombre().equals(nombre)) {
@@ -222,9 +219,9 @@ public class VentanaComprarHerramientas extends JFrame {
 		return null;
 	}
 	
-	public void realizarCompra(Herramientas piezaProveedor, int unidades, String nickname) {
-				//VentanaRegistoPiezas vrp = new VentanaRegistoPiezas(departamentoComprasController,piezaProveedor, unidades, nickname);
-			//	vrp.setVisible(true);
+	public void realizarCompra(Herramientas herramientaProv, int unidades, String nickname) {
+				VentanaRegistroHerramientas vrp = new VentanaRegistroHerramientas(departamentoComprasController,herramientaProv, unidades, nickname);
+				vrp.setVisible(true);
 				dispose();
 	}
 }

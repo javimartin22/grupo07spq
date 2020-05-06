@@ -543,6 +543,29 @@ public class LoginResources {
 		}
 	}
 	
+	@POST
+	@Path("insertHerramientas")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response insertarHerramientas(HerramientasTaller herramienta) {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		String codigo = herramienta.getCodigo();
+		String nombre = herramienta.getNombre();
+		String ubicacion = herramienta.getUbicacion();
+		int stock = herramienta.getUnidades();
+		
+		BD.herramientasTallerInsert(st, codigo, nombre, stock, ubicacion);
+		HerramientasTaller nuevo = BD.herramientaTallerSelect(st, herramienta.getCodigo());
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).build();
+		}
+	}
+	
 	
 	@POST
 	@Path("insertPresupuesto")

@@ -1,5 +1,6 @@
-package concesionario.cliente.ventana.mecanico;
+package concesionario.cliente.ventana.departamentoCompras;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -14,39 +15,39 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import concesionario.cliente.controller.MecanicoController;
+import concesionario.cliente.controller.DepartmentoComprasController;
 import concesionario.datos.HerramientasTaller;
 
 
-public class VentanaHerramientasMecanico extends JFrame{
+public class VentanaHerramientasTaller extends JFrame {
+	
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable tabla;
-	private MecanicoController mecanicoController;
+	private DepartmentoComprasController departamentoComprasController;
 
-	public VentanaHerramientasMecanico(MecanicoController mecanicoController, String nickname) {
+
+	public VentanaHerramientasTaller(DepartmentoComprasController departmentoComprasController, String nickname) {
+		setTitle("Herramientas");
 		setResizable(false);
-		setTitle("Herramientas Taller");
-		this.mecanicoController = mecanicoController;
-		iniciarVentanaHerramientas(nickname);
+		this.departamentoComprasController = departmentoComprasController;
+		iniciarVentanaHerramientasTaller(nickname);
 	}
+
 	
-	public void iniciarVentanaHerramientas(String nickname) {
+	public void  iniciarVentanaHerramientasTaller(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(170, 100, 560, 353);
+		setBounds(100, 100, 712, 361);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
 		JMenu mnNewMenu = new JMenu("Filtros");
+		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		menuBar.add(mnNewMenu);
-		
-		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Codigo");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
@@ -72,67 +73,89 @@ public class VentanaHerramientasMecanico extends JFrame{
 				String restriccion = unidades +"";
 				cargarTablaFiltro(tabla, 2, restriccion);
 			}
+		
 		});
+		mntmNewMenuItem_2.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		mnNewMenu.add(mntmNewMenuItem_2);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 522, 235);
+		scrollPane.setBounds(16, 20, 675, 235);
 		contentPane.add(scrollPane);
+		
 		tabla = new JTable();
 		scrollPane.setViewportView(tabla);
 		
 		JButton btnRegresar = new JButton("Regresar");
 		btnRegresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaMenuMecanico vmm = new VentanaMenuMecanico(mecanicoController, nickname);
-				vmm.setVisible(true);
+				VentanaMenuDepartamentoCompras vmdc = new VentanaMenuDepartamentoCompras(departamentoComprasController, nickname);
+				vmdc.setVisible(true);
 				dispose();
 			}
 		});
-		btnRegresar.setBounds(96, 267, 117, 29);
+		btnRegresar.setBounds(125, 267, 117, 29);
 		contentPane.add(btnRegresar);
 		
-		JButton btnCargarHerramientas = new JButton("Cargar Herramientas");
-		btnCargarHerramientas.addActionListener(new ActionListener() {
+		JButton btnCargarPiezas = new JButton("Cargar Todas");
+		btnCargarPiezas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cargarTabla(tabla);
 			}
 		});
-		btnCargarHerramientas.setBounds(259, 267, 180, 29);
-		contentPane.add(btnCargarHerramientas);
+		btnCargarPiezas.setBounds(247, 267, 117, 29);
+		contentPane.add(btnCargarPiezas);
 		
-		
+		JButton btnNewButton = new JButton("Añadir Unidades");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String codigo = (String) tabla.getModel().getValueAt(tabla.getSelectedRow(), 0);
+				if (departamentoComprasController.seleccionarPiezaUtilizada(codigo) != null) {
+					//anyadirUnidades(departamentoComprasController.seleccionarPiezaUtilizada(codigo));
+					
+				} else {
+					
+					JOptionPane.showMessageDialog(contentPane, "La pieza seleccionada no existe.");;
+				} 
+			}
+		});
+		btnNewButton.setBounds(376, 267, 133, 29);
+		contentPane.add(btnNewButton);
 	}
 	
-		public void cargarTabla(JTable table) {
+		
+	public void cargarTabla(JTable tabla) {
+		List<HerramientasTaller> herramientas = departamentoComprasController.cargarHerramientas();
+		String[] columnNames = {"Codigo", "Nombre", "Unidades", "Ubicacion"};
+		
+		if (!herramientas.isEmpty()) {
+			DefaultTableModel model = new DefaultTableModel();
+			tabla.setModel(model);
+			model.setColumnIdentifiers(columnNames);
 			
-			List<HerramientasTaller> herramientas = mecanicoController.cargarHerramientasTaller();
-			String[] columnNames = {"Codigo", "Nombre", "Unidades", "Ubicacion"};
-			
-			if (!herramientas.isEmpty()) {
-				 DefaultTableModel model = new DefaultTableModel();
-				   table.setModel(model);
-				   model.setColumnIdentifiers(columnNames);
-				   
-				   for (HerramientasTaller h : herramientas) {
-					   Object[] o = new Object[7];
-					   o[0] = h.getCodigo();
-					   o[1] = h.getNombre();
-					   o[2] = h.getUnidades();
-					   o[3] = h.getUbicacion();
-					   model.addRow(o);
-					 }
-			} 
+			for (HerramientasTaller p : herramientas) {
+				Object[] o = new Object[7];
+				o[0] = p.getCodigo();
+				o[1] = p.getNombre();
+				o[2] = p.getUnidades();
+				o[3] = p.getUbicacion();
+				model.addRow(o);
+			}
+		} else {
 		}
+	}
+		
+	private void anyadirUnidades(HerramientasTaller herramienta) {
+		String u = JOptionPane.showInputDialog("¿Cuantas unidades desea suministrar?");
+		int unidades = Integer.parseInt(u);
+	}
 	
 	public void cargarTablaFiltro(JTable table, int tipo, String filtro) {
 		String restriccion = filtro + "-" + tipo;
-		List<HerramientasTaller> herramientas = mecanicoController.filtrarHerramientaMecanico(restriccion);
+		List<HerramientasTaller> herramientas = departamentoComprasController.filtrarHerramientaMecanico(restriccion);
 		
 		String[] columnNames = {"Codigo", "Nombre", "Unidades", "Ubicacion"};
 		
@@ -196,4 +219,7 @@ public class VentanaHerramientasMecanico extends JFrame{
 		
 		} 
 	}
+	
+
+
 }

@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.ClienteApp;
 import concesionario.datos.Herramientas;
+import concesionario.datos.HerramientasTaller;
 import concesionario.datos.Pieza;
 import concesionario.datos.PiezaProveedores;
 import concesionario.datos.Proveedor;
@@ -33,9 +34,23 @@ public class DepartmentoComprasController {
 		}
 	}
 	
+	public boolean registroHerramienta(HerramientasTaller herramienta) {
+		Response response = cliente.registroHerramienta(herramienta); 
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public List<Pieza> cargarPiezas(){
 		return cliente.cargarTablaPiezas();
 	}
+	
+	public List<HerramientasTaller> cargarHerramientas(){
+		return cliente.cargarTablaHerramientasTaller();
+	}
+	
 	
 	public Pieza seleccionarPiezaUtilizada(String codigo) {
 		Response response = cliente.piezaUtilizadaSelect(codigo);
@@ -61,6 +76,16 @@ public class DepartmentoComprasController {
 		}
 	}
 	
+	public List<HerramientasTaller> filtrarHerramientaMecanico(String filtro) {
+		Response response = cliente.filtrarHerramientaMecanico(filtro);
+		if(response.getStatus() == Status.OK.getStatusCode()) {
+			GenericType<List<HerramientasTaller>> genericType = new GenericType<List<HerramientasTaller>>() {};
+			return response.readEntity(genericType);
+		}else {
+			return null;
+		}
+	}
+	
 	public List<Proveedor> cargarListaProveedores(){
 		return cliente.cargarListaProveedores();
 	}
@@ -79,6 +104,8 @@ public class DepartmentoComprasController {
 	public List<Herramientas> cargarListaHerramientas(){
 		return cliente.cargarListaHerramientas();
 	}
+	
+	
 	
 	public String parseUbicacion(int ubicacion) {
 		String ub = "";
@@ -108,5 +135,10 @@ public class DepartmentoComprasController {
 	public String carlcularCodigo(List<Pieza> piezas) {
 		int numero = piezas.size() + 1;
 		return "PI-" + numero;
+	}
+	
+	public String carlcularCodigoHerramienta(List<HerramientasTaller> herramientas) {
+		int numero = herramientas.size() + 1;
+		return "H-" + numero;
 	}
 }

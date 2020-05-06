@@ -269,13 +269,25 @@ public class ClienteApp {
  		return response;
 	}
 	
+	public Response registroHerramienta(HerramientasTaller herramienta) {
+		WebTarget insertPiezaTarget = loginTarget.path("insertHerramientas");
+ 		Entity<HerramientasTaller> entity = Entity.entity(herramienta, MediaType.APPLICATION_JSON);
+ 		Response response = insertPiezaTarget.request(MediaType.TEXT_PLAIN).post(entity);
+ 		return response;
+	}
+	
 	public Response registroPresupuesto(Presupuesto presupuesto) {
 		WebTarget insertPresupuestoTarget = loginTarget.path("insertPresupuesto");
  		Entity<Presupuesto> entity = Entity.entity(presupuesto, MediaType.APPLICATION_JSON);
  		Response response = insertPresupuestoTarget.request(MediaType.TEXT_PLAIN).post(entity);
  		return response;
 	}
-	
+	public List<Herramientas> insertarHerramientas(){
+		WebTarget insertHerramientaTableTarget = loginTarget.path("insertHerramienta");
+		GenericType<List<Herramientas>> genericType = new GenericType<List<Herramientas>>() {};
+        List<Herramientas> herramienta = insertHerramientaTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
+		return herramienta;
+	}
 	public List<Pieza> cargarTablaPiezasUtilizadas(){
 		WebTarget loadPiezaUtilizadaTableTarget = loginTarget.path("loadPiezaUtilizadasTable");
 		GenericType<List<Pieza>> genericType = new GenericType<List<Pieza>>() {};
