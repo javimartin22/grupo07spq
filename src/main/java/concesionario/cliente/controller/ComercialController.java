@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.ClienteApp;
+import concesionario.datos.CitaComercial;
 import concesionario.datos.CocheConcesionario;
 import concesionario.datos.Venta;
 
@@ -82,6 +83,16 @@ public class ComercialController {
 		if(response.getStatus() == Status.OK.getStatusCode()) {
 			GenericType<List<CocheConcesionario>> genericType = new GenericType<List<CocheConcesionario>>() {};
 			return response.readEntity(genericType);
+		}else {
+			return null;
+		}
+	}
+	
+	public List<CitaComercial> cargarCitaComercial(String comercial) {
+		Response response_1 = cliente.cargarCitaComercial(comercial);
+		if(response_1.getStatus() == Status.OK.getStatusCode()) {
+			GenericType<List<CitaComercial>> genericType = new GenericType<List<CitaComercial>>() {};
+			return response_1.readEntity(genericType);
 		}else {
 			return null;
 		}

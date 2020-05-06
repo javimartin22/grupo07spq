@@ -82,6 +82,17 @@ public class VentanaMenuComercial extends JFrame {
 		});
 		btnSalir.setBounds(154, 181, 117, 29);
 		panel.add(btnSalir);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaVisualizarCitas vcc = new VentanaVisualizarCitas(comercialController, nickname);
+				vcc.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_1.setBounds(164, 219, 89, 23);
+		panel.add(btnNewButton_1);
 		buttonRegistrarCoche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaRegistrarCocheConcesionario vrcc = new VentanaRegistrarCocheConcesionario(comercialController, nickname);

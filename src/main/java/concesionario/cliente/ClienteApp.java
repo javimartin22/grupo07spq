@@ -534,6 +534,13 @@ public class ClienteApp {
 		return herramientasProveedores;
 	}
 	
+	public Response cargarCitaComercial(String comercial) {
+		WebTarget cargarCitaComercialTarget = loginTarget.path("loadTablaCitaComercial");
+		Entity<String> entity = Entity.entity(comercial, MediaType.APPLICATION_JSON);
+		Response response = cargarCitaComercialTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
 	 public static void main(String[] args) {
 	        SwingUtilities.invokeLater(new Runnable(){
 	        

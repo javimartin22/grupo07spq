@@ -1791,6 +1791,37 @@ public class LoginResources {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
+	
+	@POST
+	@Path("loadTablaCitaComercial")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response citasComercialesCargar(String filtro) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.citasDelComercialSelect(st, filtro);
+		List<CitaComercial> citas = new ArrayList<CitaComercial>();
+
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String nombre = rs.getString("nombre");
+	 				String dniCliente = rs.getString("dniCliente");
+	 				String f	= rs.getString("fecha");
+	 				String h = rs.getString("hora");
+	 				String c = rs.getString("comercial");
+	 				CitaComercial citaComercial = new CitaComercial(nombre, dniCliente, f, h, c);
+					citas.add(citaComercial);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(citas).build();
+		}
+	}
 }
 
 
