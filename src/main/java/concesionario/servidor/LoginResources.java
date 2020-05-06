@@ -1880,6 +1880,74 @@ public class LoginResources {
 			return Response.status(Response.Status.OK).entity(citas).build();
 		}
 	}
+	
+	@POST
+	@Path("loadTablaCitaMecanico")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response citasMecanicosCargar(String filtro) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.citasDelMecanicoSelect(st, filtro);		
+		List<CitaTaller> citas = new ArrayList<CitaTaller>();
+
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String nombre = rs.getString("nombre");
+	 				String dniCliente = rs.getString("dniCliente");
+	 				String f	= rs.getString("fecha");
+	 				String h = rs.getString("hora");
+	 				String c = rs.getString("mecanico");
+	 				String m = rs.getString("problema");
+	 				CitaTaller citaMecanico = new CitaTaller(nombre, dniCliente, f, h, c, m);
+					citas.add(citaMecanico);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(citas).build();
+		}
+	}
+	
+	@POST
+	@Path("filtrarTablaCitaMecanico")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response citasMecanicosFiltrar(String filtro) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		String [] strings = filtro.split(";");
+		String nickname = strings[0];
+		String fecha = strings [1];
+		
+		ResultSet rs = BD.filtrarCitasMecanicoPorFecha(st, nickname, fecha);
+		List<CitaTaller> citas = new ArrayList<CitaTaller>();
+		
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String nombre = rs.getString("nombre");
+	 				String dniCliente = rs.getString("dniCliente");
+	 				String f	= rs.getString("fecha");
+	 				String h = rs.getString("hora");
+	 				String c = rs.getString("mecanico");
+	 				String m = rs.getString("problema");
+	 				CitaTaller citaMecanico = new CitaTaller(nombre, dniCliente, f, h, c, m);
+					citas.add(citaMecanico);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(citas).build();
+		}
+	}
 }
 
 

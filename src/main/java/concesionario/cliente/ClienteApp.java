@@ -560,6 +560,20 @@ public class ClienteApp {
         return response;
 	}
 	
+	public Response cargarCitaMecanico(String mecanico) {
+		WebTarget cargarCitaMecanicoTarget = loginTarget.path("loadTablaCitaMecanico");
+		Entity<String> entity = Entity.entity(mecanico, MediaType.APPLICATION_JSON);
+		Response response = cargarCitaMecanicoTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+
+	public Response filtrarCitaMecanico(String filtro) {
+		WebTarget filtrarCitaMecanicoTarget = loginTarget.path("filtrarTablaCitaMecanico");
+		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
+		Response response = filtrarCitaMecanicoTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
 	 public static void main(String[] args) {
 	        SwingUtilities.invokeLater(new Runnable(){
 	        

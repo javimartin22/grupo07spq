@@ -1667,6 +1667,62 @@ public class BD {
  		
  		return rsFinal;
  	}
+ 	
+ 	public static ResultSet citasDelMecanicoSelect(Statement st, String nickname) {
+ 		String sentSQL2 = "";
+ 		String sentSQL = "";
+ 		ResultSet rsNombre = null;
+ 		ResultSet rsFinal = null;
+ 		String nombre = "";
+ 		
+ 		try {
+			sentSQL2 = "select nombre from " + TABLA_MECANICO + " where nickname= '" + nickname + "'";
+			rsNombre = st.executeQuery(sentSQL2);
+			if (rsNombre.next()) {
+				nombre = rsNombre.getString("nombre");
+			}
+			
+		} catch(Exception e) {
+ 			lastError = e;
+ 			e.printStackTrace();		
+ 		}
+ 		try {
+ 			sentSQL = "select * from " + TABLA_CITAS_TALLER + " where mecanico= '" + nombre + "'";
+ 			rsFinal = st.executeQuery(sentSQL);
+ 		} catch(Exception e) {
+ 			lastError = e;
+ 			e.printStackTrace();
+ 		}
+ 		return rsFinal;
+ 	}
+ 	
+ 	public static ResultSet filtrarCitasMecanicoPorFecha(Statement st, String nickname, String fecha) {
+ 		String sentSQL = "";
+ 		String sentSQL2 = "";
+ 		ResultSet rsNombre = null;
+ 		ResultSet rsFinal = null;
+ 		String nombre = "";
+ 		try {
+			sentSQL2 = "select nombre from " + TABLA_MECANICO + " where nickname= '" + nickname + "'";
+			rsNombre = st.executeQuery(sentSQL2);
+			if (rsNombre.next()) {
+				nombre = rsNombre.getString("nombre");
+			}
+			
+		} catch(Exception e) {
+ 			lastError = e;
+ 			e.printStackTrace();		
+ 		} 		
+ 		try { 
+			sentSQL = "select * from " + TABLA_CITAS_TALLER + " where mecanico= '" + nombre + "' and fecha= '" + fecha + "'";
+			rsFinal = st.executeQuery(sentSQL);
+		} catch (Exception e) {
+			lastError = e;
+ 			e.printStackTrace();		
+		}
+ 		
+ 		return rsFinal;
+ 	}
 
 //METODOS DELETE:
 

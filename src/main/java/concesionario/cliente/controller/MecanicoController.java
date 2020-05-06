@@ -8,6 +8,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.ClienteApp;
+import concesionario.datos.CitaComercial;
+import concesionario.datos.CitaTaller;
 import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.CocheMatriculado;
 import concesionario.datos.CocheTaller;
@@ -223,5 +225,25 @@ public class MecanicoController {
 	
 	public List<ClienteFidelidad> cargarClienteFidelidad(){
 		return cliente.cargarTablaClientesFidelidad();
+	}
+	
+	public List<CitaTaller> cargarCitaMecanico(String mecanico) {
+		Response response_1 = cliente.cargarCitaMecanico(mecanico);
+		if(response_1.getStatus() == Status.OK.getStatusCode()) {
+			GenericType<List<CitaTaller>> genericType = new GenericType<List<CitaTaller>>() {};
+			return response_1.readEntity(genericType);
+		}else {
+			return null;
+		}
+	}
+	
+	public List<CitaTaller> filtrarCitaMecanico(String filtro) {
+		Response response_1 = cliente.filtrarCitaMecanico(filtro);
+		if(response_1.getStatus() == Status.OK.getStatusCode()) {
+			GenericType<List<CitaTaller>> genericType = new GenericType<List<CitaTaller>>() {};
+			return response_1.readEntity(genericType);
+		}else {
+			return null;
+		}
 	}
 }

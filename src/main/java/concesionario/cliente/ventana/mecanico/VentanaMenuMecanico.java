@@ -96,7 +96,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		buttonSalir.setBounds(173, 259, 89, 23);
+		buttonSalir.setBounds(178, 295, 89, 23);
 		panel.add(buttonSalir);
 		
 		JButton btnVerCochesTaller = new JButton("Ver Coches Taller");
@@ -143,5 +143,16 @@ public class VentanaMenuMecanico extends JFrame {
 		});
 		btnverHerramientas.setBounds(124, 98, 201, 29);
 		panel.add(btnverHerramientas);
+		
+		JButton verHistoial_1_1_1 = new JButton("Visualizar Citas");
+		verHistoial_1_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaVisualizarCitasMecanico vvcm = new VentanaVisualizarCitasMecanico(mecanicoController, nickname);
+				vvcm.setVisible(true);
+				dispose();
+			}
+		});
+		verHistoial_1_1_1.setBounds(124, 250, 201, 23);
+		panel.add(verHistoial_1_1_1);
 	}
 }
