@@ -16,6 +16,7 @@ import concesionario.datos.CocheTaller;
 import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
+import concesionario.datos.HerramientasTaller;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
@@ -965,6 +966,25 @@ public class BD {
 			return rs;
 		}
 		
+		public static HerramientasTaller herramientaTallerSelect(Statement st, String codigo) {
+			String sentSQL = "";
+			HerramientasTaller herramienta = null;
+			try {
+				sentSQL = "select * from " + TABLA_PIEZAS + " where codigo= '" + codigo + "' ";
+				ResultSet rs = st.executeQuery(sentSQL);
+				if (rs.next()) {
+					String cod = rs.getString("codigo");
+					String nombre = rs.getString("nombre");
+					int unidades = rs.getInt("stock");
+					String ubicacion = rs.getString("ubicacion");
+					herramienta = new HerramientasTaller(cod, nombre, unidades, ubicacion);
+				}
+			} catch (Exception e) {
+				lastError = e;
+				e.printStackTrace();
+			}
+			return herramienta;
+		}
 		
 		//Busqueda mediante CODIGO:
 		public static Pieza piezaSelect(Statement st, String codigo) {
