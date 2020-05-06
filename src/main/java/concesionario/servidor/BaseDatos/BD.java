@@ -75,8 +75,6 @@ public class BD {
 	private static final String COLUMNAS_TABLA_HERRAMIENTAS = "(codigo string PRIMARY KEY, nombre string, tipo string ,tiempo int, codProveedor string)";
 	private static final String TABLA_PROVEEDORES_HERRAMIENTAS = "ProveedorHerramienta"; 
 	private static final String COLUMNAS_TABLA_PROVEEDORES_HERRAMIENTAS = "(idProveedor string PRIMARY KEY, nombre string, pais string, tipo string)";
-	
-	//Añadir commit4
 	private static final String TABLA_HERRAMIENTAS_TALLER = "HerramientasTaller"; 
 	private static final String COLUMNAS_TABLA_HERRAMIENTAS_TALLER = "(codigo string PRIMARY KEY, nombre string, stock int, ubicacion string)";
 			
@@ -150,7 +148,6 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_CITAS_TALLER + COLUMNAS_TABLA_CITAS_TALLER);
 				statement.executeUpdate("create table " + TABLA_HERRAMIENTAS + COLUMNAS_TABLA_HERRAMIENTAS);
 				statement.executeUpdate("create table " + TABLA_PROVEEDORES_HERRAMIENTAS+ COLUMNAS_TABLA_PROVEEDORES_HERRAMIENTAS);
-				//Añadir commit4
 				statement.executeUpdate("create table " + TABLA_HERRAMIENTAS_TALLER+ COLUMNAS_TABLA_HERRAMIENTAS_TALLER);
 			} catch (SQLException e) {
 			} // Tabla ya existe. Nada que hacer
@@ -194,7 +191,6 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_CITAS_TALLER);
 			statement.executeUpdate("drop table if exists " + TABLA_HERRAMIENTAS);
 			statement.executeUpdate("drop table if exists " + TABLA_PROVEEDORES_HERRAMIENTAS);
-			//Añadir commit4
 			statement.executeUpdate("drop table if exists " + TABLA_HERRAMIENTAS_TALLER);
 			
 			return usarCrearTablasBD(con);
@@ -403,7 +399,7 @@ public class BD {
 		}
 	}
 	
-	//Añadir commit4
+	
 	public static boolean herramientasTallerInsert(Statement st, String codigo, String nombre, int stock, String ubicacion) {
 		String sentSQL = "";
 		try {
@@ -894,7 +890,7 @@ public class BD {
 		return depar;
 	}
 	
-	//Añadir commit4
+	
 	public static ResultSet herramientasTallerTodasSelect(Statement st) {
 		String sentSQL = "";
 		ResultSet rs = null;
@@ -922,7 +918,7 @@ public class BD {
 			return rs;
 		}
 		
-		//Añadir commit4
+		
 		public static ResultSet herramientasMecanicoFiltroSelect(Statement st, int tipo, String restriccion) {
 			String sentSQL = "";
 			ResultSet rs = null;
