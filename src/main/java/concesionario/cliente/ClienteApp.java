@@ -541,6 +541,14 @@ public class ClienteApp {
         return response;
 	}
 	
+	public Response filtrarCitaComercial(String filtro) {
+		System.out.println("Llega al cliente APP");
+		WebTarget filtrarCitaComercialTarget = loginTarget.path("filtrarTablaCitaComercial");
+		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
+		Response response = filtrarCitaComercialTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
 	 public static void main(String[] args) {
 	        SwingUtilities.invokeLater(new Runnable(){
 	        

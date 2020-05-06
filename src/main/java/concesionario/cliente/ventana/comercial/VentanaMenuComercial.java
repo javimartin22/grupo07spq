@@ -45,7 +45,7 @@ public class VentanaMenuComercial extends JFrame {
 		panel.add(nombreMecanico);
 		
 		buttonRegistrarCoche = new JButton("Registrar coche");
-		buttonRegistrarCoche.setBounds(140, 63, 141, 29);
+		buttonRegistrarCoche.setBounds(140, 55, 141, 29);
 		panel.add(buttonRegistrarCoche);
 		
 		
@@ -57,7 +57,7 @@ public class VentanaMenuComercial extends JFrame {
 				dispose();
 			}
 		});
-		btnVerVentas.setBounds(154, 103, 117, 29);
+		btnVerVentas.setBounds(150, 95, 117, 29);
 		panel.add(btnVerVentas);
 		
 		JButton btnNewButton = new JButton("Ver Coches");
@@ -68,7 +68,7 @@ public class VentanaMenuComercial extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(154, 144, 117, 29);
+		btnNewButton.setBounds(150, 135, 117, 29);
 		panel.add(btnNewButton);
 		
 		JButton btnSalir = new JButton("Salir");
@@ -80,10 +80,10 @@ public class VentanaMenuComercial extends JFrame {
 				dispose();
 			}
 		});
-		btnSalir.setBounds(154, 181, 117, 29);
+		btnSalir.setBounds(150, 209, 117, 29);
 		panel.add(btnSalir);
 		
-		JButton btnNewButton_1 = new JButton("New button");
+		JButton btnNewButton_1 = new JButton("Visualizar citas");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaVisualizarCitas vcc = new VentanaVisualizarCitas(comercialController, nickname);
@@ -91,7 +91,7 @@ public class VentanaMenuComercial extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_1.setBounds(164, 219, 89, 23);
+		btnNewButton_1.setBounds(150, 175, 117, 23);
 		panel.add(btnNewButton_1);
 		buttonRegistrarCoche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

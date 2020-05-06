@@ -1619,6 +1619,34 @@ public class BD {
  		}
  		return rsFinal;
  	}
+ 	
+ 	public static ResultSet filtrarCitasPorFecha(Statement st, String nickname, String fecha) {
+ 		String sentSQL = "";
+ 		String sentSQL2 = "";
+ 		ResultSet rsNombre = null;
+ 		ResultSet rsFinal = null;
+ 		String nombre = "";
+ 		try {
+			sentSQL2 = "select nombre from " + TABLA_COMERCIAL + " where nickname= '" + nickname + "'";
+			rsNombre = st.executeQuery(sentSQL2);
+			if (rsNombre.next()) {
+				nombre = rsNombre.getString("nombre");
+			}
+			
+		} catch(Exception e) {
+ 			lastError = e;
+ 			e.printStackTrace();		
+ 		} 		
+ 		try {
+			sentSQL = "select * from " + TABLA_CITAS_COMERCIAL + " where comercial= '" + nombre + "' and fecha= '" + fecha + "'";
+			rsFinal = st.executeQuery(sentSQL);
+		} catch (Exception e) {
+			lastError = e;
+ 			e.printStackTrace();		
+		}
+ 		
+ 		return rsFinal;
+ 	}
 
 //METODOS DELETE:
 

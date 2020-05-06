@@ -12,7 +12,6 @@ public class CitaComercial {
 	}
 
 	public CitaComercial(String nombre, String dniCliente, String fecha, String hora, String comercial) {
-		super();
 		this.nombre = nombre;
 		this.dniCliente = dniCliente;
 		this.fecha = fecha;
