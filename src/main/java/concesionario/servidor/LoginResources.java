@@ -672,7 +672,7 @@ public class LoginResources {
 		}
 	}
 	
-	//añadir commit4 
+	 
 
 	@GET
 	@Path("loadHerramientaTable")
@@ -1511,7 +1511,7 @@ public class LoginResources {
 		}
 	}
 	
-	//añadir commit4 loadTablaHerramientaMecanicoFiltro
+	
 	@POST
 	@Path("loadTablaHerramientaMecanicoFiltro")
 	@Consumes(MediaType.APPLICATION_JSON)

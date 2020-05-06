@@ -40,7 +40,7 @@ public class MecanicoController {
 		return cliente.cargarTablaPiezas();
 	}
 	
-	//añadir commit4
+	
 	public List<HerramientasTaller> cargarHerramientasTaller(){
 		return cliente.cargarTablaHerramientasTaller();
 	}

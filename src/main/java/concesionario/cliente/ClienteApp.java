@@ -247,7 +247,7 @@ public class ClienteApp {
 		return piezas;
 	}
 	
-	//añadir commit4
+	
 	public List<HerramientasTaller> cargarTablaHerramientasTaller(){
 		WebTarget loadPiezaTableTarget = loginTarget.path("loadHerramientaTable");
 		GenericType<List<HerramientasTaller>> genericType = new GenericType<List<HerramientasTaller>>() {};
@@ -432,7 +432,7 @@ public class ClienteApp {
         return response;
 	}
 	
-	//añadir commit4
+	
 	public Response filtrarHerramientaMecanico(String filtro) {
 		WebTarget filtroHerramientaMecanicoTarget = loginTarget.path("loadTablaHerramientaMecanicoFiltro");
 		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
