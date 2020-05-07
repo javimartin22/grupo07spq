@@ -1,6 +1,7 @@
 package concesionario.cliente.ventana.gerente;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,8 +26,11 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart; 
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.data.category.CategoryDataset; 
 import org.jfree.data.category.DefaultCategoryDataset; 
 import org.jfree.ui.ApplicationFrame; 
@@ -36,9 +40,9 @@ import concesionario.cliente.ClienteApp;
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Venta; 
 
-public class VentanaEstudioMes extends ApplicationFrame {
+public class VentanaEstudioComerciales extends ApplicationFrame {
    
-   public VentanaEstudioMes( String applicationTitle , String chartTitle, List<Venta> ventas, GerenteController gerenteController, String nickname) {
+   public VentanaEstudioComerciales( String applicationTitle , String chartTitle, List<Venta> ventas, GerenteController gerenteController, String nickname) {
       super( applicationTitle );
       this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       setBounds(100, 100, 510, 278);
@@ -50,7 +54,12 @@ public class VentanaEstudioMes extends ApplicationFrame {
          createDataset(ventas),          
          PlotOrientation.VERTICAL,           
          true, true, false);
-         
+      
+      CategoryPlot cplot = (CategoryPlot)barChart.getPlot();
+      BarRenderer renderer = (BarRenderer) cplot.getRenderer();
+      renderer.setSeriesPaint(0, Color.blue);
+      
+      
       ChartPanel chartPanel = new ChartPanel( barChart );        
       chartPanel.setPreferredSize(new java.awt.Dimension( 560 , 367 ) );        
       this.add(chartPanel, BorderLayout.CENTER);
@@ -68,7 +77,7 @@ public class VentanaEstudioMes extends ApplicationFrame {
 		JButton buttonGuardar = new JButton("Guardar");
 		buttonGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 int width = 640;    /* Width of the image */
+			      int width = 640;    /* Width of the image */
 			      Date fecha = new Date();
 			      long timeMilli = fecha.getTime();
 			      
@@ -79,6 +88,7 @@ public class VentanaEstudioMes extends ApplicationFrame {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+				
 			}
 		});
 		buttonGuardar.setBounds(20, 110, 100, 23);
@@ -92,21 +102,19 @@ public class VentanaEstudioMes extends ApplicationFrame {
    private CategoryDataset createDataset(List<Venta> ventas ) {
       final String categoria = "Ventas Realizadas";
       
-      List<Integer> meses = new ArrayList<Integer>();
+      List<String> comerciales = new ArrayList<String>();
       boolean esta;
       
       for(Venta v: ventas) {
     	  esta = false;
-    	  String fecha = v.getFecha();
-    	  String[] parts = fecha.split("-");
-    	  String mes = parts[2];
-    	  System.out.println(mes);
-    	  meses.add(Integer.parseInt(mes));
+    	  String comercial = v.getNicknameComercial();
+    	  System.out.println(comercial);
+    	  comerciales.add(comercial);
       }
       //cuantos de cada directamente?
-      Map<Integer, Integer> countMap = new HashMap<>();
+      Map<String, Integer> countMap = new HashMap<>();
 
-      for (Integer item: meses) {
+      for (String item: comerciales) {
 
           if (countMap.containsKey(item))
               countMap.put(item, countMap.get(item) + 1);
@@ -120,49 +128,8 @@ public class VentanaEstudioMes extends ApplicationFrame {
       final DefaultCategoryDataset dataset = 
       new DefaultCategoryDataset( );  
 
-      for(Map.Entry<Integer, Integer> entry : countMap.entrySet()) {
-    	  String valor = "";
-    	  
-    	  switch(entry.getKey()) {
-   	   case 1 :
-   		valor = "Enero";
-   	      break; 
-   	   case 2 :
-   		valor = "Febrero";
-   	      break;
-   	   case 3 :
-   		valor = "Marzo";
-    	      break;
-   	   case 4 :
-   		valor = "Abril";
-    	      break;
-   	   case 5 :
-   		   valor = "Mayo";
-    	      break;
-   	   case 6 :
-   		   valor = "Junio";
-    	      break;
-   	   case 7 :
-   		   valor = "Julio";
-    	      break;
-   	   case 8 :
-   		valor = "Agosto";
-    	      break;
-   	   case 9 :
-   		valor = "Septiembre";
-     	      break;
-   	   case 10 :
-   		valor = "Octubre";
-     	      break;
-   	   case 11 :
-   		valor = "Noviembre";
-     	      break;
-   	   case 12 :
-   		valor = "Diciembre";
-      	      break; 
-   	}
-    	  
-    	  dataset.addValue( entry.getValue() , categoria , valor );
+      for(Map.Entry<String, Integer> entry : countMap.entrySet()) {
+    	  dataset.addValue( entry.getValue() , categoria , entry.getKey() );
       }
       return dataset; 
    }
