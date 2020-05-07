@@ -262,6 +262,7 @@ public class ClienteApp {
 		return response;
 	}
 	
+	
 	public Response registroPieza(Pieza pieza) {
 		WebTarget insertPiezaTarget = loginTarget.path("insertPiezas");
  		Entity<Pieza> entity = Entity.entity(pieza, MediaType.APPLICATION_JSON);

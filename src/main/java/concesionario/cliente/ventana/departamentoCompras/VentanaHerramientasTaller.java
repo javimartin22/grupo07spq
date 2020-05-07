@@ -75,7 +75,7 @@ public class VentanaHerramientasTaller extends JFrame {
 			}
 		
 		});
-		mntmNewMenuItem_2.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		mntmNewMenuItem_2.setFont(new Font("Dialog", Font.PLAIN, 12));
 		mnNewMenu.add(mntmNewMenuItem_2);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -97,7 +97,7 @@ public class VentanaHerramientasTaller extends JFrame {
 				dispose();
 			}
 		});
-		btnRegresar.setBounds(125, 267, 117, 29);
+		btnRegresar.setBounds(245, 267, 117, 29);
 		contentPane.add(btnRegresar);
 		
 		JButton btnCargarPiezas = new JButton("Cargar Todas");
@@ -106,24 +106,8 @@ public class VentanaHerramientasTaller extends JFrame {
 				cargarTabla(tabla);
 			}
 		});
-		btnCargarPiezas.setBounds(247, 267, 117, 29);
+		btnCargarPiezas.setBounds(396, 267, 117, 29);
 		contentPane.add(btnCargarPiezas);
-		
-		JButton btnNewButton = new JButton("Añadir Unidades");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String codigo = (String) tabla.getModel().getValueAt(tabla.getSelectedRow(), 0);
-				if (departamentoComprasController.seleccionarPiezaUtilizada(codigo) != null) {
-					//anyadirUnidades(departamentoComprasController.seleccionarPiezaUtilizada(codigo));
-					
-				} else {
-					
-					JOptionPane.showMessageDialog(contentPane, "La pieza seleccionada no existe.");;
-				} 
-			}
-		});
-		btnNewButton.setBounds(376, 267, 133, 29);
-		contentPane.add(btnNewButton);
 	}
 	
 		
@@ -148,10 +132,7 @@ public class VentanaHerramientasTaller extends JFrame {
 		}
 	}
 		
-	private void anyadirUnidades(HerramientasTaller herramienta) {
-		String u = JOptionPane.showInputDialog("¿Cuantas unidades desea suministrar?");
-		int unidades = Integer.parseInt(u);
-	}
+
 	
 	public void cargarTablaFiltro(JTable table, int tipo, String filtro) {
 		String restriccion = filtro + "-" + tipo;
@@ -218,6 +199,21 @@ public class VentanaHerramientasTaller extends JFrame {
 			}
 		
 		} 
+		
+		else {
+			if (tipo == 0) {
+				JOptionPane.showMessageDialog(null, "Codigo de herramienta no encontrado", "Error", JOptionPane.WARNING_MESSAGE);
+			}
+			if (tipo == 1) {
+				JOptionPane.showMessageDialog(null, "Nombre de herramienta no encontrado", "Error", JOptionPane.WARNING_MESSAGE);
+
+			}
+
+			if (tipo == 2) {
+				JOptionPane.showMessageDialog(null, "Herramienta con ese numero de unidades no encontrado", "Error", JOptionPane.WARNING_MESSAGE);
+
+			}
+		}
 	}
 	
 

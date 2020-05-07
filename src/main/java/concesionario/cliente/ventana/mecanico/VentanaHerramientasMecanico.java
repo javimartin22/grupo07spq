@@ -103,7 +103,7 @@ public class VentanaHerramientasMecanico extends JFrame{
 				cargarTabla(tabla);
 			}
 		});
-		btnCargarHerramientas.setBounds(259, 267, 180, 29);
+		btnCargarHerramientas.setBounds(225, 267, 180, 29);
 		contentPane.add(btnCargarHerramientas);
 		
 		

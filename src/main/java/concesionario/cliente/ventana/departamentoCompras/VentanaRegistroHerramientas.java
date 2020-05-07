@@ -11,10 +11,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.DepartmentoComprasController;
 import concesionario.datos.Herramientas;
 import concesionario.datos.HerramientasTaller;
-import concesionario.datos.Pieza;
+
 
 
 public class VentanaRegistroHerramientas extends JFrame {
@@ -24,6 +28,8 @@ public class VentanaRegistroHerramientas extends JFrame {
 	private JPanel contentPane;
 	private JComboBox comboBox;
 	private DepartmentoComprasController departmentoComprasController;
+	final Logger logger = LoggerFactory.getLogger(VentanaRegistroHerramientas.class);
+	static int iteration = 0;
 
 	public VentanaRegistroHerramientas(DepartmentoComprasController departamentoComprasController, Herramientas herramienta, int cantidad, String nickname){
 		this.departmentoComprasController = departamentoComprasController;
@@ -41,7 +47,7 @@ public class VentanaRegistroHerramientas extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		String ubicaciones [] = {"Almacen H1 - Estanteria 1", "Almacen H1 - Estanteria 2", "Almacen H1 - Estanteria 3", "Almacen H2 - Estanteria 1", "Almacen 2 - Estanteria H2", "Almacen H2 - Estanteria 3"};
+		String ubicaciones [] = {"Alamacen 1 - Estanteria 1", "Almacen 1 - Estanteria 2", "Almacen 1 - Estanteria 3", "Almacen 2 - Estanteria 1", "Almacen 2 - Estanteria 2", "Almacen 2 - Estanteria 3"};
 		
 		JLabel lblNewLabel = new JLabel("Indique donde se almacenara la herramienta:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -108,18 +114,18 @@ public class VentanaRegistroHerramientas extends JFrame {
 		contentPane.add(lblNewLabel_2_1);
 	}
 	
-	//Conectar con el servidor para poder hacer el registro en la BD:
+
 		private void registrarBD(HerramientasTaller herramienta) {
 			if (departmentoComprasController.registroHerramienta(herramienta)) {
-				
+				logger.info("Herramienta añadida correctamente.");
 			} else {
-				
+				logger.error("Error al guardar la herramienta en la BD.");
 			}
 		}
 	
 	public String obtenerCodigo() {
 		List<HerramientasTaller> herramientas = departmentoComprasController.cargarHerramientas();
-		return departmentoComprasController.carlcularCodigoHerramienta(herramientas);
+		return departmentoComprasController.calcularCodigoHerramienta(herramientas);
 	}
 
 	
