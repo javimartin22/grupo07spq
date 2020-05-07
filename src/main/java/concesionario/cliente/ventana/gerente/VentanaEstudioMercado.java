@@ -4,7 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -13,6 +16,7 @@ import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
@@ -42,21 +46,30 @@ public class VentanaEstudioMercado extends ApplicationFrame {
 		});
 		buttonVeryEditTarifas.setBounds(110, 110, 100, 23);
 		
+		
 		JButton buttonGuardar = new JButton("Guardar");
 		buttonGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaNuevoEstudioMercado vmenu = new VentanaNuevoEstudioMercado(gerenteController, nickname);
-				vmenu.setVisible(true);
-				dispose();
+				 int width = 640;    /* Width of the image */
+			      Date fecha = new Date();
+			      long timeMilli = fecha.getTime();
+			      
+			      int height = 480;   /* Height of the image */ 
+			      File PieChart = new File( "Imagenes/"+timeMilli+".jpeg" ); 
+			      try {
+					ChartUtilities.saveChartAsJPEG( PieChart , createChart(createDataset(ventas), title ), width , height );
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		buttonGuardar.setBounds(20, 110, 100, 23);
      
-      this.add((createDemoPanel(ventas, title, buttonVeryEditTarifas)),BorderLayout.CENTER);
-      JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-      panel.add(buttonVeryEditTarifas);
-      panel.add(buttonGuardar);
-      this.add(panel, BorderLayout.SOUTH);
+		  this.add((createDemoPanel(ventas, title, buttonVeryEditTarifas)),BorderLayout.CENTER);
+	      JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	      panel.add(buttonVeryEditTarifas);
+	      panel.add(buttonGuardar);
+	      this.add(panel, BorderLayout.SOUTH);
      
       
       
@@ -107,13 +120,13 @@ public class VentanaEstudioMercado extends ApplicationFrame {
       return chartpanel;
    }
 
-   public static void main( String[ ] args ) {
-	  List<Venta> ventas = new ArrayList<Venta>();
-	  GerenteController gerentec = new GerenteController(new ClienteApp());
-	  ventas.add(new Venta("fecha", "modelo", "marca1", "0444KKK", "nickcomercial", "nombreComprador"));
-      VentanaEstudioMercado demo = new VentanaEstudioMercado( "Title", ventas, gerentec, "ejemplo");  
-      demo.setSize( 560 , 367 );    
-      RefineryUtilities.centerFrameOnScreen( demo );    
-      demo.setVisible( true ); 
-   }
+//   public static void main( String[ ] args ) {
+//	  List<Venta> ventas = new ArrayList<Venta>();
+//	  GerenteController gerentec = new GerenteController(new ClienteApp());
+//	  ventas.add(new Venta("fecha", "modelo", "marca1", "0444KKK", "nickcomercial", "nombreComprador"));
+//      VentanaEstudioMercado demo = new VentanaEstudioMercado( "Title", ventas, gerentec, "ejemplo");  
+//      demo.setSize( 560 , 367 );    
+//      RefineryUtilities.centerFrameOnScreen( demo );    
+//      demo.setVisible( true ); 
+//   }
 }
