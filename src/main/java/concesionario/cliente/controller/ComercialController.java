@@ -1,5 +1,7 @@
 package concesionario.cliente.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.ws.rs.core.GenericType;
@@ -141,4 +143,15 @@ public class ComercialController {
 		}
 		return color;
 	}
+	
+	public boolean validarFecha(String fecha) {
+        try {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+            formatoFecha.setLenient(false);
+            formatoFecha.parse(fecha);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
 }

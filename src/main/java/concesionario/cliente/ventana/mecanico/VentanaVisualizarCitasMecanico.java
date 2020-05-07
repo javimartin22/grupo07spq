@@ -3,8 +3,6 @@ package concesionario.cliente.ventana.mecanico;
 import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -18,10 +16,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import concesionario.cliente.controller.ComercialController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.MecanicoController;
-import concesionario.cliente.ventana.comercial.VentanaMenuComercial;
-import concesionario.datos.CitaComercial;
 import concesionario.datos.CitaTaller;
 
 public class VentanaVisualizarCitasMecanico extends JFrame {
@@ -31,6 +29,8 @@ public class VentanaVisualizarCitasMecanico extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTable table1;
 	private MecanicoController mecanicoController;
+	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarCitasMecanico.class);
+	static int iteration = 0;
 	
 	public VentanaVisualizarCitasMecanico(MecanicoController mecanicocontroller, String nickname) {
 		this.mecanicoController = mecanicocontroller;
@@ -70,7 +70,7 @@ public class VentanaVisualizarCitasMecanico extends JFrame {
 				Date date = new Date();
 				String fechaCompleta =  Integer.toString(date.getDate()) +"-"+ Integer.toString(date.getMonth() + 1) +"-"+ Integer.toString(1900 + date.getYear())+"";				
 				cargarTablaFiltro(table1, nickname, fechaCompleta);
-				
+				logger.info("Citas de hoy cargadas.");
 			}
 		}); 
 		mnNewMenu.add(mntmNewMenuItem);
@@ -81,6 +81,7 @@ public class VentanaVisualizarCitasMecanico extends JFrame {
 				Date date = new Date();
 				String fechaCompleta =  Integer.toString(date.getDate() + 1) +"-"+ Integer.toString(date.getMonth() + 1) +"-"+ Integer.toString(1900 + date.getYear())+"";				
 				cargarTablaFiltro(table1, nickname, fechaCompleta);
+				logger.info("Citas de manaña cargadas.");
 				
 			}
 		});
@@ -92,8 +93,9 @@ public class VentanaVisualizarCitasMecanico extends JFrame {
 				String fecha;
 				 fecha = JOptionPane.showInputDialog("¿Qué fecha quieres? (ejem. dd-mm-yyyy)");
 				 
-				 if (validarFecha(fecha)) {
+				 if (mecanicoController.validarFecha(fecha)) {
 					 cargarTablaFiltro(table1, nickname, fecha);
+					 logger.info("Citas de " + fecha + "cargadas");
 				} else {
 					fecha = JOptionPane.showInputDialog("Por favor, escribe la fecha en el siguiente formato (ejem. dd-mm-yyyy)");
 				}
@@ -105,6 +107,7 @@ public class VentanaVisualizarCitasMecanico extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cargarTabla(table1, nickname);
+				logger.info("Tabla cargada");
 			}
 		});
 		
@@ -144,7 +147,7 @@ public class VentanaVisualizarCitasMecanico extends JFrame {
 				model.addRow(o);
 			}
 		} else {
-			//logger.error("No hay citas");
+			logger.error("No hay citas");
 		}
 		
 	}
@@ -169,20 +172,11 @@ public class VentanaVisualizarCitasMecanico extends JFrame {
 				model.addRow(o);
 			}
 		} else {
-			//logger.error("No hay citas este día.");
+			logger.error("No hay citas este día.");
 		}
 	} 
 	
 	
-	public static boolean validarFecha(String fecha) {
-        try {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
-            formatoFecha.setLenient(false);
-            formatoFecha.parse(fecha);
-        } catch (ParseException e) {
-            return false;
-        }
-        return true;
-    }
+	
 	
 }

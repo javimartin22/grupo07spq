@@ -91,7 +91,7 @@ public class VentanaMenuComercial extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_1.setBounds(150, 175, 117, 23);
+		btnNewButton_1.setBounds(140, 175, 141, 23);
 		panel.add(btnNewButton_1);
 		buttonRegistrarCoche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
