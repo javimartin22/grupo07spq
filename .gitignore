@@ -15,4 +15,4 @@ buildNumber.properties
 /.project
 /.DS_Store
 /bin/
-/logging.log
+/.log
