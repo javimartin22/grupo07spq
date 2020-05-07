@@ -112,22 +112,22 @@ public class DepartmentoComprasController {
 		String ub = "";
 		switch (ubicacion) {
 		case 0:
-			ub = "Almacen 1 - Estanteria 1";
+			ub = "Alamacen 1 - Estanteria 1";
 			break;
 		case 1:
-			ub = "Almacen 1 - Estanteria 2";
+			ub = "Alamacen 1 - Estanteria 2";
 			break;
 		case 2:
-			ub = "Almacen 1 - Estanteria 3";
+			ub = "Alamacen 1 - Estanteria 3";
 			break;
 		case 3:
-			ub = "Almacen 2 - Estanteria 1";
+			ub = "Alamacen 2 - Estanteria 1";
 			break;
 		case 4:
-			ub = "Almacen 2 - Estanteria 2";
+			ub = "Alamacen 2 - Estanteria 2";
 			break;
 		case 5:
-			ub = "Almacen 2 - Estanteria 3";
+			ub = "Alamacen 2 - Estanteria 3";
 			break;
 		}
 		return ub;
