@@ -575,6 +575,13 @@ public class ClienteApp {
         return response;
 	}
 	
+	public Response cargarEmpleadoHoras(int filtro) {
+		WebTarget cargarEmpleadoHorasTarget = loginTarget.path("cargarEmpleadoHoras");
+		Entity<Integer> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
+		Response response = cargarEmpleadoHorasTarget.request(MediaType.APPLICATION_JSON).post(entity);
+        return response;
+	}
+	
 	 public static void main(String[] args) {
 	        SwingUtilities.invokeLater(new Runnable(){
 	        

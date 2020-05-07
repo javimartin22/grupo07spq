@@ -2,6 +2,7 @@ package concesionario.cliente.controller;
 
 import java.util.List;
 
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -9,6 +10,7 @@ import concesionario.cliente.ClienteApp;
 import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
+import concesionario.datos.EmpleadoHoras;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Venta;
@@ -167,5 +169,14 @@ public class GerenteController {
 		return sexo;
 	}
 	
+	public List<EmpleadoHoras> cargarEmpleadoHoras(int filtro){
+		Response response = cliente.cargarEmpleadoHoras(filtro);
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			GenericType<List<EmpleadoHoras>> genericType = new GenericType<List<EmpleadoHoras>>() {};
+			return response.readEntity(genericType);
+		} else {
+			return null;
+		}
+	}
 	
 }

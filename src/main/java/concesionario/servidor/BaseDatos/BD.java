@@ -1723,6 +1723,27 @@ public class BD {
  		
  		return rsFinal;
  	}
+ 	
+ 	public static ResultSet empleadosHorasFiltroSelect(Statement st, int tipo) {
+		String sentSQL = "";
+		ResultSet rs = null;
+		try {
+			switch (tipo) {
+			case 0:
+				sentSQL = "select * from " + TABLA_COMERCIAL;
+				break;
+			case 1:
+				sentSQL = "select * from " + TABLA_MECANICO;
+				break;
+			}
+			
+			rs = st.executeQuery(sentSQL);
+		} catch (Exception e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+		return rs;
+	}
 
 //METODOS DELETE:
 
