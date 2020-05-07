@@ -791,6 +791,30 @@ public class ClienteAppTest {
 		}
 	}
 	
+	@Test
+	public void testCargarCitaComercial() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("loadTablaCitaComercial")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String comercial = "";
+		
+		Response result = clienteApp.cargarCitaComercial(comercial);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test
+	public void testFiltrarCitaComercial() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("filtrarTablaCitaComercial")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String filtro = "filtro";
+		
+		Response result = clienteApp.filtrarCitaComercial(filtro);
+		assertEquals(200, result.getStatus());	
+	}
+	
 	@After
 	public void setDown() {
 		Cliente cliente = new Cliente();
