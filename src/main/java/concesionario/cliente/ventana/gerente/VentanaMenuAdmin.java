@@ -15,6 +15,7 @@ import javax.swing.SwingConstants;
 import concesionario.cliente.controller.GerenteController;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
+import java.awt.Color;
 
 public class VentanaMenuAdmin extends JFrame {
 
@@ -30,7 +31,7 @@ public class VentanaMenuAdmin extends JFrame {
 	public void inicioVentanaMenuAdmin(String nickname) {
 		this.setTitle("Menu del administrador");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(434,282);
+		this.setSize(445,311);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
@@ -40,9 +41,10 @@ public class VentanaMenuAdmin extends JFrame {
 		
 		//label de arriba a la derecha que solo pone el nombre del cliente
 			JLabel nombreAdmin = new JLabel("Bienvenid@ " + nickname.toUpperCase());
-			nombreAdmin.setHorizontalAlignment(SwingConstants.RIGHT);
-			nombreAdmin.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			nombreAdmin.setBounds(178, 11, 250, 33);
+			nombreAdmin.setHorizontalAlignment(SwingConstants.CENTER);
+			nombreAdmin.setForeground(Color.DARK_GRAY);
+			nombreAdmin.setFont(new Font("Tahoma", Font.BOLD, 14));
+			nombreAdmin.setBounds(199, 11, 230, 33);
 			panel.add(nombreAdmin);
 			
 			
@@ -67,7 +69,7 @@ public class VentanaMenuAdmin extends JFrame {
 					}
 				} 
 			});
-			buttonAnadirUsuarios.setBounds(129, 66, 164, 23);
+			buttonAnadirUsuarios.setBounds(36, 66, 162, 33);
 			panel.add(buttonAnadirUsuarios);
 			
 			JButton buttonVerUsuarios = new JButton("Ver usuarios");
@@ -76,7 +78,7 @@ public class VentanaMenuAdmin extends JFrame {
 					verUsuarios(nickname);
 				}
 			});
-			buttonVerUsuarios.setBounds(129, 100, 164, 23);
+			buttonVerUsuarios.setBounds(237, 66, 162, 33);
 			panel.add(buttonVerUsuarios);
 			
 			JButton buttonGestionTarifas = new JButton("Gestionar tarifas");
@@ -85,7 +87,7 @@ public class VentanaMenuAdmin extends JFrame {
 					gestionarTarifas(nickname);
 				}
 			});
-			buttonGestionTarifas.setBounds(129, 134, 164, 23);
+			buttonGestionTarifas.setBounds(36, 120, 162, 33);
 			panel.add(buttonGestionTarifas);
 			
 			//Boton para acceder a los estudios de Mercado
@@ -95,7 +97,7 @@ public class VentanaMenuAdmin extends JFrame {
 					estudiosMercado(nickname);
 				}
 			});
-			buttonEstudioMercado.setBounds(60, 168, 100, 23);
+			buttonEstudioMercado.setBounds(138, 182, 162, 33);
 			panel.add(buttonEstudioMercado);
 			
 			
@@ -106,8 +108,19 @@ public class VentanaMenuAdmin extends JFrame {
 					salir();
 				}
 			});
-			buttonSalir.setBounds(166, 168, 89, 23);
+			buttonSalir.setBounds(176, 238, 89, 23);
 			panel.add(buttonSalir);
+			
+			JButton btnNewButton = new JButton("Visualizar Horas");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					VentanaVisualizarHoras vvh = new VentanaVisualizarHoras(gerenteController, nickname);
+					vvh.setVisible(true);
+					dispose();
+				}
+			});
+			btnNewButton.setBounds(237, 120, 162, 33);
+			panel.add(btnNewButton);
 	}
 	
 	public void verUsuarios(String nickname) {
