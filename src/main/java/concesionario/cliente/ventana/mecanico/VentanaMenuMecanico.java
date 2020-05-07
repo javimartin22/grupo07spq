@@ -35,7 +35,7 @@ public class VentanaMenuMecanico extends JFrame {
 		this.setSize(434,358);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-		
+		 
 		//panel donde van todos los componentes
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
