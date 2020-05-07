@@ -1,10 +1,13 @@
 package concesionario.cliente.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +22,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import concesionario.cliente.ClienteApp;
+import concesionario.datos.CitaComercial;
 import concesionario.datos.Cliente;
 import concesionario.datos.CocheConcesionario;
 import concesionario.datos.Venta;
@@ -206,5 +210,61 @@ public class ComercialControllerTest {
 		when(clienteApp.filtrarVentaMarca(any(String.class))).thenReturn(response1);
 		
 		assertTrue(comercialController.filtrarVentaMarca("") == null);
+	}
+	
+	@Test
+	public void testCiltrarCitaComercial() {
+		CitaComercial cita= new CitaComercial("Mikel", "12312312A", "11-5-2020", "10:30", "Jorge");
+		List<CitaComercial> citas = new ArrayList<CitaComercial>();
+		citas.add(cita);
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->citas);
+		when(clienteApp.cargarCitaComercial(any(String.class))).thenReturn(response);
+		
+		List<CitaComercial> CitaComercial = comercialController.cargarCitaComercial("");
+		for(int i =0; i<citas.size(); i++) {
+			assertTrue(CitaComercial.get(i).getNombre().equals(citas.get(i).getNombre()));
+		}
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->null);
+		when(clienteApp.cargarCitaComercial(any(String.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.cargarCitaComercial("") == null);
+	}
+	
+	@Test
+	public void testFiltrarCitaComercial() {
+		CitaComercial cita= new CitaComercial("Mikel", "12312312A", "11-5-2020", "10:30", "Jorge");
+		List<CitaComercial> citas = new ArrayList<CitaComercial>();
+		citas.add(cita);
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->citas);
+		when(clienteApp.filtrarCitaComercial(any(String.class))).thenReturn(response);
+		
+		List<CitaComercial> CitaComercial = comercialController.filtrarCitaComercial("");
+		for(int i =0; i<citas.size(); i++) {
+			assertTrue(CitaComercial.get(i).getFecha().equals(citas.get(i).getFecha()));
+		}
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->null);
+		when(clienteApp.filtrarCitaComercial(any(String.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.filtrarCitaComercial("") == null);
+	}
+	
+	@Test
+	public void testValidarFecha() {
+		String fecha = "1-10-2020";
+		String fecha2 = "1/10/2020";
+		assertTrue(comercialController.validarFecha(fecha));
+		assertFalse(comercialController.validarFecha(fecha2));
 	}
 }
