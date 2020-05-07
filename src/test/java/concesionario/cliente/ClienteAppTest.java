@@ -815,6 +815,30 @@ public class ClienteAppTest {
 		assertEquals(200, result.getStatus());	
 	}
 	
+	@Test
+	public void testCargarCitaMecanico() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("loadTablaCitaMecanico")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String mecanico = "";
+		
+		Response result = clienteApp.cargarCitaMecanico(mecanico);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test
+	public void testFiltrarCitaMecanico() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("filtrarTablaCitaMecanico")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String filtro = "filtro";
+		
+		Response result = clienteApp.filtrarCitaMecanico(filtro);
+		assertEquals(200, result.getStatus());	
+	}
+	
 	@After
 	public void setDown() {
 		Cliente cliente = new Cliente();

@@ -213,7 +213,7 @@ public class ComercialControllerTest {
 	}
 	
 	@Test
-	public void testCiltrarCitaComercial() {
+	public void testCargarCitaComercial() {
 		CitaComercial cita= new CitaComercial("Mikel", "12312312A", "11-5-2020", "10:30", "Jorge");
 		List<CitaComercial> citas = new ArrayList<CitaComercial>();
 		citas.add(cita);

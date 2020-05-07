@@ -19,6 +19,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import concesionario.cliente.ClienteApp;
+import concesionario.datos.CitaComercial;
+import concesionario.datos.CitaTaller;
 import concesionario.datos.Cliente;
 import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.CocheMatriculado;
@@ -409,6 +411,62 @@ public class MecanicoControllerTest {
 		for(int i=0; i<clientes.size(); i++) {
 			assertTrue(clientesFidelidad.get(i).getDni().equals(clientes.get(i).getDni()));
 		}
+	}
+	
+	@Test
+	public void testCargarCitaMecanico() {
+		CitaTaller cita= new CitaTaller("Mikel", "12312312A", "11-5-2020", "10:30", "Jorge", "Suspension");
+		List<CitaTaller> citas = new ArrayList<CitaTaller>();
+		citas.add(cita);
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->citas);
+		when(cliente.cargarCitaMecanico(any(String.class))).thenReturn(response);
+		
+		List<CitaTaller> CitaMecanico = mecanicoController.cargarCitaMecanico("");
+		for(int i =0; i<citas.size(); i++) {
+			assertTrue(CitaMecanico.get(i).getNombre().equals(citas.get(i).getNombre()));
+		}
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->null);
+		when(cliente.cargarCitaMecanico(any(String.class))).thenReturn(response1);
+		
+		assertTrue(mecanicoController.cargarCitaMecanico("") == null);
+	}
+	
+	@Test
+	public void testFiltrarCitaMecanico() {
+		CitaTaller cita= new CitaTaller("Mikel", "12312312A", "11-5-2020", "10:30", "Jorge", "BBombillas");
+		List<CitaTaller> citas = new ArrayList<CitaTaller>();
+		citas.add(cita);
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->citas);
+		when(cliente.filtrarCitaMecanico(any(String.class))).thenReturn(response);
+		
+		List<CitaTaller> CitaMecanico = mecanicoController.filtrarCitaMecanico("");
+		for(int i =0; i<citas.size(); i++) {
+			assertTrue(CitaMecanico.get(i).getFecha().equals(citas.get(i).getFecha()));
+		}
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->null);
+		when(cliente.filtrarCitaMecanico(any(String.class))).thenReturn(response1);
+		
+		assertTrue(mecanicoController.filtrarCitaMecanico("") == null);
+	}
+	
+	@Test
+	public void testValidarFecha() {
+		String fecha = "1-10-2020";
+		String fecha2 = "1/10/2020";
+		assertTrue(mecanicoController.validarFecha(fecha));
+		assertFalse(mecanicoController.validarFecha(fecha2));
 	}
 }
 	
