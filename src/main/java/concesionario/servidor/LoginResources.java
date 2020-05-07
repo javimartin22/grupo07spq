@@ -1949,6 +1949,36 @@ public class LoginResources {
 			return Response.status(Response.Status.OK).entity(citas).build();
 		}
 	}
+	
+	@POST
+	@Path("cargarEmpleadoHoras")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response cargarEmpleadoHoras(int filtro) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		ResultSet rs = BD.empleadosHorasFiltroSelect(st, filtro);
+		List<EmpleadoHoras> empleadosHoras = new ArrayList<EmpleadoHoras>();
+		
+		if (rs == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			try {
+				while(rs.next()) {
+					String nickname = rs.getString("nickname");
+					String nombre = rs.getString("nombre");
+					String dni = rs.getString("dni");
+					int horas = rs.getInt("horas");
+					EmpleadoHoras empleadoHoras = new EmpleadoHoras(nickname, nombre, dni, horas);
+					empleadosHoras.add(empleadoHoras);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return Response.status(Response.Status.OK).entity(empleadosHoras).build();
+		}
+	}
 }
 
 
