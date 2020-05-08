@@ -36,11 +36,14 @@ import concesionario.datos.CocheTaller;
 import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
+import concesionario.datos.Herramientas;
+import concesionario.datos.HerramientasTaller;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.PiezaProveedores;
 import concesionario.datos.Presupuesto;
 import concesionario.datos.Proveedor;
+import concesionario.datos.ProveedorHerramientas;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
@@ -381,6 +384,22 @@ public class ClienteAppTest {
 	}
 	
 	@Test
+	public void testCargarTablaHerramientasTaller() {
+		HerramientasTaller h1 = new HerramientasTaller("H1", "herr1", 0, "tipo1");
+		HerramientasTaller h2 = new HerramientasTaller("H2", "herr2", 0, "tipo2");
+		List<HerramientasTaller> herramientas = new ArrayList<HerramientasTaller>();
+		herramientas.add(h1);
+		herramientas.add(h2);
+		
+		when(webtarget.path(eq("loadHerramientaTable")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->herramientas);
+		List<HerramientasTaller> herramientasSelect = clienteApp.cargarTablaHerramientasTaller();
+		
+		for (int i = 0; i < herramientas.size(); i++) {
+			assertTrue(herramientasSelect.get(i).getCodigo().equals(herramientas.get(i).getCodigo()));
+		}
+	}
+	
+	@Test
 	public void testPiezaUtilizadaSelect() {
 		Response response = mock(Response.class);
 		Mockito.when(response.getStatus()).thenReturn(200);
@@ -405,6 +424,18 @@ public class ClienteAppTest {
 	}
 	
 	@Test
+	public void testRegistroHerramienta() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(anyString()).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		HerramientasTaller herramienta = new HerramientasTaller("H1", "herr1", 0, "tipo1");
+		Response result = clienteApp.registroHerramienta(herramienta);
+		
+		assertEquals(200, result.getStatus());		
+	}
+	
+	@Test
 	public void testRegistroPresupuesto() {
 		Response response = mock(Response.class);
 		Mockito.when(response.getStatus()).thenReturn(200);
@@ -414,6 +445,22 @@ public class ClienteAppTest {
 		Response result = clienteApp.registroPresupuesto(presupuesto);
 		
 		assertEquals(200, result.getStatus());		
+	}
+	
+	@Test
+	public void testInsertarHerramientas() {
+		
+		Herramientas h1 = new Herramientas("H1", "herr1", 42, "tipo1","Oscaro");
+		Herramientas h2 = new Herramientas("H2", "herr2", 23, "tipo2","Oscaro");
+		List<Herramientas> herramientas = new ArrayList<Herramientas>();
+		herramientas.add(h1);
+		herramientas.add(h2);
+		
+		when(webtarget.path(eq("insertHerramienta")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->herramientas);
+		List<Herramientas> herramientasSelect = clienteApp.insertarHerramientas();	
+		for (int i = 0; i < herramientas.size(); i++) {
+			assertTrue(herramientasSelect.get(i).getCodigo().equals(herramientas.get(i).getCodigo()));
+		}
 	}
 	
 	@Test
@@ -647,6 +694,17 @@ public class ClienteAppTest {
 	}
 	
 	@Test
+	public void testFiltrarHerramientaMecanico() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("loadTablaHerramientaMecanicoFiltro")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String filtro = "Filtro";
+		
+		Response result = clienteApp.filtrarHerramientaMecanico(filtro);
+		assertEquals(200, result.getStatus());	
+	}
+	@Test
 	public void testFiltrarPiezaMecanico() {
 		Response response = mock(Response.class);
 		Mockito.when(response.getStatus()).thenReturn(200);
@@ -758,6 +816,38 @@ public class ClienteAppTest {
 			assertTrue(proveedoresSelect.get(i).getIdProveedor().equals(proveedores.get(i).getIdProveedor()));
 		}
 	}
+
+	@Test
+	public void testCargarTablaMecanico() {
+		Mecanico m1 = new Mecanico("nickname1","1234", 1, "45945312X", "Federico", "Malatrustegui", "Hombre", "fede@fedex.com", "Portugalete", 48920, "Carlos VII", "123456789", "987654321", 2500, "675541190", 25);
+		Mecanico m2 = new Mecanico("nickname2","12354", 1, "459467212D", "Agustin", "Zalatrustegui", "Hombre", "agus@agusto.com", "Portugalete", 48920, "Calle falsa", "123954789", "887654721", 3500, "775521190", 30);
+		List<Mecanico> mecanicos = new ArrayList<Mecanico>();
+		mecanicos.add(m1);
+		mecanicos.add(m2);
+		
+		when(webtarget.path(eq("loadMecanicoTable")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->mecanicos);
+		List<Mecanico> mecanicoSelect = clienteApp.cargarTablaMecanico();
+		
+		for (int i = 0; i < mecanicoSelect.size(); i++) {
+			assertTrue(mecanicoSelect.get(i).getDNI().equals(mecanicos.get(i).getDNI()));
+		}
+	}
+	
+	@Test
+	public void testCargarListaProveedoresHerramientas() {
+		ProveedorHerramientas p1 = new ProveedorHerramientas("idProveedor1", "nombre1", "pais1", "tipoHerramientas1");
+		ProveedorHerramientas p2 = new ProveedorHerramientas("idProveedor2", "nombre2", "pais2", "tipoHerramientas2");
+		List<ProveedorHerramientas> proveedoresHerramientas = new ArrayList<ProveedorHerramientas>();
+		proveedoresHerramientas.add(p1);
+		proveedoresHerramientas.add(p2);
+		
+		when(webtarget.path(eq("loadProveedoresHerramientaList")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->proveedoresHerramientas);
+		List<ProveedorHerramientas> proveedoresSelect = clienteApp.cargarListaProveedoresHerramientas();
+		
+		for (int i = 0; i < proveedoresHerramientas.size(); i++) {
+			assertTrue(proveedoresSelect.get(i).getIdProveedor().equals(proveedoresHerramientas.get(i).getIdProveedor()));
+		}
+	}
 	
 	@Test
 	public void testCargarListaPiezasProveedores() {
@@ -788,6 +878,22 @@ public class ClienteAppTest {
 		
 		for (int i = 0; i < piezas.size(); i++) {
 			assertTrue(piezasSelect.get(i).getCodigo().equals(piezas.get(i).getCodigo()));
+		}
+	}
+	
+	@Test
+	public void testCargarListaHerramientas() {
+		Herramientas h1 = new Herramientas("H1","Alicates manguera",4,"Alicates","Oscaro");
+		Herramientas h2 = new Herramientas("H2","Presion aceite",4,"Inspeccion","Oscaro");
+		List<Herramientas> herramientas = new ArrayList<Herramientas>();
+		herramientas.add(h1);
+		herramientas.add(h2);
+		
+		when(webtarget.path(eq("loadHerramientasList")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->herramientas);
+		List<Herramientas> herramientasSelect = clienteApp.cargarListaHerramientas();
+		
+		for (int i = 0; i < herramientas.size(); i++) {
+			assertTrue(herramientasSelect.get(i).getCodigo().equals(herramientas.get(i).getCodigo()));
 		}
 	}
 	

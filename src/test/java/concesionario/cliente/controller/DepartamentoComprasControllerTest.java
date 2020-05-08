@@ -19,9 +19,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import concesionario.cliente.ClienteApp;
+import concesionario.datos.Herramientas;
+import concesionario.datos.HerramientasTaller;
 import concesionario.datos.Pieza;
 import concesionario.datos.PiezaProveedores;
 import concesionario.datos.Proveedor;
+import concesionario.datos.ProveedorHerramientas;
 
 @RunWith(MockitoJUnitRunner.Silent.class) 
 public class DepartamentoComprasControllerTest {
@@ -34,6 +37,21 @@ public class DepartamentoComprasControllerTest {
 	public void setUp() {
 		departamentoComprasController = new DepartmentoComprasController(clienteApp);
 		clienteApp = departamentoComprasController.getClienteApp();
+	}
+	
+	@Test
+	public void testRegistroHerramienta() {
+		HerramientasTaller herramienta = new HerramientasTaller("H1", "Herramienta1", 2, "Almacen 1");
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(clienteApp.registroHerramienta(any(HerramientasTaller.class))).thenReturn(response);
+		assertTrue(departamentoComprasController.registroHerramienta(herramienta) == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		when(clienteApp.registroHerramienta(any(HerramientasTaller.class))).thenReturn(response1);
+		assertTrue(departamentoComprasController.registroHerramienta(herramienta) == false);
 	}
 	
 	@Test
@@ -133,6 +151,33 @@ public class DepartamentoComprasControllerTest {
 	}
 	
 	@Test
+	public void testFiltrarHerramientaMecanico() {
+		List<HerramientasTaller> herramienta = new ArrayList<HerramientasTaller>();
+		HerramientasTaller h1 = new HerramientasTaller("H1", "Herramienta1", 2, "Almacen 1");
+		HerramientasTaller h2 = new HerramientasTaller("P2", "Correa", 7, "Almacen 2");
+		herramienta.add(h1);
+		herramienta.add(h2);
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->herramienta);
+		when(clienteApp.filtrarHerramientaMecanico(any(String.class))).thenReturn(response);
+		
+		List<HerramientasTaller> herramientas_result = departamentoComprasController.filtrarHerramientaMecanico("filtro");
+		
+		for(int i=0; i<herramienta.size(); i++) {
+			assertTrue(herramientas_result.get(i).getNombre().equals(herramienta.get(i).getNombre()));
+		}
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(Class.class))).thenReturn(null);
+		when(clienteApp.filtrarHerramientaMecanico(any(String.class))).thenReturn(response1);
+		
+		assertTrue(departamentoComprasController.filtrarHerramientaMecanico("H1") == null);
+	}
+	
+	@Test
 	public void testParseUbicacion() {
 		assertEquals("Alamacen 1 - Estanteria 1", departamentoComprasController.parseUbicacion(0));
 		assertEquals("Alamacen 1 - Estanteria 2", departamentoComprasController.parseUbicacion(1));
@@ -140,6 +185,12 @@ public class DepartamentoComprasControllerTest {
 		assertEquals("Alamacen 2 - Estanteria 1", departamentoComprasController.parseUbicacion(3));
 		assertEquals("Alamacen 2 - Estanteria 2", departamentoComprasController.parseUbicacion(4));
 		assertEquals("Alamacen 2 - Estanteria 3", departamentoComprasController.parseUbicacion(5));
+		
+		
+		
+
+		
+	
 	}
 	
 	@Test 
@@ -160,6 +211,23 @@ public class DepartamentoComprasControllerTest {
 	}
 	
 	@Test 
+	public void testCargarListaProveedoresHerramientas() {
+		List<ProveedorHerramientas> proveedoresHerramientas = new ArrayList<ProveedorHerramientas>();
+		ProveedorHerramientas p1 = new ProveedorHerramientas("Oscaro", "Oscaro", "España", "Alicates, inspeccion");
+		ProveedorHerramientas p2 = new ProveedorHerramientas("Iberisa", "Iberisa", "España", "Tapiceria, bateria");
+		proveedoresHerramientas.add(p1);
+		proveedoresHerramientas.add(p2);
+		
+		
+		Mockito.when(clienteApp.cargarListaProveedoresHerramientas()).thenAnswer(x ->proveedoresHerramientas);
+		List<ProveedorHerramientas> proveedoresSelect = departamentoComprasController.cargarListaProveedoresHerramientas();
+		
+		for(int i=0; i<proveedoresHerramientas.size(); i++) {
+			assertTrue(proveedoresSelect.get(i).getNombre().equals(proveedoresHerramientas.get(i).getNombre()));
+		}
+	}
+	
+	@Test 
 	public void testCargarListaPiezasProveedores() {
 		List<PiezaProveedores> piezas = new ArrayList<PiezaProveedores>();
 		PiezaProveedores p1 = new PiezaProveedores("idProveedor1", "nombre1", 5, "tipoPiezas1", "Codigo1");
@@ -176,4 +244,65 @@ public class DepartamentoComprasControllerTest {
 		}
 	}
 	
+
+	@Test 
+	public void testCargarListaHerramientas() {
+		List<Herramientas> herramientas = new ArrayList<Herramientas>();
+		Herramientas h1 = new Herramientas("idProveedor1", "nombre1", 5, "tipos1", "Codigo1");
+		Herramientas h2 = new Herramientas("idProveedor2", "nombre2", 5, "tipos2", "Codigo2");
+		herramientas.add(h1);
+		herramientas.add(h2);
+		
+		
+		Mockito.when(clienteApp.cargarListaHerramientas()).thenAnswer(x ->herramientas);
+		List<Herramientas> herramientasSelect = departamentoComprasController.cargarListaHerramientas();
+		
+		for(int i=0; i<herramientas.size(); i++) {
+			assertTrue(herramientasSelect.get(i).getNombre().equals(herramientas.get(i).getNombre()));
+		}
+	}
+	
+	
+	@Test 
+	public void testCargarHerramientas() {
+		List<HerramientasTaller> herramientas = new ArrayList<HerramientasTaller>();
+		HerramientasTaller h1 = new HerramientasTaller("idProveedor1", "nombre1", 5, "tipos1");
+		HerramientasTaller h2 = new HerramientasTaller("idProveedor2", "nombre2", 5, "tipos2");
+		herramientas.add(h1);
+		herramientas.add(h2);
+		
+		
+		Mockito.when(clienteApp.cargarTablaHerramientasTaller()).thenAnswer(x ->herramientas);
+		List<HerramientasTaller> herramientasSelect = departamentoComprasController.cargarHerramientas();
+		
+		for(int i=0; i<herramientas.size(); i++) {
+			assertTrue(herramientasSelect.get(i).getNombre().equals(herramientas.get(i).getNombre()));
+		}
+	}
+	
+	@Test 
+	public void testCarlcularCodigo() {
+		List<Pieza> piezas = new ArrayList<Pieza>();
+		Pieza p1 = new Pieza("PI-1", "Amortiguador", 5, "Almacen 1");
+		Pieza p2 = new Pieza("PI-2", "Correa", 7, "Almacen 2");
+		piezas.add(p1);
+		piezas.add(p2);
+		
+		String piezaSelect = departamentoComprasController.carlcularCodigo(piezas);
+		assertTrue(piezaSelect.equals("PI-3"));
+		
+	}
+	
+	@Test 
+	public void testCalcularCodigoHerramienta() {
+		List<HerramientasTaller> herramientas = new ArrayList<HerramientasTaller>();
+		HerramientasTaller h1 = new HerramientasTaller("H1", "nombre1", 5, "tipos1");
+		HerramientasTaller h2 = new HerramientasTaller("H2", "nombre2", 5, "tipos2");
+		herramientas.add(h1);
+		herramientas.add(h2);
+		
+		String piezaSelect = departamentoComprasController.calcularCodigoHerramienta(herramientas);
+		assertTrue(piezaSelect.equals("H3"));
+		
+	}
 }

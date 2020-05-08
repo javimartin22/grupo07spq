@@ -25,6 +25,7 @@ import concesionario.datos.Cliente;
 import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.CocheMatriculado;
 import concesionario.datos.CocheTaller;
+import concesionario.datos.HerramientasTaller;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
 
@@ -71,6 +72,24 @@ public class MecanicoControllerTest {
 		
 		for(int i=0; i<piezas.size(); i++) {
 			assertTrue(piezas_result.get(i).getNombre().equals(piezas.get(i).getNombre()));
+		}
+	}
+	
+	@Test
+	public void testCargarHerramientasTaller() {
+
+		List<HerramientasTaller> herramientas = new ArrayList<HerramientasTaller>();
+		HerramientasTaller h1 = new HerramientasTaller("H3", "Presion aceite", 4, "Alamacen 1 - Estanteria 3");
+		HerramientasTaller h2 = new HerramientasTaller("H4", "Saca grapas", 3, "Alamacen 2 - Estanteria 1");
+		herramientas.add(h1);
+		herramientas.add(h2);
+		
+		
+		Mockito.when(cliente.cargarTablaHerramientasTaller()).thenAnswer(x ->herramientas);
+		List<HerramientasTaller> piezas_result = mecanicoController.cargarHerramientasTaller();
+		
+		for(int i=0; i<herramientas.size(); i++) {
+			assertTrue(piezas_result.get(i).getNombre().equals(herramientas.get(i).getNombre()));
 		}
 	}
 	
@@ -341,6 +360,30 @@ public class MecanicoControllerTest {
 		when(cliente.filtrarPiezaMecanico(any(String.class))).thenReturn(response1);
 		
 		assertTrue(mecanicoController.filtrarPiezaMecanico("filtro") == null);
+	}
+	
+	@Test
+	public void testFiltrarHerramientaMecanico() {
+		List<HerramientasTaller>herramientas= new ArrayList<HerramientasTaller>();
+		herramientas.add(new HerramientasTaller("H3", "Presion aceite", 4, "Alamacen 1 - Estanteria 3"));
+		herramientas.add(new HerramientasTaller("H4", "Saca grapas", 3, "Alamacen 2 - Estanteria 1"));
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->herramientas);
+		when(cliente.filtrarHerramientaMecanico(any(String.class))).thenReturn(response);
+		
+		List<HerramientasTaller> herramientas_result = mecanicoController.filtrarHerramientaMecanico("filtro");
+		for(int i =0; i<herramientas.size(); i++) {
+			assertTrue(herramientas_result.get(i).getCodigo().equals(herramientas.get(i).getCodigo()));
+		}
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->null);
+		when(cliente.filtrarHerramientaMecanico(any(String.class))).thenReturn(response1);
+		
+		assertTrue(mecanicoController.filtrarHerramientaMecanico("filtro") == null);
 	}
 
 	@Test
