@@ -894,5 +894,87 @@ public class LoginResourcesTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void testCitasComercialesCargar() {
+		
+		try {
+			
+			Response nickname = loginResources.citasComercialesCargar("Jorgico");
+		    assertEquals(200, nickname.getStatus());;
+		    
+			PowerMockito.mockStatic(BD.class);
+			
+			ResultSet res = null;
+			when(BD.citasDelComercialSelect(st, "")).thenReturn(res);
+			
+			Response resultado = loginResources.citasComercialesCargar("");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCitasComercialesFiltrar() {
+		
+		try {
+			
+			Response nickname = loginResources.citasComercialesFiltrar("Jorgico;22-5-2020");
+		    assertEquals(200, nickname.getStatus());
+			PowerMockito.mockStatic(BD.class);
+			
+			ResultSet res = null;
+			when(BD.filtrarCitasPorFecha(st, "", "")).thenReturn(res);
+			
+			Response resultado = loginResources.citasComercialesFiltrar("");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCitasMecanicoCargar() {
+		
+		try {
+			
+			Response nickname = loginResources.citasMecanicosCargar("Francisco");
+		    assertEquals(200, nickname.getStatus());
+		    
+			PowerMockito.mockStatic(BD.class);
+			
+			ResultSet res = null;
+			when(BD.citasDelMecanicoSelect(st, "")).thenReturn(res);
+			
+			Response resultado = loginResources.citasMecanicosCargar("");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCitasMecanicosFiltrar() {
+		
+		try {
+			
+			Response nickname = loginResources.citasMecanicosFiltrar("Francisco;8-5-2020");
+		    assertEquals(200, nickname.getStatus());
+			PowerMockito.mockStatic(BD.class);
+			
+			ResultSet res = null;
+			when(BD.filtrarCitasMecanicoPorFecha(st, "", "")).thenReturn(res);
+			
+			Response resultado = loginResources.citasMecanicosFiltrar("");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
 
