@@ -126,6 +126,46 @@ public class LoginResources {
 		}
 	}
 	
+	@POST
+	@Path("insertHorasEmpleado")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response registrarHorasEmpleado(String horasEmpleado) {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		String[] strings = horasEmpleado.split("-");
+		int hora = Integer.parseInt(strings[1]);
+		int minuto = Integer.parseInt(strings[2]);
+		
+		boolean b = BD.HorasEmpleadoInsert(st, strings[0], hora, minuto);
+		
+		if (b) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
+	@POST
+	@Path("insertHorasEmpleadoTemporal")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response registrarHorasEmpleadoTemporal(String horasEmpleado) {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		String[] strings = horasEmpleado.split("-");
+		int hora = Integer.parseInt(strings[1]);
+		int minuto = Integer.parseInt(strings[2]);
+		
+		boolean b = BD.HorasEmpleadoTemporalInsert(st, strings[0], hora, minuto);
+		
+		if (b) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
 	
 	@POST
  	@Path("insertVenta")
@@ -405,6 +445,40 @@ public class LoginResources {
 		st = BD.usarCrearTablasBD(con);
 		
 		Cliente nuevo = BD.clienteSelect(st, nickname);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).entity(nuevo).build();
+		}
+	}
+	
+	@POST
+	@Path("selectHorasEmpleadosTemporal")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response selectHorasEmpledoTemporalSelect(String nickname) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		HorasEmpleados nuevo = BD.horaEmpleadoTemporalSelect(st, nickname);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		} else {
+			return Response.status(Response.Status.OK).entity(nuevo).build();
+		}
+	}
+	
+	@POST
+	@Path("selectHorasEmpleados")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/json")
+	public Response selectHorasEmpledoSelect(String nickname) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		HorasEmpleados nuevo = BD.horaEmpleadoSelect(st, nickname);
 		
 		if (nuevo == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
@@ -1977,6 +2051,63 @@ public class LoginResources {
 				e.printStackTrace();
 			}
 			return Response.status(Response.Status.OK).entity(empleadosHoras).build();
+		}
+	}
+	
+	@POST
+	@Path("deleteHorasEmpleados")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response deleteHorasEmpleados(String nickname) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		BD.horasEmpleadoDelete(st, nickname);
+		HorasEmpleados nuevo = BD.horaEmpleadoSelect(st, nickname);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
+	@POST
+	@Path("deleteHorasEmpleadosTemporal")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response deleteHorasEmpleadosTemporal(String nickname) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		BD.horasEmpleadoTemporarlDelete(st, nickname);
+		HorasEmpleados nuevo = BD.horaEmpleadoTemporalSelect(st, nickname);
+		
+		if (nuevo == null) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
+	@POST
+	@Path("updateMecanico")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response updateMecanico(String string) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		String[] strings = string.split("-");
+		String nickname = strings[0];
+		int horas = Integer.parseInt(strings[1]);
+		
+		boolean b = BD.mecanicoUpdate(st, nickname, horas);
+		
+		if (b == false) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
 }
