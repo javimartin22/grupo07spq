@@ -42,8 +42,8 @@ public VentanaGraficosHoras( String applicationTitle , String chartTitle, List<E
       	JButton buttonVeryEditTarifas = new JButton("Volver");
 		buttonVeryEditTarifas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaNuevoEstudioMercado vmenu = new VentanaNuevoEstudioMercado(gerenteController, nickname);
-				vmenu.setVisible(true);
+				VentanaVisualizarHoras vvh = new VentanaVisualizarHoras(gerenteController, nickname);
+				vvh.setVisible(true);
 				dispose();
 			}
 		});

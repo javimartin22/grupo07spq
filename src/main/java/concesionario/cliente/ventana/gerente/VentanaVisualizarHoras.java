@@ -16,6 +16,11 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JCheckBoxMenuItem;
 
 public class VentanaVisualizarHoras extends JFrame {
 
@@ -31,7 +36,31 @@ public class VentanaVisualizarHoras extends JFrame {
 	
 	public void ventanaVisualizarHoras(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 608, 391);
+		setBounds(100, 100, 608, 409);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnNewMenu = new JMenu("Filtros");
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Horas Max");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int horas = Integer.parseInt(JOptionPane.showInputDialog("Introduzca las horas maximas que desea:"));
+				cargarTablaHorasTodosFiltroHoras(table, 2, horas);
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Horas Min");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int horas = Integer.parseInt(JOptionPane.showInputDialog("Introduzca las horas minimas que desea:"));
+				cargarTablaHorasTodosFiltroHoras(table, 1, horas);
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem_1);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -144,6 +173,96 @@ public class VentanaVisualizarHoras extends JFrame {
 				   o[4] = "Mecanico";
 				   model.addRow(o);
 				 }
+		} else {
+//			logger.error("No hay ningun empleado.");
+		}
+	}
+	
+	public void cargarTablaHorasTodosFiltroHoras(JTable table, int tipo, int horas) {
+		List<EmpleadoHoras> empleadosComercial = gerenteController.cargarEmpleadoHoras(0);
+		
+		String[] columnNames = {"Nickname", "Nombre", "DNI", "Horas", "Tipo Empleado"};
+		DefaultTableModel model = new DefaultTableModel();
+		table.setModel(model);
+		model.setColumnIdentifiers(columnNames);
+		if (!empleadosComercial.isEmpty()) {
+			   for (EmpleadoHoras e : empleadosComercial) {
+				   switch (tipo) {
+				   		case 1:
+				   			if (e.getHoras() >= horas) {
+								Object[] o = new Object[7];
+								o[0] = e.getNickname();
+								o[1] = e.getNombre();
+								o[2] = e.getDni();
+								o[3] = e.getHoras();
+								o[4] = "Comercial";
+								model.addRow(o);
+				   				}
+				   				break;
+						case 2: 
+							if (e.getHoras() <= horas) {
+								Object[] o = new Object[7];
+								o[0] = e.getNickname();
+								o[1] = e.getNombre();
+								o[2] = e.getDni();
+								o[3] = e.getHoras();
+								o[4] = "Comercial";
+								model.addRow(o);
+							}
+							break;
+					default:
+						Object[] o = new Object[7];
+						o[0] = e.getNickname();
+						o[1] = e.getNombre();
+						o[2] = e.getDni();
+						o[3] = e.getHoras();
+						o[4] = "Comercial";
+						model.addRow(o);
+						break;
+					}
+			   }
+		} else {
+//			logger.error("No hay ningun empleado.");
+		}
+		
+		List<EmpleadoHoras> empleadosMecanico = gerenteController.cargarEmpleadoHoras(1);
+		
+		if (!empleadosMecanico.isEmpty()) {
+			for (EmpleadoHoras e : empleadosMecanico) {
+				switch (tipo) {
+					case 1:
+						if (e.getHoras() >= horas) {
+							Object[] o = new Object[7];
+							o[0] = e.getNickname();
+							o[1] = e.getNombre();
+							o[2] = e.getDni();
+							o[3] = e.getHoras();
+							o[4] = "Comercial";
+							model.addRow(o);
+						}
+						break;
+					case 2: 
+						if (e.getHoras() <= horas) {
+							Object[] o = new Object[7];
+							o[0] = e.getNickname();
+							o[1] = e.getNombre();
+							o[2] = e.getDni();
+							o[3] = e.getHoras();
+							o[4] = "Comercial";
+							model.addRow(o);
+						}
+						break;
+					default:
+						Object[] o = new Object[7];
+						o[0] = e.getNickname();
+						o[1] = e.getNombre();
+						o[2] = e.getDni();
+						o[3] = e.getHoras();
+						o[4] = "Comercial";
+						model.addRow(o);
+						break;
+					}
+			}
 		} else {
 //			logger.error("No hay ningun empleado.");
 		}
