@@ -11,6 +11,8 @@ import javax.ws.rs.core.Response.Status;
 import concesionario.cliente.ClienteApp;
 import concesionario.datos.CitaComercial;
 import concesionario.datos.CocheConcesionario;
+import concesionario.datos.Comercial;
+import concesionario.datos.HorasEmpleados;
 import concesionario.datos.Venta;
 
 public class ComercialController {
@@ -154,4 +156,85 @@ public class ComercialController {
         }
         return true;
     }
+	
+	public boolean deleteHorasEmpleados(String nickname) {
+		Response response = cliente.horasEmpleadosDelete(nickname); //estoy aqui
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean deleteHorasEmpleadosTemporal(String nickname) {
+		Response response = cliente.horasEmpleadosTemporalDelete(nickname); //estoy aqui
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean registrarHorasComercial(String horasEmpleado) {
+		Response response = cliente.registroHorasEmpleado(horasEmpleado);
+		if(response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean registrarHorasComercialTemporal (String horasEmpleado) {
+		Response response = cliente.registroHorasEmpleadoTemporal(horasEmpleado);
+		if(response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public HorasEmpleados seleccionarHorasComercialTemporal(String nickname) {
+		Response response = cliente.seleccionarHorsEmpleadoTemporal(nickname);
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return response.readEntity(HorasEmpleados.class);
+		} else {
+			return null;
+		}
+	}
+	
+	public HorasEmpleados seleccionarHorasComercial(String nickname) {
+		Response response = cliente.seleccionarHorsEmpleado(nickname);
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return response.readEntity(HorasEmpleados.class);
+		} else {
+			return null;
+		}
+	}
+	
+	public Comercial seleccionarComercial(String nickname) {
+		Response response = cliente.comercialSelect(nickname);
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return response.readEntity(Comercial.class);
+		} else {
+			return null;
+		}
+	}
+	
+	public boolean registroComercial(Comercial comercial) {
+		Response response = cliente.registroComercial(comercial); //estoy aqui
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean deleteComercial(String nickname) {
+		Response response = cliente.comercialDelete(nickname); //estoy aqui
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

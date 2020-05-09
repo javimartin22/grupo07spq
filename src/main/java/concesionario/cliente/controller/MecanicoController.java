@@ -10,12 +10,13 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import concesionario.cliente.ClienteApp;
-import concesionario.datos.CitaComercial;
 import concesionario.datos.CitaTaller;
 import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.CocheMatriculado;
 import concesionario.datos.CocheTaller;
 import concesionario.datos.HerramientasTaller;
+import concesionario.datos.HorasEmpleados;
+import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
 
@@ -79,10 +80,37 @@ public class MecanicoController {
 		}
 	}
 	
+	public boolean registroMecanico(Mecanico mecanico) {
+		Response response = cliente.registroMecanico(mecanico); //estoy aqui
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean deleteMecanico(String nickname) {
+		Response response = cliente.mecanicoDelete(nickname); //estoy aqui
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public CocheTaller seleccionarCocheTaller(String matricula) {
 		Response response = cliente.seleccionarCocheTaller(matricula);
 		if (response.getStatus() == Status.OK.getStatusCode()) {
 			return response.readEntity(CocheTaller.class);
+		} else {
+			return null;
+		}
+	}
+	
+	public Mecanico seleccionarMecanico(String nickname) {
+		Response response = cliente.mecanicoSelect(nickname);
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return response.readEntity(Mecanico.class);
 		} else {
 			return null;
 		}
@@ -259,4 +287,67 @@ public class MecanicoController {
         }
         return true;
     }
+	
+	public boolean registrarHorasMecanico(String horasEmpleado) {
+		Response response = cliente.registroHorasEmpleado(horasEmpleado);
+		if(response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean registrarHorasMecanicoTemporal (String horasEmpleado) {
+		Response response = cliente.registroHorasEmpleadoTemporal(horasEmpleado);
+		if(response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public HorasEmpleados seleccionarHorasMecanicoTemporal(String nickname) {
+		Response response = cliente.seleccionarHorsEmpleadoTemporal(nickname);
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return response.readEntity(HorasEmpleados.class);
+		} else {
+			return null;
+		}
+	}
+	
+	public HorasEmpleados seleccionarHorasMecanico(String nickname) {
+		Response response = cliente.seleccionarHorsEmpleado(nickname);
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return response.readEntity(HorasEmpleados.class);
+		} else {
+			return null;
+		}
+	}
+	
+	public boolean deleteHorasEmpleados(String nickname) {
+		Response response = cliente.horasEmpleadosDelete(nickname); //estoy aqui
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean deleteHorasEmpleadosTemporal(String nickname) {
+		Response response = cliente.horasEmpleadosTemporalDelete(nickname); //estoy aqui
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean updateMecanico(String string) {
+		Response response = cliente.updateMecanico(string); //estoy aqui
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
