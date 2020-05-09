@@ -2038,6 +2038,67 @@ public class BD {
 		}	
 	}
 	
+	//TABLA CITA COMERCIAL
+	public static boolean citasComercialDelete(Statement st, String nickname, String fecha) {
+		String setSQL = "";
+		String preSentSQL = "";
+		String nombre1 = "";
+		ResultSet nombre = null;
+			
+		try {
+			preSentSQL = "select nombre from " + TABLA_COMERCIAL + " where nickname= '" + nickname + "'";
+			nombre = st.executeQuery(preSentSQL);
+			if (nombre.next()) {
+				nombre1 = nombre.getString("nombre");
+			}
+				
+		} catch(Exception e) {
+	 		lastError = e;
+	 		e.printStackTrace();		
+	 	}
+			
+		try {
+			setSQL = "delete from " + TABLA_CITAS_COMERCIAL + " where comercial= '" + secu(nombre1) + "' and fecha= '" + secu(fecha) + "'";
+			int val =  st.executeUpdate(setSQL);
+			return (val == 1);
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	//TABLA CITA COMERCIAL
+	public static boolean citasMecanicoDelete(Statement st, String nickname, String fecha) {
+		String setSQL = "";
+		String preSentSQL = "";
+		String nombre1 = "";
+		ResultSet nombre = null;
+			
+		try {
+			preSentSQL = "select nombre from " + TABLA_MECANICO + " where nickname= '" + nickname + "'";
+			nombre = st.executeQuery(preSentSQL);
+			if (nombre.next()) {
+				nombre1 = nombre.getString("nombre");
+			}
+				
+		} catch(Exception e) {
+	 		lastError = e;
+	 		e.printStackTrace();		
+	 	}
+			
+		try {
+			setSQL = "delete from " + TABLA_CITAS_TALLER + " where mecanico= '" + secu(nombre1) + "' and fecha= '" + secu(fecha) + "'";
+			int val =  st.executeUpdate(setSQL);
+			return (val == 1);
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	
 	/////////////////////////////////////////////////////////////////////
 	// Metodos privados //
 	/////////////////////////////////////////////////////////////////////

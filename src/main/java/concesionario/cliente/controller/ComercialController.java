@@ -237,4 +237,13 @@ public class ComercialController {
 			return false;
 		}
 	}
+	
+	public boolean deleteCitaComercial(String nickFecha) {
+		Response response = cliente.citasComercialDelete(nickFecha); 
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

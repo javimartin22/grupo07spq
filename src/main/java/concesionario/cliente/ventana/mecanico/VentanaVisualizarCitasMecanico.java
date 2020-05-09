@@ -106,6 +106,10 @@ public class VentanaVisualizarCitasMecanico extends JFrame {
 		JButton btnNewButton = new JButton("Cargar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Date date = new Date();
+				String fechaCompleta =  Integer.toString(date.getDate()-1) +"-"+ Integer.toString(date.getMonth() + 1) +"-"+ Integer.toString(1900 + date.getYear())+"";
+				String nickFecha = nickname + ";" + fechaCompleta;
+				mecanicoController.deleteCitaMecanico(nickFecha);
 				cargarTabla(table1, nickname);
 				logger.info("Tabla cargada");
 			}

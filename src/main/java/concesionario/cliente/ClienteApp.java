@@ -629,6 +629,20 @@ public class ClienteApp {
 		return response;
 	}
 	
+	public Response citasComercialDelete(String nickFecha) {
+		WebTarget deleteCitasComercialTarget = loginTarget.path("deleteCitasComercial");
+		Entity<String> ent = Entity.entity(nickFecha, MediaType.APPLICATION_JSON);
+		Response response = deleteCitasComercialTarget.request(MediaType.TEXT_PLAIN).post(ent);
+		return response;
+	}
+	
+	public Response citasMecanicoDelete(String nickFecha) {
+		WebTarget deleteCitasMecanicoTarget = loginTarget.path("deleteCitasMecanico");
+		Entity<String> ent = Entity.entity(nickFecha, MediaType.APPLICATION_JSON);
+		Response response = deleteCitasMecanicoTarget.request(MediaType.TEXT_PLAIN).post(ent);
+		return response;
+	}
+	
 	 public static void main(String[] args) {
 	        SwingUtilities.invokeLater(new Runnable(){
 	        

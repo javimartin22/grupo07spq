@@ -350,4 +350,13 @@ public class MecanicoController {
 			return false;
 		}
 	}
+	
+	public boolean deleteCitaMecanico(String nickFecha) {
+		Response response = cliente.citasMecanicoDelete(nickFecha); 
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

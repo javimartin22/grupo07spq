@@ -2110,6 +2110,55 @@ public class LoginResources {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
+	
+	@POST
+	@Path("deleteCitasComercial")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response deleteCitasComercial(String nickFecha) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		String [] strings = nickFecha.split(";");
+		String nickname = strings[0];
+		String fecha = strings [1];
+		
+		BD.citasComercialDelete(st, nickname, fecha);
+		ResultSet rs = BD.filtrarCitasPorFecha(st, nickname, fecha);
+		
+		BD.cerrarBD(con, st);
+		
+		if (rs == null) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
+	@POST
+	@Path("deleteCitasMecanico")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response deleteCitasMecanico(String nickFecha) {
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		String [] strings = nickFecha.split(";");
+		String nickname = strings[0];
+		String fecha = strings [1];
+		
+		BD.citasMecanicoDelete(st, nickname, fecha);
+		ResultSet rs = BD.filtrarCitasMecanicoPorFecha(st, nickname, fecha);
+		
+		BD.cerrarBD(con, st);
+		
+		if (rs == null) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+
 }
 
 
