@@ -67,7 +67,7 @@ public class VentanaGestionEstudioMercado extends JFrame {
 					dispose();
 				}
 			});
-			buttonVeryEditTarifas.setBounds(145, 117, 137, 23);
+			buttonVeryEditTarifas.setBounds(129, 117, 153, 23);
 			panel.add(buttonVeryEditTarifas);
 			
 			//boton de volver que te lleva al menu de Admin

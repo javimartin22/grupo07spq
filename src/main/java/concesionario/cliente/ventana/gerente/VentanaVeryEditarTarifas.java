@@ -43,7 +43,7 @@ public class VentanaVeryEditarTarifas extends JFrame {
 	 */
 	public void inicializarVeryEditarTarifas(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 673, 361);
+		setBounds(100, 100, 673, 346);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -66,14 +66,14 @@ public class VentanaVeryEditarTarifas extends JFrame {
 		};
 		scrollPane.setViewportView(table);
 		
-		JButton btnVerTarifas = new JButton("Visualizar todas las tarifas");
+		JButton btnVerTarifas = new JButton("Visualizar Tarifas");
 		btnVerTarifas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cargarTabla(table);
 				
 			}
 		});
-		btnVerTarifas.setBounds(276, 268, 131, 23);
+		btnVerTarifas.setBounds(380, 268, 137, 23);
 		contentPane.add(btnVerTarifas);
 		
 		JButton btnEditar= new JButton("Editar tarifa");
@@ -98,7 +98,7 @@ public class VentanaVeryEditarTarifas extends JFrame {
 			}
 		});
 		
-		btnEditar.setBounds(470, 268, 120, 23);
+		btnEditar.setBounds(527, 268, 120, 23);
 		contentPane.add(btnEditar);
 		
 		JButton btnNewButton_1 = new JButton("Regresar");
@@ -109,7 +109,7 @@ public class VentanaVeryEditarTarifas extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_1.setBounds(58, 268, 89, 23);
+		btnNewButton_1.setBounds(281, 268, 89, 23);
 		contentPane.add(btnNewButton_1);
 				
 	}
