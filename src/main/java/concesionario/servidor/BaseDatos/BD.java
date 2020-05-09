@@ -17,6 +17,7 @@ import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
 import concesionario.datos.HerramientasTaller;
+import concesionario.datos.HorasEmpleados;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
@@ -78,6 +79,10 @@ public class BD {
 	private static final String COLUMNAS_TABLA_PROVEEDORES_HERRAMIENTAS = "(idProveedor string PRIMARY KEY, nombre string, pais string, tipo string)";
 	private static final String TABLA_HERRAMIENTAS_TALLER = "HerramientasTaller"; 
 	private static final String COLUMNAS_TABLA_HERRAMIENTAS_TALLER = "(codigo string PRIMARY KEY, nombre string, stock int, ubicacion string)";
+	private static final String TABLA_HORAS_EMPLEADO = "HorasEmpleado"; 
+	private static final String COLUMNAS_TABLA_HORAS_EMPLEADO = "(nickname string PRIMARY KEY, horas int, minutos int)";
+	private static final String TABLA_HORAS_EMPLEADO_TEMPORAL = "HorasEmpleadoTemporal"; 
+	private static final String COLUMNAS_TABLA_HORAS_EMPLEADO_TEMPORAL = "(nickname string PRIMARY KEY, horas int, minutos int)";
 			
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
@@ -148,8 +153,10 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_CITAS_COMERCIAL + COLUMNAS_TABLA_CITAS_COMERCIAL);
 				statement.executeUpdate("create table " + TABLA_CITAS_TALLER + COLUMNAS_TABLA_CITAS_TALLER);
 				statement.executeUpdate("create table " + TABLA_HERRAMIENTAS + COLUMNAS_TABLA_HERRAMIENTAS);
-				statement.executeUpdate("create table " + TABLA_PROVEEDORES_HERRAMIENTAS+ COLUMNAS_TABLA_PROVEEDORES_HERRAMIENTAS);
-				statement.executeUpdate("create table " + TABLA_HERRAMIENTAS_TALLER+ COLUMNAS_TABLA_HERRAMIENTAS_TALLER);
+				statement.executeUpdate("create table " + TABLA_PROVEEDORES_HERRAMIENTAS + COLUMNAS_TABLA_PROVEEDORES_HERRAMIENTAS);
+				statement.executeUpdate("create table " + TABLA_HERRAMIENTAS_TALLER + COLUMNAS_TABLA_HERRAMIENTAS_TALLER);
+				statement.executeUpdate("create table " + TABLA_HORAS_EMPLEADO + COLUMNAS_TABLA_HORAS_EMPLEADO);
+				statement.executeUpdate("create table " + TABLA_HORAS_EMPLEADO_TEMPORAL + COLUMNAS_TABLA_HORAS_EMPLEADO_TEMPORAL);
 			} catch (SQLException e) {
 			} // Tabla ya existe. Nada que hacer
 			return statement;
@@ -193,7 +200,8 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_HERRAMIENTAS);
 			statement.executeUpdate("drop table if exists " + TABLA_PROVEEDORES_HERRAMIENTAS);
 			statement.executeUpdate("drop table if exists " + TABLA_HERRAMIENTAS_TALLER);
-			
+			statement.executeUpdate("drop table if exists " + TABLA_HORAS_EMPLEADO);
+			statement.executeUpdate("drop table if exists " + TABLA_HORAS_EMPLEADO_TEMPORAL);
 			return usarCrearTablasBD(con);
 		} catch (SQLException e) {
 			lastError = e;
@@ -584,7 +592,40 @@ public class BD {
 			e.printStackTrace();
 			return false;
 		}
-	}		
+	}
+	
+	public static boolean HorasEmpleadoInsert(Statement st, String nickname, int hora, int minuto) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into " + TABLA_HORAS_EMPLEADO + " values ('" + secu(nickname) + "', " + hora + ", " + minuto + ")";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+			}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public static boolean HorasEmpleadoTemporalInsert(Statement st, String nickname, int hora, int minuto) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into " + TABLA_HORAS_EMPLEADO_TEMPORAL + " values ('" + secu(nickname) + "', " + hora + ", " + minuto + ")";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+			}
+			st.close();
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 //METODOS SELECT:
 	
@@ -1744,6 +1785,60 @@ public class BD {
 		}
 		return rs;
 	}
+ 	
+ 	public static HorasEmpleados horaEmpleadoTemporalSelect(Statement st, String nickname) {
+			String sentSQL = "";
+			HorasEmpleados horasEmpleados = null;
+			try {
+				sentSQL = "select * from " + TABLA_HORAS_EMPLEADO_TEMPORAL + " where nickname= '" + nickname + "' ";
+				ResultSet rs = st.executeQuery(sentSQL);
+				if (rs.next()) {
+					String nick = rs.getString("nickname");
+					int horas	= rs.getInt("horas");
+					int minutos = rs.getInt("minutos");
+					horasEmpleados = new HorasEmpleados(horas, minutos, nick);
+			}
+				st.close();
+		} catch (Exception e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+			return horasEmpleados;
+	}
+ 	
+ 	public static HorasEmpleados horaEmpleadoSelect(Statement st, String nickname) {
+		String sentSQL = "";
+		HorasEmpleados horasEmpleados = null;
+		try {
+			sentSQL = "select * from " + TABLA_HORAS_EMPLEADO + " where nickname= '" + nickname + "' ";
+			ResultSet rs = st.executeQuery(sentSQL);
+			if (rs.next()) {
+				String nick = rs.getString("nickname");
+				int horas	= rs.getInt("horas");
+				int minutos = rs.getInt("minutos");
+				horasEmpleados = new HorasEmpleados(horas, minutos, nick);
+		}
+			st.close();
+	} catch (Exception e) {
+		lastError = e;
+		e.printStackTrace();
+	}
+		return horasEmpleados;
+}
+ 	
+ // Tabla USUARIOS:
+ 	public static boolean mecanicoUpdate(Statement st, String nickname, int horas) {
+ 		String sentSQL = "";
+ 		try {
+ 			sentSQL = "update "+ TABLA_MECANICO + "set horas = " + horas + " where nickname= '" + secu(nickname) + "'";
+ 			int val = st.executeUpdate(sentSQL);
+ 			return (val == 1);
+ 		} catch (SQLException e) {
+ 			lastError = e;
+ 			e.printStackTrace();
+ 			return false;
+ 		}
+ 	}
 
 //METODOS DELETE:
 
@@ -1775,6 +1870,32 @@ public class BD {
 		}
 	}
 	
+	public static boolean horasEmpleadoDelete(Statement st, String nickname) {
+		String sentSQL = "";
+		try {
+			sentSQL = "delete from " + TABLA_HORAS_EMPLEADO + " where nickname= '" + secu(nickname) + "'";
+			int val = st.executeUpdate(sentSQL);
+			return (val == 1);
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public static boolean horasEmpleadoTemporarlDelete(Statement st, String nickname) {
+		String sentSQL = "";
+		try {
+			sentSQL = "delete from " + TABLA_HORAS_EMPLEADO_TEMPORAL + " where nickname= '" + secu(nickname) + "'";
+			int val = st.executeUpdate(sentSQL);
+			return (val == 1);
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	//Tabla EMPLEADO:
 	public static boolean empleadosDelete(Statement st, String nickname) {
 		String sentSQL = "";
@@ -1795,6 +1916,7 @@ public class BD {
 		try {
 			sentSQL = "delete from " + TABLA_MECANICO + " where nickname= '" + secu(nickname) + "'";
 			int val = st.executeUpdate(sentSQL);
+			st.close();
 			return (val == 1);
 		} catch (SQLException e) {
 			lastError = e;
