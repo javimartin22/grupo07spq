@@ -582,6 +582,53 @@ public class ClienteApp {
         return response;
 	}
 	
+	public Response registroHorasEmpleado (String horasEmpleado) {
+		Entity<String> entity = Entity.entity(horasEmpleado, MediaType.APPLICATION_JSON);
+		Response response = loginTarget.path("insertHorasEmpleado").request(MediaType.TEXT_PLAIN).post(entity);
+		return response;
+	}
+	
+	public Response registroHorasEmpleadoTemporal (String horasEmpleado) {
+		Entity<String> entity = Entity.entity(horasEmpleado, MediaType.APPLICATION_JSON);
+		Response response = loginTarget.path("insertHorasEmpleadoTemporal").request(MediaType.TEXT_PLAIN).post(entity);
+		return response;
+	}
+	
+	public Response seleccionarHorsEmpleadoTemporal (String nickname) {
+		WebTarget selectHorasEmpleadosTemporalTarget = loginTarget.path("selectHorasEmpleadosTemporal");
+		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
+		Response response = selectHorasEmpleadosTemporalTarget.request(MediaType.APPLICATION_JSON).post(ent);
+		return response;
+	}
+	
+	public Response seleccionarHorsEmpleado (String nickname) {
+		WebTarget selectHorasEmpleadosTarget = loginTarget.path("selectHorasEmpleados");
+		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
+		Response response = selectHorasEmpleadosTarget.request(MediaType.APPLICATION_JSON).post(ent);
+		return response;
+	}
+	
+	public Response horasEmpleadosDelete(String nickname) {
+		WebTarget deleteHorasEmpleadoTarget = loginTarget.path("deleteHorasEmpleados");
+		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
+		Response response = deleteHorasEmpleadoTarget.request(MediaType.TEXT_PLAIN).post(ent);
+		return response;
+	}
+	
+	public Response horasEmpleadosTemporalDelete(String nickname) {
+		WebTarget deleteHorasEmpleadoTemporalTarget = loginTarget.path("deleteHorasEmpleadosTemporal");
+		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
+		Response response = deleteHorasEmpleadoTemporalTarget.request(MediaType.TEXT_PLAIN).post(ent);
+		return response;
+	}
+	
+	public Response updateMecanico(String nickname) {
+		WebTarget deleteHorasEmpleadoTemporalTarget = loginTarget.path("updateMecanico");
+		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
+		Response response = deleteHorasEmpleadoTemporalTarget.request(MediaType.TEXT_PLAIN).post(ent);
+		return response;
+	}
+	
 	 public static void main(String[] args) {
 	        SwingUtilities.invokeLater(new Runnable(){
 	        
