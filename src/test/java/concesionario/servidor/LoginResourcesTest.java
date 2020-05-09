@@ -24,11 +24,14 @@ import concesionario.datos.CocheTaller;
 import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
+import concesionario.datos.Herramientas;
+import concesionario.datos.HerramientasTaller;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.PiezaProveedores;
 import concesionario.datos.Presupuesto;
 import concesionario.datos.Proveedor;
+import concesionario.datos.ProveedorHerramientas;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
@@ -127,6 +130,44 @@ public class LoginResourcesTest {
 			when(BD.usuarioSelect(st, client.getNickname())).thenReturn(cliente_null);
 			Response r2 = loginResources.registrarMecanico(client);
 			assertEquals(404, r2.getStatus());  
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+
+	@Test
+	public void testInsertarHerramientas() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			HerramientasTaller herramientas = new HerramientasTaller("H1", "Herramienta1", 2, "Almacen 1");
+			BD.herramientasTallerInsert(st,herramientas.getCodigo(), herramientas.getNombre(), herramientas.getUnidades(),herramientas.getUbicacion());
+			when(BD.herramientaTallerSelect(st, herramientas.getCodigo())).thenReturn(herramientas);
+			Response r= loginResources.insertarHerramientas(herramientas);
+			assertEquals(200, r.getStatus());
+		
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+
+	@Test
+	public void testRegistrarPiezaUtilizada() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			Pieza piezas = new Pieza("P1", "Amortiguador", 12, "Almacen 1");
+			BD.piezasUtilizadasInsert(st,piezas.getCodigo(), piezas.getNombre(), piezas.getUnidades(),piezas.getUbicacion());
+			when(BD.piezaUtilizadaSelect(st, piezas.getCodigo())).thenReturn(piezas);
+			Response r= loginResources.registrarPiezaUtilizada(piezas);
+			assertEquals(200, r.getStatus());
+		
+			Pieza com_null = null;
+			when(BD.piezaUtilizadaSelect(st, piezas.getCodigo())).thenReturn(com_null);
+			Response r2= loginResources.registrarPiezaUtilizada(piezas);
+			assertEquals(404, r2.getStatus()); 
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -325,7 +366,25 @@ public class LoginResourcesTest {
 			e.printStackTrace();
 		}
 	}
-	
+
+	@Test
+	public void testRegistrarPieza() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			Pieza p1 = new Pieza("P1", "Amortiguador", 12, "Almacen 1");			
+			when(BD.piezaSelect(st, p1.getCodigo())).thenReturn(p1);
+			Response r= loginResources.registrarPieza(p1);
+			assertEquals(200, r.getStatus());
+		
+			Pieza com_null = null;
+			when(BD.piezaSelect(st, p1.getCodigo())).thenReturn(com_null);
+			Response r2= loginResources.registrarPieza(p1);
+			assertEquals(404, r2.getStatus()); 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	@Test
 	public void testSelectPresupuesto() {
 		try {
@@ -375,6 +434,13 @@ public class LoginResourcesTest {
 			when(BD.piezaUtilizadaDelete(st, pieza.getCodigo())).thenReturn(b);
 			Response r= loginResources.deletePiezaUtilizada(pieza.getCodigo());
 			assertEquals(200, r.getStatus()); // AQUI AL REVES PORQUE HAGO DELETE
+			
+		
+			when(BD.piezaUtilizadaDelete(st, pieza.getCodigo())).thenReturn(b);
+			when(BD.piezaSelect(st, pieza.getCodigo())).thenReturn(pieza);
+			Response r2= loginResources.deletePiezaUtilizada(pieza.getCodigo());
+			assertEquals(404, r2.getStatus()); 
+	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -636,6 +702,25 @@ public class LoginResourcesTest {
 	}
 	
 	@Test
+	public void testCargarProveedoresHerramientas() {
+		try {
+			List<ProveedorHerramientas> proveedores= loginResources.cargarProveedoresHerramientas();
+		    assertTrue(proveedores.size() > 0);
+		    
+			PowerMockito.mockStatic(BD.class);
+			ResultSet res = null;
+			when(BD.proveedoresHerramientasSelect(st)).thenReturn(res);
+			
+			List<ProveedorHerramientas> resultado = loginResources.cargarProveedoresHerramientas();
+			assertTrue(resultado.size() == 0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test
 	public void testCargarPiezaProveedores() {
 		try {
 			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
@@ -648,6 +733,25 @@ public class LoginResourcesTest {
 			when(BD.piezasProveedoresSelect(st)).thenReturn(res);
 			
 			List<PiezaProveedores> resultado = loginResources.cargarPiezaProveedores();
+			assertTrue(resultado.size() == 0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+
+	@Test
+	public void testCargarListaHerramientas() {
+		try {
+			List<Herramientas> herramientas= loginResources.cargarListaHerramientas();
+		    assertTrue(herramientas.size() > 0);
+		    
+			PowerMockito.mockStatic(BD.class);
+			ResultSet res = null;
+			when(BD.herramientasSelect(st)).thenReturn(res);
+			
+			List<Herramientas> resultado = loginResources.cargarListaHerramientas();
 			assertTrue(resultado.size() == 0);
 			
 		} catch (Exception e) {
@@ -668,6 +772,25 @@ public class LoginResourcesTest {
 			when(BD.piezasTodasSelect(st)).thenReturn(res);
 			
 			List<Pieza> resultado = loginResources.cargarPiezaTabla();
+			assertTrue(resultado.size() == 0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testTablaHerramientasTaller() {
+		try {
+			List<HerramientasTaller> herramientas= loginResources.cargarTablaHerramientasTaller();
+		    assertTrue(herramientas.size() > 0);
+		    
+			PowerMockito.mockStatic(BD.class);
+
+			ResultSet res = null;
+			when(BD.herramientasTallerTodasSelect(st)).thenReturn(res);
+			
+			List<HerramientasTaller> resultado = loginResources.cargarTablaHerramientasTaller();
 			assertTrue(resultado.size() == 0);
 			
 		} catch (Exception e) {
@@ -894,6 +1017,29 @@ public class LoginResourcesTest {
 			e.printStackTrace();
 		}
 	}
+	
+
+	@Test
+	public void testFiltrarHerramientaMecanicoFiltro() {
+		try {
+			Response herramientas= loginResources.filtrarHerramientaMecanicoFiltro("H-1");
+		    assertEquals(200, herramientas.getStatus());
+		    
+		//---------------------------------------------------------------------------------------
+		    PowerMockito.mockStatic(BD.class);
+		    ResultSet res = null;
+			when(BD.herramientasMecanicoFiltroSelect(st, 0,"H-2")).thenReturn(res);		
+			Response resultado = loginResources.filtrarHerramientaMecanicoFiltro("");				//NO SE PONE 100%
+			assertEquals(404, resultado.getStatus());
+			
+		//-----------------------------------------------------------------------------------	
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+
 	
 	@Test
 	public void testCitasComercialesCargar() {
