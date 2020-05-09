@@ -97,7 +97,7 @@ public class VentanaMenuAdmin extends JFrame {
 					estudiosMercado(nickname);
 				}
 			});
-			buttonEstudioMercado.setBounds(138, 182, 162, 33);
+			buttonEstudioMercado.setBounds(36, 176, 162, 33);
 			panel.add(buttonEstudioMercado);
 			
 			
@@ -121,6 +121,17 @@ public class VentanaMenuAdmin extends JFrame {
 			});
 			btnNewButton.setBounds(237, 120, 162, 33);
 			panel.add(btnNewButton);
+			
+			JButton btnVerYEditar = new JButton("Ver y Editar Tarifas");
+			btnVerYEditar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					VentanaVeryEditarTarifas vtf = new VentanaVeryEditarTarifas(gerenteController, nickname);
+					vtf.setVisible(true);
+					dispose();
+				}
+			});
+			btnVerYEditar.setBounds(237, 176, 162, 33);
+			panel.add(btnVerYEditar);
 	}
 	
 	public void verUsuarios(String nickname) {
@@ -136,9 +147,9 @@ public class VentanaMenuAdmin extends JFrame {
 	}
 	
 	public void estudiosMercado(String nickname) {
-		VentanaGestionEstudioMercado vgem = new VentanaGestionEstudioMercado(gerenteController, nickname);
-    	vgem.setVisible(true);
-    	dispose();
+		VentanaNuevoEstudioMercado vnem = new VentanaNuevoEstudioMercado(gerenteController, nickname);
+		vnem.setVisible(true);
+		dispose();
 	}
 	
 	public void salir() {
@@ -147,6 +158,5 @@ public class VentanaMenuAdmin extends JFrame {
 		vlogin.setVisible(true);
 		dispose();
 	}
-	
 }
 

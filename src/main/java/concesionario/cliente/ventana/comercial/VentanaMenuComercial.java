@@ -3,16 +3,21 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import concesionario.cliente.controller.ComercialController;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
+import concesionario.datos.Comercial;
+import concesionario.datos.HorasEmpleados;
+import concesionario.datos.Mecanico;
 
 public class VentanaMenuComercial extends JFrame {
 
@@ -28,7 +33,7 @@ public class VentanaMenuComercial extends JFrame {
 	private void initVentanaMenuComercial(String nickname) {
 		this.setTitle("Menu Comercial");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(451,282);
+		this.setSize(385,276);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
@@ -38,14 +43,14 @@ public class VentanaMenuComercial extends JFrame {
 		panel.setLayout(null);
 		
 		//label de arriba a la derecha que solo pone el nombre del cliente
-		JLabel nombreMecanico = new JLabel("Bienvenid@ " + nickname.toUpperCase());
-		nombreMecanico.setHorizontalAlignment(SwingConstants.RIGHT);
+		JLabel nombreMecanico = new JLabel("Bienvenid@ <DYNAMIC>");
+		nombreMecanico.setHorizontalAlignment(SwingConstants.CENTER);
 		nombreMecanico.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		nombreMecanico.setBounds(178, 11, 250, 33);
+		nombreMecanico.setBounds(146, 11, 228, 33);
 		panel.add(nombreMecanico);
 		
 		buttonRegistrarCoche = new JButton("Registrar coche");
-		buttonRegistrarCoche.setBounds(140, 55, 141, 29);
+		buttonRegistrarCoche.setBounds(28, 55, 141, 33);
 		panel.add(buttonRegistrarCoche);
 		
 		
@@ -57,7 +62,7 @@ public class VentanaMenuComercial extends JFrame {
 				dispose();
 			}
 		});
-		btnVerVentas.setBounds(150, 95, 117, 29);
+		btnVerVentas.setBounds(210, 55, 141, 33);
 		panel.add(btnVerVentas);
 		
 		JButton btnNewButton = new JButton("Ver Coches");
@@ -68,7 +73,7 @@ public class VentanaMenuComercial extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(150, 135, 117, 29);
+		btnNewButton.setBounds(28, 106, 141, 33);
 		panel.add(btnNewButton);
 		 
 		JButton btnSalir = new JButton("Salir");
@@ -80,7 +85,7 @@ public class VentanaMenuComercial extends JFrame {
 				dispose();
 			}
 		});
-		btnSalir.setBounds(150, 209, 117, 29);
+		btnSalir.setBounds(146, 209, 93, 23);
 		panel.add(btnSalir);
 		
 		JButton btnNewButton_1 = new JButton("Visualizar citas");
@@ -91,8 +96,32 @@ public class VentanaMenuComercial extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_1.setBounds(140, 175, 141, 23);
+		btnNewButton_1.setBounds(210, 106, 141, 33);
 		panel.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Entrada Trabajo");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Date fecha = new Date();
+				int hora = fecha.getHours();
+				int min = fecha.getMinutes();
+				cargarHoras(hora, min, nickname);
+			}
+		});
+		btnNewButton_2.setBounds(28, 157, 141, 33);
+		panel.add(btnNewButton_2);
+		
+		JButton btnNewButton_2_1 = new JButton("Salida Trabajo");
+		btnNewButton_2_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Date fecha = new Date();
+				int h = fecha.getHours();
+				int m = fecha.getMinutes();
+				calcularHorasTrabajadas(h, m, nickname);
+			}
+		});
+		btnNewButton_2_1.setBounds(210, 157, 141, 33);
+		panel.add(btnNewButton_2_1);
 		buttonRegistrarCoche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaRegistrarCocheConcesionario vrcc = new VentanaRegistrarCocheConcesionario(comercialController, nickname);
@@ -100,5 +129,44 @@ public class VentanaMenuComercial extends JFrame {
 				dispose();
 			}
 		}); 
+	}
+	
+	public void cargarHoras(int hora, int min, String nickname) {
+		comercialController.deleteHorasEmpleadosTemporal(nickname);
+		String horasEmpleado = nickname + "-" + hora + "-" + min;
+		if (comercialController.registrarHorasComercialTemporal(horasEmpleado)) {
+			JOptionPane.showMessageDialog(this, hora + ":" + min);
+		}
+	}
+	
+	public void calcularHorasTrabajadas(int h, int m, String nickname) {
+		HorasEmpleados horaEmpleadosTemporal = comercialController.seleccionarHorasComercialTemporal(nickname);
+		HorasEmpleados horaEmpleados = comercialController.seleccionarHorasComercial(nickname);
+		if (horaEmpleados == null) {
+			int hora = h - horaEmpleadosTemporal.getHoras();
+			int min = m - horaEmpleadosTemporal.getMinutos();
+			String horasEmpleado = nickname + "-" + hora + "-" + min;
+			comercialController.registrarHorasComercial(horasEmpleado);
+		} else {
+			int hora = h - horaEmpleadosTemporal.getHoras() + horaEmpleados.getHoras();
+			int min = m - horaEmpleadosTemporal.getMinutos() + horaEmpleados.getMinutos();
+			comercialController.deleteHorasEmpleados(nickname);
+			if (hora > 0) {
+				String horasEmpleado = nickname + "-" + 0 + "-" + min;
+				if (comercialController.registrarHorasComercial(horasEmpleado)) {
+					Comercial comercial = comercialController.seleccionarComercial(nickname);
+					int horasTotales = comercial.getHoras() + hora;
+					comercialController.deleteComercial(nickname);
+					comercial.setHoras(horasTotales);
+					comercialController.registroComercial(comercial);
+					JOptionPane.showMessageDialog(this, 0 + ":" + min);
+				}
+			} else {
+				String horasEmpleado = nickname + "-" + hora + "-" + min;
+				if (comercialController.registrarHorasComercial(horasEmpleado)) {
+					JOptionPane.showMessageDialog(this, hora + ":" + min);
+				}
+			}
+		}
 	}
 }

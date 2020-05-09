@@ -1,16 +1,24 @@
 package concesionario.cliente.ventana.mecanico;
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.ws.rs.DELETE;
 
 import concesionario.cliente.controller.MecanicoController;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
+import concesionario.datos.HorasEmpleados;
+import concesionario.datos.Mecanico;
+
+import java.util.Date;
 
 import javax.swing.JButton;
 
@@ -32,7 +40,7 @@ public class VentanaMenuMecanico extends JFrame {
 	public void iniciarVentanaMenuMecanico(String nickname){
 		this.setTitle("Menu del mecanico");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(434,358);
+		this.setSize(499,411);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		 
@@ -57,7 +65,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		anadirPieza.setBounds(124, 74, 201, 23);
+		anadirPieza.setBounds(21, 76, 201, 33);
 		panel.add(anadirPieza);
 		
 		//boton para poder ver el historial de los vehiculos que han pasado por el taller 
@@ -70,7 +78,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		verHistoial.setBounds(124, 173, 201, 23);
+		verHistoial.setBounds(264, 179, 201, 33);
 		panel.add(verHistoial);
 		
 		//boton para poder registrar los vehiculos que pasan por el taller
@@ -82,7 +90,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		registarVehiculo.setBounds(124, 125, 201, 23);
+		registarVehiculo.setBounds(21, 130, 201, 33);
 		panel.add(registarVehiculo);
 		
 		//boton de salir que te lleva a la ventana de VentanaLogin donde se inicia la sesion
@@ -96,7 +104,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		buttonSalir.setBounds(178, 295, 89, 23);
+		buttonSalir.setBounds(200, 333, 89, 23);
 		panel.add(buttonSalir);
 		
 		JButton btnVerCochesTaller = new JButton("Ver Coches Taller");
@@ -107,7 +115,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		btnVerCochesTaller.setBounds(124, 149, 201, 23);
+		btnVerCochesTaller.setBounds(264, 130, 201, 33);
 		panel.add(btnVerCochesTaller);
 		
 		JButton verHistoial_1 = new JButton("Visualizar Presupuesto");
@@ -118,7 +126,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		verHistoial_1.setBounds(124, 200, 201, 23);
+		verHistoial_1.setBounds(21, 179, 201, 33);
 		panel.add(verHistoial_1);
 		
 		JButton verHistoial_1_1 = new JButton("Visualizar Fidelidad");
@@ -129,7 +137,7 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		verHistoial_1_1.setBounds(124, 224, 201, 23);
+		verHistoial_1_1.setBounds(21, 235, 201, 33);
 		panel.add(verHistoial_1_1);
 		
 		JButton btnverHerramientas = new JButton("Ver Herramientas");
@@ -141,7 +149,7 @@ public class VentanaMenuMecanico extends JFrame {
 				
 			}
 		});
-		btnverHerramientas.setBounds(124, 98, 201, 29);
+		btnverHerramientas.setBounds(264, 76, 201, 33);
 		panel.add(btnverHerramientas);
 		
 		JButton verHistoial_1_1_1 = new JButton("Visualizar Citas");
@@ -152,7 +160,70 @@ public class VentanaMenuMecanico extends JFrame {
 				dispose();
 			}
 		});
-		verHistoial_1_1_1.setBounds(124, 250, 201, 23);
+		verHistoial_1_1_1.setBounds(264, 235, 201, 33);
 		panel.add(verHistoial_1_1_1);
+		
+		JButton verHistoial_1_1_2 = new JButton("Entrada Trabajo");
+		verHistoial_1_1_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Date fecha = new Date();
+				int hora = fecha.getHours();
+				int min = fecha.getMinutes();
+				cargarHoras(hora, min, nickname);
+			}
+		});
+		verHistoial_1_1_2.setBounds(21, 289, 201, 33);
+		panel.add(verHistoial_1_1_2);
+		
+		JButton verHistoial_1_1_3 = new JButton("Salida Trabajo");
+		verHistoial_1_1_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Date fecha = new Date();
+				int h = fecha.getHours();
+				int m = fecha.getMinutes();
+				calcularHorasTrabajadas(h, m, nickname);
+			}
+		});
+		verHistoial_1_1_3.setBounds(264, 289, 201, 33);
+		panel.add(verHistoial_1_1_3);
+	}
+	
+	public void cargarHoras(int hora, int min, String nickname) {
+		mecanicoController.deleteHorasEmpleadosTemporal(nickname);
+		String horasEmpleado = nickname + "-" + hora + "-" + min;
+		if (mecanicoController.registrarHorasMecanicoTemporal(horasEmpleado)) {
+			JOptionPane.showMessageDialog(this, hora + ":" + min);
+		}
+	}
+	
+	public void calcularHorasTrabajadas(int h, int m, String nickname) {
+		HorasEmpleados horaEmpleadosTemporal = mecanicoController.seleccionarHorasMecanicoTemporal(nickname);
+		HorasEmpleados horaEmpleados = mecanicoController.seleccionarHorasMecanico(nickname);
+		if (horaEmpleados == null) {
+			int hora = h - horaEmpleadosTemporal.getHoras();
+			int min = m - horaEmpleadosTemporal.getMinutos();
+			String horasEmpleado = nickname + "-" + hora + "-" + min;
+			mecanicoController.registrarHorasMecanico(horasEmpleado);
+		} else {
+			int hora = h - horaEmpleadosTemporal.getHoras() + horaEmpleados.getHoras();
+			int min = m - horaEmpleadosTemporal.getMinutos() + horaEmpleados.getMinutos();
+			mecanicoController.deleteHorasEmpleados(nickname);
+			if (hora > 0) {
+				String horasEmpleado = nickname + "-" + 0 + "-" + min;
+				if (mecanicoController.registrarHorasMecanico(horasEmpleado)) {
+					Mecanico mecanico = mecanicoController.seleccionarMecanico(nickname);
+					int horasTotales = mecanico.getHoras() + hora;
+					mecanicoController.deleteMecanico(nickname);
+					mecanico.setHoras(horasTotales);
+					mecanicoController.registroMecanico(mecanico);
+					JOptionPane.showMessageDialog(this, 0 + ":" + min);
+				}
+			} else {
+				String horasEmpleado = nickname + "-" + hora + "-" + min;
+				if (mecanicoController.registrarHorasMecanico(horasEmpleado)) {
+					JOptionPane.showMessageDialog(this, hora + ":" + min);
+				}
+			}
+		}
 	}
 }
