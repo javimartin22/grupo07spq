@@ -19,9 +19,11 @@ import concesionario.datos.CocheTaller;
 import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
+import concesionario.datos.HerramientasTaller;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
+import concesionario.datos.Proveedor;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
@@ -95,6 +97,22 @@ public class BDTest {
 //	}
 	
 	@Test 
+	public void testHerramientasInsert() {
+		assertTrue(BD.herramientasInsert(st, "", "","","", ""));
+		assertFalse(BD.herramientasInsert(st, "", "","","", ""));
+	}
+	
+	@Test 
+	public void testHerramientasTallerInsert() {
+		assertTrue(BD.herramientasTallerInsert(st, "", "", 1, ""));
+		assertFalse(BD.herramientasTallerInsert(st, "", "", 1, ""));
+	}
+	@Test 
+	public void testProveedoresHerramientasInsert() {
+		assertTrue(BD.proveedoresHerramientasInsert(st, "", "", "", ""));
+		assertFalse(BD.proveedoresHerramientasInsert(st, "", "", "", ""));
+	}
+	@Test 
 	public void testPiezasInsert() {
 		assertTrue(BD.piezasInsert(st, "", "", 1, ""));
 		assertFalse(BD.piezasInsert(st, "", "", 1, ""));
@@ -104,6 +122,16 @@ public class BDTest {
 	public void testPiezasUtilizadasInsert() {
 		assertTrue(BD.piezasUtilizadasInsert(st, "", "", 0, ""));
 		assertFalse(BD.piezasUtilizadasInsert(st, "", "", 0, ""));
+	}
+	@Test 
+	public void testProveedoresInsert() {
+		assertTrue(BD.proveedoresInsert(st, "", "", "", ""));
+		assertFalse(BD.proveedoresInsert(st, "", "", "", ""));
+	}
+	@Test 
+	public void testPiezasProveedoresInsert() {
+		assertTrue(BD.piezasProveedoresInsert(st, "", "", 3, "", ""));
+		assertFalse(BD.piezasProveedoresInsert(st, "", "", 3, "", ""));
 	}
 	
 //	@Test 
@@ -469,6 +497,63 @@ public class BDTest {
 		ResultSet rst = BD.fidelidadSelect(st);
 		assertTrue(rst != null);
 	}
+	
+	@Test 
+	public void testHerramientasSelect() {
+		BD.herramientasInsert(st, "", "", "", "", "");
+		ResultSet rst = BD.herramientasSelect(st);
+		assertTrue(rst != null);
+	}
+	
+	@Test 
+	public void testProveedoresHerramientasSelect() {
+		BD.proveedoresHerramientasInsert(st, "", "", "", "");
+		ResultSet rst = BD.proveedoresHerramientasSelect(st);
+		assertTrue(rst != null);
+	}
+	
+	@Test 
+	public void testProveedoresSelect() {
+		BD.proveedoresInsert(st, "", "", "", "");
+		ResultSet rst = BD.proveedoresSelect(st);
+		assertTrue(rst != null);
+	}
+	@Test 
+	public void testPiezasProveedoresSelect() {
+		BD.piezasProveedoresInsert(st, "", "", 2, "", "");
+		ResultSet rst = BD.piezasProveedoresSelect(st);
+		assertTrue(rst != null);
+	}
+	@Test 
+	public void testProveedorSelect() {
+		BD.proveedoresInsert(st, "", "", "", "");
+		Proveedor rst = BD.proveedorSelect(st, "");
+		assertTrue(rst != null);
+	}
+	@Test 
+	public void testHerramientasTallerTodasSelect() {
+		BD.herramientasTallerInsert(st, "", "", 2, "");
+		ResultSet rst = BD.herramientasTallerTodasSelect(st);
+		assertTrue(rst != null);
+	}
+	
+	@Test
+	public void testHerramientasMecanicoFiltroSelect() {
+		BD.herramientasTallerInsert(st, "", "", 3, "");
+		ResultSet rst = BD.herramientasMecanicoFiltroSelect(st, 0, "");
+		assertTrue(rst != null);
+		ResultSet rst1 = BD.herramientasMecanicoFiltroSelect(st, 1, "");
+		assertTrue(rst1 != null);
+		ResultSet rst2 = BD.herramientasMecanicoFiltroSelect(st, 2, "0");
+		assertTrue(rst2 != null);
+	}
+	@Test 
+	public void testHerramientaTallerSelect() {
+		BD.herramientasTallerInsert(st, "","", 23, "");
+		HerramientasTaller rst = BD.herramientaTallerSelect(st,"");
+		assertTrue(rst != null);
+	}
+	
 	
 	@Test
 	public void testUsuariosDelete() {

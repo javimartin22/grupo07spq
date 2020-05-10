@@ -1011,7 +1011,7 @@ public class BD {
 			String sentSQL = "";
 			HerramientasTaller herramienta = null;
 			try {
-				sentSQL = "select * from " + TABLA_PIEZAS + " where codigo= '" + codigo + "' ";
+				sentSQL = "select * from " + TABLA_HERRAMIENTAS_TALLER + " where codigo= '" + codigo + "' ";
 				ResultSet rs = st.executeQuery(sentSQL);
 				if (rs.next()) {
 					String cod = rs.getString("codigo");

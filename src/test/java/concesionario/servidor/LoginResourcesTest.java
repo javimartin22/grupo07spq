@@ -1025,20 +1025,57 @@ public class LoginResourcesTest {
 			Response herramientas= loginResources.filtrarHerramientaMecanicoFiltro("H-1");
 		    assertEquals(200, herramientas.getStatus());
 		    
-		//---------------------------------------------------------------------------------------
-		    PowerMockito.mockStatic(BD.class);
-		    ResultSet res = null;
-			when(BD.herramientasMecanicoFiltroSelect(st, 0,"H-2")).thenReturn(res);		
-			Response resultado = loginResources.filtrarHerramientaMecanicoFiltro("");				//NO SE PONE 100%
-			assertEquals(404, resultado.getStatus());
-			
-		//-----------------------------------------------------------------------------------	
+
+			PowerMockito.mockStatic(BD.class);
+			ResultSet res2 = null;
+			when(BD.herramientasMecanicoFiltroSelect(st,0,"H-2")).thenReturn(res2);
+		
+			Response resultado2 = loginResources.filtrarHerramientaMecanicoFiltro("H-2");
+			assertEquals(404, resultado2.getStatus());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+
+	@Test
+	public void testFiltrarPiezaMecanicoFiltro() {
+		try {
+			
+	
+			Response herramientas= loginResources.filtrarPiezaMecanicoFiltro("PI-1");
+		    assertEquals(200, herramientas.getStatus());
+		    
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarPiezaUtilizadasFiltro() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			ResultSet res1 = BD.piezasUtilizadasFiltroSelect(st,0,"PI-2");
+			when(BD.piezasUtilizadasFiltroSelect(st,0,"PI-2")).thenReturn(res1);
+			Response piezas= loginResources.filtrarPiezaUtilizadasFiltro("PI-1");
+		    assertEquals(404, piezas.getStatus());
+		  
+
+			PowerMockito.mockStatic(BD.class);
+			ResultSet res2 = null;
+			when(BD.piezasUtilizadasFiltroSelect(st,0,"PI-2")).thenReturn(res2);
+		
+			Response resultado2 = loginResources.filtrarPiezaMecanicoFiltro("PI-2");
+			assertEquals(404, resultado2.getStatus());
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	
 	@Test
