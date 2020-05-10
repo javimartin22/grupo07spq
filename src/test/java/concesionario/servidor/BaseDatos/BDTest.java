@@ -68,6 +68,7 @@ public class BDTest {
 		assertFalse(bool1);
 	}
 	
+	// ----- 
 	@Test
 	public void TestEmpleadosInsert() {
 		boolean bool = BD.empleadosInsert(st, "", "", "", "", "", "", "", "", 1, "", "", "", "", 1, 1);
