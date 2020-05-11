@@ -65,7 +65,7 @@ public class VentanaRegistroHerramientas extends JFrame {
 		lblNewLabel_1.setBounds(53, 122, 150, 16);
 		contentPane.add(lblNewLabel_1);
 		
-		JLabel lblUbicacionDeLa = new JLabel("Ubicacion de la Pieza:");
+		JLabel lblUbicacionDeLa = new JLabel("Ubicacion de la Herramienta:");
 		lblUbicacionDeLa.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblUbicacionDeLa.setBounds(53, 166, 150, 16);
 		contentPane.add(lblUbicacionDeLa);

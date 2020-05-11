@@ -13,6 +13,7 @@ import concesionario.datos.Pieza;
 import concesionario.datos.PiezaProveedores;
 import concesionario.datos.Proveedor;
 import concesionario.datos.ProveedorHerramientas;
+import concesionario.datos.SolicitudCompra;
 
 public class DepartmentoComprasController {
 	private ClienteApp cliente;
@@ -49,6 +50,10 @@ public class DepartmentoComprasController {
 	
 	public List<HerramientasTaller> cargarHerramientas(){
 		return cliente.cargarTablaHerramientasTaller();
+	}
+	
+	public List<SolicitudCompra> cargarSolicitud(){
+		return cliente.cargarTablaSolicitudCompra();
 	}
 	
 	
@@ -106,6 +111,15 @@ public class DepartmentoComprasController {
 		return cliente.cargarListaHerramientas();
 	}
 	
+
+	public boolean deleteSolicitud(String cod) {
+		Response response = cliente.SolicitudCompraDelete(cod); 
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	
 	public String parseUbicacion(int ubicacion) {

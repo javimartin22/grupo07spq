@@ -94,7 +94,7 @@ public class VentanaHerramientasMecanico extends JFrame{
 				dispose();
 			}
 		});
-		btnRegresar.setBounds(96, 267, 117, 29);
+		btnRegresar.setBounds(45, 267, 117, 29);
 		contentPane.add(btnRegresar);
 		
 		JButton btnCargarHerramientas = new JButton("Cargar Herramientas");
@@ -103,8 +103,19 @@ public class VentanaHerramientasMecanico extends JFrame{
 				cargarTabla(tabla);
 			}
 		});
-		btnCargarHerramientas.setBounds(225, 267, 180, 29);
+		btnCargarHerramientas.setBounds(184, 267, 180, 29);
 		contentPane.add(btnCargarHerramientas);
+		
+		JButton btnNewButton = new JButton("Solicitar Compra");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaSolicitudCompra vsc = new VentanaSolicitudCompra(mecanicoController, nickname);
+				vsc.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton.setBounds(376, 267, 143, 29);
+		contentPane.add(btnNewButton);
 		
 		
 	}

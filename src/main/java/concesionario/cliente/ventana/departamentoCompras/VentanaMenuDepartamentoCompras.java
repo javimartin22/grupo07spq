@@ -32,7 +32,7 @@ public class VentanaMenuDepartamentoCompras extends JFrame {
 	
 	public void iniciarVentanaMenuDepartamentoCompras(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 264);
+		setBounds(100, 100, 450, 299);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -65,7 +65,7 @@ public class VentanaMenuDepartamentoCompras extends JFrame {
 				dispose();
 			}
 		});
-		btnSalir.setBounds(173, 207, 117, 29);
+		btnSalir.setBounds(178, 242, 117, 29);
 		contentPane.add(btnSalir);
 		
 		JButton btnComprar = new JButton("Comprar Piezas");
@@ -105,5 +105,16 @@ public class VentanaMenuDepartamentoCompras extends JFrame {
 		});
 		btnHerramientas.setBounds(158, 116, 132, 29);
 		contentPane.add(btnHerramientas);
+		
+		JButton btnNewButton_1 = new JButton("Solicitudes de compra");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaVisualizarSolicitudCompra vvsc = new VentanaVisualizarSolicitudCompra(departmentoComprasController, nickname);
+				vvsc.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_1.setBounds(144, 211, 177, 29);
+		contentPane.add(btnNewButton_1);
 	}
 }

@@ -14,11 +14,13 @@ import concesionario.datos.CitaTaller;
 import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.CocheMatriculado;
 import concesionario.datos.CocheTaller;
+import concesionario.datos.Herramientas;
 import concesionario.datos.HerramientasTaller;
 import concesionario.datos.HorasEmpleados;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
+import concesionario.datos.SolicitudCompra;
 
 public class MecanicoController {
 	
@@ -50,6 +52,11 @@ public class MecanicoController {
 		return cliente.cargarTablaHerramientasTaller();
 	}
 	
+	
+	public List<Herramientas> cargarListaHerramientas(){
+		return cliente.cargarListaHerramientas();
+	}
+	
 	public List<Pieza> cargarPiezasUtilizadas(){
 		return cliente.cargarTablaPiezasUtilizadas();
 	}
@@ -73,6 +80,15 @@ public class MecanicoController {
 	
 	public boolean registroPresupuesto(Presupuesto presupuesto) {
 		Response response = cliente.registroPresupuesto(presupuesto); //estoy aqui
+		if (response.getStatus() == Status.OK.getStatusCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean registroSolicitud(SolicitudCompra solicitud) {
+		Response response = cliente.registroSolicitud(solicitud); 
 		if (response.getStatus() == Status.OK.getStatusCode()) {
 			return true;
 		} else {
@@ -257,6 +273,12 @@ public class MecanicoController {
 		return cliente.cargarTablaClientesFidelidad();
 	}
 	
+	public List<SolicitudCompra> cargarSolicitud(){
+		return cliente.cargarTablaSolicitudCompra();
+	}
+	
+	
+	
 	public List<CitaTaller> cargarCitaMecanico(String mecanico) {
 		Response response_1 = cliente.cargarCitaMecanico(mecanico);
 		if(response_1.getStatus() == Status.OK.getStatusCode()) {
@@ -358,5 +380,10 @@ public class MecanicoController {
 		} else {
 			return false;
 		}
+	}
+	
+	public String calcularCodigoSolicitud(List<SolicitudCompra> solicitud) {
+		int numero = solicitud.size() + 1;
+		return "S" + numero;
 	}
 }

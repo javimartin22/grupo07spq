@@ -361,6 +361,22 @@ public class LoginResources {
 	}
 	
 	@POST
+	@Path("deleteSolicitudCompra")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response deleteSolicitudCompra(String sol) 
+	{
+		con = BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		boolean b = BD.solicitudCompraDelete(st, sol);
+		if (b) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
+	@POST
 	@Path("deleteTarifa")
 	@Consumes(MediaType.APPLICATION_JSON)
 	//@Produces("application/json")
@@ -607,14 +623,14 @@ public class LoginResources {
 		String ubicacion = pieza.getUbicacion();
 		int stock = pieza.getUnidades();
 		
-		BD.piezasInsert(st, codigo, nombre, stock, ubicacion);
+		boolean bool = BD.piezasInsert(st, codigo, nombre, stock, ubicacion);
 		BD.piezasUtilizadasInsert(st, codigo, nombre, 0, ubicacion);
-		Pieza nuevo = BD.piezaSelect(st, pieza.getCodigo());
+
 		
-		if (nuevo == null) {
-			return Response.status(Response.Status.NOT_FOUND).build();
-		} else {
+		if (bool) {
 			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
 	
@@ -631,13 +647,12 @@ public class LoginResources {
 		String ubicacion = herramienta.getUbicacion();
 		int stock = herramienta.getUnidades();
 		
-		BD.herramientasTallerInsert(st, codigo, nombre, stock, ubicacion);
-		HerramientasTaller nuevo = BD.herramientaTallerSelect(st, herramienta.getCodigo());
+		boolean bool =	BD.herramientasTallerInsert(st, codigo, nombre, stock, ubicacion);
 		
-		if (nuevo == null) {
-			return Response.status(Response.Status.NOT_FOUND).build();
-		} else {
+		if (bool) {
 			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
 	
@@ -664,6 +679,27 @@ public class LoginResources {
 		
 		boolean bool = BD.PresupuestoInsert(st, codigo, dniCliente, mecanico, marca, modelo, problema, numPiezas, piezas, observaciones, precio, fecha);
 		
+		if (bool) {
+			return Response.status(Response.Status.OK).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
+	@POST
+	@Path("insertSolicitud")
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces("application/json")
+	public Response registroSolicitud(SolicitudCompra solicitud) {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		
+		String codigo = solicitud.getCodigo();
+		String nombre = solicitud.getNombre();
+		String tipo = solicitud.getTipo();
+		int unidades = solicitud.getUnidades();
+		
+		boolean bool = BD.solicitudInsert(st, codigo, nombre, tipo, unidades);
 		if (bool) {
 			return Response.status(Response.Status.OK).build();
 		} else {
@@ -741,6 +777,33 @@ public class LoginResources {
 		}
 	}
 	
+	@GET
+	@Path("loadSolicitudTable")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<SolicitudCompra> cargarTablaSolicitudCompra()throws SQLException {
+		con =BD.initBD("Taller");
+		st = BD.usarCrearTablasBD(con);
+		ResultSet rs = BD.solicitudTodasSelect(st);
+		List<SolicitudCompra> sol_result = new ArrayList<SolicitudCompra>();
+		
+		if (rs == null) {
+			return sol_result;
+		} else {
+			
+			while(rs.next()) {
+				//Obtener atributos rs
+				String codigo = rs.getString("codigo");
+				String nombre = rs.getString("nombre");
+				String tipo = rs.getString("tipo");
+				int unidades = rs.getInt("unidades");
+				
+				SolicitudCompra sol = new SolicitudCompra(codigo, nombre, tipo, unidades);	
+				sol_result.add(sol);
+			}
+			 
+			return sol_result;
+		}
+	}
 	
 	@GET
 	@Path("loadPiezaTable")

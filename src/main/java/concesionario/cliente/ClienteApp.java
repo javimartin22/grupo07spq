@@ -33,6 +33,7 @@ import concesionario.datos.PiezaProveedores;
 import concesionario.datos.Presupuesto;
 import concesionario.datos.Proveedor;
 import concesionario.datos.ProveedorHerramientas;
+import concesionario.datos.SolicitudCompra;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
@@ -212,6 +213,14 @@ public class ClienteApp {
 		return response;
 	}
 	
+
+	public Response SolicitudCompraDelete(String solicitud) {
+		WebTarget deleteSolicitudTarget = loginTarget.path("deleteSolicitudCompra");
+		Entity<String> ent = Entity.entity(solicitud, MediaType.APPLICATION_JSON);
+		Response response = deleteSolicitudTarget.request(MediaType.TEXT_PLAIN).post(ent);
+		return response;
+	}
+	
 	public Response tarifaDelete(String idTarifa) {
 		WebTarget deleteComercialTarget = loginTarget.path("deleteTarifa");
 		Entity<String> ent = Entity.entity(idTarifa, MediaType.APPLICATION_JSON);
@@ -253,6 +262,14 @@ public class ClienteApp {
 		GenericType<List<HerramientasTaller>> genericType = new GenericType<List<HerramientasTaller>>() {};
         List<HerramientasTaller> herramientas = loadPiezaTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
 		return herramientas;
+	
+	}
+	
+	public List<SolicitudCompra> cargarTablaSolicitudCompra(){
+		WebTarget loadSolicitudTarget = loginTarget.path("loadSolicitudTable");
+		GenericType<List<SolicitudCompra>> genericType = new GenericType<List<SolicitudCompra>>() {};
+        List<SolicitudCompra> sol = loadSolicitudTarget.request(MediaType.APPLICATION_JSON).get(genericType);
+		return sol;
 	}
 	
 	public Response piezaUtilizadaSelect(String codigo) {
@@ -281,6 +298,12 @@ public class ClienteApp {
 		WebTarget insertPresupuestoTarget = loginTarget.path("insertPresupuesto");
  		Entity<Presupuesto> entity = Entity.entity(presupuesto, MediaType.APPLICATION_JSON);
  		Response response = insertPresupuestoTarget.request(MediaType.TEXT_PLAIN).post(entity);
+ 		return response;
+	}
+	public Response registroSolicitud(SolicitudCompra solicitud) {
+		WebTarget insertSolicitudTarget = loginTarget.path("insertSolicitud");
+ 		Entity<SolicitudCompra> entity = Entity.entity(solicitud, MediaType.APPLICATION_JSON);
+ 		Response response = insertSolicitudTarget.request(MediaType.TEXT_PLAIN).post(entity);
  		return response;
 	}
 	public List<Herramientas> insertarHerramientas(){
