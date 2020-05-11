@@ -16,6 +16,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
+import concesionario.datos.CitaComercial;
+import concesionario.datos.CitaTaller;
 import concesionario.datos.Cliente;
 import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.CocheConcesionario;
@@ -26,6 +28,7 @@ import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
 import concesionario.datos.Herramientas;
 import concesionario.datos.HerramientasTaller;
+import concesionario.datos.HorasEmpleados;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.PiezaProveedores;
@@ -113,6 +116,55 @@ public class LoginResourcesTest {
 	}
 	
 	@Test
+	public void testRegistrarComercial() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			Comercial comercial = new Comercial("user", "pass", "12345667V", "Kevin", "Ibañez", "Masculino", "em@gmail.com", "City", 48008, "Abando", "1231","1444", 1200, "665665665", 0, 2, 300, 10 );
+			Usuario usuario = new Usuario(comercial.getNickname(), comercial.getContrasenia(), 2);
+			  
+	        //BD.comercialesInsert(st, comercial.getDNI(), comercial.getNickname(), comercial.getNickname(), comercial.getNombre(), comercial.getApellido(), comercial.getSexo(), comercial.getEmail(), comercial.getCiudad(), comercial.getCodigoPostal(), comercial.getDireccion(), comercial.getNumeroTelefono(),comercial.getNSS(), comercial.getNumeroCuenta(), comercial.getSueldo(), comercial.getHoras(), comercial.getCochesVendidos(), comercial.getImporteObetenido());
+	        //BD.empleadosInsert(st, comercial.getDNI(), comercial.getNickname(), comercial.getContrasenia(), comercial.getNombre(), comercial.getApellido(), comercial.getSexo(), comercial.getEmail(), comercial.getCiudad(), comercial.getCodigoPostal(), comercial.getDireccion(), comercial.getNumeroTelefono(), comercial.getNSS(), comercial.getNumeroCuenta(), 1200, 0);
+	        //BD.usuariosInsert(st, comercial.getNickname(), comercial.getContrasenia(), 2);
+			when(BD.usuarioSelect(st, comercial.getNickname())).thenReturn(usuario);
+			Response r= loginResources.registrarComercial(comercial);
+			assertEquals(200, r.getStatus());
+			
+			Usuario comercial_null = null;
+			when(BD.usuarioSelect(st, comercial.getNickname())).thenReturn(comercial_null);
+			Response r2 = loginResources.registrarComercial(comercial);
+			assertEquals(404, r2.getStatus());  
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testRegistrarDepartamentoCompras() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			DepartamentoCompras depcompras = new DepartamentoCompras("Jorge", "12345", "12345667Ñ", "Jorge", "Martinez", "Masculino", "em@gmail.com", "Barakaldo", 48008, "Abando", "1231","1444", 1200, "665665665", 10);
+			Usuario usuario = new Usuario(depcompras.getNickname(), depcompras.getContrasenia(), 4);
+			
+	        //BD.comercialesInsert(st, comercial.getDNI(), comercial.getNickname(), comercial.getNickname(), comercial.getNombre(), comercial.getApellido(), comercial.getSexo(), comercial.getEmail(), comercial.getCiudad(), comercial.getCodigoPostal(), comercial.getDireccion(), comercial.getNumeroTelefono(),comercial.getNSS(), comercial.getNumeroCuenta(), comercial.getSueldo(), comercial.getHoras(), comercial.getCochesVendidos(), comercial.getImporteObetenido());
+	        //BD.empleadosInsert(st, comercial.getDNI(), comercial.getNickname(), comercial.getContrasenia(), comercial.getNombre(), comercial.getApellido(), comercial.getSexo(), comercial.getEmail(), comercial.getCiudad(), comercial.getCodigoPostal(), comercial.getDireccion(), comercial.getNumeroTelefono(), comercial.getNSS(), comercial.getNumeroCuenta(), 1200, 0);
+	        //BD.usuariosInsert(st, comercial.getNickname(), comercial.getContrasenia(), 2);
+			
+			when(BD.usuarioSelect(st, depcompras.getNickname())).thenReturn(usuario);
+			Response r= loginResources.registrarDepartamentoCompras(depcompras);
+			assertEquals(200, r.getStatus());
+			
+			Usuario depcompras_null = null;
+			when(BD.usuarioSelect(st, depcompras.getNickname())).thenReturn(depcompras_null);
+			Response r2 = loginResources.registrarDepartamentoCompras(depcompras);
+			assertEquals(404, r2.getStatus());  
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
 	public void testRegistrarMecanico() {
 		try {
 			PowerMockito.mockStatic(BD.class);
@@ -168,6 +220,136 @@ public class LoginResourcesTest {
 			when(BD.piezaUtilizadaSelect(st, piezas.getCodigo())).thenReturn(com_null);
 			Response r2= loginResources.registrarPiezaUtilizada(piezas);
 			assertEquals(404, r2.getStatus()); 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testRegistroPresupuesto() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			Presupuesto presup = new Presupuesto("PE-1", "12345678A", "Jorge", "Seat", "Leon", "Aceite", 1, "Lata Aceite", "Cambio de Aceite", 50, "22-1-2020");
+			when(BD.PresupuestoInsert(st, presup.getCodigo(), presup.getDniCliente(), presup.getMecanico(), presup.getMarca(), presup.getModelo(), presup.getProblema(), presup.getNumPiezas(), presup.getListaPiezas(), presup.getObservaciones(), presup.getPrecio(), presup.getFecha())).thenReturn(true);
+			Response r= loginResources.registroPresupuesto(presup);
+			assertEquals(200, r.getStatus());
+		
+			when(BD.PresupuestoInsert(st, presup.getCodigo(), presup.getDniCliente(), presup.getMecanico(), presup.getMarca(), presup.getModelo(), presup.getProblema(), presup.getNumPiezas(), presup.getListaPiezas(), presup.getObservaciones(), presup.getPrecio(), presup.getFecha())).thenReturn(false);
+			Response r2= loginResources.registroPresupuesto(presup);
+			assertEquals(404, r2.getStatus()); 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testRegistrarVenta() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			Venta venta = new Venta("22-1-2020", "Leon", "Seat", "9600JPT", "Jorgico", "Alberto");
+			when(BD.ventaSelect(st, venta.getMatricula())).thenReturn(venta);
+			Response r= loginResources.registrarVenta(venta);
+			assertEquals(200, r.getStatus());
+		
+			Venta venta_null = null;
+			when(BD.ventaSelect(st, venta.getMatricula())).thenReturn(venta_null);
+			Response r2= loginResources.registrarVenta(venta);
+			assertEquals(404, r2.getStatus()); 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test
+	public void testRegistrarTarifa() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			Tarifa tarifa = new Tarifa("T1", "Cambio Aceite", 50, 1);
+			when(BD.tarifaIdSelect(st, tarifa.getIdTarifa())).thenReturn(tarifa);
+			Response r= loginResources.registrarTarifa(tarifa);
+			assertEquals(200, r.getStatus());
+		
+			Tarifa tarifa_null = null;
+			when(BD.tarifaIdSelect(st, tarifa.getIdTarifa())).thenReturn(tarifa_null);
+			Response r2= loginResources.registrarTarifa(tarifa);
+			assertEquals(404, r2.getStatus()); 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test
+	public void testRegistrarHorasEmpleado() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			String horasempleado = "Ander-5-30";
+			when(BD.HorasEmpleadoInsert(st, "Ander", 5, 30)).thenReturn(true);
+			Response r= loginResources.registrarHorasEmpleado(horasempleado);
+			assertEquals(200, r.getStatus());
+		
+			when(BD.HorasEmpleadoInsert(st, "Ander", 5, 30)).thenReturn(false);
+			Response r1= loginResources.registrarHorasEmpleado(horasempleado);
+			assertEquals(404, r1.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testRegistrarHorasEmpleadoTemporal() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			String horasempleado = "Ander-5-30";
+			when(BD.HorasEmpleadoTemporalInsert(st, "Ander", 5, 30)).thenReturn(true);
+			Response r= loginResources.registrarHorasEmpleadoTemporal(horasempleado);
+			assertEquals(200, r.getStatus());
+		
+			when(BD.HorasEmpleadoTemporalInsert(st, "Ander", 5, 30)).thenReturn(false);
+			Response r1= loginResources.registrarHorasEmpleadoTemporal(horasempleado);
+			assertEquals(404, r1.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testRegistrarCitaComercial() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			CitaComercial citacomercial = new CitaComercial("Mikel", "12332112A", "10/10/20", "10:30", "Unai");
+			when(BD.CitaComercialInsert(st, citacomercial.getNombre(), citacomercial.getDniCliente(), citacomercial.getFecha(), citacomercial.getHora(), citacomercial.getComercial())).thenReturn(true);
+			Response r= loginResources.registrarCitaComercial(citacomercial);
+			assertEquals(200, r.getStatus());
+		
+			when(BD.CitaComercialInsert(st, citacomercial.getNombre(), citacomercial.getDniCliente(), citacomercial.getFecha(), citacomercial.getHora(), citacomercial.getComercial())).thenReturn(false);
+			Response r1= loginResources.registrarCitaComercial(citacomercial);
+			assertEquals(404, r1.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testRegistrarCitaComercialT() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			CitaTaller citataller = new CitaTaller("Nombre", "12345678K", "01-01-2000", "13", "Amin", "Problema");
+			when(BD.CitaTallerInsert(st, citataller.getNombre(), citataller.getDniCliente(), citataller.getFecha(), citataller.getHora(), citataller.getComercial(), citataller.getProblema())).thenReturn(true);
+			Response r= loginResources.registrarCitaComercial(citataller);
+			assertEquals(200, r.getStatus());
+		
+			when(BD.CitaTallerInsert(st, citataller.getNombre(), citataller.getDniCliente(), citataller.getFecha(), citataller.getHora(), citataller.getComercial(), citataller.getProblema())).thenReturn(false);
+			Response r1= loginResources.registrarCitaComercial(citataller);
+			assertEquals(404, r1.getStatus());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -350,6 +532,92 @@ public class LoginResourcesTest {
 	}
 	
 	@Test
+	public void testSelectHorasEmpledoTemporalSelect() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			HorasEmpleados horasemp = new HorasEmpleados(10, 20, "Nick");
+			when(BD.horaEmpleadoTemporalSelect(st, "Nick")).thenReturn(horasemp);
+			Response r= loginResources.selectHorasEmpledoTemporalSelect("Nick");
+			assertEquals(200, r.getStatus());
+			
+			PowerMockito.mockStatic(BD.class);
+			HorasEmpleados horasemp_null = null;
+			when(BD.horaEmpleadoTemporalSelect(st, horasemp.getNickname())).thenReturn(horasemp_null);
+			Response r2= loginResources.selectHorasEmpledoTemporalSelect("Nick");
+			assertEquals(404, r2.getStatus());
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test
+	public void testSelectHorasEmpledoSelect() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			HorasEmpleados horasemp = new HorasEmpleados(10, 20, "Nick");
+			when(BD.horaEmpleadoSelect(st, "Nick")).thenReturn(horasemp);
+			Response r= loginResources.selectHorasEmpledoSelect("Nick");
+			assertEquals(200, r.getStatus());
+			
+			PowerMockito.mockStatic(BD.class);
+			HorasEmpleados horasemp_null = null;
+			when(BD.horaEmpleadoSelect(st, horasemp.getNickname())).thenReturn(horasemp_null);
+			Response r2= loginResources.selectHorasEmpledoSelect("Nick");
+			assertEquals(404, r2.getStatus());
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test
+	public void testCitaTallerSelect() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			String restriccion = "11-02-20;23:30;Andoni";
+			CitaTaller citataller = new CitaTaller("Joseba1", "12345677K", "11-03-20","2:10", "Jorge", "problema");
+			when(BD.citaTallerSelect(st,"11-02-20","23:30","Andoni")).thenReturn(citataller);
+			Response r= loginResources.citaTallerSelect(restriccion);
+			assertEquals(200, r.getStatus());
+			
+			CitaTaller citataller_null = null;
+			when(BD.citaTallerSelect(st,"11-02-20","23:30","Andoni")).thenReturn(citataller_null);
+			Response r2= loginResources.citaTallerSelect(restriccion);
+			assertEquals(404, r2.getStatus());
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCitaComercialSelect() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			String restriccion = "11-02-20;23:30;Andoni";
+			CitaComercial citacomercial = new CitaComercial("name","12345677O", "22-10-20", "10:00", "Jacobo");
+			when(BD.citaComercialSelect(st,"11-02-20","23:30","Andoni")).thenReturn(citacomercial);
+			Response r= loginResources.citaComercialSelect(restriccion);
+			assertEquals(200, r.getStatus());
+			
+			CitaComercial citacomercial_null = null;
+			when(BD.citaComercialSelect(st,"11-02-20","23:30","Andoni")).thenReturn(citacomercial_null);
+			Response r2= loginResources.citaComercialSelect(restriccion);
+			assertEquals(404, r2.getStatus());
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
 	public void testSelectPiezaUtilizada() {
 		try {
 			PowerMockito.mockStatic(BD.class);
@@ -477,6 +745,79 @@ public class LoginResourcesTest {
 	}
 	
 	@Test
+	public void testDeleteCitasComercial() {
+		try {
+			ResultSet rs_null = null;
+			PowerMockito.mockStatic(BD.class);
+			
+			String nickfecha = "Pablo;22-05-2020";
+			when(BD.filtrarCitasPorFecha(st, "Pablo", "22-05-2020")).thenReturn(rs_null);
+			Response r = loginResources.deleteCitasComercial(nickfecha);
+			assertEquals(200, r.getStatus());
+		    
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testDeleteCitasMecanico() {
+		try {
+			ResultSet rs_null = null;
+			PowerMockito.mockStatic(BD.class);
+			
+			String nickfecha = "Pablo;22-05-2020";
+			when(BD.filtrarCitasMecanicoPorFecha(st, "Pablo", "22-05-2020")).thenReturn(rs_null);
+			Response r = loginResources.deleteCitasMecanico(nickfecha);
+			assertEquals(200, r.getStatus());
+		    
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testDeleteHorasEmpleados() {
+		try {
+			HorasEmpleados horas_null = null;
+			HorasEmpleados horas_emp = new HorasEmpleados(10, 10, "Javi");
+			PowerMockito.mockStatic(BD.class);
+			
+			when(BD.horaEmpleadoSelect(st, "Javi")).thenReturn(horas_null);
+			Response r = loginResources.deleteHorasEmpleados("Javi");
+			assertEquals(200, r.getStatus());
+			
+			when(BD.horaEmpleadoSelect(st, "Javi")).thenReturn(horas_emp);
+			Response r2 = loginResources.deleteHorasEmpleados("Javi");
+			assertEquals(404, r2.getStatus());
+		    
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test
+	public void testDeleteHorasEmpleadosTemporal() {
+		try {
+			HorasEmpleados horas_null = null;
+			HorasEmpleados horas_emp = new HorasEmpleados(10, 10, "Javi");
+			PowerMockito.mockStatic(BD.class);
+			
+			when(BD.horaEmpleadoTemporalSelect(st, "Javi")).thenReturn(horas_null);
+			Response r = loginResources.deleteHorasEmpleadosTemporal("Javi");
+			assertEquals(200, r.getStatus());
+			
+			when(BD.horaEmpleadoTemporalSelect(st, "Javi")).thenReturn(horas_emp);
+			Response r2 = loginResources.deleteHorasEmpleadosTemporal("Javi");
+			assertEquals(404, r2.getStatus());
+		    
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
 	public void testDeleteMecanico() {
 		try {
 			PowerMockito.mockStatic(BD.class);
@@ -535,6 +876,63 @@ public class LoginResourcesTest {
 			
 			List<Tarifa> resultado = loginResources.cargarTablaTarifas();
 			assertTrue(resultado.size() == 0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCargarComercialTable() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			List<Comercial> comerciales= loginResources.cargarComercialTable();
+		    assertTrue(comerciales.size() > 0);
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.comercialesTodasSelect(st)).thenReturn(res);
+			List<Tarifa> resultado = loginResources.cargarTablaTarifas();
+			assertTrue(resultado.size() == 0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCargarMecanicoTable() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			List<Mecanico> mecanicos= loginResources.cargarMecanicoTable();
+		    assertTrue(mecanicos.size() > 0);
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.mecanicosTodasSelect(st)).thenReturn(res);
+			List<Mecanico> resultado = loginResources.cargarMecanicoTable();
+			assertTrue(resultado.size() == 0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCargarEmpleadoHoras() {
+		try {
+			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
+			Response resp= loginResources.cargarEmpleadoHoras(0);
+		    assertEquals(200, resp.getStatus());
+		    
+			PowerMockito.mockStatic(BD.class);
+			//Opcion 2 con mock al poder poner null
+			ResultSet res = null;
+			when(BD.empleadosHorasFiltroSelect(st, 0)).thenReturn(res);
+			Response resp1= loginResources.cargarEmpleadoHoras(0);
+		    assertEquals(404, resp1.getStatus());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -939,46 +1337,6 @@ public class LoginResourcesTest {
 	}
 	
 	@Test
-	public void testFiltrarComercialModelo() {
-		try {
-			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
-			Response tarifas= loginResources.filtrarComercialModelo("Jorgico");
-		    assertEquals(200, tarifas.getStatus());;
-		    
-			PowerMockito.mockStatic(BD.class);
-			//Opcion 2 con mock al poder poner null
-			ResultSet res = null;
-			when(BD.ventasComercialSelect(st, "")).thenReturn(res);
-			
-			Response resultado = loginResources.filtrarComercialModelo("");
-			assertEquals(404, resultado.getStatus());
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Test
-	public void testFiltrarPresupuestoCodigo() {
-		try {
-			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
-			Response tarifas= loginResources.filtrarPresupuestoCodigo("P1");
-		    assertEquals(200, tarifas.getStatus());;
-		    
-			PowerMockito.mockStatic(BD.class);
-			//Opcion 2 con mock al poder poner null
-			Presupuesto res = null;
-			when(BD.presupuestoCodigoSelect(st, "")).thenReturn(res);
-			
-			Response resultado = loginResources.filtrarPresupuestoCodigo("");
-			assertEquals(404, resultado.getStatus());
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Test
 	public void testFiltrarPresupuestoCliente() {
 		try {
 			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
@@ -992,6 +1350,187 @@ public class LoginResourcesTest {
 			
 			Response resultado = loginResources.filtrarPresupuestoCliente("");
 			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarCocheMatriculadoFiltro() {
+		try {
+			Response piezas= loginResources.filtrarCocheMatriculadoFiltro("9600JPT-0");
+		    assertEquals(200, piezas.getStatus());
+		    
+			PowerMockito.mockStatic(BD.class);
+			ResultSet res = null;
+			when(BD.cochesMatriculadosFiltroSelect(st, 0, "9600JPT")).thenReturn(res);
+			
+			Response resultado =  loginResources.filtrarCocheMatriculadoFiltro("9600JPT-0");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarCocheConcesionarioFiltro() {
+		try {
+			Response piezas= loginResources.filtrarCocheConcesionarioFiltro("Seat-0");
+		    assertEquals(200, piezas.getStatus());
+		    
+			PowerMockito.mockStatic(BD.class);
+			ResultSet res = null;
+			when(BD.cochesConcesionarioFiltroSelect(st, "Seat", 0)).thenReturn(res);
+			
+			Response resultado =  loginResources.filtrarCocheMatriculadoFiltro("Seat-0");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarCocheTallerFiltro() {
+		try {
+			Response piezas= loginResources.filtrarCocheTallerFiltro("9600JPT-0");
+		    assertEquals(200, piezas.getStatus());
+		    
+			PowerMockito.mockStatic(BD.class);
+			ResultSet res = null;
+			when(BD.cochesTallerFiltroSelect(st, 0, "9600JPT" )).thenReturn(res);
+			
+			Response resultado =  loginResources.filtrarCocheTallerFiltro("9600JPT-0");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarPresupuestoCodigo() {
+		try {
+			Response piezas= loginResources.filtrarPresupuestoCodigo("PRE1");
+		    assertEquals(200, piezas.getStatus());
+		    
+			PowerMockito.mockStatic(BD.class);
+			ResultSet res = null;
+			when(BD.presupuestosFiltroCodigoSelect(st, "PRE1")).thenReturn(res);
+			
+			Response resultado =  loginResources.filtrarPresupuestoCodigo("PRE1");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test
+	public void testFiltrarPiezaUtilizadasFiltro() {
+		try {
+			Response piezas= loginResources.filtrarPiezaUtilizadasFiltro("P1-2");
+		    assertEquals(200, piezas.getStatus());
+		    
+			PowerMockito.mockStatic(BD.class);
+			ResultSet res = null;
+			when(BD.piezasUtilizadasFiltroSelect(st, 2, "P1")).thenReturn(res);
+			
+			Response resultado =  loginResources.filtrarPiezaUtilizadasFiltro("P1-2");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarComercialModelo() {
+		try {
+			Response piezas= loginResources.filtrarComercialModelo("Jaimito");
+		    assertEquals(200, piezas.getStatus());
+		    
+			PowerMockito.mockStatic(BD.class);
+			ResultSet res = null;
+			when(BD.ventasComercialSelect(st,"Jaimito")).thenReturn(res);
+			
+			Response resultado =  loginResources.filtrarComercialModelo("Jaimito");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarHerramientaMecanicoFiltro() {
+		try {
+			Response piezas= loginResources.filtrarHerramientaMecanicoFiltro("H1-0");
+		    assertEquals(200, piezas.getStatus());
+		    
+			PowerMockito.mockStatic(BD.class);
+			ResultSet res = null;
+			when(BD.herramientasMecanicoFiltroSelect(st,0, "H1")).thenReturn(res);
+			
+			Response resultado =  loginResources.filtrarHerramientaMecanicoFiltro("H1-0");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFiltrarPiezaMecanicoFiltro() {
+		try {
+			Response piezas= loginResources.filtrarPiezaMecanicoFiltro("P1-0");
+		    assertEquals(200, piezas.getStatus());
+		    
+			PowerMockito.mockStatic(BD.class);
+			ResultSet res = null;
+			when(BD.piezaMecanicoFiltroSelect(st,0, "P1")).thenReturn(res);
+			
+			Response resultado =  loginResources.filtrarPiezaMecanicoFiltro("P1-0");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCitasMecanicoFiltrar() {
+		try {
+			Response piezas= loginResources.citasMecanicosFiltrar("Javiertxu;7-5-2020");
+		    assertEquals(200, piezas.getStatus());
+		    
+			PowerMockito.mockStatic(BD.class);
+			ResultSet res = null;
+			when(BD.filtrarCitasMecanicoPorFecha(st,"Javiertxu", "7-5-2020")).thenReturn(res);
+			
+			Response resultado =  loginResources.citasMecanicosFiltrar("Javiertxu;7-5-2020");
+			assertEquals(404, resultado.getStatus());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testUpdateMecanico() {
+		try {
+			PowerMockito.mockStatic(BD.class);
+			when(BD.mecanicoUpdate(st, "Nick", 3)).thenReturn(true);
+			Response resultado =  loginResources.updateMecanico("Nick-3");
+			assertEquals(404, resultado.getStatus());
+		    
+			PowerMockito.mockStatic(BD.class);
+			when(BD.mecanicoUpdate(st, "Nick", 3)).thenReturn(false);
+			Response resultado1 =  loginResources.updateMecanico("Nick-3");
+			assertEquals(200, resultado1.getStatus());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1017,66 +1556,6 @@ public class LoginResourcesTest {
 			e.printStackTrace();
 		}
 	}
-	
-
-	@Test
-	public void testFiltrarHerramientaMecanicoFiltro() {
-		try {
-			Response herramientas= loginResources.filtrarHerramientaMecanicoFiltro("H-1");
-		    assertEquals(200, herramientas.getStatus());
-		    
-
-			PowerMockito.mockStatic(BD.class);
-			ResultSet res2 = null;
-			when(BD.herramientasMecanicoFiltroSelect(st,0,"H-2")).thenReturn(res2);
-		
-			Response resultado2 = loginResources.filtrarHerramientaMecanicoFiltro("H-2");
-			assertEquals(404, resultado2.getStatus());
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-
-	@Test
-	public void testFiltrarPiezaMecanicoFiltro() {
-		try {
-			
-	
-			Response herramientas= loginResources.filtrarPiezaMecanicoFiltro("PI-1");
-		    assertEquals(200, herramientas.getStatus());
-		    
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Test
-	public void testFiltrarPiezaUtilizadasFiltro() {
-		try {
-			PowerMockito.mockStatic(BD.class);
-			ResultSet res1 = BD.piezasUtilizadasFiltroSelect(st,0,"PI-2");
-			when(BD.piezasUtilizadasFiltroSelect(st,0,"PI-2")).thenReturn(res1);
-			Response piezas= loginResources.filtrarPiezaUtilizadasFiltro("PI-1");
-		    assertEquals(404, piezas.getStatus());
-		  
-
-			PowerMockito.mockStatic(BD.class);
-			ResultSet res2 = null;
-			when(BD.piezasUtilizadasFiltroSelect(st,0,"PI-2")).thenReturn(res2);
-		
-			Response resultado2 = loginResources.filtrarPiezaMecanicoFiltro("PI-2");
-			assertEquals(404, resultado2.getStatus());
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-
 	
 	@Test
 	public void testCitasComercialesCargar() {
