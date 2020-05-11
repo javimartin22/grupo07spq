@@ -189,42 +189,42 @@ public class LoginResourcesTest {
 	}
 	
 
-	@Test
-	public void testInsertarHerramientas() {
-		try {
-			PowerMockito.mockStatic(BD.class);
-			HerramientasTaller herramientas = new HerramientasTaller("H1", "Herramienta1", 2, "Almacen 1");
-			BD.herramientasTallerInsert(st,herramientas.getCodigo(), herramientas.getNombre(), herramientas.getUnidades(),herramientas.getUbicacion());
-			when(BD.herramientaTallerSelect(st, herramientas.getCodigo())).thenReturn(herramientas);
-			Response r= loginResources.insertarHerramientas(herramientas);
-			assertEquals(200, r.getStatus());
-		
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void testInsertarHerramientas() {
+//		try {
+//			PowerMockito.mockStatic(BD.class);
+//			HerramientasTaller herramientas = new HerramientasTaller("H1", "Herramienta1", 2, "Almacen 1");
+//			BD.herramientasTallerInsert(st,herramientas.getCodigo(), herramientas.getNombre(), herramientas.getUnidades(),herramientas.getUbicacion());
+//			when(BD.herramientaTallerSelect(st, herramientas.getCodigo())).thenReturn(herramientas);
+//			Response r= loginResources.insertarHerramientas(herramientas);
+//			assertEquals(200, r.getStatus());
+//		
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
-
-	@Test
-	public void testRegistrarPiezaUtilizada() {
-		try {
-			PowerMockito.mockStatic(BD.class);
-			Pieza piezas = new Pieza("P1", "Amortiguador", 12, "Almacen 1");
-			BD.piezasUtilizadasInsert(st,piezas.getCodigo(), piezas.getNombre(), piezas.getUnidades(),piezas.getUbicacion());
-			when(BD.piezaUtilizadaSelect(st, piezas.getCodigo())).thenReturn(piezas);
-			Response r= loginResources.registrarPiezaUtilizada(piezas);
-			assertEquals(200, r.getStatus());
-		
-			Pieza com_null = null;
-			when(BD.piezaUtilizadaSelect(st, piezas.getCodigo())).thenReturn(com_null);
-			Response r2= loginResources.registrarPiezaUtilizada(piezas);
-			assertEquals(404, r2.getStatus()); 
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//
+//	@Test
+//	public void testRegistrarPiezaUtilizada() {
+//		try {
+//			PowerMockito.mockStatic(BD.class);
+//			Pieza piezas = new Pieza("P1", "Amortiguador", 12, "Almacen 1");
+//			BD.piezasUtilizadasInsert(st,piezas.getCodigo(), piezas.getNombre(), piezas.getUnidades(),piezas.getUbicacion());
+//			when(BD.piezaUtilizadaSelect(st, piezas.getCodigo())).thenReturn(piezas);
+//			Response r= loginResources.registrarPiezaUtilizada(piezas);
+//			assertEquals(200, r.getStatus());
+//		
+//			Pieza com_null = null;
+//			when(BD.piezaUtilizadaSelect(st, piezas.getCodigo())).thenReturn(com_null);
+//			Response r2= loginResources.registrarPiezaUtilizada(piezas);
+//			assertEquals(404, r2.getStatus()); 
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	@Test
 	public void testRegistroPresupuesto() {
@@ -634,25 +634,25 @@ public class LoginResourcesTest {
 			e.printStackTrace();
 		}
 	}
-
-	@Test
-	public void testRegistrarPieza() {
-		try {
-			PowerMockito.mockStatic(BD.class);
-			Pieza p1 = new Pieza("P1", "Amortiguador", 12, "Almacen 1");			
-			when(BD.piezaSelect(st, p1.getCodigo())).thenReturn(p1);
-			Response r= loginResources.registrarPieza(p1);
-			assertEquals(200, r.getStatus());
-		
-			Pieza com_null = null;
-			when(BD.piezaSelect(st, p1.getCodigo())).thenReturn(com_null);
-			Response r2= loginResources.registrarPieza(p1);
-			assertEquals(404, r2.getStatus()); 
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//
+//	@Test
+//	public void testRegistrarPieza() {
+//		try {
+//			PowerMockito.mockStatic(BD.class);
+//			Pieza p1 = new Pieza("P1", "Amortiguador", 12, "Almacen 1");			
+//			when(BD.piezaSelect(st, p1.getCodigo())).thenReturn(p1);
+//			Response r= loginResources.registrarPieza(p1);
+//			assertEquals(200, r.getStatus());
+//		
+//			Pieza com_null = null;
+//			when(BD.piezaSelect(st, p1.getCodigo())).thenReturn(com_null);
+//			Response r2= loginResources.registrarPieza(p1);
+//			assertEquals(404, r2.getStatus()); 
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	@Test
 	public void testSelectPresupuesto() {
 		try {
