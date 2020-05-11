@@ -29,31 +29,34 @@ import concesionario.cliente.ventana.departamentoCompras.VentanaMenuDepartamento
 import concesionario.cliente.ventana.gerente.VentanaMenuAdmin;
 import concesionario.cliente.ventana.mecanico.VentanaMenuMecanico;
 
+/**
+* Clase de inicio de Sesion de la aplicacion.
+*/
 public class VentanaLogin extends JFrame {
-
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textNombreUsuario;
 	private JPasswordField textContrasenya;
 	private JButton buttonAceptar;
 	
+	/**
+	 * Controlador para la clase Login.
+	 */
 	private LoginController loginController;
 	
-
 	/**
-	 * Launch the application.
+	 * Constructor de la clase Login. 
+	 * @param loginController (Controlador de la ventana Login)
 	 */
-	
-	/**
-	 * Create the frame.
-	 */
-	
 	public VentanaLogin(LoginController loginController) {
 		this.loginController = loginController;   //errores
 		initVentanaLogin();
 	}
 	
-	
+	/**
+	 * Create the frame.
+	 */
 	private void initVentanaLogin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -113,44 +116,59 @@ public class VentanaLogin extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String email = textNombreUsuario.getText();
 				String password = textContrasenya.getText();
-				
 				login(email, password);
-											
 			}
 
 		}); 
 	}
 	
+	/**
+	 * Metodo para obtener el nickname del usuario. 
+	 * @return JTextField
+	 */
 	public JTextField getTextNombreUsuario() {
 		return textNombreUsuario;
 	}
-
+	
+	/**
+	 * Metodo para modificar el nickname del usuario. 
+	 * @param textNombreUsuario (JTextFiled - Nombre de usuario)
+	 */
 	public void setTextNombreUsuario(JTextField textNombreUsuario) {
 		this.textNombreUsuario = textNombreUsuario;
 	}
 
+	/**
+	 * Metodo para obtener la contrasenia del usuario. 
+	 * @return JPasswordField
+	 */
 	public JPasswordField getTextContrasenya() {
 		return textContrasenya;
 	}
-
+	
+	/**
+	 * Metodo para modificar la contrasenia del usuario. 
+	 * @param textContrasenya (JPassworField - Nombre de usuario)
+	 */
 	public void setTextContrasenya(JPasswordField textContrasenya) {
 		this.textContrasenya = textContrasenya;
 	}
 
-	public JButton getButtonAceptar() {
-		return buttonAceptar;
-	}
-
-	public void setButtonAceptar(JButton buttonAceptar) {
-		this.buttonAceptar = buttonAceptar;
-	}
-
-	
+	/**
+	 * Metodo para vaciar el nickname (JTextFiled) y la contrasenia (JPasswordFiled). 
+	 */
 	public void vaciarCampos(){
 		textNombreUsuario.setText("");
 		textContrasenya.setText("");
 	}
 	
+	/**
+	* Metodo para el inicio de sesion, en caso de que el usuario sea de tipo 0, iniciara sesion en modo Gerente, en caso de que sea de tipo 1 iniciara sesion en modo mecanico, 
+	* si es tipo 2 en Comercial , en caso de ser de tipo 3 en modo usuario (cliente) y por ultimo en caso de ser tipo 4 en modo Departamento de Compras. En caso de que el tipo
+	*  sea 5 o 6 eso sera ya que ese usuario no existe o los datos son incorrectos.
+	*  @param nickname (nombre de usuario) 
+	*  @param password (contrasenia de usuario) 
+	*/
 	public void login(String nickname, String password) {
 		MecanicoController controller = new MecanicoController(loginController.getClienteApp());
 		ClienteController clienteController = new ClienteController(loginController.getClienteApp());
