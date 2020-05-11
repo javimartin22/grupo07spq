@@ -9,14 +9,28 @@ import concesionario.datos.Usuario;
 public class LoginController {
 	public ClienteApp cliente;
 
+	/**
+	 * Constructor de la clase LoginController
+	 * @param cliente ClienteApp
+	 */
 	public LoginController(ClienteApp cliente) {
 		this.cliente = cliente;
 	}
-
+	
+	/**
+	 * Metodo para inicializar el ClienteApp
+	 * @return clienteApp ClienteApp
+	 */
 	public ClienteApp getClienteApp() {
 		return this.cliente;
 	}
 	
+	/**
+	 * Metodo para el Inciar Sesion. 
+	 * @param email Email del Usuario
+	 * @param password Contrasenia del Usuario
+	 * @return tipo Devuelve el tipo de inicio de sesion que debe realizar
+	 */
 	public int login(String email, String password) {
 		Usuario usu = new Usuario(email,password,0);
 		Response response = cliente.login(usu); //estoy aqui
@@ -32,8 +46,3 @@ public class LoginController {
 		
 	}
 }
-
-
-//Controller controller = new Controller(loginController.getClienteApp());
-//
-// }
