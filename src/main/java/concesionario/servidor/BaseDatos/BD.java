@@ -22,6 +22,7 @@ import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
 import concesionario.datos.Proveedor;
+import concesionario.datos.SolicitudCompra;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
@@ -83,6 +84,8 @@ public class BD {
 	private static final String COLUMNAS_TABLA_HORAS_EMPLEADO = "(nickname string PRIMARY KEY, horas int, minutos int)";
 	private static final String TABLA_HORAS_EMPLEADO_TEMPORAL = "HorasEmpleadoTemporal"; 
 	private static final String COLUMNAS_TABLA_HORAS_EMPLEADO_TEMPORAL = "(nickname string PRIMARY KEY, horas int, minutos int)";
+	private static final String TABLA_SOLICITUD_COMPRA = "SolicitudCompra"; 
+	private static final String COLUMNAS_TABLA_SOLICITUD_COMPRA = "(codigo string PRIMARY KEY, nombre string,tipo string, unidades int)";
 			
 	/**
 	 * Inicializa una BD SQLITE y devuelve una conexion con ella
@@ -157,6 +160,8 @@ public class BD {
 				statement.executeUpdate("create table " + TABLA_HERRAMIENTAS_TALLER + COLUMNAS_TABLA_HERRAMIENTAS_TALLER);
 				statement.executeUpdate("create table " + TABLA_HORAS_EMPLEADO + COLUMNAS_TABLA_HORAS_EMPLEADO);
 				statement.executeUpdate("create table " + TABLA_HORAS_EMPLEADO_TEMPORAL + COLUMNAS_TABLA_HORAS_EMPLEADO_TEMPORAL);
+				statement.executeUpdate("create table " + TABLA_SOLICITUD_COMPRA + COLUMNAS_TABLA_SOLICITUD_COMPRA);
+
 			} catch (SQLException e) {
 			} // Tabla ya existe. Nada que hacer
 			return statement;
@@ -202,6 +207,8 @@ public class BD {
 			statement.executeUpdate("drop table if exists " + TABLA_HERRAMIENTAS_TALLER);
 			statement.executeUpdate("drop table if exists " + TABLA_HORAS_EMPLEADO);
 			statement.executeUpdate("drop table if exists " + TABLA_HORAS_EMPLEADO_TEMPORAL);
+			statement.executeUpdate("drop table if exists " + TABLA_SOLICITUD_COMPRA);
+
 			return usarCrearTablasBD(con);
 		} catch (SQLException e) {
 			lastError = e;
@@ -239,6 +246,23 @@ public class BD {
 //METODOS INSERT TODOS:	
 	
 	//proveedores
+	
+	public static boolean solicitudInsert(Statement st, String codigo ,String nombre, String tipo, int unidades) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into " + TABLA_SOLICITUD_COMPRA + " values ('" + secu(codigo)+ "', '" + nombre  + "', '" + tipo + "', '" + unidades +"')";
+			int val = st.executeUpdate(sentSQL);
+			if (val != 1) { // Se tiene que anyadir 1 - error si no
+				return false;
+			}
+			return true;
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 
 	public static boolean herramientasInsert(Statement st, String codigo, String nombre, String tipo, String tiempo, String codProveedor) {
 		String sentSQL = "";
@@ -739,6 +763,45 @@ public class BD {
 		return rs;
 	}
 	
+
+	public static SolicitudCompra solicitudSelect(Statement st, String tipo) {
+		String sentSQL = "";
+		SolicitudCompra sc = null;
+		try {
+			sentSQL = "select * from " + TABLA_SOLICITUD_COMPRA + " where tipo= '" + tipo + "' ";
+			ResultSet rs = st.executeQuery(sentSQL);
+			if (rs.next()) {	
+				
+				String cod = rs.getString("codigo");
+				String tipoSol = rs.getString("tipo");
+				String nombre = rs.getString("nombre");
+				int unidades = rs.getInt("unidades");
+			
+				sc = new SolicitudCompra(cod,tipoSol, nombre, unidades);
+			}
+			
+		} catch (Exception e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+		return sc;
+	}
+	
+	public static ResultSet solicitudTodasSelect(Statement st) {
+		String sentSQL = "";
+		ResultSet rs = null;
+		try {
+			sentSQL = "select * from " + TABLA_SOLICITUD_COMPRA;
+			rs = st.executeQuery(sentSQL);		
+			
+		} catch (Exception e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+		return rs;
+	}	
+	
+
 	public static Proveedor proveedorSelect(Statement st, String cod) {
 		String sentSQL = "";
 		Proveedor pr = null;
@@ -2015,6 +2078,20 @@ public class BD {
 		String sentSQL = "";
 		try {
 			sentSQL = "delete from " + TABLA_VENTAS + " where codigoVenta= '" + secu(codigoVenta) + "'";
+			int val = st.executeUpdate(sentSQL);
+			return (val == 1);
+		} catch (SQLException e) {
+			lastError = e;
+			e.printStackTrace();
+			return false;
+		}	
+	}
+	
+
+	public static boolean solicitudCompraDelete(Statement st, String cod) {
+		String sentSQL = "";
+		try {
+			sentSQL = "delete from " + TABLA_SOLICITUD_COMPRA + " where codigo= '" + secu(cod) + "'";
 			int val = st.executeUpdate(sentSQL);
 			return (val == 1);
 		} catch (SQLException e) {
