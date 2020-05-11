@@ -36,70 +36,70 @@ public class CitaComercial {
 	
 	/**
 	 * Metodo para la obtencion del nombre.
-	 * @return String (Nombre)
+	 * @return nombre (Nombre del Cliente)
 	 */
 	public String getNombre() {
 		return nombre;
 	}
 	/**
 	 * Metodo para la modificacion del nombre.
-	 * @param String (Nombre)
+	 * @param nombre (Nombre del Cliente)
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 	/**
 	 * Metodo para la obtencion del DNI.
-	 * @return String (DNI)
+	 * @return dni (DNI del Cliente)
 	 */
 	public String getDniCliente() {
 		return dniCliente;
 	}
 	/**
 	 * Metodo para la modificacion del DNI.
-	 * @param String (DNI)
+	 * @param dniCliente (DNI del Cliente)
 	 */
 	public void setDniCliente(String dniCliente) {
 		this.dniCliente = dniCliente;
 	}
 	/**
 	 * Metodo para la obtencion de la Fecha.
-	 * @return String (Fecha)
+	 * @return fecha (Fecha Seleccionada)
 	 */
 	public String getFecha() {
 		return fecha;
 	}
 	/**
 	 * Metodo para la modificacion de la Fecha.
-	 * @param String (Fecha)
+	 * @param fecha (Fecha Seleccionada)
 	 */
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 	/**
 	 * Metodo para la obtencion de la Hora.
-	 * @return String (Hora)
+	 * @return hora (Hora Seleccionada)
 	 */
 	public String getHora() {
 		return hora;
 	}
 	/**
 	 * Metodo para la modificacion de la Hora.
-	 * @param String (Hora)
+	 * @param hora (Hora Seleccionada)
 	 */
 	public void setHora(String hora) {
 		this.hora = hora;
 	}
 	/**
 	 * Metodo para la obtencion del Nombre del Comercial.
-	 * @return String (Nombre Comercial)
+	 * @return comercial (Nombre Comercial)
 	 */
 	public String getComercial() {
 		return comercial;
 	}
 	/**
 	 * Metodo para la modificacion del Nombre del Comercial.
-	 * @param String (Nombre Comercial)
+	 * @param comercial (Nombre Comercial)
 	 */
 	public void setComercial(String comercial) {
 		this.comercial = comercial;

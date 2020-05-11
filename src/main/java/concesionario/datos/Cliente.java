@@ -57,126 +57,126 @@ public class Cliente extends Usuario{
 	
 	/**
 	 * Metodo para obtencion del nombre del Cliente.
-	 * @return String (Nombre Cliente)
+	 * @return Nombre (Nombre Cliente)
 	 */
 	public String getNombre() {
 		return Nombre;
 	}
 	/**
 	 * Metodo para obtencion del DNI del Cliente.
-	 * @return String (DNI Cliente)
+	 * @return DNI (DNI Cliente)
 	 */
 	public String getDNI() {
 		return DNI;
 	}
 	/**
 	 * Metodo para la modificacion del DNI del Cliente.
-	 * @param dNI
+	 * @param dNI (DNI del Cliente)
 	 */
 	public void setDNI(String dNI) {
 		DNI = dNI;
 	}
 	/**
 	 * Metodo para la modificacion del Nombre del Cliente.
-	 * @param nombre
+	 * @param nombre (Nombre Cliente)
 	 */
 	public void setNombre(String nombre) {
 		Nombre = nombre;
 	}
 	/**
 	 * Metodo para obtencion del Apellido del Cliente.
-	 * @return String (Apellido Cliente)
+	 * @return Apellido (Apellido Cliente)
 	 */
 	public String getApellido() {
 		return Apellido;
 	}
 	/**
 	 * Metodo para la modificacion del Apellido del Cliente.
-	 * @param apellido
+	 * @param apellido (Apellido Cliente)
 	 */
 	public void setApellido(String apellido) {
 		Apellido = apellido;
 	}
 	/**
 	 * Metodo para obtencion del Apellido del Cliente.
-	 * @return String (Email Cliente)
+	 * @return Email (Email Cliente)
 	 */
 	public String getEmail() {
 		return Email;
 	}
 	/**
 	 * Metodo para la modificacion del Email del Cliente.
-	 * @param email
+	 * @param email (Email Cliente)
 	 */
 	public void setEmail(String email) {
 		Email = email;
 	}
 	/**
 	 * Metodo para obtencion Sexo DNI del Cliente.
-	 * @return String (Sexo Cliente)
+	 * @return Sexo (Sexo Cliente)
 	 */
 	public String getSexo() {
 		return Sexo;
 	}
 	/**
 	 * Metodo para la modificacion del Sexo del Cliente.
-	 * @param sexo
+	 * @param sexo (Sexo Cliente)
 	 */
 	public void setSexo(String sexo) {
 		Sexo = sexo;
 	}
 	/**
 	 * Metodo para obtencion de la Ciudad del Cliente.
-	 * @return String (Ciudad Cliente)
+	 * @return Ciudad (Ciudad Cliente)
 	 */
 	public String getCiudad() {
 		return Ciudad;
 	}
 	/**
 	 * Metodo para la modificacion de la Ciudad del Cliente.
-	 * @param ciudad
+	 * @param ciudad (Ciudad Cliente)
 	 */
 	public void setCiudad(String ciudad) {
 		Ciudad = ciudad;
 	}
 	/**
 	 * Metodo para obtencion del CodigoPostal del Cliente.
-	 * @return Int (CodigoPostal Cliente)
+	 * @return CodigoPostal (CodigoPostal Cliente)
 	 */
 	public int getCodigoPostal() {
 		return CodigoPostal;
 	}
 	/**
 	 * Metodo para la modificacion del CodigoPostal del Cliente.
-	 * @param codigoPostal
+	 * @param codigoPostal (CodigoPostal Cliente)
 	 */
 	public void setCodigoPostal(int codigoPostal) {
 		CodigoPostal = codigoPostal;
 	}
 	/**
 	 * Metodo para obtencion del Direccion del Cliente.
-	 * @return String (Direccion Cliente)
+	 * @return Direccion (Direccion Cliente)
 	 */
 	public String getDireccion() {
 		return Direccion;
 	}
 	/**
 	 * Metodo para la modificacion de la Direccion del Cliente.
-	 * @param direccion
+	 * @param direccion (Direccion Cliente)
 	 */
 	public void setDireccion(String direccion) {
 		Direccion = direccion;
 	}
 	/**
 	 * Metodo para obtencion del Telefono del Cliente.
-	 * @return String (Telefono Cliente)
+	 * @return numeroTelefono (Telefono Cliente)
 	 */
 	public String getNumeroTelefono() {
 		return numeroTelefono;
 	}
 	/**
 	 * Metodo para la modificacion del Telefono del Cliente.
-	 * @param telefono
+	 * @param telefono (Telefono Cliente)
 	 */
 	public void setNumeroTelefono(String numeroTelefono) {
 		this.numeroTelefono = numeroTelefono;
