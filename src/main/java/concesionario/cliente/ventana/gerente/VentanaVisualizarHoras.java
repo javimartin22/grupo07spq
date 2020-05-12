@@ -1,6 +1,5 @@
 package concesionario.cliente.ventana.gerente;
 
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -20,8 +19,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JCheckBoxMenuItem;
 
+/**
+ * VentanaVisualizarHoras (Ventana para la visualizacion de las horas que realizan los empleados).
+ */
 public class VentanaVisualizarHoras extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -29,11 +30,20 @@ public class VentanaVisualizarHoras extends JFrame {
 	private JTable table;
 	private GerenteController gerenteController;
 
+	/**
+	 * Constructor de la Clase VentanaVisualizarHoras.
+	 * @param gerenteController (Controlador de las ventanas de Gerente
+	 * @param nickname (Nickname del Gerente)
+	 */
 	public VentanaVisualizarHoras(GerenteController gerenteController, String nickname) {
 		this.gerenteController = gerenteController;
 		ventanaVisualizarHoras(nickname);
 	}
 	
+	/**
+	 * Create the frame.
+	 * @param nickname (Nickname del Gerente)
+	 */
 	public void ventanaVisualizarHoras(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 608, 409);
@@ -117,6 +127,11 @@ public class VentanaVisualizarHoras extends JFrame {
 		contentPane.add(btnNewButton_1);
 	}
 	
+	/**
+	 * Metodo para cargar las horas filtrado por los tipos de empleados.
+	 * @param table (Tabla de la ventana)
+	 * @param tipo (Tipo de empleado)
+	 */
 	public void cargarTablaHoras(JTable table, int tipo) {
 		List<EmpleadoHoras> empleados = gerenteController.cargarEmpleadoHoras(tipo);
 		
@@ -140,6 +155,10 @@ public class VentanaVisualizarHoras extends JFrame {
 		}
 	}
 	
+	/**
+	 * Metodo para cargar la tabla con todas las horas.
+	 * @param table (Tabla de la ventana)
+	 */
 	public void cargarTablaHorasTodos(JTable table) {
 		List<EmpleadoHoras> empleadosComercial = gerenteController.cargarEmpleadoHoras(0);
 		
@@ -178,6 +197,12 @@ public class VentanaVisualizarHoras extends JFrame {
 		}
 	}
 	
+	/**
+	 * Metodo para cargar la tabla con los filtros indicados.
+	 * @param table (Tabla de la ventana)
+	 * @param tipo (Tipo de filtrado que se va a hacer)
+	 * @param horas (Hora con la que se va a realizar el filtrado)
+	 */
 	public void cargarTablaHorasTodosFiltroHoras(JTable table, int tipo, int horas) {
 		List<EmpleadoHoras> empleadosComercial = gerenteController.cargarEmpleadoHoras(0);
 		
