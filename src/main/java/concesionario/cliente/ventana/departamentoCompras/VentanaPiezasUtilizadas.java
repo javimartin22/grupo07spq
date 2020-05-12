@@ -101,7 +101,7 @@ public class VentanaPiezasUtilizadas extends JFrame {
 				dispose();
 			}
 		});
-		btnRegresar.setBounds(16, 267, 117, 29);
+		btnRegresar.setBounds(151, 267, 117, 29);
 		contentPane.add(btnRegresar);
 		
 		JButton btnCargarPiezas = new JButton("Cargar Todas");
@@ -110,7 +110,7 @@ public class VentanaPiezasUtilizadas extends JFrame {
 				cargarTabla(tabla);
 			}
 		});
-		btnCargarPiezas.setBounds(145, 267, 117, 29);
+		btnCargarPiezas.setBounds(278, 267, 117, 29);
 		contentPane.add(btnCargarPiezas);
 		
 		JButton btnNewButton = new JButton("Añadir Unidades");
@@ -135,7 +135,7 @@ public class VentanaPiezasUtilizadas extends JFrame {
 				cargarTablaUtilizadas(tabla);
 			}
 		});
-		btnNewButton_1.setBounds(274, 267, 143, 29);
+		btnNewButton_1.setBounds(405, 266, 143, 29);
 		contentPane.add(btnNewButton_1);
 	}
 	
