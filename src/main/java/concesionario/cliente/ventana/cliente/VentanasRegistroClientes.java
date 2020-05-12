@@ -155,7 +155,7 @@ public class VentanasRegistroClientes extends JFrame {
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Hombre", "Mujer", "Otro"}));
-		comboBox.setBounds(159, 123, 117, 27);
+		comboBox.setBounds(159, 122, 117, 27);
 		contentPane.add(comboBox);
 		
 		JButton btnRegistrar = new JButton("Registrar");
