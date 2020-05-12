@@ -20,7 +20,9 @@ import org.slf4j.LoggerFactory;
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Tarifa;
 
-
+/**
+* Clase para el registro de tarifas
+*/
 public class VentanaRegistroTarifa extends JFrame {
 
 	/**
@@ -31,10 +33,17 @@ public class VentanaRegistroTarifa extends JFrame {
 	private JTextField textFieldNombre;
 	private JTextField textFieldPrecioAprox;
 	private JTextField textFieldHorasManoObra;
+	/**
+	 * Controlador para la clase Gerente.
+	 */
 	private GerenteController gerenteController;
+	
 	final Logger logger = LoggerFactory.getLogger(VentanaRegistroTarifa.class);
 	static int iteration = 0;
-
+	/**
+	 * Constructor de la clase RegistroTarifa 
+	 * @param gerenteController (Controlador de la ventana Gerente)
+	 */
 	public VentanaRegistroTarifa(GerenteController gerenteController, String nickname) {
 		this.gerenteController = gerenteController;
 		iniciarVentanaRegistroTarifa(nickname);
@@ -46,7 +55,10 @@ public class VentanaRegistroTarifa extends JFrame {
 				+ ", textFieldPrecioAprox=" + textFieldPrecioAprox + ", textFieldHorasManoObra="
 				+ textFieldHorasManoObra + ", gerenteController=" + gerenteController + "]";
 	}
-
+	/**
+	 * Inicializador de la ventana RegistroTarifa
+	 * @param nickname (Nickname del Gerente)
+	 */
 	public void iniciarVentanaRegistroTarifa(String nickname) {
 		setResizable(false);
 		setTitle("Registrar Nueva Tarifa");
@@ -124,7 +136,9 @@ public class VentanaRegistroTarifa extends JFrame {
 		btnRegistrar.setBounds(281, 188, 117, 29);
 		contentPane.add(btnRegistrar);
 	}
-	
+	/**
+	 * Metodo para comprobar que los campos no esten vacios
+	 */
 	public boolean comprobarDatos() {
 		boolean datos = false;
 		if (!textFieldNombre.getText().isEmpty() && !textFieldPrecioAprox.getText().isEmpty() && !textFieldHorasManoObra.getText().isEmpty()) {
@@ -133,13 +147,19 @@ public class VentanaRegistroTarifa extends JFrame {
 		return datos;
 	}
 	
-	
+	/**
+	 * Metodo para vaciar campos
+	 */
 	public void vaciarCampos() {
 		textFieldNombre.setText("");
 		textFieldPrecioAprox.setText("");
 		textFieldHorasManoObra.setText("");
 	}
-	
+	/**
+	 * Metodo para registrar una tarifa
+	 * @param tarifa (Tarifa a registrar)
+	 * @param nickname (Nickname del Gerente)
+	 */
 	public void registrarTarifa(Tarifa tarifa, String nickname){
 		if (gerenteController.registroTarifa(tarifa)) {
 			logger.info("Tarifa registrada correctamente.");
@@ -163,7 +183,9 @@ public class VentanaRegistroTarifa extends JFrame {
 			logger.error("Las tarifas no llegan correctamente.");
 		}
 	}
-	
+	/**
+	 * Metodo para generar los identificadores de las tarifas
+	 */
 	public String crearID () {
 		List<Tarifa> tarifas = gerenteController.cargarTablaTarifas();
 		int numero = tarifas.size() + 1;
