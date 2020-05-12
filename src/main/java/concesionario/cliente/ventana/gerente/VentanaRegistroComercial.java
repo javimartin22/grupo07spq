@@ -21,11 +21,11 @@ import concesionario.datos.Comercial;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPasswordField;
 
+/**
+ * VentanaRegistroComercial (Ventana para el registro del Comercial).
+ */
 public class VentanaRegistroComercial extends JFrame {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldDNI;
@@ -45,11 +45,20 @@ public class VentanaRegistroComercial extends JFrame {
 	final Logger logger = LoggerFactory.getLogger(VentanaRegistroComercial.class);
 	static int iteration = 0;
 
+	/**
+	 * Constructor de la VentanaRegistroComercial.
+	 * @param gerenteController (Controlador de las Ventanas de Gerente)
+	 * @param nickname (Nickname del Comercial)
+	 */
 	public VentanaRegistroComercial(GerenteController gerenteController, String nickname) {
 		this.gerenteController = gerenteController;
 		inicioVentanaRegistroComercial(nickname);
 	}
 	
+	/**
+	 * Inicializar el JFrame de la VentanaRegistroComercial
+	 * @param nickname (Nickname del Comercial)
+	 */
 	public void inicioVentanaRegistroComercial(String nickname) {
 		setResizable(false);
 		setTitle("Registro Comercial");
@@ -233,6 +242,10 @@ public class VentanaRegistroComercial extends JFrame {
 		contentPane.add(btnRegistrar);
 	}
 	
+	/**
+	 * Metodo para comprobar que todos los datos introducidos sean correctos.
+	 * @return datos (Boolean que dice si son correctos o no)
+	 */
 	public boolean comprobarDatos() {
 		boolean datos = false;
 		if (!textFieldDNI.getText().isEmpty() && !textFieldNombre.getText().isEmpty() && !textFieldApellido.getText().isEmpty() && !textFieldNick.getText().isEmpty() && !textFieldEmail.getText().isEmpty() && !textFieldCiudad.getText().isEmpty() && !textFieldCP.getText().isEmpty() && !textFieldDireccion.getText().isEmpty() && !textFieldTelefono.getText().isEmpty() && !textFieldCuenta.getText().isEmpty() && !textFieldNSS.getText().isEmpty() && !textFieldSueldo.getText().isEmpty()) {
@@ -257,9 +270,12 @@ public class VentanaRegistroComercial extends JFrame {
 		
 		return datos;
 	}
-	
-	
-	
+
+	/**
+	 * Metodo para el registro de nuevos Mecanicos
+	 * @param mecanic (Objeto Mecanico)
+	 * @param nickname (Nickname del Mecanico)
+	 */
 	public void registrarComercial(Comercial comercial, String nickname){
 		if (gerenteController.registroComercial(comercial)) {
 			logger.info("Comercial registrado.");
@@ -284,6 +300,9 @@ public class VentanaRegistroComercial extends JFrame {
 		}
 	}
 	
+	/**
+	 * Metodo para vaciar los TextField de la Ventana.
+	 */
 	public void vaciarCampos() {
 		textFieldApellido.setText("");
 		textFieldCiudad.setText("");
