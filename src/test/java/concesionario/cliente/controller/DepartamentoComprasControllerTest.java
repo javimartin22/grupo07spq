@@ -25,6 +25,7 @@ import concesionario.datos.Pieza;
 import concesionario.datos.PiezaProveedores;
 import concesionario.datos.Proveedor;
 import concesionario.datos.ProveedorHerramientas;
+import concesionario.datos.SolicitudCompra;
 
 @RunWith(MockitoJUnitRunner.Silent.class) 
 public class DepartamentoComprasControllerTest {
@@ -281,6 +282,22 @@ public class DepartamentoComprasControllerTest {
 	}
 	
 	@Test 
+	public void testCargarSolicitud() {
+		List<SolicitudCompra> solicitud= new ArrayList<SolicitudCompra>();
+		solicitud.add(new SolicitudCompra("S1","Barrita","Herramientas",3));
+		solicitud.add(new SolicitudCompra("S2","Amortiguador","Piezas",3));
+	
+		
+		
+		Mockito.when(clienteApp.cargarTablaSolicitudCompra()).thenAnswer(x ->solicitud);
+		List<SolicitudCompra> solicitudSelect = departamentoComprasController.cargarSolicitud();
+		
+		for(int i=0; i<solicitud.size(); i++) {
+			assertTrue(solicitudSelect.get(i).getNombre().equals(solicitud.get(i).getNombre()));
+		}
+	}
+	
+	@Test 
 	public void testCarlcularCodigo() {
 		List<Pieza> piezas = new ArrayList<Pieza>();
 		Pieza p1 = new Pieza("PI-1", "Amortiguador", 5, "Almacen 1");
@@ -304,5 +321,20 @@ public class DepartamentoComprasControllerTest {
 		String piezaSelect = departamentoComprasController.calcularCodigoHerramienta(herramientas);
 		assertTrue(piezaSelect.equals("H3"));
 		
+	}
+	
+	@Test
+	public void testDeleteSolicitud() {
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(clienteApp.SolicitudCompraDelete(any(String.class))).thenReturn(response);
+		
+		assertTrue(departamentoComprasController.deleteSolicitud("S1") == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		when(clienteApp.SolicitudCompraDelete(any(String.class))).thenReturn(response1);
+		
+		assertTrue(departamentoComprasController.deleteSolicitud("S1") == false);
 	}
 }

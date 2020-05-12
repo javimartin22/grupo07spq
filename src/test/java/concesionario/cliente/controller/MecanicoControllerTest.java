@@ -25,9 +25,11 @@ import concesionario.datos.Cliente;
 import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.CocheMatriculado;
 import concesionario.datos.CocheTaller;
+import concesionario.datos.Herramientas;
 import concesionario.datos.HerramientasTaller;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
+import concesionario.datos.SolicitudCompra;
 
 @RunWith(MockitoJUnitRunner.Silent.class) 
 public class MecanicoControllerTest {
@@ -92,7 +94,23 @@ public class MecanicoControllerTest {
 			assertTrue(piezas_result.get(i).getNombre().equals(herramientas.get(i).getNombre()));
 		}
 	}
-	
+	@Test
+	public void testCargarListaHerramientas() {
+
+		List<Herramientas> herramientas = new ArrayList<Herramientas>();
+		Herramientas h1 = new Herramientas("H3", "Presion aceite", 4, "Alamacen 1 - Estanteria 3","Oscaro");
+		Herramientas h2 = new Herramientas("H4", "Saca grapas", 3, "Alamacen 2 - Estanteria 1","Iberisa");
+		herramientas.add(h1);
+		herramientas.add(h2);
+		
+		
+		Mockito.when(cliente.cargarListaHerramientas()).thenAnswer(x ->herramientas);
+		List<Herramientas> herramientas_result = mecanicoController.cargarListaHerramientas();
+		
+		for(int i=0; i<herramientas.size(); i++) {
+			assertTrue(herramientas_result.get(i).getNombre().equals(herramientas.get(i).getNombre()));
+		}
+	}
 	@Test
 	public void testCargarPiezasUtilizadas() {
 		List<Pieza> piezas = new ArrayList<Pieza>();
@@ -170,7 +188,21 @@ public class MecanicoControllerTest {
 		
 		assertTrue(mecanicoController.registroPresupuesto(p)== false);
 	}
-	
+	@Test
+	public void testRegistroSolicitud() {
+		SolicitudCompra solicitud =  new SolicitudCompra("","","",3);
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(cliente.registroSolicitud(any(SolicitudCompra.class))).thenReturn(response);
+		
+		assertTrue(mecanicoController.registroSolicitud(solicitud)== true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		when(cliente.registroSolicitud(any(SolicitudCompra.class))).thenReturn(response1);
+		
+		assertTrue(mecanicoController.registroSolicitud(solicitud)== false);
+	}
 	@Test
 	public void testSeleccionarCocheTaller() {
 		CocheTaller coche = new CocheTaller("2544KLB", "Honda", "Civic", "Andres", "79076345T", 1300, 0);
@@ -443,6 +475,20 @@ public class MecanicoControllerTest {
 	}
 	
 	@Test 
+	public void testCargarSolicitud() {
+		List<SolicitudCompra> solicitud= new ArrayList<SolicitudCompra>();
+		solicitud.add(new SolicitudCompra("S1","Barrita","Herramientas",3));
+		solicitud.add(new SolicitudCompra("S2","Amortiguador","Piezas",3));
+		
+		Mockito.when(cliente.cargarTablaSolicitudCompra()).thenAnswer(x ->solicitud);
+		List<SolicitudCompra> sol = mecanicoController.cargarSolicitud();
+		
+		for(int i=0; i<solicitud.size(); i++) {
+			assertTrue(sol.get(i).getCodigo().equals(solicitud.get(i).getCodigo()));
+		}
+	}
+	
+	@Test 
 	public void testCargarClienteFidelidad() {
 		List<ClienteFidelidad> clientes= new ArrayList<ClienteFidelidad>();
 		clientes.add(new ClienteFidelidad("dni", 1));
@@ -528,5 +574,18 @@ public class MecanicoControllerTest {
 		
 		assertTrue(mecanicoController.deleteCitaMecanico("nickname") == false);
 	}
+	
+	@Test 
+	public void testCalcularCodigoSolicitud() {
+		List<SolicitudCompra> solicitud= new ArrayList<SolicitudCompra>();
+		solicitud.add(new SolicitudCompra("S1","Barrita","Herramientas",3));
+		solicitud.add(new SolicitudCompra("S2","Amortiguador","Piezas",3));
+	
+		
+		String solicitudSelect = mecanicoController.calcularCodigoSolicitud(solicitud);
+		assertTrue(solicitudSelect.equals("S3"));
+		
+	}
+	
 }
 	
