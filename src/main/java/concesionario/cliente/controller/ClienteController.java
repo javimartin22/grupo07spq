@@ -19,15 +19,26 @@ import concesionario.datos.Tarifa;
 public class ClienteController {
 
 	private ClienteApp cliente;
-
+	/**
+	 * Constructor de la clase ClienteController
+	 * @param cliente ClienteApp
+	 */
 	public ClienteController(ClienteApp clienteApp) {
 		this.cliente = clienteApp;
 	}
-	
+	/**
+	 * Metodo para inicializar el ClienteApp
+	 * @return clienteApp ClienteApp
+	 */
 	public ClienteApp getClienteApp() {
 		return this.cliente;
 	}
-	
+	/**
+	 * Metodo para cambiar contrasena del cliente
+	 * @param cliente Objeto cliente al que se desea cambiar la contrasena
+	 * @param contrasenia Contrasena nueva
+	 * @return boolean Devuelve true si el proceso fue exitoso, false si no fue posible
+	 */
 	public boolean cambiarContraseniaCliente(Cliente client, String contrasenia) {
 		Response response = cliente.cambiarContraseniaCliente(client, contrasenia);
 		if (response.getStatus() == Status.OK.getStatusCode()) {
@@ -36,7 +47,12 @@ public class ClienteController {
 			return false;
 		}
 	}
-	
+	/**
+	 * Metodo para cambiar nickname del cliente.
+	 * @param cliente Objeto cliente al que se desea cambiar el nickname
+	 * @param nickname Nickname nuevo
+	 * @return boolean Devuelve true si el proceso fue exitoso, false si no fue posible
+	 */
 	public boolean cambiarNicknameCliente(Cliente client, String nickname) {
 		Response response = cliente.cambiarNicknameCliente(client, nickname);
 		if (response.getStatus() == Status.OK.getStatusCode()) {
@@ -45,7 +61,11 @@ public class ClienteController {
 			return false;
 		}
 	}
-	
+	/**
+	 * Metodo que devuelve un objeto tipo Cliente a partir de su nickname
+	 * @param nickname Nickname del cliente
+	 * @return Cliente Objeto Cliente con el nickname suministrado
+	 */
 	public Cliente seleccionarCliente(String nickname) {
 		Response response = cliente.clienteSelect(nickname);
 		if (response.getStatus() == Status.OK.getStatusCode()) {
@@ -54,7 +74,11 @@ public class ClienteController {
 			return null;
 		}
 	}
-	
+	/**
+	 * Metodo que comprueba si existe una cita comercial con una restriccion 
+	 * @param restriccion Filtro para obtener citas de una fecha o con un determinado comercial
+	 * @return boolean Devuelve true si existe una cita con los parámetros indicados, false si no existe ninguna
+	 */
 	public boolean comprobarCitaComercial(String restriccion) {
 		Response response = cliente.seleccionarCitaComercial(restriccion);
 		if (response.getStatus() == Status.OK.getStatusCode()) {
@@ -63,11 +87,18 @@ public class ClienteController {
 			return true;
 		}
 	}
-	
+	/**
+	 * Metodo que carga la oferta de coches que hay en el concesionario 
+	 * @return List<CocheConcesionario> Lista de tipo CocheConcesionario
+	 */
 	public List<CocheConcesionario> cargarTablaCochesConcesionario() {
 		return cliente.cargarTablaCochesConcesionario();
 	}
-	
+	/**
+	 * Metodo que obtiene un coche determinado a partir del modelo suministrado 
+	 * @param modelo Nombre del modelo del coche a obtener
+	 * @return CocheConcesionario Objeto tipo CocheConcesionario
+	 */
 	public CocheConcesionario seleccionarCocheConcesionario(String modelo) {
 		Response response = cliente.seleccionarCocheConcesionario(modelo);
 		if (response.getStatus() == Status.OK.getStatusCode()) {
@@ -76,7 +107,11 @@ public class ClienteController {
 			return null;
 		}
 	}
-	
+	/**
+	 * Metodo que carga la oferta de tarifas con un precio maximo
+	 * @param precio Precio maximo
+	 * @return List<Tarifa> Lista de objetos tipo Tarifa
+	 */
 	public List<Tarifa> filtrarTarifaPrecio(int precio) {
 		Response response = cliente.filtrarTarifaPrecio(precio);
 		if(response.getStatus() == Status.OK.getStatusCode()) {
@@ -87,7 +122,11 @@ public class ClienteController {
 			return null;
 		}
 	}
-	
+	/**
+	 * Metodo que carga la oferta de tarifas a partir de un precio minimo
+	 * @param precio Precio minimo
+	 * @return List<Tarifa> Lista de objetos tipo Tarifa
+	 */
 	public List<Tarifa> filtrarTarifaPrecioMin(int precio) {
 		Response response = cliente.filtrarTarifaPrecioMin(precio);
 		if(response.getStatus() == Status.OK.getStatusCode()) {
@@ -98,7 +137,11 @@ public class ClienteController {
 			return null;
 		}
 	}
-	
+	/**
+	 * Metodo que carga la oferta de tarifas con un maximo de horas de mano de obra
+	 * @param horas	Maximo de horas de mano de obra de estimacion del esfuerzo del servicio
+	 * @return List<Tarifa> Lista de objetos tipo Tarifa
+	 */
 	public List<Tarifa> filtrarTarifaHorasMax(int horas) {
 		Response response = cliente.filtrarTarifaHorasMax(horas);
 		if(response.getStatus() == Status.OK.getStatusCode()) {
@@ -108,7 +151,11 @@ public class ClienteController {
 			return null;
 		}
 	}
-	
+	/**
+	 * Metodo que carga la oferta de tarifas a partir de un minimo de horas de mano de obra
+	 * @param horas	Minimo de horas de mano de obra de estimacion del esfuerzo del servicio
+	 * @return List<Tarifa> Lista de objetos tipo Tarifa
+	 */
 	public List<Tarifa> filtrarTarifaHorasMin(int horas) {
 		Response response = cliente.filtrarTarifaHorasMin(horas);
 		if(response.getStatus() == Status.OK.getStatusCode()) {
@@ -118,11 +165,18 @@ public class ClienteController {
 			return null;
 		}
 	}
-	
+	/**
+	 * Metodo que carga la oferta de todas las tarifas disponibles
+	 * @return List<Tarifa> Lista de objetos tipo Tarifa
+	 */
 	public List<Tarifa> cargarTablaTarifas(){
 		return cliente.cargarTablaTarifas();
 	}
-	
+	/**
+	 * Metodo que carga la oferta de coches del concesionario en funcion de un filtro
+	 * @param filtro Filtro a partir de distintos parametros: marca, precio, matricula
+	 * @return List<Tarifa> Lista de objetos tipo Tarifa
+	 */
 	public List<CocheConcesionario> filtrarCocheConcesionario(String filtro) {
 		Response response = cliente.filtrarCocheConcesionario(filtro);
 		if(response.getStatus() == Status.OK.getStatusCode()) {
@@ -132,7 +186,11 @@ public class ClienteController {
 			return null;
 		}
 	}
-	
+	/**
+	 * Metodo que registra un cliente en la aplicacion
+	 * @param client Objeto del tipo Cliente a registrar
+	 * @return boolean Devuelve true si el proceso ha sido exitoso, false si no fue posible
+	 */
 	public boolean registroCliente(Cliente client) {
 		Response response = cliente.registroCliente(client);
 		if (response.getStatus() == Status.OK.getStatusCode()) {
@@ -141,7 +199,11 @@ public class ClienteController {
 			return false;
 		}
 	}
-	
+	/**
+	 * Metodo que registra una cita con un comercial
+	 * @param citaComercial Objeto tipo CitaComercial de la cita creada
+	 * @return boolean Devuelve true si el proceso ha sido exitoso, false si no fue posible
+	 */
 	public boolean registroCitaComercial(CitaComercial citaComercial) {
 		Response response = cliente.registroCitaComercial(citaComercial);
 		if (response.getStatus() == Status.OK.getStatusCode()) {
@@ -150,7 +212,10 @@ public class ClienteController {
 			return false;
 		}
 	}
-	
+	/**
+	 * Metodo que carga los nombres de los comerciales disponibles
+	 * @return List<String> Nombres de los comerciales disponibles
+	 */
 	public List<String> cargarTablaComercial(){
 		List<Comercial> comerciales = cliente.cargarTablaComercial();
 		List<String> nombres = new ArrayList<String>();
@@ -159,7 +224,11 @@ public class ClienteController {
 		}
 		return nombres;
 	}
-	
+	/**
+	 * Metodo que comprueba si existe una cita de taller con una restriccion 
+	 * @param restriccion Filtro para obtener citas de una fecha o con un determinado mecanico
+	 * @return boolean Devuelve true si existe una cita con los parámetros indicados, false si no existe ninguna
+	 */
 	public boolean comprobarCitaTaller(String restriccion) {
 		Response response = cliente.seleccionarCitaTaller(restriccion);
 		if (response.getStatus() == Status.OK.getStatusCode()) {
@@ -168,7 +237,11 @@ public class ClienteController {
 			return true;
 		}
 	}
-	
+	/**
+	 * Metodo que registra una cita de taller con un mecanico
+	 * @param citaTaller Objeto tipo CitaTaller de la cita creada
+	 * @return boolean Devuelve true si el proceso ha sido exitoso, false si no fue posible
+	 */
 	public boolean registroCitaTaller(CitaTaller citaTaller) {
 		Response response = cliente.registroCitaTaller(citaTaller);
 		if (response.getStatus() == Status.OK.getStatusCode()) {
@@ -177,7 +250,10 @@ public class ClienteController {
 			return false;
 		}
 	}
-	
+	/**
+	 * Metodo que carga los nombres de los mecanicos disponibles
+	 * @return List<String> Nombres de los mecanicos disponibles
+	 */
 	public List<String> cargarTablaMecanicos(){
 		List<Mecanico> mecanicos = cliente.cargarTablaMecanico();
 		List<String> nombres = new ArrayList<String>();
