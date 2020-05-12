@@ -21,7 +21,7 @@ public class ClienteController {
 	private ClienteApp cliente;
 	/**
 	 * Constructor de la clase ClienteController
-	 * @param cliente ClienteApp
+	 * @param clienteApp ClienteApp
 	 */
 	public ClienteController(ClienteApp clienteApp) {
 		this.cliente = clienteApp;
@@ -35,7 +35,7 @@ public class ClienteController {
 	}
 	/**
 	 * Metodo para cambiar contrasena del cliente
-	 * @param cliente Objeto cliente al que se desea cambiar la contrasena
+	 * @param client Objeto cliente al que se desea cambiar la contrasena
 	 * @param contrasenia Contrasena nueva
 	 * @return boolean Devuelve true si el proceso fue exitoso, false si no fue posible
 	 */
@@ -49,7 +49,7 @@ public class ClienteController {
 	}
 	/**
 	 * Metodo para cambiar nickname del cliente.
-	 * @param cliente Objeto cliente al que se desea cambiar el nickname
+	 * @param client Objeto cliente al que se desea cambiar el nickname
 	 * @param nickname Nickname nuevo
 	 * @return boolean Devuelve true si el proceso fue exitoso, false si no fue posible
 	 */
