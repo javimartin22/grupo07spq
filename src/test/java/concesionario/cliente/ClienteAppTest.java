@@ -28,6 +28,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 
 import concesionario.cliente.controller.ClienteController;
+import concesionario.datos.CitaComercial;
+import concesionario.datos.CitaTaller;
 import concesionario.datos.Cliente;
 import concesionario.datos.ClienteFidelidad;
 import concesionario.datos.CocheConcesionario;
@@ -91,6 +93,58 @@ public class ClienteAppTest {
 		
 		CocheConcesionario auto = new CocheConcesionario("Renault", "Clio", 14000, 115, 5, "Blanco", 1);
 		Response result = clienteApp.registrarCoche(auto);
+		
+		assertEquals(200, result.getStatus());		
+
+	}
+	
+	@Test
+	public void testRegistroHorasEmpleado() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(anyString()).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String horasempleado = "10-40";
+		Response result = clienteApp.registroHorasEmpleado(horasempleado);
+		
+		assertEquals(200, result.getStatus());		
+
+	}
+	
+	@Test
+	public void testRegistroHorasEmpleadoTemporal() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(anyString()).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String horasempleado = "10-40";
+		Response result = clienteApp.registroHorasEmpleadoTemporal(horasempleado);
+		
+		assertEquals(200, result.getStatus());		
+
+	}
+	
+	@Test
+	public void testRegistroCitaTaller() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(anyString()).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		CitaTaller citataller = new CitaTaller();
+		Response result = clienteApp.registroCitaTaller(citataller);
+		
+		assertEquals(200, result.getStatus());		
+
+	}
+	
+	@Test
+	public void testRegistroCitaComercial() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(anyString()).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		CitaComercial citacomercial = new CitaComercial();
+		Response result = clienteApp.registroCitaComercial(citacomercial);
 		
 		assertEquals(200, result.getStatus());		
 
@@ -281,6 +335,67 @@ public class ClienteAppTest {
 		Response result = clienteApp.mecanicoDelete(nickname);
 		assertEquals(200, result.getStatus());	
 	}
+	
+	@Test 
+	public void testCitasMecanicoDelete() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("deleteCitasMecanico")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String nickname = "user";
+		
+		Response result = clienteApp.citasMecanicoDelete(nickname);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test 
+	public void testCitasComercialDelete() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("deleteCitasComercial")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String nickname = "user";
+		
+		Response result = clienteApp.citasComercialDelete(nickname);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test 
+	public void testHorasEmpleadoTemporalDelete() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("deleteHorasEmpleadosTemporal")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String nickname = "user";
+		
+		Response result = clienteApp.horasEmpleadosTemporalDelete(nickname);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test 
+	public void testHorasEmpleadoDelete() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("deleteHorasEmpleados")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String nickname = "user";
+		
+		Response result = clienteApp.horasEmpleadosDelete(nickname);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test 
+	public void testUpdateMecanico() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("updateMecanico")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String nickname = "user";
+		
+		Response result = clienteApp.updateMecanico(nickname);
+		assertEquals(200, result.getStatus());	
+	}
+	
 	
 	@Test
 	public void testComercialSelect() {
@@ -769,6 +884,54 @@ public class ClienteAppTest {
 		String codigo = "codigo";
 		
 		Response result = clienteApp.seleccionarPresupuesto(codigo);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test
+	public void testSeleccionarHorsEmpleadoTemporal() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("selectHorasEmpleadosTemporal")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String nickname = "nickname";
+		
+		Response result = clienteApp.seleccionarHorsEmpleadoTemporal(nickname);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test
+	public void testSeleccionarHorsEmpleado() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("selectHorasEmpleados")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String nickname = "nickname";
+		
+		Response result = clienteApp.seleccionarHorsEmpleado(nickname);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test
+	public void testSeleccionarCitaComercial() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("selectCitaComercial")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String restriccion = "Nick-0";
+		
+		Response result = clienteApp.seleccionarCitaComercial(restriccion);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test
+	public void testSeleccionarCitaTaller() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("selectCitaTaller")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String restriccion = "Nick-0";
+		
+		Response result = clienteApp.seleccionarCitaTaller(restriccion);
 		assertEquals(200, result.getStatus());	
 	}
 	
