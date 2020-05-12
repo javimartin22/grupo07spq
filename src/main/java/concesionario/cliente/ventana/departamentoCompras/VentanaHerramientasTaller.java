@@ -97,7 +97,7 @@ public class VentanaHerramientasTaller extends JFrame {
 				dispose();
 			}
 		});
-		btnRegresar.setBounds(245, 267, 117, 29);
+		btnRegresar.setBounds(439, 267, 117, 29);
 		contentPane.add(btnRegresar);
 		
 		JButton btnCargarPiezas = new JButton("Cargar Todas");
@@ -106,7 +106,7 @@ public class VentanaHerramientasTaller extends JFrame {
 				cargarTabla(tabla);
 			}
 		});
-		btnCargarPiezas.setBounds(396, 267, 117, 29);
+		btnCargarPiezas.setBounds(574, 267, 117, 29);
 		contentPane.add(btnCargarPiezas);
 	}
 	
