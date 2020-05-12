@@ -5,6 +5,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.EmpleadoHoras;
 
@@ -29,6 +32,8 @@ public class VentanaVisualizarHoras extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private GerenteController gerenteController;
+	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarHoras.class);
+	static int iteration = 0;
 
 	/**
 	 * Constructor de la Clase VentanaVisualizarHoras.
@@ -151,7 +156,7 @@ public class VentanaVisualizarHoras extends JFrame {
 				   model.addRow(o);
 				 }
 		} else {
-//			logger.error("No hay ningun empleado.");
+			logger.error("No hay ningun empleado.");
 		}
 	}
 	
@@ -177,7 +182,7 @@ public class VentanaVisualizarHoras extends JFrame {
 				   model.addRow(o);
 				 }
 		} else {
-//			logger.error("No hay ningun empleado.");
+			logger.error("No hay ningun empleado.");
 		}
 		
 		List<EmpleadoHoras> empleadosMecanico = gerenteController.cargarEmpleadoHoras(1);
@@ -193,7 +198,7 @@ public class VentanaVisualizarHoras extends JFrame {
 				   model.addRow(o);
 				 }
 		} else {
-//			logger.error("No hay ningun empleado.");
+			logger.error("No hay ningun empleado.");
 		}
 	}
 	
@@ -247,7 +252,7 @@ public class VentanaVisualizarHoras extends JFrame {
 					}
 			   }
 		} else {
-//			logger.error("No hay ningun empleado.");
+			logger.error("No hay ningun empleado.");
 		}
 		
 		List<EmpleadoHoras> empleadosMecanico = gerenteController.cargarEmpleadoHoras(1);
@@ -289,7 +294,7 @@ public class VentanaVisualizarHoras extends JFrame {
 					}
 			}
 		} else {
-//			logger.error("No hay ningun empleado.");
+			logger.error("No hay ningun empleado.");
 		}
 	}
 }
