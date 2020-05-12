@@ -23,9 +23,6 @@ import javax.swing.JOptionPane;
 */
 public class VentanaVeryEditarTarifas extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private GerenteController gerenteController;
@@ -34,6 +31,11 @@ public class VentanaVeryEditarTarifas extends JFrame {
 	final Logger logger = LoggerFactory.getLogger(VentanaVeryEditarTarifas.class);
 	static int iteration = 0;
 
+	/**
+	 * Constructor de la clase VentanaVeryEditarTarifas.
+	 * @param gerenteController (Controlador de las clases del Gerente
+	 * @param nickname (Nickname del Gerente)
+	 */
 	public VentanaVeryEditarTarifas(GerenteController gerenteController, String nickname) {
 		setResizable(false);
 		this.gerenteController = gerenteController;
