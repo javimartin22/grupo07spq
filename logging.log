@@ -156,3 +156,18 @@
 11 may. 2020 - 18:30:59,437 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
 11 may. 2020 - 18:34:26,781 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
 11 may. 2020 - 18:34:29,258 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+12 may. 2020 - 01:22:45,789 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+12 may. 2020 - 01:22:49,996 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+12 may. 2020 - 01:33:52,156 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.departamentoCompras.VentanaRegistroHerramientas] - Herramienta añadida correctamente.
+12 may. 2020 - 01:33:55,136 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.departamentoCompras.VentanaRegistroHerramientas] - Herramienta añadida correctamente.
+12 may. 2020 - 01:36:53,310 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.mecanico.VentanaSolicitudCompra] - Solicitud añadida correctamente.
+12 may. 2020 - 02:00:59,420 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+12 may. 2020 - 02:01:02,563 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+12 may. 2020 - 02:03:00,398 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+12 may. 2020 - 02:03:02,954 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+12 may. 2020 - 02:08:09,211 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+12 may. 2020 - 02:08:11,919 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+12 may. 2020 - 02:17:11,356 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+12 may. 2020 - 02:17:13,945 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+12 may. 2020 - 02:23:30,989 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+12 may. 2020 - 02:23:34,575 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp

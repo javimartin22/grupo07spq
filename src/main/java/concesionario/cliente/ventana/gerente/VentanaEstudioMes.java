@@ -35,9 +35,18 @@ import org.jfree.ui.RefineryUtilities;
 import concesionario.cliente.ClienteApp;
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Venta; 
-
+/**
+* Clase para el Estudio de Mercado Grafico de las Ventas por Mes
+*/
 public class VentanaEstudioMes extends ApplicationFrame {
-   
+	/**
+	 * Constructor de la clase EstudioMes
+	 * @param applicationTitle (Titulo del estudio)
+	 * @param chartTitle (Titulo del grafico)
+	 * @param ventas (Todas las ventas realizadas por los comerciales)
+	 * @param gerenteController (Controlador de la ventana para la clase Gerente)
+	 * @param nickname (Nickname del gerente)
+	 */
    public VentanaEstudioMes( String applicationTitle , String chartTitle, List<Venta> ventas, GerenteController gerenteController, String nickname) {
       super( applicationTitle );
       this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -88,7 +97,10 @@ public class VentanaEstudioMes extends ApplicationFrame {
       panel.add(buttonGuardar);
       this.add(panel, BorderLayout.SOUTH);
    }
-   
+   /**
+  	 * Creacion del Dataset a partir de ArrayList de ventas
+  	 * @param ventas (Todas las ventas realizadas por los comerciales)
+  	 */
    private CategoryDataset createDataset(List<Venta> ventas ) {
       final String categoria = "Ventas Realizadas";
       

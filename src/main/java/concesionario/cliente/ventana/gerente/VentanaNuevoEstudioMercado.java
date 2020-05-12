@@ -20,7 +20,9 @@ import concesionario.datos.Tarifa;
 import concesionario.datos.Venta;
 import java.awt.Font;
 import java.awt.Color;
-
+/**
+* Ventana para la seleccion de los distintos Estudios de Mercado
+*/
 public class VentanaNuevoEstudioMercado extends JFrame {
 
 	/**
@@ -31,10 +33,18 @@ public class VentanaNuevoEstudioMercado extends JFrame {
 	private JTextField textFieldNombre;
 	private JTextField textFieldPrecioAprox;
 	private JTextField textFieldHorasManoObra;
+	/**
+	 * Controlador para la clase Gerente.
+	 */
 	private GerenteController gerenteController;
+	
 	final Logger logger = LoggerFactory.getLogger(VentanaNuevoEstudioMercado.class);
 	static int iteration = 0;
-
+	/**
+	 * Constructor de la clase NuevoEstudioMercado
+	 * @param gerenteController (Controlador de la ventana para la clase Gerente)
+	 * @param nickname (Nickname del gerente)
+	 */
 	public VentanaNuevoEstudioMercado(GerenteController gerenteController, String nickname) {
 		this.gerenteController = gerenteController;
 		iniciarVentanaNuevoEstudioMercado(nickname);
@@ -46,7 +56,10 @@ public class VentanaNuevoEstudioMercado extends JFrame {
 				+ ", textFieldPrecioAprox=" + textFieldPrecioAprox + ", textFieldHorasManoObra="
 				+ textFieldHorasManoObra + ", gerenteController=" + gerenteController + "]";
 	}
-
+	/**
+	 * Inicializador del JFrame de la ventana NuevoEstudioMercado
+	 * @param nickname (Nickname del gerente)
+	 */
 	public void iniciarVentanaNuevoEstudioMercado(String nickname) {
 		setResizable(false);
 		setTitle("Estudio Mercado");
@@ -114,7 +127,9 @@ public class VentanaNuevoEstudioMercado extends JFrame {
 		btnVentasPorMes.setBounds(130, 119, 193, 37);
 		contentPane.add(btnVentasPorMes);
 	}
-	
+	/**
+	 * Metodo para comprar que los datos no esten vacios
+	 */
 	public boolean comprobarDatos() {
 		boolean datos = false;
 		if (!textFieldNombre.getText().isEmpty() && !textFieldPrecioAprox.getText().isEmpty() && !textFieldHorasManoObra.getText().isEmpty()) {
@@ -123,7 +138,9 @@ public class VentanaNuevoEstudioMercado extends JFrame {
 		return datos;
 	}
 	
-	
+	/**
+	 * Metodo para vaciar los campos o textfields
+	 */
 	public void vaciarCampos() {
 		textFieldNombre.setText("");
 		textFieldPrecioAprox.setText("");

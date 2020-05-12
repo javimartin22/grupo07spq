@@ -18,7 +18,9 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
-
+/**
+* Clase para la visualizacion y edicion de las tarifas
+*/
 public class VentanaVeryEditarTarifas extends JFrame {
 
 	/**
@@ -39,7 +41,7 @@ public class VentanaVeryEditarTarifas extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Inicializar el JFrame de la Ventana VeryEditarTarifas
 	 */
 	public void inicializarVeryEditarTarifas(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -113,7 +115,12 @@ public class VentanaVeryEditarTarifas extends JFrame {
 		contentPane.add(btnNewButton_1);
 				
 	}
+	
 	//Cargar las tarifas desde la BD
+	/**
+	* Metodo para cargar la tabla de todas las tarifas que se reciben del servidor
+	* @param table JTable en la que se cargan las columnas y datos de las tarifas
+	*/
 	public void cargarTabla(JTable table) {
 		List<Tarifa> tarifas = gerenteController.cargarTablaTarifas();
 		String[] columnNames = {"Id", "Nombre", "Precio Medio", "Horas Mano de Obra"};
