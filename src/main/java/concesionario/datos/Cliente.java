@@ -176,7 +176,7 @@ public class Cliente extends Usuario{
 	}
 	/**
 	 * Metodo para la modificacion del Telefono del Cliente.
-	 * @param telefono (Telefono Cliente)
+	 * @param numeroTelefono (Telefono Cliente)
 	 */
 	public void setNumeroTelefono(String numeroTelefono) {
 		this.numeroTelefono = numeroTelefono;
