@@ -1,5 +1,8 @@
 package concesionario.datos;
 
+/**
+ * Objeto Presupuesto (Objeto para la gestion de los Presupuestos que realiza el Mecanico).
+ */
 public class Presupuesto {
 	private String codigo;
 	private String dniCliente;
@@ -13,10 +16,27 @@ public class Presupuesto {
 	private int precio; 
 	private String fecha;
 	
+	/**
+	 * Constructor vacio de la calse Presupuesto.
+	 */
 	public Presupuesto() {
 		
 	}
 
+	/**
+	 * Constructor de la Clase Presupuesto.
+	 * @param codigo (Codigo del Presupuesto)
+	 * @param dniCliente (DNI del Cliente)
+	 * @param mecanico (Nombre del Mecanico)
+	 * @param marca (Marca del Vehiculo)
+	 * @param modelo (Modelo del Vehiculo)
+	 * @param problema (Problema del Vehiculo)
+	 * @param numPiezas (Numero de Piezas para la Reparacion)
+	 * @param listaPiezas (Lista de las Piezas para la Reparacion)
+	 * @param observaciones (Comentarios del Problema)
+	 * @param precio (Precio de las Reparaciones)
+	 * @param fecha (Fecha del Presupuesto)
+	 */
 	public Presupuesto(String codigo, String dniCliente, String mecanico, String marca, String modelo, String problema, int numPiezas,
 			String listaPiezas, String observaciones, int precio, String fecha) {
 		this.codigo = codigo;
