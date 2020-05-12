@@ -1,7 +1,5 @@
 package concesionario.cliente.ventana.gerente;
 
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,12 +20,11 @@ import org.slf4j.LoggerFactory;
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.DepartamentoCompras;
 
-
+/**
+ * VentanaRegistroDepartamentoCompras (Ventana para el registro de los Empleados del Departamento de Compras).
+ */
 public class VentanaRegistroDepartamentoCompras extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldDNI;
@@ -47,11 +44,20 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 	final Logger logger = LoggerFactory.getLogger(VentanaRegistroDepartamentoCompras.class);
 	static int iteration = 0;
 
+	/**
+	 * Constructor de la VentanaRegistroDepartamentoCompras.
+	 * @param gerenteController (Controlador para las ventanas de Gerente).
+	 * @param nickname (Nickname del empleado del Departamento de Compras). 
+	 */
 	public VentanaRegistroDepartamentoCompras(GerenteController gerenteController, String nickname) {
 		this.gerenteController = gerenteController;
 		iniciarVentanaRegistroDepartamentoCompras(nickname);
 	}
 	
+	/**
+	 * Inicializar el JFrame de la VentanaRegistroMecanico
+	 * @param nickname (Nickname del empleado del Departamento de Compras).
+	 */
 	public void iniciarVentanaRegistroDepartamentoCompras(String nickname) {
 		setResizable(false);
 		setTitle("Registro Departamento Compras");
@@ -235,6 +241,10 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 		contentPane.add(btnRegistrar);
 	}
 	
+	/**
+	 * Metodo para comprobar que todos los datos introducidos sean correctos.
+	 * @return datos (Boolean que dice si son correctos o no)
+	 */
 	public boolean comprobarDatos() {
 		boolean datos = false;
 		if (!textFieldDNI.getText().isEmpty() && !textFieldNombre.getText().isEmpty() && !textFieldApellido.getText().isEmpty() && !textFieldNick.getText().isEmpty() && !textFieldEmail.getText().isEmpty() && !textFieldCiudad.getText().isEmpty() && !textFieldCP.getText().isEmpty() && !textFieldDireccion.getText().isEmpty() && !textFieldTelefono.getText().isEmpty() && !textFieldCuenta.getText().isEmpty() && !textFieldNSS.getText().isEmpty() && !textFieldSueldo.getText().isEmpty()) {
@@ -259,6 +269,11 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 		return datos;
 	}
 	
+	/**
+	 * Metodo para el registro del empleado del Departamento de Compras.
+	 * @param dep (Objeto Departamento Compras)
+	 * @param nickname (Nickname del empleado del Departamento de Compras)
+	 */
 	public void registrarDepartamentoCompras(DepartamentoCompras dep, String nickname) {
 		if (gerenteController.registroDepartamentoCompras(dep)) {
 			logger.info("Empleado Departamento Compras registrado.");
@@ -283,6 +298,9 @@ public class VentanaRegistroDepartamentoCompras extends JFrame {
 		}
 	}
 	
+	/**
+	 * Metodo para vaciar los TextField de la Ventana.
+	 */
 	public void vaciarCampos() {
 		textFieldApellido.setText("");
 		textFieldCiudad.setText("");
