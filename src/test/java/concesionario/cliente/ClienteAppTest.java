@@ -46,6 +46,7 @@ import concesionario.datos.PiezaProveedores;
 import concesionario.datos.Presupuesto;
 import concesionario.datos.Proveedor;
 import concesionario.datos.ProveedorHerramientas;
+import concesionario.datos.SolicitudCompra;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
@@ -434,6 +435,19 @@ public class ClienteAppTest {
 	}
 	
 	@Test
+	public void testSolicitudCompraDelete() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("deleteSolicitudCompra")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		String cod = "S1";
+		
+		Response result = clienteApp.SolicitudCompraDelete(cod);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	
+	@Test
 	public void testTarifaDelete() {
 		Response response = mock(Response.class);
 		Mockito.when(response.getStatus()).thenReturn(200);
@@ -515,6 +529,23 @@ public class ClienteAppTest {
 	}
 	
 	@Test
+	public void testCargarTablaSolicitudCompra() {
+		SolicitudCompra s1 = new SolicitudCompra("S1", "barrita","Piezas", 7);
+		SolicitudCompra s2 = new SolicitudCompra("S2", "medidor","Herramientas", 9);
+		List<SolicitudCompra> solicitudes = new ArrayList<SolicitudCompra>();
+		solicitudes.add(s1);
+		solicitudes.add(s2);
+		
+		when(webtarget.path(eq("loadSolicitudTable")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->solicitudes);
+		List<SolicitudCompra> solSelect = clienteApp.cargarTablaSolicitudCompra();
+		
+		for (int i = 0; i < solicitudes.size(); i++) {
+			assertTrue(solSelect.get(i).getCodigo().equals(solicitudes.get(i).getCodigo()));
+		}
+	}
+	
+	
+	@Test
 	public void testPiezaUtilizadaSelect() {
 		Response response = mock(Response.class);
 		Mockito.when(response.getStatus()).thenReturn(200);
@@ -558,6 +589,18 @@ public class ClienteAppTest {
 		
 		Presupuesto presupuesto = new Presupuesto("PE1", "", "", "", "·", "", 0, "", "", 0, "");
 		Response result = clienteApp.registroPresupuesto(presupuesto);
+		
+		assertEquals(200, result.getStatus());		
+	}
+	
+	@Test
+	public void testRegistroSolicitud() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(anyString()).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		SolicitudCompra solicitud = new SolicitudCompra("S2", "Herr", "Herramientas", 6);
+		Response result = clienteApp.registroSolicitud(solicitud);
 		
 		assertEquals(200, result.getStatus());		
 	}
