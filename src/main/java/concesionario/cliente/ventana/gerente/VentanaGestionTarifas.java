@@ -15,19 +15,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import concesionario.cliente.controller.GerenteController;
-
+/**
+* Clase de Gestion de las Tarifas
+*/
 public class VentanaGestionTarifas extends JFrame {
+	/**
+	 * Controlador para la clase Gerente
+	 */
 	private GerenteController gerenteController;
+	
 	private static final long serialVersionUID = 1L;
 	final Logger logger = LoggerFactory.getLogger(VentanaGestionTarifas.class);
 	static int iteration = 0;
 	
+	/**
+	 * Constructor de la clase GestionTarifa
+	 * @param gerenteController (Controlador de la ventana para la clase Gerente)
+	 * @param nickname del gerente
+	 */
 	public VentanaGestionTarifas(GerenteController gerenteController, String nickname) {
 		this.gerenteController = gerenteController;   //errores
 		inicioVentanaGestionTarifas(nickname);
 	}
 	
-	
+	/**
+	 * Inicializador del JFrame VentanaGestionTarifas 
+	 * @param nickname del gerente
+	 */
 	public void inicioVentanaGestionTarifas(String nickname) {
 		this.setTitle("Gestión de las Tarifas");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,13 +93,19 @@ public class VentanaGestionTarifas extends JFrame {
 			buttonVolver.setBounds(171, 172, 89, 23);
 			panel.add(buttonVolver);
 	}
-	
+	/**
+	 * Metodo para ver todos los usuarios y/o empleados
+	 * @param nickname del gerente
+	 */
 	public void verUsuarios(String nickname) {
 		VentanaEmpleados ve = new VentanaEmpleados(gerenteController, nickname);
     	ve.setVisible(true);
     	dispose();
 	}
-	
+	/**
+	 * Metodo para regresar a la ventana anterior (Menu admin) 
+	 * @param nickname del gerente
+	 */
 	public void volver(String nickname) {
 		VentanaMenuAdmin vmenu = new VentanaMenuAdmin(gerenteController, nickname);
 		vmenu.setVisible(true);

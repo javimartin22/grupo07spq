@@ -26,10 +26,21 @@ import org.jfree.ui.RefineryUtilities;
 import concesionario.cliente.ClienteApp;
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Venta;
- 
+/**
+* Clase para el Estudio de Mercado Grafico de las Marcas
+*/
 public class VentanaEstudioMercado extends ApplicationFrame {
+	/**
+	 * Controlador para la clase Gerente.
+	 */
 	private GerenteController gerenteController;
-	
+	/**
+	 * Constructor de la clase EstudioComerciales
+	 * @param title (Titulo del estudio)
+	 * @param ventas (Todas las ventas realizadas por los comerciales)
+	 * @param gerenteController (Controlador de la ventana para la clase Gerente)
+	 * @param nickname (Nickname del gerente)
+	 */
    public VentanaEstudioMercado(String title, List<Venta> ventas, GerenteController gerenteController, String nickname ) {
       super( title ); 
       this.gerenteController = gerenteController;
@@ -74,7 +85,10 @@ public class VentanaEstudioMercado extends ApplicationFrame {
       
       
    }
-   
+   /**
+  	 * Creacion del Dataset a partir de ArrayList de ventas
+  	 * @param ventas (Todas las ventas realizadas por los comerciales)
+  	 */
    private static PieDataset createDataset(List<Venta> ventas) {
       DefaultPieDataset dataset = new DefaultPieDataset( );
       List<String> marcas_anyadidas = new ArrayList<String>();
@@ -99,7 +113,11 @@ public class VentanaEstudioMercado extends ApplicationFrame {
       }
       return dataset;         
    }
-   
+   /**
+  	 * Creacion del Grafico a partir del dataset
+  	 * @param dataset (PieDataset con todos las ventas organizadas para el grafico)
+  	 * @param title (Titulo del grafico)
+  	 */
    private static JFreeChart createChart( PieDataset dataset, String title ) {
       JFreeChart chart = ChartFactory.createPieChart(      
          title,   // chart title 
@@ -110,13 +128,15 @@ public class VentanaEstudioMercado extends ApplicationFrame {
 
       return chart;
    }
-   
+   /**
+ 	 * Creacion del ChartPanel con el grafico
+ 	 * @param ventas (Todas las ventas realizadas por los comerciales)
+ 	 * @param title (Titulo del grafico)
+ 	 * @param jbutton (Jbutton del panel)
+ 	 */
    public static JPanel createDemoPanel(List<Venta> ventas, String title, JButton jbutton) {
       JFreeChart chart = createChart(createDataset(ventas), title );  
       ChartPanel chartpanel = new ChartPanel( chart ); 
-//      jbutton.setBounds(0,0,50,70);
-//      chartpanel.add(jbutton);
-      
       return chartpanel;
    }
 

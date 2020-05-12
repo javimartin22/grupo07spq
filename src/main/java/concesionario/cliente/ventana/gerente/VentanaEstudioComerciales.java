@@ -39,9 +39,19 @@ import org.jfree.ui.RefineryUtilities;
 import concesionario.cliente.ClienteApp;
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Venta; 
-
+/**
+* Clase para el Estudio de Mercado Grafico de los comerciales
+*/
 public class VentanaEstudioComerciales extends ApplicationFrame {
    
+	/**
+	 * Constructor de la clase EstudioComerciales
+	 * @param applicationTitle (Titulo del estudio)
+	 * @param chartTitle (Titulo del grafico)
+	 * @param ventas (Todas las ventas realizadas por los comerciales)
+	 * @param gerenteController (Controlador de la ventana para la clase Gerente)
+	 * @param nickname (Nickname del gerente)
+	 */
    public VentanaEstudioComerciales( String applicationTitle , String chartTitle, List<Venta> ventas, GerenteController gerenteController, String nickname) {
       super( applicationTitle );
       this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -98,7 +108,10 @@ public class VentanaEstudioComerciales extends ApplicationFrame {
       panel.add(buttonGuardar);
       this.add(panel, BorderLayout.SOUTH);
    }
-   
+   /**
+	 * Creacion del Dataset a partir de ArrayList de ventas
+	 * @param ventas (Todas las ventas realizadas por los comerciales)
+	 */
    private CategoryDataset createDataset(List<Venta> ventas ) {
       final String categoria = "Ventas Realizadas";
       
@@ -133,7 +146,6 @@ public class VentanaEstudioComerciales extends ApplicationFrame {
       }
       return dataset; 
    }
-   
    public static void main( String[ ] args ) {
 	   List<Venta> ventas = new ArrayList<Venta>();
 		  GerenteController gerentec = new GerenteController(new ClienteApp());

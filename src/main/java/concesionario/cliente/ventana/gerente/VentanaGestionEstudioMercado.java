@@ -16,19 +16,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import concesionario.cliente.controller.GerenteController;
-
+/**
+* Clase de Seleccion de los Estudios de Mercado
+*/
 public class VentanaGestionEstudioMercado extends JFrame {
+	/**
+	 * Controlador para la clase Gerente
+	 */
 	private GerenteController gerenteController;
+	
 	private static final long serialVersionUID = 1L;
 	final Logger logger = LoggerFactory.getLogger(VentanaGestionEstudioMercado.class);
 	static int iteration = 0;
 	
+	/**
+	 * Constructor de la clase GestionEstudioMercado 
+	 * @param gerenteController (Controlador de la ventana para la clase Gerente)
+	 * @param nickname del gerente
+	 */
 	public VentanaGestionEstudioMercado(GerenteController gerenteController, String nickname) {
 		this.gerenteController = gerenteController;   //errores
 		inicioVentanaGestionEstudioMercado(nickname);
 	}
 	
-	
+	/**
+	 * Inicializador del JFrame GestionEstudioMercado 
+	 * @param nickname del gerente
+	 */
 	public void inicioVentanaGestionEstudioMercado(String nickname) {
 		this.setTitle("Estudios de Mercado");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -87,6 +101,10 @@ public class VentanaGestionEstudioMercado extends JFrame {
 //    	dispose();
 //	}
 	
+	/**
+	 * Metodo para regresar a la ventana anterior (Menu admin) 
+	 * @param nickname del gerente
+	 */
 	public void volver(String nickname) {
 		VentanaMenuAdmin vmenu = new VentanaMenuAdmin(gerenteController, nickname);
 		vmenu.setVisible(true);
