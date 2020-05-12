@@ -22,24 +22,34 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+/**
+ * Clase par visualizar las citas de un usuario de tipo comercial.
+ */
 public class VentanaVisualizarCitas extends JFrame {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JTable table1;
-	private ComercialController comercialController;
 	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarCitas.class);
 	static int iteration = 0;
+	
+	/**
+	 * Controlador para la clase ComercialController.
+	 */
+	private ComercialController comercialController;
+	
+	/**
+	 * Constructor de la clase VentanaVisualizarCitas
+	 * @param comercialcontroller (Controlador de la ventana VentanaVisualizarCitas)
+	 * @param nickname (nombre de usuario)
+	 */
 	public VentanaVisualizarCitas(ComercialController comercialcontroller,String nickname) {
 		this.comercialController = comercialcontroller;
 		iniciarVentanaVisualizarCitas(nickname);
 	}
 	
 	/**
-	 * Create the frame
-	 * 
-	 * @return
+	 * Create the frame.
+	 * @param nickname (Nombre de usuario del comercial que inicia sesión.)
 	 */
 	public void iniciarVentanaVisualizarCitas(String nickname) {
 		setResizable(false);
@@ -49,19 +59,24 @@ public class VentanaVisualizarCitas extends JFrame {
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		
+		//scroller
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(6, 18, 980, 274);
 		getContentPane().add(scrollPane);
 		
+		//tabla
 		table1 = new JTable();
 		scrollPane.setViewportView(table1);
 		
+		//menu
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
+		//Opcion de filtrar por fecha
 		JMenu mnNewMenu = new JMenu("Filtrar por fecha");
 		menuBar.add(mnNewMenu);
 		
+		//item del filtrar por fecha (fecha de hoy)
 		JMenuItem mntmNewMenuItem = new JMenuItem("Citas hoy");
 		mntmNewMenuItem.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
@@ -73,6 +88,7 @@ public class VentanaVisualizarCitas extends JFrame {
 		});
 		mnNewMenu.add(mntmNewMenuItem);
 		
+		//iten  del filtro por fecha (fecha de mañana)
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Citas mañana");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
@@ -84,6 +100,7 @@ public class VentanaVisualizarCitas extends JFrame {
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
 		
+		//item del filtro por fecha (fecha metida a mano)
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Otro día");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
@@ -101,7 +118,8 @@ public class VentanaVisualizarCitas extends JFrame {
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
-
+		
+		//boton para cargar la tabla
 		JButton btnNewButton = new JButton("Cargar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -117,6 +135,7 @@ public class VentanaVisualizarCitas extends JFrame {
 		btnNewButton.setBounds(557, 303, 117, 29);
 		getContentPane().add(btnNewButton);
 		
+		//boton para volver a la ventana VentanaMenuComercial
 		JButton btnVolve = new JButton("Volver");
 		btnVolve.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -130,6 +149,11 @@ public class VentanaVisualizarCitas extends JFrame {
 		getContentPane().add(btnVolve);
 	}
 	
+	/**
+	 * Metodo para cargar la tabla de citas
+	 * @param table
+	 * @param comercial (nickname del comercial)
+	 */
 	private void cargarTabla(JTable table, String comercial) {
 		List<CitaComercial> comerciales = comercialController.cargarCitaComercial(comercial);
 		String[] columnNames = { "Nombre", "Dni del Cliente", "Fecha", "Hora", "Comercial"};
@@ -153,6 +177,12 @@ public class VentanaVisualizarCitas extends JFrame {
 		}
 	}
 	
+	/**
+	 * Metodo para cargar la tabla segun el filtro por fecha seleccionado en el menu
+	 * @param table
+	 * @param comercial (nickname del comercial)
+	 * @param fecha	(fecha para filtrar)
+	 */
 	public void cargarTablaFiltro(JTable table, String comercial, String fecha) {
 		String filtro = comercial + ";" + fecha;
 		List<CitaComercial> comerciales = comercialController.filtrarCitaComercial(filtro);
