@@ -22,12 +22,20 @@ public class VentanaMenuAdmin extends JFrame {
 	private GerenteController gerenteController;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Constructor de la VentanaMenuAdmin
+	 * @param gerenteController (Controlador de las ventanas para la clase Gerente)
+	 * @param nickname (Nickname del gerente)
+	 */
 	public VentanaMenuAdmin(GerenteController gerenteController, String nickname) {
 		this.gerenteController = gerenteController;   //errores
 		inicioVentanaMenuAdmin(nickname);
 	}
 	
-	
+	/**
+	 * Inicializador del JFrame de la VentanaMenuAdmin
+	 * @param nickname (Nickname del gerente)
+	 */
 	public void inicioVentanaMenuAdmin(String nickname) {
 		this.setTitle("Menu del administrador");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -134,24 +142,39 @@ public class VentanaMenuAdmin extends JFrame {
 			panel.add(btnVerYEditar);
 	}
 	
+	/**
+	 * Metodo para iniciar la VentanEmpleados.
+	 * @param nickname (Nickname del Gerente)
+	 */
 	public void verUsuarios(String nickname) {
 		VentanaEmpleados ve = new VentanaEmpleados(gerenteController, nickname);
     	ve.setVisible(true);
     	dispose();
 	}
 	
+	/**
+	 * Metodo para inicar la VentanaGestionTarifas.
+	 * @param nickname (Nickname del Gerente)
+	 */
 	public void gestionarTarifas(String nickname) {
 		VentanaGestionTarifas vg = new VentanaGestionTarifas(gerenteController, nickname);
     	vg.setVisible(true);
     	dispose();
 	}
 	
+	/**
+	 * Metodo para iniciar la VentanaNuevoEstudioMercado.
+	 * @param nickname (Nickname del Gerente)
+	 */
 	public void estudiosMercado(String nickname) {
 		VentanaNuevoEstudioMercado vnem = new VentanaNuevoEstudioMercado(gerenteController, nickname);
 		vnem.setVisible(true);
 		dispose();
 	}
 	
+	/**
+	 * Metodo para cerrar esta ventana y regresar a la VentanaLogin.
+	 */
 	public void salir() {
 		LoginController controller = new LoginController(gerenteController.getClienteApp());
 		VentanaLogin vlogin = new VentanaLogin(controller);

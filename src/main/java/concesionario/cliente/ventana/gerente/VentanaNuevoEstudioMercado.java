@@ -25,9 +25,6 @@ import java.awt.Color;
 */
 public class VentanaNuevoEstudioMercado extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldNombre;
@@ -147,6 +144,11 @@ public class VentanaNuevoEstudioMercado extends JFrame {
 		textFieldHorasManoObra.setText("");
 	}
 	
+	/**
+	 * Metodo para registrar una nueva Tarifa.
+	 * @param tarifa (Objeto Tarifa)
+	 * @param nickname (Nickname del Gerente)
+	 */
 	public void registrarTarifa(Tarifa tarifa, String nickname){
 		if (gerenteController.registroTarifa(tarifa)) {
 			logger.info("Tarifa registrada correctamente.");
@@ -171,6 +173,10 @@ public class VentanaNuevoEstudioMercado extends JFrame {
 		}
 	}
 	
+	/**
+	 * Metodo para la creacion de un codigo identificativo.
+	 * @return ID (Codigo Identificativo)
+	 */
 	public String crearID () {
 		List<Tarifa> tarifas = gerenteController.cargarTablaTarifas();
 		int numero = tarifas.size() + 1;
