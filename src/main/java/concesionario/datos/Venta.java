@@ -94,28 +94,28 @@ package concesionario.datos;
  	}
  	/**
  	 * Metodo para la obtencion del Nickname del Comercial de la Venta.
- 	 * @return modelo (Nickname del Comercial de la Venta)
+ 	 * @return nicknameComercial (Nickname del Comercial de la Venta)
  	 */
  	public String getNicknameComercial() {
  		return nicknameComercial;
  	}
  	/**
  	 * Metodo para la modificacion del Nickname del Comercial de la Venta.
- 	 * @param modelo (Nickname del Comercial de la Venta)
+ 	 * @param nicknameComercial (Nickname del Comercial de la Venta)
  	 */
  	public void setNicknameComercial(String nicknameComercial) {
  		this.nicknameComercial = nicknameComercial;
  	}
  	/**
  	 * Metodo para la obtencion del Nombre del Comprador.
- 	 * @return modelo (Nombre del Comprador)
+ 	 * @return nombreComercial (Nombre del Comprador)
  	 */ 	
  	public String getNombreComprador() {
  		return nombreComprador;
  	}
  	/**
  	 * Metodo para la modificacion del Nombre del Comprador.
- 	 * @param modelo (Nombre del Comprador)
+ 	 * @param nombreComercial (Nombre del Comprador)
  	 */ 
  	public void setNombreComprador(String nombreComprador) {
  		this.nombreComprador = nombreComprador;
