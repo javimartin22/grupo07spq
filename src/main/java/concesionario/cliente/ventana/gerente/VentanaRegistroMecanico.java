@@ -1,7 +1,5 @@
 package concesionario.cliente.ventana.gerente;
 
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,12 +20,11 @@ import org.slf4j.LoggerFactory;
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Mecanico;
 
-
+/**
+ * VentanaRegistroMecanico (Ventana para el registro del Mecanico).
+ */
 public class VentanaRegistroMecanico extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldDNI;
@@ -47,11 +44,20 @@ public class VentanaRegistroMecanico extends JFrame {
 	final Logger logger = LoggerFactory.getLogger(VentanaRegistroMecanico.class);
 	static int iteration = 0;
 
+	/**
+	 * Constructor de la VentanaRegistroMecanico.
+	 * @param gerenteController (Controlador de las Ventanas de Gerente)
+	 * @param nickname (Nickname del Mecanico)
+	 */
 	public VentanaRegistroMecanico(GerenteController gerenteController, String nickname) {
 		this.gerenteController = gerenteController;
 		iniciarVentanaRegistroMecanico(nickname);
 	}
 	
+	/**
+	 * Inicializar el JFrame de la VentanaRegistroMecanico
+	 * @param nickname (Nickname del Mecanico)
+	 */
 	public void iniciarVentanaRegistroMecanico(String nickname) {
 		setResizable(false);
 		setTitle("Registro Mecanico");
@@ -236,6 +242,10 @@ public class VentanaRegistroMecanico extends JFrame {
 		contentPane.add(btnRegistrar);
 	}
 	
+	/**
+	 * Metodo para comprobar que todos los datos introducidos sean correctos.
+	 * @return datos (Boolean que dice si son correctos o no)
+	 */
 	public boolean comprobarDatos() {
 		boolean datos = false;
 		
@@ -265,6 +275,9 @@ public class VentanaRegistroMecanico extends JFrame {
 		return datos;
 	}
 	
+	/**
+	 * Metodo para vaciar los TextField de la Ventana.
+	 */
 	public void vaciarCampos() {
 		textFieldApellido.setText("");
 		textFieldCiudad.setText("");
@@ -281,6 +294,11 @@ public class VentanaRegistroMecanico extends JFrame {
 		passwordField.setText("");
 	}
 	
+	/**
+	 * Metodo para el registro de nuevos Mecanicos
+	 * @param mecanic (Objeto Mecanico)
+	 * @param nickname (Nickname del Mecanico)
+	 */
 	public void registrarMecanico(Mecanico mecanic, String nickname){
 		if (gerenteController.registroMecanico(mecanic)) {
 			logger.info("Mecanico registrado correctamente.");
