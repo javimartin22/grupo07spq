@@ -260,6 +260,23 @@ public class ComercialControllerTest {
 		assertTrue(comercialController.filtrarCitaComercial("") == null);
 	}
 	
+	@Test 
+	public void testDeleteCitaComercial() {
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		
+		when(clienteApp.citasComercialDelete(any(String.class))).thenReturn(response);
+		
+		assertTrue(comercialController.deleteCitaComercial("nickname") == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		
+		when(clienteApp.citasComercialDelete(any(String.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.deleteCitaComercial("nickname") == false);
+	}
+	
 	@Test
 	public void testValidarFecha() {
 		String fecha = "1-10-2020";

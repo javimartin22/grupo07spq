@@ -511,5 +511,22 @@ public class MecanicoControllerTest {
 		assertTrue(mecanicoController.validarFecha(fecha));
 		assertFalse(mecanicoController.validarFecha(fecha2));
 	}
+	
+	@Test 
+	public void testDeleteCitaMecanico() {
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		
+		when(cliente.citasMecanicoDelete(any(String.class))).thenReturn(response);
+		
+		assertTrue(mecanicoController.deleteCitaMecanico("nickname") == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		
+		when(cliente.citasMecanicoDelete(any(String.class))).thenReturn(response1);
+		
+		assertTrue(mecanicoController.deleteCitaMecanico("nickname") == false);
+	}
 }
 	
