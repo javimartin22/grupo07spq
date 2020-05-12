@@ -17,7 +17,6 @@ import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
 import concesionario.datos.Comercial;
 import concesionario.datos.HorasEmpleados;
-import concesionario.datos.Mecanico;
 
 public class VentanaMenuComercial extends JFrame {
 
@@ -43,7 +42,7 @@ public class VentanaMenuComercial extends JFrame {
 		panel.setLayout(null);
 		
 		//label de arriba a la derecha que solo pone el nombre del cliente
-		JLabel nombreMecanico = new JLabel("Bienvenid@ <DYNAMIC>");
+		JLabel nombreMecanico = new JLabel("Bienvenid@ " + nickname);
 		nombreMecanico.setHorizontalAlignment(SwingConstants.CENTER);
 		nombreMecanico.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		nombreMecanico.setBounds(146, 11, 228, 33);
