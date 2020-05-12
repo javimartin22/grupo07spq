@@ -1,8 +1,5 @@
 package concesionario.cliente.ventana.departamentoCompras;
 
-
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -21,23 +18,16 @@ public class VentanaInformacionProveedoresHerramientas extends JFrame {
 	private JPanel contentPane;
 	private DepartmentoComprasController departamentoComprasController;
 	
-	
-	
 	public VentanaInformacionProveedoresHerramientas(DepartmentoComprasController departmentoComprasController,ProveedorHerramientas proveedor, String nickname) {
 		setResizable(false);
 		this.departamentoComprasController = departmentoComprasController;
 		iniciarVentanaInformacionProveedoresHerramientas(proveedor,nickname);
 	}
-	
-	
 
-	/**
-	 * Create the frame.
-	 */
 	public void  iniciarVentanaInformacionProveedoresHerramientas(ProveedorHerramientas proveedor, String nickname) {
 		setTitle("Informacion proveedores");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 424, 211);
+		setBounds(100, 100, 388, 243);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -50,7 +40,7 @@ public class VentanaInformacionProveedoresHerramientas extends JFrame {
 		contentPane.add(lblNombre);
 		
 		JLabel lblnomProv = new JLabel(proveedor.getNombre());
-		lblnomProv.setBounds(169, 32, 85, 16);
+		lblnomProv.setBounds(203, 33, 156, 16);
 		contentPane.add(lblnomProv);
 		
 		JLabel lblPais = new JLabel("Pais:");
@@ -59,7 +49,7 @@ public class VentanaInformacionProveedoresHerramientas extends JFrame {
 		contentPane.add(lblPais);
 		
 		JLabel lblpaisProv = new JLabel(proveedor.getPais());
-		lblpaisProv.setBounds(169, 71, 156, 16);
+		lblpaisProv.setBounds(203, 72, 156, 16);
 		contentPane.add(lblpaisProv);
 		
 		JLabel lblTiposDePieza = new JLabel("Tipos de herramientas:");
@@ -68,7 +58,7 @@ public class VentanaInformacionProveedoresHerramientas extends JFrame {
 		contentPane.add(lblTiposDePieza);
 		
 		JLabel lbltiposProv = new JLabel(proveedor.gettipoHerramientas());
-		lbltiposProv.setBounds(169, 115, 276, 16);
+		lbltiposProv.setBounds(203, 116, 156, 16);
 		contentPane.add(lbltiposProv);
 		
 		JButton btnSalir = new JButton("Salir");
@@ -80,10 +70,7 @@ public class VentanaInformacionProveedoresHerramientas extends JFrame {
 			}
 		});
 		
-		btnSalir.setBounds(147, 154, 117, 29);
+		btnSalir.setBounds(145, 162, 117, 29);
 		contentPane.add(btnSalir);
-
-		
-		
 	}
 }

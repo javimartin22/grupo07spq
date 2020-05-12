@@ -1,8 +1,5 @@
 package concesionario.cliente.ventana.departamentoCompras;
 
-
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -19,20 +16,13 @@ public class VentanaInformacionProveedores extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private DepartmentoComprasController departamentoComprasController;
-	
-	
-	
+
 	public VentanaInformacionProveedores(DepartmentoComprasController departmentoComprasController,Proveedor proveedor, String nickname) {
 		setResizable(false);
 		this.departamentoComprasController = departmentoComprasController;
 		iniciarVentanaInformacionProveedores(proveedor,nickname);
 	}
 	
-	
-
-	/**
-	 * Create the frame.
-	 */
 	public void  iniciarVentanaInformacionProveedores(Proveedor proveedor, String nickname) {
 		setTitle("Informacion proveedores");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,8 +71,5 @@ public class VentanaInformacionProveedores extends JFrame {
 		
 		btnSalir.setBounds(147, 154, 117, 29);
 		contentPane.add(btnSalir);
-
-		
-		
 	}
 }
