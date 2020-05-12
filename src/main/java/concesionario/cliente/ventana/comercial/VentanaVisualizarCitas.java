@@ -38,7 +38,7 @@ public class VentanaVisualizarCitas extends JFrame {
 	private ComercialController comercialController;
 	
 	/**
-	 * Constructor de la clase VentanaVisualizarCitas
+	 * Constructor de la clase VentanaVisualizarCitas.
 	 * @param comercialcontroller (Controlador de la ventana VentanaVisualizarCitas)
 	 * @param nickname (nombre de usuario)
 	 */
@@ -83,7 +83,6 @@ public class VentanaVisualizarCitas extends JFrame {
 				Date date = new Date();
 				String fechaCompleta =  Integer.toString(date.getDate()) +"-"+ Integer.toString(date.getMonth() + 1) +"-"+ Integer.toString(1900 + date.getYear())+"";				
 				cargarTablaFiltro(table1, nickname, fechaCompleta);
-				logger.info("Citas de hoy cargadas");
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem);
@@ -95,7 +94,6 @@ public class VentanaVisualizarCitas extends JFrame {
 				Date date = new Date();
 				String fechaCompleta =  Integer.toString(date.getDate() + 1) +"-"+ Integer.toString(date.getMonth() + 1) +"-"+ Integer.toString(1900 + date.getYear())+"";				
 				cargarTablaFiltro(table1, nickname, fechaCompleta);
-				logger.info("Citas de mañana cargadas");
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
@@ -109,12 +107,9 @@ public class VentanaVisualizarCitas extends JFrame {
 				 
 				 if (comercialController.validarFecha(fecha)) {
 					 cargarTablaFiltro(table1, nickname, fecha);
-					 logger.info("Citas de " + fecha + " cargadas");
 				} else {
 					fecha = JOptionPane.showInputDialog("Por favor, escribe la fecha en el siguiente formato (ejem. dd-mm-yyyy)");
-				}
-				 
-				 
+				}	 
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
@@ -128,7 +123,6 @@ public class VentanaVisualizarCitas extends JFrame {
 				String nickFecha = nickname + ";" + fechaCompleta;
 				comercialController.deleteCitaComercial(nickFecha);
 				cargarTabla(table1, nickname);
-				logger.info("Tabla cargada");
 			}
 		});
 		
@@ -150,7 +144,7 @@ public class VentanaVisualizarCitas extends JFrame {
 	}
 	
 	/**
-	 * Metodo para cargar la tabla de citas
+	 * Metodo para cargar la tabla de citas.
 	 * @param table
 	 * @param comercial (nickname del comercial)
 	 */
@@ -178,7 +172,7 @@ public class VentanaVisualizarCitas extends JFrame {
 	}
 	
 	/**
-	 * Metodo para cargar la tabla segun el filtro por fecha seleccionado en el menu
+	 * Metodo para cargar la tabla segun el filtro por fecha seleccionado en el menu.
 	 * @param table
 	 * @param comercial (nickname del comercial)
 	 * @param fecha	(fecha para filtrar)
