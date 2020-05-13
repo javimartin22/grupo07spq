@@ -38,7 +38,9 @@ import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
 
-//Cambiar el Pom.xml para que luego nos runnee esta aplicaicon
+/**
+ * Clase ClienteApp (La clase ClienteApp es la clase utilizada para la ejecucion del cliente del proyecto y la encargada de la comunicacion con el servidor).
+ */
 public class ClienteApp {
 	
 	private Client client;
@@ -49,60 +51,102 @@ public class ClienteApp {
 	
 	public final  String URL_SERVER = "http://localhost:8080/concesionario";
 	
+	/**
+	 * Constructor de la Clase ClienteApp
+	 * @param loginTarget (Target General)
+	 */
 	public ClienteApp(WebTarget loginTarget) {
 		this.loginTarget = loginTarget;
 		
 	}
-	
+	/**
+	 * Constructor para la incialiacion de las variables.
+	 */
 	public ClienteApp() {
 		client = ClientBuilder.newClient();
-		
 		 appTarget = client.target(URL_SERVER);
 		 loginTarget= appTarget.path("loginp");
 	}
 	
+	/**
+	 * Metodo para el Incio de Sesion
+	 * @param concat (Usuario que envia para comprobar e iniciar sesion).
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response login(Usuario concat) {
 		Entity<Usuario> entity = Entity.entity(concat, MediaType.APPLICATION_JSON);
 		Response response = loginTarget.path("inicio").request(MediaType.TEXT_PLAIN).post(entity);
 
         return response;
 	}
+	/**
+	 * Metodo para obtener el Target.
+	 * @return loginTarget (Target General).
+	 */
 	public WebTarget getLoginTarget() {
 		return this.loginTarget;
 	}
 
+	/**
+	 * Metodo para el registro de Coches Concesionario.
+	 * @param auto (CocheConcesionario que se envia al Server)
+	 * @return response (Respuesta del Server).
+	 */
 	public Response registrarCoche(CocheConcesionario auto) {
 		Entity<CocheConcesionario> entity = Entity.entity(auto, MediaType.APPLICATION_JSON);
 		Response response =  loginTarget.path("insertCocheConcesionario").request(MediaType.TEXT_PLAIN).post(entity);
 
         return response;
 	}
-	
+	 /**
+	  * Metodo para el registro de Coches Taller.
+	 * @param cocheTaller (CocheTaller que se envia al Server)
+	 * @return response (Respuesta del Server).
+	  */
 	public Response registrarCocheTaller(CocheTaller cocheTaller) {
 		Entity<CocheTaller> entity = Entity.entity(cocheTaller, MediaType.APPLICATION_JSON);
 		Response response = loginTarget.path("insertCocheTaller").request(MediaType.TEXT_PLAIN).post(entity);
 
         return response;
 	}
-	
+	/**
+	 * Metodo para el registro de Clientes.
+	 * @param client (Cliente que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response registroCliente (Cliente client) {
 		Entity<Cliente> entity = Entity.entity(client, MediaType.APPLICATION_JSON);
 		Response response = loginTarget.path("insertClient").request(MediaType.TEXT_PLAIN).post(entity);
 		return response;
 	}
 	
+	/**
+	 * Metodo para el registo de Mecanicos.
+	 * @param mecanic (Mecanico que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response registroMecanico(Mecanico mecanic) {
 		Entity<Mecanico> entity = Entity.entity(mecanic, MediaType.APPLICATION_JSON);
 		Response response = loginTarget.path("insertMecanic").request(MediaType.TEXT_PLAIN).post(entity);
 		return response;
 	}
 	
+	/**
+	 * Metodo para el regitro de Comerciales.
+	 * @param comercial (Comercial que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response registroComercial(Comercial comercial) {
 		Entity<Comercial> entity = Entity.entity(comercial, MediaType.APPLICATION_JSON);
 		Response response = loginTarget.path("insertComercial").request(MediaType.TEXT_PLAIN).post(entity);
 		return response;
 	}
 	
+	/**
+	 * Metodo para el regitro de Empleados del Departamento Compras.
+	 * @param dep (Empleado del Departamento Compras que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response registroDepartamentoCompras(DepartamentoCompras dep) {
 		WebTarget insertDepartamentoComprasTarget = loginTarget.path("insertDepartamentoCompras");
 		Entity<DepartamentoCompras> entity = Entity.entity(dep, MediaType.APPLICATION_JSON);
@@ -110,6 +154,11 @@ public class ClienteApp {
 		return response;
 	}
 	
+	/**
+	 * Metodo para el regitro de Tarifas.
+	 * @param tarifa (Tarifa que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response registroTarifa(Tarifa tarifa) {
 		Entity<Tarifa> entity = Entity.entity(tarifa, MediaType.APPLICATION_JSON);
 		Response response = loginTarget.path("insertTarifa").request(MediaType.TEXT_PLAIN).post(entity);
@@ -155,14 +204,22 @@ public class ClienteApp {
 			return null;
 		}
 	}
-	
+	/**
+	 * Metodo para seleccionar un Coche Taller
+	 * @param matricula (Matricula que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response seleccionarCocheTaller (String matricula) {
 		WebTarget selectClienteTarget = loginTarget.path("selectCocheTaller");
 		Entity<String> ent = Entity.entity(matricula, MediaType.APPLICATION_JSON);
 		Response response = selectClienteTarget.request(MediaType.APPLICATION_JSON).post(ent);
 		return response;
 	}
-	
+	/**
+	 * Metodo para seleccionar un Cliente
+	 * @param nickname (Nickname del Cliente que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response clienteSelect(String nickname) {
 		WebTarget selectClienteTarget = loginTarget.path("selectClient");
 		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
@@ -177,71 +234,110 @@ public class ClienteApp {
 		
 		return usuarios;
 	}
-	
+	/**
+	 * Metodo para seleccionar un Mecanico
+	 * @param nickname (Nickname del Mecanico que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response mecanicoSelect(String nickname) {
 		WebTarget selectMecanicoTarget = loginTarget.path("selectMecanico");
 		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
 		Response response = selectMecanicoTarget.request(MediaType.APPLICATION_JSON).post(ent);
 		return response;
 	}
-	
+	/**
+	 * Metodo para eliminar un Mecanico
+	 * @param nickname (Nickname del Mecanico que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response mecanicoDelete(String nickname) {
 		WebTarget deleteMecanicoTarget = loginTarget.path("deleteMecanico");
 		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
 		Response response = deleteMecanicoTarget.request(MediaType.TEXT_PLAIN).post(ent);
 		return response;
 	}
-	
+	/**
+	 * Metodo para seleccionar un Comercial
+	 * @param nickname (Nickname del Comercial que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response comercialSelect(String nickname) {
 		WebTarget selectComercialTarget = loginTarget.path("selectComercial");
 		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
 		Response response = selectComercialTarget.request(MediaType.APPLICATION_JSON).post(ent);
 		return response;
 	}
-	
+	/**
+	 * Metodo para eliminar un Comercial
+	 * @param nickname (Nickname del Comercial que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response comercialDelete(String nickname) {
 		WebTarget deleteComercialTarget = loginTarget.path("deleteComercial");
 		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
 		Response response = deleteComercialTarget.request(MediaType.TEXT_PLAIN).post(ent);
 		return response;
 	}
-	
+	/**
+	 * Metodo para eliminar un Coche Taller
+	 * @param matricula (Matricula del Coche Taller que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response CocheTallerDelete(String matricula) {
 		WebTarget deleteComercialTarget = loginTarget.path("deleteCocheTaller");
 		Entity<String> ent = Entity.entity(matricula, MediaType.APPLICATION_JSON);
 		Response response = deleteComercialTarget.request(MediaType.TEXT_PLAIN).post(ent);
 		return response;
 	}
-	
-
+	/**
+	 * Metodo para eliminar una Solicitu de Compra
+	 * @param solicitud (Solicitud que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response SolicitudCompraDelete(String solicitud) {
 		WebTarget deleteSolicitudTarget = loginTarget.path("deleteSolicitudCompra");
 		Entity<String> ent = Entity.entity(solicitud, MediaType.APPLICATION_JSON);
 		Response response = deleteSolicitudTarget.request(MediaType.TEXT_PLAIN).post(ent);
 		return response;
 	}
-	
+	/**
+	 * Metodo para eliminar una Tarifa 
+	 * @param idTarifa (Codigo Identificativo de la Tarifa que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response tarifaDelete(String idTarifa) {
 		WebTarget deleteComercialTarget = loginTarget.path("deleteTarifa");
 		Entity<String> ent = Entity.entity(idTarifa, MediaType.APPLICATION_JSON);
 		Response response = deleteComercialTarget.request(MediaType.TEXT_PLAIN).post(ent);
 		return response;
 	}
-	
+	/**
+	 * Metodo para seleccionar un Empleado del Departamento Compras
+	 * @param nickname (Nickname del Empleado del Departamento Compras que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response departamentoComprasSelect(String nickname) {
 		WebTarget selectDepartamentoComprasTarget = loginTarget.path("selectDepartamentoCompras");
 		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
 		Response response = selectDepartamentoComprasTarget.request(MediaType.APPLICATION_JSON).post(ent);
 		return response;
 	}
-	
+	/**
+	 * Metodo para eliminar un Empleado del Departamento Compras
+	 * @param nickname (Nickname del Empleado del Departamento Compras que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response departamentoComprasDelete(String nickname) {
 		WebTarget deleteDepartamentoComprasTarget = loginTarget.path("deleteDepartamentoCompras");
 		Entity<String> ent = Entity.entity(nickname, MediaType.APPLICATION_JSON);
 		Response response = deleteDepartamentoComprasTarget.request(MediaType.TEXT_PLAIN).post(ent);
 		return response;
 	}
-	
+	/**
+	 * Metodo para registrar una Venta
+	 * @param venta (Venta que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response registroVenta(Venta venta) {
  		WebTarget insertVentaTarget = loginTarget.path("insertVenta");
  		Entity<Venta> entity = Entity.entity(venta, MediaType.APPLICATION_JSON);
@@ -255,7 +351,6 @@ public class ClienteApp {
         List<Pieza> piezas = loadPiezaTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
 		return piezas;
 	}
-	
 	
 	public List<HerramientasTaller> cargarTablaHerramientasTaller(){
 		WebTarget loadPiezaTableTarget = loginTarget.path("loadHerramientaTable");
@@ -271,41 +366,62 @@ public class ClienteApp {
         List<SolicitudCompra> sol = loadSolicitudTarget.request(MediaType.APPLICATION_JSON).get(genericType);
 		return sol;
 	}
-	
+	/**
+	 * Metodo para seleccionar una PiezaUtilizada 
+	 * @param codigo (Codigo de la Pieza Utilizada que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response piezaUtilizadaSelect(String codigo) {
 		WebTarget selectPiezaUtilizadaTarget = loginTarget.path("selectPiezaUtilizada");
 		Entity<String> ent = Entity.entity(codigo, MediaType.APPLICATION_JSON);
 		Response response = selectPiezaUtilizadaTarget.request(MediaType.APPLICATION_JSON).post(ent);
 		return response;
 	}
-	
-	
+	/**
+	 * Metodo para registrar una Pieza
+	 * @param pieza (Pieza que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response registroPieza(Pieza pieza) {
 		WebTarget insertPiezaTarget = loginTarget.path("insertPiezas");
  		Entity<Pieza> entity = Entity.entity(pieza, MediaType.APPLICATION_JSON);
  		Response response = insertPiezaTarget.request(MediaType.TEXT_PLAIN).post(entity);
  		return response;
 	}
-	
+	/**
+	 * Metodo para registrar una Herramienta
+	 * @param herramienta (Herramienta que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response registroHerramienta(HerramientasTaller herramienta) {
 		WebTarget insertPiezaTarget = loginTarget.path("insertHerramientas");
  		Entity<HerramientasTaller> entity = Entity.entity(herramienta, MediaType.APPLICATION_JSON);
  		Response response = insertPiezaTarget.request(MediaType.TEXT_PLAIN).post(entity);
  		return response;
 	}
-	
+	/**
+	 * Metodo para registrar un Presupuesto
+	 * @param presupuesto (Presupuesto que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response registroPresupuesto(Presupuesto presupuesto) {
 		WebTarget insertPresupuestoTarget = loginTarget.path("insertPresupuesto");
  		Entity<Presupuesto> entity = Entity.entity(presupuesto, MediaType.APPLICATION_JSON);
  		Response response = insertPresupuestoTarget.request(MediaType.TEXT_PLAIN).post(entity);
  		return response;
 	}
+	/**
+	 * Metodo para registrar una Solicitu de Compra
+	 * @param solicitud (SolicitudCompra que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response registroSolicitud(SolicitudCompra solicitud) {
 		WebTarget insertSolicitudTarget = loginTarget.path("insertSolicitud");
  		Entity<SolicitudCompra> entity = Entity.entity(solicitud, MediaType.APPLICATION_JSON);
  		Response response = insertSolicitudTarget.request(MediaType.TEXT_PLAIN).post(entity);
  		return response;
 	}
+	
 	public List<Herramientas> insertarHerramientas(){
 		WebTarget insertHerramientaTableTarget = loginTarget.path("insertHerramienta");
 		GenericType<List<Herramientas>> genericType = new GenericType<List<Herramientas>>() {};
@@ -346,7 +462,11 @@ public class ClienteApp {
         List<CocheTaller> coches = loadVentaTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
 		return coches;
 	}
-	
+	/**
+	 * Metodo para seleccionar un Coche Concerionario
+	 * @param modelo (Modelo del CocheConcesionario que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response seleccionarCocheConcesionario(String modelo) {
 		WebTarget selectCocheConcesionarioTarget = loginTarget.path("selectCocheConcesionario");
 		Entity<String> ent = Entity.entity(modelo, MediaType.APPLICATION_JSON);
@@ -354,14 +474,17 @@ public class ClienteApp {
 		return response;
 	}
 	
-	
 	public List<Presupuesto> cargarTablaPresupuestos(){
 		WebTarget loadPresupuestosTableTarget = loginTarget.path("loadPresupuestosTable");
 		GenericType<List<Presupuesto>> genericType = new GenericType<List<Presupuesto>>() {};
         List<Presupuesto> presupuestos = loadPresupuestosTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
 		return presupuestos;
 	}
-	
+	/**
+	 * Metodo para seleccionar un Presupuesto
+	 * @param codigo (Codigo del Presupuesto que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response seleccionarPresupuesto(String codigo) {
 		WebTarget selectPresupuestoTarget = loginTarget.path("selectPresupuesto");
 		Entity<String> ent = Entity.entity(codigo, MediaType.APPLICATION_JSON);
@@ -375,7 +498,6 @@ public class ClienteApp {
         List<Tarifa> tarifas = loadTarifasTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
 		return tarifas;
 	}
-	
 	
 	public Response filtrarTarifaPrecio(int precio) {
 		WebTarget filtroPrecioTarifaTarget = loginTarget.path("precioTarifa");
@@ -518,27 +640,43 @@ public class ClienteApp {
         List<Comercial> comerciales = loadComercialTableTarget.request(MediaType.APPLICATION_JSON).get(genericType);
 		return comerciales;
 	}
-	
+	/**
+	 * Metodo para seleccionar una Cita de un Comercial
+	 * @param restriccion (Restriccion de la CitaComercial que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response seleccionarCitaComercial (String restriccion) {
 		WebTarget selectCitaComercialTarget = loginTarget.path("selectCitaComercial");
 		Entity<String> ent = Entity.entity(restriccion, MediaType.APPLICATION_JSON);
 		Response response = selectCitaComercialTarget.request(MediaType.APPLICATION_JSON).post(ent);
 		return response;
 	}
-	
+	/**
+	 * Metodo para registrar una Cita de un Comercial
+	 * @param citaComercial (CitaComercial que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response registroCitaComercial(CitaComercial citaComercial) {
 		Entity<CitaComercial> entity = Entity.entity(citaComercial, MediaType.APPLICATION_JSON);
 		Response response = loginTarget.path("insertCitaComercial").request(MediaType.TEXT_PLAIN).post(entity);
 		return response;
 	}
-	
+	/**
+	 * Metodo para seleccionar una Cita de un Empleado del Taller
+	 * @param restriccion (Restriccion de la CitaTaller que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response seleccionarCitaTaller (String restriccion) {
 		WebTarget selectCitaTallerTarget = loginTarget.path("selectCitaTaller");
 		Entity<String> ent = Entity.entity(restriccion, MediaType.APPLICATION_JSON);
 		Response response = selectCitaTallerTarget.request(MediaType.APPLICATION_JSON).post(ent);
 		return response;
 	}
-	
+	/**
+	 * Metodo para registrar una Cita de un Empleado del Taller
+	 * @param citaTaller (CitaTaller que se envia al Server)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response registroCitaTaller(CitaTaller citaTaller) {
 		Entity<CitaTaller> entity = Entity.entity(citaTaller, MediaType.APPLICATION_JSON);
 		Response response = loginTarget.path("insertCitaTaller").request(MediaType.TEXT_PLAIN).post(entity);
