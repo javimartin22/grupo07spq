@@ -10,7 +10,7 @@ public class ProveedorHerramientas {
 	private String tipoHerramientas;
 	
 	/**
-	 * Construcctor Vacio de la clase ProveedorHerramientas.
+	 * Constructor Vacio de la clase ProveedorHerramientas.
 	 */
 	public ProveedorHerramientas() {
 	}
