@@ -69,7 +69,7 @@ public class Herramientas {
 	}
 	/**
 	 * Metodo para la modificacion del tiempo de envio.
-	 * @return tiempo (Tiempo de Herramienta)
+	 * @param tiempo (Tiempo de Herramienta)
 	 */
 	public void setTiempo(int tiempo) {
 		this.tiempo = tiempo;
