@@ -385,19 +385,6 @@ public class ClienteAppTest {
 		assertEquals(200, result.getStatus());	
 	}
 	
-	@Test 
-	public void testUpdateMecanico() {
-		Response response = mock(Response.class);
-		Mockito.when(response.getStatus()).thenReturn(200);
-		when(webtarget.path(eq("updateMecanico")).request(anyString()).post(any(Entity.class))).thenReturn(response);
-		
-		String nickname = "user";
-		
-		Response result = clienteApp.updateMecanico(nickname);
-		assertEquals(200, result.getStatus());	
-	}
-	
-	
 	@Test
 	public void testComercialSelect() {
 		Response response = mock(Response.class);

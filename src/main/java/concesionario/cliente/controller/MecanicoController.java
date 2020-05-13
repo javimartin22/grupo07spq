@@ -364,15 +364,6 @@ public class MecanicoController {
 		}
 	}
 	
-	public boolean updateMecanico(String string) {
-		Response response = cliente.updateMecanico(string); //estoy aqui
-		if (response.getStatus() == Status.OK.getStatusCode()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
 	public boolean deleteCitaMecanico(String nickFecha) {
 		Response response = cliente.citasMecanicoDelete(nickFecha); 
 		if (response.getStatus() == Status.OK.getStatusCode()) {
