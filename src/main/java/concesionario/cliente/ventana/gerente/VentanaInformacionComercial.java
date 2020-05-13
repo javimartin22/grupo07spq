@@ -14,11 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 
 public class VentanaInformacionComercial extends JFrame {
-	
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private GerenteController gerenteController;
