@@ -4,7 +4,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import concesionario.cliente.controller.MecanicoController;
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Mecanico;
 
@@ -13,11 +12,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * VentanaRegistroMecanico (Ventana para la visualizacion de la informacion del Mecanico).
+ */
 public class VentanaInformacionMecanico extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -49,6 +48,12 @@ public class VentanaInformacionMecanico extends JFrame {
 	private JLabel lblNewLabel_12;
 	private JLabel lblNewLabel_13;
 	
+	/**
+	 * Controller de la VentanaInformacionMecanico.
+	 * @param gerenteController (Controlador de las Ventanas de Gerente)
+	 * @param nickname (Nickname del Gerente)
+	 * @param mecanic (Objetco Mecanico)
+	 */
 	public VentanaInformacionMecanico(GerenteController gerenteController, String nickname, Mecanico mecanic) {
 	this.gerenteController = gerenteController;
 	iniciarVentanaInformacionMecanico(nickname, mecanic);
