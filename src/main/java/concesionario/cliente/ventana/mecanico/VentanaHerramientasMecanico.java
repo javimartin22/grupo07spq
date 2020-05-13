@@ -17,24 +17,34 @@ import javax.swing.table.DefaultTableModel;
 import concesionario.cliente.controller.MecanicoController;
 import concesionario.datos.HerramientasTaller;
 
+/**
+ * Interfaz grafica VentanaHerramientasMecanico (Permite visualizar las herramientas disponibles en el taller)
+ */
 
 public class VentanaHerramientasMecanico extends JFrame{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable tabla;
 	private MecanicoController mecanicoController;
 
-	public VentanaHerramientasMecanico(MecanicoController mecanicoController, String nickname) {
+	/**
+	 * Constructor de la VentanaHerramientasMecanico
+	 * @param VentanaHerramientasMecanico (Controlador de las ventanas para la clase Mecanico)
+	 * @param nickname (Nickname del mecanico)
+	 */
+	public VentanaHerramientasMecanico(MecanicoController VentanaHerramientasMecanico, String nickname) {
 		setResizable(false);
 		setTitle("Herramientas Taller");
 		this.mecanicoController = mecanicoController;
 		iniciarVentanaHerramientas(nickname);
 	}
 	
+	/**
+	 * Inicializador del JFrame de la VentanaHerramientasMecanico
+	 * @param nickname (Nickname del mecanico)
+	 */
 	public void iniciarVentanaHerramientas(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(170, 100, 560, 353);
@@ -43,9 +53,15 @@ public class VentanaHerramientasMecanico extends JFrame{
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
+		/**
+		 * Menu para filtrar busquedas
+		 */
 		JMenu mnNewMenu = new JMenu("Filtros");
 		menuBar.add(mnNewMenu);
 		
+		/*
+		 * Filtros
+		 */
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Codigo");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
@@ -79,6 +95,9 @@ public class VentanaHerramientasMecanico extends JFrame{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		/*
+		 * Scrollpane para la tabla
+		 */
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 11, 522, 235);
@@ -97,6 +116,9 @@ public class VentanaHerramientasMecanico extends JFrame{
 		btnRegresar.setBounds(45, 267, 117, 29);
 		contentPane.add(btnRegresar);
 		
+		/*
+		 * Boton que carga las herramientas del taller disponibles desde la BD
+		 */
 		JButton btnCargarHerramientas = new JButton("Cargar Herramientas");
 		btnCargarHerramientas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -106,6 +128,9 @@ public class VentanaHerramientasMecanico extends JFrame{
 		btnCargarHerramientas.setBounds(184, 267, 180, 29);
 		contentPane.add(btnCargarHerramientas);
 		
+		/*
+		 * Acceso a la interfaz grafica para solicitar una compra de herramientas o piezas
+		 */
 		JButton btnNewButton = new JButton("Solicitar Compra");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -120,6 +145,10 @@ public class VentanaHerramientasMecanico extends JFrame{
 		
 	}
 	
+	/**
+	 * Carga los datos de la BD y los introduce en una JTable
+	 * @param table Tabla de HerramientasMecanico
+	 */
 		public void cargarTabla(JTable table) {
 			
 			List<HerramientasTaller> herramientas = mecanicoController.cargarHerramientasTaller();
@@ -140,6 +169,13 @@ public class VentanaHerramientasMecanico extends JFrame{
 					 }
 			} 
 		}
+		
+	/**
+	 * Aplica los filtros de busqueda y los introduce en la tabla.
+	 * @param table Tabla de HerramientasMecanico
+	 * @param tipo  Identificacion del tipo de filtro
+	 * @param filtro Busqueda del usuario
+	 */
 	
 	public void cargarTablaFiltro(JTable table, int tipo, String filtro) {
 		String restriccion = filtro + "-" + tipo;

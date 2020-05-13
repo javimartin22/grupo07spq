@@ -23,6 +23,9 @@ import concesionario.datos.SolicitudCompra;
 import javax.swing.DefaultComboBoxModel;
 
 
+/**
+ * Interfaz grafica VentanaSolicitudCompra (Permite realizar una solicitud de compra de piezas o herramientas)
+ */
 public class VentanaSolicitudCompra extends JFrame {
 	
 
@@ -32,12 +35,20 @@ public class VentanaSolicitudCompra extends JFrame {
 	final Logger logger = LoggerFactory.getLogger(VentanaSolicitudCompra.class);
 	static int iteration = 0;
 
+	/**
+	 * Constructor de la VentanaSolicitudCompra
+	 * @param mecanicoController (Controlador de las ventanas para la clase Mecanico)
+	 * @param nickname (Nickname del mecanico)
+	 */
 	public VentanaSolicitudCompra(MecanicoController mecanicoController, String nickname) {
 		setResizable(false);
 		this.mecanicoController = mecanicoController;
 		iniciarVentanaSolicitudCompra(nickname);
 	}
-
+	/**
+	 * Inicializador del JFrame de la VentanaSolicitudCompra
+	 * @param nickname (Nickname del mecanico)
+	 */
 	public void iniciarVentanaSolicitudCompra(String nickname) {
 		setTitle("Solicitar compra");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,6 +63,9 @@ public class VentanaSolicitudCompra extends JFrame {
 		lblNewLabel.setBounds(22, 20, 426, 16);
 		contentPane.add(lblNewLabel);
 		
+		/*
+		 * Boton de regreso a la interfaz grafica VentanaHerramientasMecanico
+		 */
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -90,7 +104,9 @@ public class VentanaSolicitudCompra extends JFrame {
 		comboBox.setBounds(155, 63, 177, 27);
 		contentPane.add(comboBox);
 		
-		
+		/*
+		 * Boton para cargar las herramientas o piezas disponibles a solicitar
+		 */
 		JButton btnVerHerramientas = new JButton("Ver");
 		btnVerHerramientas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -118,6 +134,10 @@ public class VentanaSolicitudCompra extends JFrame {
 		spinner.setBounds(155, 141, 44, 26);
 		contentPane.add(spinner);
 		
+		/*
+		 * Boton para solicitar una compra al departamento de compras.
+		 */
+		
 		JButton btnComprar = new JButton("Solicitar");
 		btnComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -141,11 +161,16 @@ public class VentanaSolicitudCompra extends JFrame {
 }
 	
 	
-	
+	/*
+	 * Carga las herramientas disponibles para la solicitud en la BD
+	 */
 	public List<Herramientas> cargarListaHerramientas(){
 		return mecanicoController.cargarListaHerramientas();
 	}
 	
+	/*
+	 * Añade las herramientas disponibles para la solicitud en un arraylist 
+	 */
 	public ArrayList<String> crearHerramientas(){
 		
 		List<Herramientas> herramientas = mecanicoController.cargarListaHerramientas();
@@ -157,6 +182,9 @@ public class VentanaSolicitudCompra extends JFrame {
 		return lista;
 	}
 	
+	/*
+	 * Carga las piezas disponibles para la solicitud en la BD
+	 */
 	public ArrayList<String> crearPiezas(){
 		
 		List<Pieza> piezas = mecanicoController.cargarPiezas();
@@ -168,6 +196,10 @@ public class VentanaSolicitudCompra extends JFrame {
 		return lista;
 	}
 	
+	/*
+	 * Inserta la solicitud de compra en la BD
+	 * @param solicitud Solicitud de compra
+	 */
 
 	private void registrarBD(SolicitudCompra solicitud) {
 		if (mecanicoController.registroSolicitud(solicitud)) {
@@ -177,11 +209,13 @@ public class VentanaSolicitudCompra extends JFrame {
 		}
 	}
 
-public String obtenerCodigo() {
-	List<SolicitudCompra> solicitud = mecanicoController.cargarSolicitud();
-
-	return mecanicoController.calcularCodigoSolicitud(solicitud);
-}
+	/**
+	 * Genera un codigo a cada solicitud de compra.
+	 */
+	public String obtenerCodigo() {
+		List<SolicitudCompra> solicitud = mecanicoController.cargarSolicitud();
+		return mecanicoController.calcularCodigoSolicitud(solicitud);
+	}
 
 	
 	
