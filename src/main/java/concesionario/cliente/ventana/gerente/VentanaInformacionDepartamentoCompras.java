@@ -12,11 +12,12 @@ import concesionario.datos.DepartamentoCompras;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
-
+/**
+ * VentanaInformacionDepartamentoCompras (Ventana para la visualizacion de la informacion del Departamento de Compras).
+ */
 public class VentanaInformacionDepartamentoCompras extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
- 
 	private JPanel contentPane;
 	private GerenteController gerenteController;
 	
