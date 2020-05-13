@@ -18,17 +18,33 @@ import concesionario.cliente.ventana.VentanaLogin;
 import concesionario.datos.Comercial;
 import concesionario.datos.HorasEmpleados;
 
+/**
+ * Clase para visualizar el menu del comercial
+ */
 public class VentanaMenuComercial extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private ComercialController comercialController;
 	private JButton buttonRegistrarCoche;
 	
+	/**
+	 * Controlador para la clase ComercialController
+	 */
+	private ComercialController comercialController;
+	
+	/**
+	 * Controller para la clase ComercialController
+	 * @param comercialController (Controlador de la ventana VentanaVisualizarCitas)
+	 * @param nickname (Nickname del comercial)
+	 */
 	public VentanaMenuComercial(ComercialController comercialController, String nickname) {
 		this.comercialController = comercialController;
 		initVentanaMenuComercial(nickname);
 	}
 	
+	/**
+	 * Create the frame
+	 * @param nickname (Nickname del Comercial)
+	 */
 	private void initVentanaMenuComercial(String nickname) {
 		this.setTitle("Menu Comercial");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -130,6 +146,12 @@ public class VentanaMenuComercial extends JFrame {
 		}); 
 	}
 	
+	/**
+	 * Metodo para cargar las horas
+	 * @param hora (Horas)
+	 * @param min (Minutos)
+	 * @param nickname (Nickname del comercial)
+	 */
 	public void cargarHoras(int hora, int min, String nickname) {
 		comercialController.deleteHorasEmpleadosTemporal(nickname);
 		String horasEmpleado = nickname + "-" + hora + "-" + min;
@@ -138,6 +160,12 @@ public class VentanaMenuComercial extends JFrame {
 		}
 	}
 	
+	/**
+	 * Metodo para calcular las horas del comercial
+	 * @param h (Horas)
+	 * @param m (Minutos)
+	 * @param nickname (Nickname del comercial)
+	 */
 	public void calcularHorasTrabajadas(int h, int m, String nickname) {
 		HorasEmpleados horaEmpleadosTemporal = comercialController.seleccionarHorasComercialTemporal(nickname);
 		HorasEmpleados horaEmpleados = comercialController.seleccionarHorasComercial(nickname);

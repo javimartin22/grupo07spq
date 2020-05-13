@@ -23,7 +23,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 /**
- * Clase par visualizar las citas de un usuario de tipo comercial.
+ * Clase para visualizar las citas de un usuario de tipo comercial.
  */
 public class VentanaVisualizarCitas extends JFrame {
 	

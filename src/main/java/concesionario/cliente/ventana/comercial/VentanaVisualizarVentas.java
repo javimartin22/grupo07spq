@@ -24,18 +24,34 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import java.awt.Color;
 
+/**
+ * Clase para visualizar las ventas de un usuario de tipo comercial
+ */
 public class VentanaVisualizarVentas extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTable table;
-	private ComercialController comercialController;
 	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarVentas.class);
 	static int iteration = 0;
 	
+	/**
+	 * Controlador para la clase ComercialController
+	 */
+	private ComercialController comercialController;
+	
+	/**
+	 *Constructor de la clase VentanaVisualizarCitas.
+	 * @param comercialcontroller (Controlador de la ventana VentanaVisualizarCitas)
+	 * @param nickname (nombre de usuario)
+	 */
 	public VentanaVisualizarVentas(ComercialController comercialController, String nickname) {
 		this.comercialController = comercialController;
 		iniciarVentanaVisualizarVentas(nickname);
 	}
 
+	/**
+	 * Create the frame
+	 * @param nickname (Nickname del comercial)
+	 */
 	public void iniciarVentanaVisualizarVentas(String nickname) {
 		setResizable(false);
 		setAutoRequestFocus(false);
@@ -119,6 +135,10 @@ public class VentanaVisualizarVentas extends JFrame {
 		mnFiltro.add(mntmComercial);
 	}
 	
+	/**
+	 * Metodo para resetear la tabla de ventas
+	 * @param tabla (Tabla)
+	 */
 	public void resetearTabla(JTable tabla) {
 		List<Venta> ventas = comercialController.cargarTablaVenta();
 		
@@ -144,6 +164,12 @@ public class VentanaVisualizarVentas extends JFrame {
 		}
 	}
 	
+	/**
+	 * Metodo para filtrar las ventas del comercial 
+	 * @param table (Tabla)
+	 * @param tipo (Tipo para filtrar la tabla de ventas, puede ser segun el modelo, la marca o el comercial)
+	 * @param restriccion (Restriccion para filtrar)
+	 */
 	public void cargarTablaRestriccion (JTable table, int tipo, String restriccion) {
 		List<Venta> ventas = new ArrayList<Venta>();
 		switch (tipo) {

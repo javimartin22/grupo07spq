@@ -15,20 +15,34 @@ import concesionario.datos.CocheConcesionario;
 
 import java.awt.Color;
 
+/**
+ * Clase para visualizar los detalles del coche
+ */
 public class VentanaDetallesCoche extends JFrame {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Controlador para la clase VentanaDetallesCoche
+	 */
 	private ComercialController comercialController;
 	
+	/**
+	 * Constructor de la clase VentanaDetallesCoche
+	 * @param comercialController (Controlador de la ventana VentanaDetalleCoche)
+	 * @param coche (Objeto de tipo CocheConcesionario)
+	 * @param nickname (Nickname del comercial)
+	 */
 	public VentanaDetallesCoche(ComercialController comercialController, CocheConcesionario coche, String nickname) {
 		setTitle("Informacion del Vehiculo");
 		this.comercialController = comercialController;
 		iniciarVentanaDetallesCoche(coche, nickname);
 	}
 
+	/**
+	 * Create the frame
+	 * @param coche (Objeto de tipo CocheConcesionario)
+	 * @param nickname (Nickname del Comercial)
+	 */
 	public void iniciarVentanaDetallesCoche(CocheConcesionario coche, String nickname) {
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);

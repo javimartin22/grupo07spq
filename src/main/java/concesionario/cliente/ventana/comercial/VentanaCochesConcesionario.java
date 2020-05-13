@@ -21,17 +21,22 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import java.awt.Color;
 
+/**
+ *Clase para visualizar los coches del concesionario
+ */
 public class VentanaCochesConcesionario extends JFrame {
 		
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private ComercialController comercialController;
 	final Logger logger = LoggerFactory.getLogger(VentanaCochesConcesionario.class);
 	static int iteration = 0;
 	
+	/**
+	 * Contructor y frame de la clase VentanaCocheConcesionario
+	 * @param comercialController (Controlador de la ventana VentanaCocheConcesionario)
+	 * @param nickname (nombre de usuario del comercial)
+	 */
 	public VentanaCochesConcesionario(ComercialController comercialController, String nickname) {
 		setResizable(false);
 		this.comercialController = comercialController;
@@ -150,6 +155,10 @@ public class VentanaCochesConcesionario extends JFrame {
 		
 	}
 	
+	/**
+	 * Metodo para cargar la tabla de coches del concerionario
+	 * @param table (Tabla)
+	 */
 	public void cargarTabla(JTable table) {
 		List<CocheConcesionario> coches = comercialController.cargarTablaCochesConcesionario();
 		
@@ -176,6 +185,12 @@ public class VentanaCochesConcesionario extends JFrame {
 		}
 	}
 	
+	/**
+	 * Metodo para filtrar la tabla de coches del concesionario
+	 * @param table (Tabla)
+	 * @param tipo (Tipo de de filtro)
+	 * @param restriccion (String del filtro que se desea aplcicar (Color, CV, Marca o precio maximo))
+	 */
 	public void cargarTablaFiltros(JTable table, int tipo, String restriccion) {
 		String filtro = restriccion + "-" + tipo;
 		List<CocheConcesionario> coches = comercialController.filtrarCocheConcesionario(filtro);
