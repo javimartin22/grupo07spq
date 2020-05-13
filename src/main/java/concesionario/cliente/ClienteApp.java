@@ -542,7 +542,7 @@ public class ClienteApp {
 		return response;
 	}
 	/**
-	 * Metodo para cargar los Tarifas
+	 * Metodo para cargar las Tarifas
 	 * @return tarifas (Lista que devuelve el Server)
 	 */
 	public List<Tarifa> cargarTablaTarifas(){
@@ -552,6 +552,11 @@ public class ClienteApp {
 		return tarifas;
 	}
 	
+	/**
+	 * Metodo para filtrar las tarifas por precio
+	 * @param precio (Precio que se envia al Server para filtrar tarifas)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response filtrarTarifaPrecio(int precio) {
 		WebTarget filtroPrecioTarifaTarget = loginTarget.path("precioTarifa");
 		Entity<Integer> entity = Entity.entity(precio, MediaType.APPLICATION_JSON);
@@ -559,6 +564,11 @@ public class ClienteApp {
         return response;
 	}
 	
+	/**
+	 * Metodo para filtar las tarifas por precio minimo
+	 * @param precio (Precio que se envia al Server para filtrar tarifas)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response filtrarTarifaPrecioMin(int precio) {
 		WebTarget filtroPrecioMinTarifaTarget = loginTarget.path("precioMinTarifa");
 		Entity<Integer> entity = Entity.entity(precio, MediaType.APPLICATION_JSON);
@@ -566,6 +576,11 @@ public class ClienteApp {
         return response;
 	}
 	
+	/**
+	 * Metodo para filtrar por horas las tarifas
+	 * @param horas (Horas que se envian al Server para filtrar tarifas)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response filtrarTarifaHorasMax(int horas) {
 		WebTarget filtroHorasMaxTarifaTarget = loginTarget.path("horasMaxTarifa");
 		Entity<Integer> entity = Entity.entity(horas, MediaType.APPLICATION_JSON);
@@ -573,6 +588,11 @@ public class ClienteApp {
         return response;
 	}
 	
+	/**
+	 * Metodo par filtrar las tarifas por horas minimas
+	 * @param horas (Horas que se envian al Server para filtrar tarifas)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response filtrarTarifaHorasMin(int horas) {
 		WebTarget filtroHorasMinTarifaTarget = loginTarget.path("horasMinTarifa");
 		Entity<Integer> entity = Entity.entity(horas, MediaType.APPLICATION_JSON);
@@ -580,6 +600,11 @@ public class ClienteApp {
         return response;
 	}
 	
+	/**
+	 * Metodo para filtrar las ventas por la marca
+	 * @param marca (Marca que se envia al Server para filtrar las ventas)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response filtrarVentaMarca(String marca) {
 		WebTarget filtroMarcaVentaTarget = loginTarget.path("loadTablaMarcaVentas");
 		Entity<String> entity = Entity.entity(marca, MediaType.APPLICATION_JSON);
@@ -587,6 +612,11 @@ public class ClienteApp {
         return response;
 	}
 	
+	/**
+	 * Metodo para filtrar la venta por el modelo 
+	 * @param modelo (Modelo del coche que se envia al Server para filtrar las ventas)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response filtrarVentaModelo(String modelo) {
 		WebTarget filtroModeloVentaTarget = loginTarget.path("loadTablaModeloVentas");
 		Entity<String> entity = Entity.entity(modelo, MediaType.APPLICATION_JSON);
@@ -594,6 +624,11 @@ public class ClienteApp {
         return response;
 	}
 	
+	/**
+	 * Metodo para filtrar las ventas segun el comercial
+	 * @param comercial (Identificativo del comercial que se envia al Server para filtrar las ventas)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response filtrarVentaComercial(String comercial) {
 		WebTarget filtroComercialVentaTarget = loginTarget.path("loadTablaComercialVentas");
 		Entity<String> entity = Entity.entity(comercial, MediaType.APPLICATION_JSON);
@@ -601,6 +636,11 @@ public class ClienteApp {
         return response;
 	}
 	
+	/**
+	 * Metodo para filtrar los presupuestos por el codigo
+	 * @param codigo (Codigo del presuspuesto que se envia al Server para filtrar los presupuestos)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response filtrarPresupuestoCodigo(String codigo) {
 		WebTarget filtroPresupuestoClienteTarget = loginTarget.path("loadTablaPresupuestoCodigo");
 		Entity<String> entity = Entity.entity(codigo, MediaType.APPLICATION_JSON);
@@ -608,6 +648,11 @@ public class ClienteApp {
         return response;
 	}
 	
+	/**
+	 * Metodo para filtrar los presupuestos segun el cliente
+	 * @param cliente (Identificativo del cliente que se envia al Server para filtrar los presupuestos)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response filtrarPresupuestoCliente(String cliente) {
 		WebTarget filtroPresupuestoCodigoTarget = loginTarget.path("loadTablaPresupuestoCliente");
 		Entity<String> entity = Entity.entity(cliente, MediaType.APPLICATION_JSON);
@@ -615,6 +660,11 @@ public class ClienteApp {
         return response;
 	}
 	
+	/**
+	 * Metodo para filtrar los presupuestos segun el problema
+	 * @param problema (Problema que se envia al Server para filtrar los presupuestos)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response filtrarPresupuestoProblema(String problema) {
 		WebTarget filtroPresupuestoProblemaTarget = loginTarget.path("loadTablaPresupuestoProblema");
 		Entity<String> entity = Entity.entity(problema, MediaType.APPLICATION_JSON);
@@ -622,6 +672,11 @@ public class ClienteApp {
         return response;
 	}
 	
+	/**
+	 * Metodo para 
+	 * @param filtro (Filtro que se envia al Server para filtrar los coches del concesionario, puede ser una marca, color, cv o precio)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response filtrarCocheConcesionario(String filtro) {
 		WebTarget filtroCocheConcesionarioTarget = loginTarget.path("loadTablaCocheConcesionarioFiltro");
 		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
@@ -629,6 +684,11 @@ public class ClienteApp {
         return response;
 	}
 	
+	/**
+	 * Metodo para filtrar los coches matriculados
+	 * @param filtro (Filtro que se envia al Server para filtrar los coches matriculados, puede ser por matricula, marca o por el nombre del cliente)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response filtrarCocheMatriculado(String filtro) {
 		WebTarget filtroCocheMatriculadoTarget = loginTarget.path("loadTablaCocheMatriculadoFiltro");
 		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
@@ -636,6 +696,11 @@ public class ClienteApp {
         return response;
 	}
 	
+	/**
+	 * Metodo para filtrar los coches del taller
+	 * @param filtro (Filtro que se envia al Server para filtrar los coches del taller, puede ser por matricula, mecanico, coste o estado)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response filtrarCocheTaller(String filtro) {
 		WebTarget filtroCocheTallerTarget = loginTarget.path("loadTablaCocheTallerFiltro");
 		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
@@ -643,7 +708,11 @@ public class ClienteApp {
         return response;
 	}
 	
-	
+	/**
+	 * Metodo para filtrar herramientas del taller
+	 * @param filtro (Filtro que se envia al Server para filtrar las herramientas, puede ser por codigo, nombre o stock)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response filtrarHerramientaMecanico(String filtro) {
 		WebTarget filtroHerramientaMecanicoTarget = loginTarget.path("loadTablaHerramientaMecanicoFiltro");
 		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
@@ -651,6 +720,11 @@ public class ClienteApp {
         return response;
 	}
 	
+	/**
+	 * Metodo para filtrar las piezasdel taller
+	 * @param filtro (Filtro que se envia al Server para filtrar las piezas, puede ser por codigo, nombre o stock)
+	 * @return response (Respuesta que devuelve el Server)
+	 */
 	public Response filtrarPiezaMecanico(String filtro) {
 		WebTarget filtroPiezaMecanicoTarget = loginTarget.path("loadTablaPiezaMecanicoFiltro");
 		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
@@ -658,6 +732,11 @@ public class ClienteApp {
         return response;
 	}
 	
+	/**
+	 * Metodo para filtrar las piezas utilizadas
+	 * @param filtro (Filtro que se envia al Server para filtrar las piezas utilizadas, puede ser por unidades o por codigo)
+	 * @return (Respuesta qeu devuelve el Server)
+	 */
 	public Response filtrarPiezaUtilizadas(String filtro) {
 		WebTarget filtroPiezaUtilizadasTarget = loginTarget.path("loadTablaPiezaUtilizadasFiltro");
 		Entity<String> entity = Entity.entity(filtro, MediaType.APPLICATION_JSON);
