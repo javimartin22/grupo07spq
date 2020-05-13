@@ -21,19 +21,14 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
-
-import concesionario.cliente.ClienteApp;
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Venta;
 /**
 * Clase para el Estudio de Mercado Grafico de las Marcas
 */
 public class VentanaEstudioMercado extends ApplicationFrame {
-	/**
-	 * Controlador para la clase Gerente.
-	 */
-	private GerenteController gerenteController;
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * Constructor de la clase EstudioComerciales
 	 * @param title (Titulo del estudio)
@@ -43,7 +38,6 @@ public class VentanaEstudioMercado extends ApplicationFrame {
 	 */
    public VentanaEstudioMercado(String title, List<Venta> ventas, GerenteController gerenteController, String nickname ) {
       super( title ); 
-      this.gerenteController = gerenteController;
       this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       setBounds(100, 100, 510, 278);
       

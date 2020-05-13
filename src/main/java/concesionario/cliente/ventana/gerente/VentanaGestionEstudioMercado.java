@@ -95,12 +95,6 @@ public class VentanaGestionEstudioMercado extends JFrame {
 			panel.add(buttonVolver);
 	}
 	
-//	public void verUsuarios(String nickname) {
-//		VentanaEmpleados ve = new VentanaEmpleados(gerenteController, nickname);
-//    	ve.setVisible(true);
-//    	dispose();
-//	}
-	
 	/**
 	 * Metodo para regresar a la ventana anterior (Menu admin) 
 	 * @param nickname del gerente

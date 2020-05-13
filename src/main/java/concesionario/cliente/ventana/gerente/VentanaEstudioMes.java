@@ -8,20 +8,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
@@ -39,6 +34,8 @@ import concesionario.datos.Venta;
 * Clase para el Estudio de Mercado Grafico de las Ventas por Mes
 */
 public class VentanaEstudioMes extends ApplicationFrame {
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Constructor de la clase EstudioMes
 	 * @param applicationTitle (Titulo del estudio)

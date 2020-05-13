@@ -9,20 +9,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
@@ -30,7 +25,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.data.category.CategoryDataset; 
 import org.jfree.data.category.DefaultCategoryDataset; 
 import org.jfree.ui.ApplicationFrame; 
@@ -43,7 +37,8 @@ import concesionario.datos.Venta;
 * Clase para el Estudio de Mercado Grafico de los comerciales
 */
 public class VentanaEstudioComerciales extends ApplicationFrame {
-   
+
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Constructor de la clase EstudioComerciales
 	 * @param applicationTitle (Titulo del estudio)
