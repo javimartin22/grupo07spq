@@ -23,7 +23,7 @@ public class DepartmentoComprasController {
 
 	/**
 	 * Contructor de la clase DepartmentoComprasController
-	 * @param cliente ClienteApp
+	 * @param clienteApp ClienteApp
 	 */
 	public DepartmentoComprasController(ClienteApp clienteApp) {
 		this.cliente = clienteApp;
