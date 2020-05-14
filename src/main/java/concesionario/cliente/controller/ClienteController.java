@@ -265,4 +265,48 @@ public class ClienteController {
 		}
 		return nombres;
 	}
+	/**
+	 * Metodo para la creacion de un listado de horas para el Concesionario.
+	 * @return List (Lista de las horas).
+	 */
+	public List<String> crearHorasConcesionario(){
+		List<String> horas = new ArrayList<String>();
+		for (int i = 0; i <= 2; i++) {
+			int a = 10 + i;
+			horas.add(a+":00");
+			horas.add(a+":15");
+			horas.add(a+":30");
+			horas.add(a+":45");
+		} 
+		for (int i = 0; i <= 3; i++) {
+			int a = 16 + i;
+			horas.add(a+":00");
+			horas.add(a+":15");
+			horas.add(a+":30");
+			horas.add(a+":45");
+		}
+		return horas;
+	}
+	/**
+	 * Metodo para la creacion de un listado de horas para el Taller.
+	 * @return List (Lista de las horas).
+	 */
+	public List<String> crearHorasTaller(){
+		List<String> horas = new ArrayList<String>();
+		for (int i = 0; i <= 2; i++) {
+			int a = 10 + i;
+			horas.add(a+":00");
+			horas.add(a+":15");
+			horas.add(a+":30");
+			horas.add(a+":45");
+		} 
+		for (int i = 0; i <= 4; i++) {
+			int a = 15 + i;
+			horas.add(a+":00");
+			horas.add(a+":15");
+			horas.add(a+":30");
+			horas.add(a+":45");
+		}
+		return horas;
+	}
 }
