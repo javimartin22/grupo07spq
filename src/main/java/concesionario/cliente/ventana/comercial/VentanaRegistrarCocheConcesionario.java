@@ -22,21 +22,30 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSpinner;
 import java.awt.Font;
 
+/**
+ * Clase para registrar los coches en el concesionario
+ */
 public class VentanaRegistrarCocheConcesionario extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private ComercialController comercialController; 
 	private JTextField modelo;
 	private JTextField marca;
 	private JTextField precio;
 	private JTextField textField_1;
 	final Logger logger = LoggerFactory.getLogger(VentanaRegistrarCocheConcesionario.class);
 	static int iteration = 0;
+	
+	/**
+	 * Controlador para la clase ComercialController
+	 */
+	private ComercialController comercialController; 
 
+	/**
+	 * Controller para la clase ComercialController
+	 * @param comercialController (Controlador de la ventana VentanaRegistrarCocheComercial)
+	 * @param nickname (Nickname del comercial)
+	 */ 
 	public VentanaRegistrarCocheConcesionario (ComercialController comercialController, String nickname) {
 		setTitle("Registro Coche Concesionario");
 		setResizable(false);
@@ -44,6 +53,10 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 		iniciarVentanaRegistrarCocheConcesionario(nickname);
 	}
 	
+	/**
+	 * Create the frame
+	 * @param nickname (Nickname del Comercial)
+	 */
 	public void iniciarVentanaRegistrarCocheConcesionario(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 367);
@@ -159,6 +172,11 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 		
 	}
 	
+	/**
+	 * Metodo para registrar coches
+	 * @param coche Objeto de tipo CocheConcesionario
+	 * @param nickname Nickname del comercial
+	 */
 	public void registrarCoche(CocheConcesionario coche, String nickname) {
 		if(comercialController.registrarCoche(coche)) {
 			logger.info("El vehiculo ha sido registrado correctamente.");
@@ -170,6 +188,10 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 		}
 	}
 	
+	/**
+	 * Metodo para comprobar los campos 
+	 * @return boolean Si los campos no estan vacios, devuelve un True y si no False
+	 */
 	public boolean comprobarCampos() {
 		boolean datos = false;
 		if (!textField_1.getText().isEmpty() && !modelo.getText().isEmpty() && !marca.getText().isEmpty() && !precio.getText().isEmpty()) {
