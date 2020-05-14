@@ -6,6 +6,9 @@ import javax.ws.rs.core.Response.Status;
 import concesionario.cliente.ClienteApp;
 import concesionario.datos.Usuario;
 
+/**
+ * Controller LoginController (Controller para la clase Login)
+ */
 public class LoginController {
 	public ClienteApp cliente;
 

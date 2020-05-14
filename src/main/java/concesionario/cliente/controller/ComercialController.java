@@ -15,6 +15,9 @@ import concesionario.datos.Comercial;
 import concesionario.datos.HorasEmpleados;
 import concesionario.datos.Venta;
 
+/**
+ * Controller ComercialController (Controller para las clases de Comercial)
+ */
 public class ComercialController {
 	private ClienteApp cliente;
 	
