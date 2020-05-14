@@ -16,12 +16,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+/**
+ * Interfaz grafica VentanaRegistroCocheTaller (Permite a un mecanico registrar un coche )
+ */
 public class VentanaRegistroCocheTaller extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private MecanicoController mecanicoController; 
@@ -32,13 +31,20 @@ public class VentanaRegistroCocheTaller extends JFrame {
 	private JTextField txtDni;
 	final Logger logger = LoggerFactory.getLogger(VentanaRegistroCocheTaller.class);
 	static int iteration = 0;
-
+	/**
+	 * Constructor de la VentanaRegistroCocheTaller
+	 * @param mecanicoController (Controlador de las ventanas para la clase Mecanico)
+	 * @param nickname (Nickname del mecanico)
+	 */
 	public VentanaRegistroCocheTaller (MecanicoController mecanicoController, String nickname) {
 		setResizable(false);
 		this.mecanicoController = mecanicoController;
 		iniciarVentanaRegistrarCocheTaller(nickname);
 	}
-	
+	/**
+	 * Inicializador del JFrame de la iniciarVentanaRegistrarCocheTaller
+	 * @param nickname (Nickname del mecanico)
+	 */
 	private void iniciarVentanaRegistrarCocheTaller(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 312);
@@ -47,7 +53,9 @@ public class VentanaRegistroCocheTaller extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		/*
+		 * Boton que permite regresar a la clase VentanaMenuMecanico
+		 */
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -103,7 +111,9 @@ public class VentanaRegistroCocheTaller extends JFrame {
 		txtDni.setBounds(220, 180, 199, 26);
 		contentPane.add(txtDni);
 		txtDni.setColumns(10);
-		
+		/*
+		 * Boton que permite registrar un coche
+		 */
 		JButton btnNewButton = new JButton("Registrar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -126,7 +136,11 @@ public class VentanaRegistroCocheTaller extends JFrame {
 		btnNewButton.setBounds(258, 227, 117, 29);
 		contentPane.add(btnNewButton);
 	}
-	
+	/**
+	 * Regitra un coche en la BD 
+	 * @param cocheTaller Coche que se quiere registrar
+	 * @param nickname (Nickname del mecanico)
+	 */
 	public void registrarCocheTaller(CocheTaller cocheTaller, String nickname) {
 		if(mecanicoController.registrarCocheTaller(cocheTaller)) {
 			logger.info("El coche se ha registrado correctamente");
@@ -138,7 +152,9 @@ public class VentanaRegistroCocheTaller extends JFrame {
 			JOptionPane.showMessageDialog(this, "Erro al regristar el coche taller");
 		}
 	}
-	
+	/**
+	 * Evalua si los datos introducidos son correctos
+	 */
 	public boolean comprobarCampos() {
 		boolean datos = false;
 		if (!txtMatricula.getText().isEmpty() && !txtMarca.getText().isEmpty() && !txtModelo.getText().isEmpty() && !txtDni.getText().isEmpty() && !txtCoste.getText().isEmpty()) {

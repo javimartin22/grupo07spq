@@ -23,7 +23,9 @@ import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import java.awt.Font;
-
+/**
+ * Interfaz grafica VentanaRegistroPresupuesto (Permite a un mecanico registrar un presupùesto )
+ */
 public class VentanaRegistroPresupuesto extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -34,14 +36,23 @@ public class VentanaRegistroPresupuesto extends JFrame {
 	private JTextField textField_4;
 	final Logger logger = LoggerFactory.getLogger(VentanaRegistroPresupuesto.class);
 	static int iteration = 0;
-	
+	/**
+	 * Constructor de la VentanaRegistroPresupuesto
+	 * @param mecanicoController (Controlador de las ventanas para la clase Mecanico)
+	 * @param nickname (Nickname del mecanico)
+	 * @param precio Coste del presupuesto
+	 */
 	public VentanaRegistroPresupuesto(MecanicoController mecanicoController, String nickname, int precio) {
 		setResizable(false);
 		this.mecanicoController = mecanicoController;
 		ventanaPresupuesto(nickname, precio);
 	}
 
-	
+	/**
+	 * Inicializador del JFrame de la VentanaRegistroPresupuesto
+	 * @param nickname (Nickname del mecanico)
+	 * @param cost coste del presupuesto
+	 */
 	public void ventanaPresupuesto(String nickname, int cost) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 452, 471);
@@ -49,7 +60,9 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		/*
+		 * Boton que permite regresar a la clase VentanaVisualizarPresupuestos
+		 */
 		JButton btnNewButton = new JButton("Regresar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -61,7 +74,9 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		btnNewButton.setBounds(95, 390, 89, 23);
 		contentPane.add(btnNewButton);
 		
-		
+		/*
+		 * Label de la ventana
+		 */
 		
 		JLabel lblNewLabel = new JLabel("DNI Cliente:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -141,7 +156,9 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		spinner_1.setValue(cost);
 		contentPane.add(spinner_1);
 		
-		
+		/*
+		 * Boton encargado de crear el presupuesto
+		 */
 		JButton btnNewButton_1 = new JButton("Crear Presupuesto");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -168,7 +185,10 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		btnNewButton_1.setBounds(231, 390, 144, 23);
 		contentPane.add(btnNewButton_1);
 	}
-	
+	/**
+	 * Regitra un presupuesto en la BD 
+	 * @param presupuesto Presupuesto que se quiere registrar
+	 */
 	public void registroPresupuesto(Presupuesto presupuesto) {
 		if (mecanicoController.registroPresupuesto(presupuesto)) {
 			logger.info("El presupuesto se ha registrado correctamente.");
@@ -177,6 +197,10 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		}
 	}
 	
+	/**
+	 * Aplica descuentos en el presupuesto en funcion de la fidelidad del cliente
+	 * @param dni DNI del cliente
+	 */
 	public double presupuestoDescuento(String dni) {
 		double descuento = 1.0;
 		List<ClienteFidelidad> cleinteFidelidad = mecanicoController.cargarClienteFidelidad();
@@ -193,7 +217,10 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		}
 		return descuento;
 	}
-	
+	/**
+	 * Almacena las piezas que se introduzcan
+	 * @param numPiezas Cantidad de piezas a almacenar
+	 */
 	public String crearPiezasString(int numPiezas) {
 		String listaPiezas = "";
 		ArrayList<String> piezas = new ArrayList<String>();
