@@ -273,7 +273,7 @@ public class VentanaRegistroComercial extends JFrame {
 
 	/**
 	 * Metodo para el registro de nuevos Mecanicos
-	 * @param mecanic (Objeto Mecanico)
+	 * @param comercial (Objeto Comercial)
 	 * @param nickname (Nickname del Mecanico)
 	 */
 	public void registrarComercial(Comercial comercial, String nickname){
