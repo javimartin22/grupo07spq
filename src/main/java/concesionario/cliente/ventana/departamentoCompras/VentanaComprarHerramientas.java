@@ -25,7 +25,7 @@ public class VentanaComprarHerramientas extends JFrame {
 	private JPanel contentPane;	
 	
 	/**
-	 * Controlador para la clase DepartamentoComprasComercial
+	 * Controlador para la clase DepartamentoComprasController
 	 */
 	private DepartmentoComprasController departamentoComprasController;
 

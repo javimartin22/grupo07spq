@@ -1,6 +1,8 @@
 package concesionario.cliente.ventana.departamentoCompras;
 
-
+/**
+ * Clase para comprar las piezas
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -25,14 +27,26 @@ public class VentanaComprarPiezas extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;	
 	private JTextField textFieldUnidades;
+	/**
+	 * Controlador para la clase DepartamentoComprasController
+	 */
 	private DepartmentoComprasController departamentoComprasController;
 
+	/**
+	 * Construtor de la clase VentanaComprarPiezas
+	 * @param departmentoComprasController (Controlador de la ventana VentanaComprarPiezas)
+	 * @param nickname (Nickname del usuario de departamento de compras)
+	 */
 	public VentanaComprarPiezas(DepartmentoComprasController departmentoComprasController, String nickname) {
 		setResizable(false);
 		this.departamentoComprasController = departmentoComprasController;
 		iniciarVentanaComprarPiezas(nickname);
 	}
 
+	/**
+	 * Create the frame
+	 * @param nickname (Nickname del usuario de departamento de compras)
+	 */
 	public void iniciarVentanaComprarPiezas(String nickname) {
 		setTitle("Comprar piezas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -152,6 +166,11 @@ public class VentanaComprarPiezas extends JFrame {
 		contentPane.add(btnVerPrecio);
 }
 	
+	/**
+	 * Metodo para calcular el tiempo para el de departamento del compras
+	 * @param nombre (Nombre del de departamento de compras)
+	 * @return tiempo (Tiempo de uso calculado)
+	 */
 	public int calcularTiempo (String nombre) {
 		int tiempo = 0;
 		List<PiezaProveedores> lista = departamentoComprasController.cargarListaPiezasProveedores();
@@ -163,14 +182,26 @@ public class VentanaComprarPiezas extends JFrame {
 		return tiempo;
 	}
 	
+	/**
+	 * Metodo para cargar los proveedores
+	 * @return List<Proveedor>	Lista de objetos de tipo Proveedor
+	 */
 	public List<Proveedor> cargarListaProveedores() {
 		return departamentoComprasController.cargarListaProveedores();
 	}
 	
+	/**
+	 * Metodo para obtener las pezas de los proveedores
+	 * @return List<PiezaProveedores> Lista de objetos de tipo PiezaProveedores
+	 */
 	public List<PiezaProveedores> cargarListaPiezaProveedores(){
 		return departamentoComprasController.cargarListaPiezasProveedores();
 	}
 	
+	/**
+	 * Metodo para crear nuevos proveedores
+	 * @return nombres ArrayList<String> lista de los nombre de los proveedores 
+	 */
 	public ArrayList<String> crearProveedores() {
 		List<Proveedor> proveedores = cargarListaProveedores();
 		ArrayList<String> nombres = new ArrayList<String>();
@@ -180,6 +211,11 @@ public class VentanaComprarPiezas extends JFrame {
 		return nombres;
 	}
 	
+	/**
+	 * Metodo para crear piezas de los proveedores
+	 * @param nombre Nombre del proveedor
+	 * @return lista ArrayList<String> de piezas creadas
+	 */
 	public ArrayList<String> crearPiezasProveedores(String nombre){
 		List<Proveedor> proveedores = departamentoComprasController.cargarListaProveedores();
 		List<PiezaProveedores> piezas = departamentoComprasController.cargarListaPiezasProveedores();
@@ -198,6 +234,11 @@ public class VentanaComprarPiezas extends JFrame {
 		return lista;
 	}
 	
+	/**
+	 * Metodo para obtener los proveedores
+	 * @param nombre Nombre del proveedor que se quiere obtener
+	 * @return prov Objeto de tipo Proveedor que se quiere obtener
+	 */
 	public Proveedor obtenerProveedor(String nombre) {
 		List<Proveedor> proveedores = cargarListaProveedores();
 		for (Proveedor prov : proveedores) {
@@ -208,6 +249,11 @@ public class VentanaComprarPiezas extends JFrame {
 		return null;
 	}
 	
+	/**
+	 * Metodo para obtener las piezas de los proveedores
+	 * @param nombre Nombre de la pieza que se desee obtener
+	 * @return pieza Objeto de tipo PiezaProveedor
+	 */
 	public PiezaProveedores obtenerPiezaProveedor(String nombre) {
 		List<PiezaProveedores> piezas = cargarListaPiezaProveedores();
 		for (PiezaProveedores pieza : piezas) {
@@ -218,6 +264,12 @@ public class VentanaComprarPiezas extends JFrame {
 		return null;
 	}
 	
+	/**
+	 * Metodo para realizar compras de las piezas
+	 * @param piezaProveedor Nombre de la pieza y el proveedor 
+	 * @param unidades Unidades de las pieas que se deseen para comprar
+	 * @param nickname Nickname del usuario de departamento de compras que quiere comprar piezas
+	 */
 	public void realizarCompra(PiezaProveedores piezaProveedor, int unidades, String nickname) {
 				VentanaRegistoPiezas vrp = new VentanaRegistoPiezas(departamentoComprasController,piezaProveedor, unidades, nickname);
 				vrp.setVisible(true);
