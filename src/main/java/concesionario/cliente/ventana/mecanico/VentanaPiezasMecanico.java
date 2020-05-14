@@ -21,30 +21,40 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-
+/**
+ * Interfaz grafica VentanaPiezasMecanico (Permite visualizar las piezas de las que dispone un mecanico)
+ */
 public class VentanaPiezasMecanico extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable tabla;
 	private MecanicoController mecanicoController;
 	final Logger logger = LoggerFactory.getLogger(VentanaPiezasMecanico.class);
 	static int iteration = 0;
-	
+	/**
+	 * Constructor de la VentanaPiezasMecanico
+	 * @param mecanicoController (Controlador de las ventanas para la clase Mecanico)
+	 * @param nickname (Nickname del mecanico)
+	 */
 	public VentanaPiezasMecanico(MecanicoController mecanicoController, String nickname) {
 		setResizable(false);
 		this.mecanicoController = mecanicoController;
 		iniciarVentanaPiezas(nickname);
 	}
-	
+
+	/**
+	 * Inicializador del JFrame de la VentanaPiezasMecanico
+	 * @param nickname (Nickname del mecanico)
+	 */
 	public void iniciarVentanaPiezas(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(170, 100, 560, 353);
 		setLocationRelativeTo(null);
 		
+		/*
+		 * Filtros
+		 */
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -90,6 +100,9 @@ public class VentanaPiezasMecanico extends JFrame {
 		tabla = new JTable();
 		scrollPane.setViewportView(tabla);
 		
+		/*
+		 * Boton que permite regresar a VentanaMenuMecanico
+		 */
 		JButton btnRegresar = new JButton("Regresar");
 		btnRegresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -101,6 +114,10 @@ public class VentanaPiezasMecanico extends JFrame {
 		btnRegresar.setBounds(161, 267, 117, 29);
 		contentPane.add(btnRegresar);
 		
+		/*
+		 * Boton que carga las piezas en la tabla
+		 */
+		
 		JButton btnCargarPiezas = new JButton("Cargar Piezas");
 		btnCargarPiezas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -110,11 +127,19 @@ public class VentanaPiezasMecanico extends JFrame {
 		btnCargarPiezas.setBounds(288, 267, 117, 29);
 		contentPane.add(btnCargarPiezas);
 		
+		/*
+		 * Boton para que un mecanico pueda coger las piezas
+		 */
+		
 		JButton btnCogerPiezas = new JButton("Coger Piezas");
 		btnCogerPiezas.setBounds(415, 267, 117, 29);
 		contentPane.add(btnCogerPiezas);
 	}
-	
+
+	/**
+	 * Carga los datos de la BD y los introduce en una JTable
+	 * @param table Tabla de PiezasMecanico
+	 */
 		public void cargarTabla(JTable table) {
 			List<Pieza> piezas = mecanicoController.cargarPiezas();
 			String[] columnNames = {"Codigo", "Nombre", "Unidades", "Ubicacion"};
@@ -137,6 +162,12 @@ public class VentanaPiezasMecanico extends JFrame {
 			}
 		}
 		
+		/**
+		 * Aplica los filtros de busqueda y los introduce en la tabla.
+		 * @param table Tabla de PiezasMecanico
+		 * @param tipo  Identificacion del tipo de filtro
+		 * @param filtro Busqueda del usuario
+		 */	
 	public void cargarTablaFiltro(JTable table, int tipo, String filtro) {
 		String restriccion = filtro + "-" + tipo;
 		List<Pieza> piezas = mecanicoController.filtrarPiezaMecanico(restriccion);

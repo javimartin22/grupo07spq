@@ -13,6 +13,10 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+
+/**
+ * Interfaz grafica VentanaInformacionPresupuesto (Permite visualizar informacion acerca del presupuesto)
+ */
 public class VentanaInformacionPresupuesto extends JFrame {
 
 	/**
@@ -22,12 +26,23 @@ public class VentanaInformacionPresupuesto extends JFrame {
 	private JPanel contentPane;
 	private MecanicoController mecanicoController;
 
+	/**
+	 * Constructor de la VentanaInformacionPresupuesto
+	 * @param mecanicoController (Controlador de las ventanas para la clase Mecanico)
+	 * @param nickname (Nickname del mecanico)
+	 * @param presupuesto (Objeto presupuesto)
+	 */
 	public VentanaInformacionPresupuesto(MecanicoController mecanicoController, String nickname, Presupuesto presupuesto) {
 		setResizable(false);
 		this.mecanicoController = mecanicoController;
 		ventanaInformacionPresupuesto(nickname, presupuesto);
 	}
 	
+	/**
+	 * Inicializador del JFrame de la ventanaInformacionPresupuesto
+	 * @param nickname (Nickname del mecanico)
+	 * @param presupuesto (Objeto presupuesto)
+	 */
 	void ventanaInformacionPresupuesto(String nickname, Presupuesto presupuesto) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 449, 484);
@@ -35,6 +50,10 @@ public class VentanaInformacionPresupuesto extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		/*
+		 * Label informacion presupuesto
+		 */
 		
 		JLabel lblNewLabel = new JLabel("Codigo:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -121,10 +140,17 @@ public class VentanaInformacionPresupuesto extends JFrame {
 		lblNewLabel_1_1_1_2.setBounds(179, 270, 148, 14);
 		contentPane.add(lblNewLabel_1_1_1_2);
 		
+		/*
+		 * Area de texto donde se meustra la informacion
+		 */
 		JTextArea textArea = new JTextArea(presupuesto.getObservaciones());
 		textArea.setEditable(false);
 		textArea.setBounds(20, 320, 392, 71);
 		contentPane.add(textArea);
+		
+		/*
+		 * Boton para regresar a la VentanaVisualizarPresupuestos
+		 */
 		
 		JButton btnNewButton = new JButton("Regresar");
 		btnNewButton.addActionListener(new ActionListener() {

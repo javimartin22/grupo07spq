@@ -23,20 +23,27 @@ import java.util.Date;
 import javax.swing.JButton;
 
 
+/**
+ * Interfaz grafica VentanaMenuMecanico (Permite visualizar el menu de un mecanico)
+ */
 public class VentanaMenuMecanico extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private MecanicoController mecanicoController;
-	
+	/**
+	 * Constructor de la VentanaMenuMecanico
+	 * @param loginController (Controlador de las ventanas para la clase Mecanico)
+	 * @param nickname (Nickname del mecanico)
+	 */
 	public VentanaMenuMecanico(MecanicoController loginController, String nickname){
 		this.mecanicoController = loginController;
 		iniciarVentanaMenuMecanico(nickname);
 	}
 	
-	
+	/**
+	 * Inicializador del JFrame de la VentanaMenuMecanico
+	 * @param nickname (Nickname del mecanico)
+	 */
 	public void iniciarVentanaMenuMecanico(String nickname){
 		this.setTitle("Menu del mecanico");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -187,7 +194,12 @@ public class VentanaMenuMecanico extends JFrame {
 		verHistoial_1_1_3.setBounds(264, 289, 201, 33);
 		panel.add(verHistoial_1_1_3);
 	}
-	
+	/**
+	 * Registra las horas de un mecanico
+	 * @param hora Horas
+	 * @param min  Minutos
+	 * @param nickname Nickname del mecanico
+	 */
 	public void cargarHoras(int hora, int min, String nickname) {
 		mecanicoController.deleteHorasEmpleadosTemporal(nickname);
 		String horasEmpleado = nickname + "-" + hora + "-" + min;
@@ -195,7 +207,12 @@ public class VentanaMenuMecanico extends JFrame {
 			JOptionPane.showMessageDialog(this, hora + ":" + min);
 		}
 	}
-	
+	/**
+	 * Calcula las horas trabajas de un mecanico
+	 * @param h Horas
+	 * @param m  Minutos
+	 * @param nickname Nickname del mecanico
+	 */
 	public void calcularHorasTrabajadas(int h, int m, String nickname) {
 		HorasEmpleados horaEmpleadosTemporal = mecanicoController.seleccionarHorasMecanicoTemporal(nickname);
 		HorasEmpleados horaEmpleados = mecanicoController.seleccionarHorasMecanico(nickname);
