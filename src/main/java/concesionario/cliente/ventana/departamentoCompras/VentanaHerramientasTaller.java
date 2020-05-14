@@ -18,7 +18,9 @@ import javax.swing.table.DefaultTableModel;
 import concesionario.cliente.controller.DepartmentoComprasController;
 import concesionario.datos.HerramientasTaller;
 
-
+/**
+ * Clase para visualizar las piezas del taller
+ */
 public class VentanaHerramientasTaller extends JFrame {
 	
 
@@ -26,9 +28,16 @@ public class VentanaHerramientasTaller extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable tabla;
+	/**
+	 * Controlador para la clase DepartamentoComprasController
+	 */
 	private DepartmentoComprasController departamentoComprasController;
 
-
+	/**
+	 * Constructor para la clase VentanaHerramietasTaller
+	 * @param departmentoComprasController (Controlador de la ventana VentanaHerramientasTaller)
+	 * @param nickname (Nickname del usuario de departamento de compras)
+	 */
 	public VentanaHerramientasTaller(DepartmentoComprasController departmentoComprasController, String nickname) {
 		setTitle("Herramientas");
 		setResizable(false);
@@ -36,7 +45,10 @@ public class VentanaHerramientasTaller extends JFrame {
 		iniciarVentanaHerramientasTaller(nickname);
 	}
 
-	
+	/**
+	 * Create the frame
+	 * @param nickname (Nickname del usuario de departamento de compras)
+	 */
 	public void  iniciarVentanaHerramientasTaller(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 712, 361);
@@ -110,7 +122,10 @@ public class VentanaHerramientasTaller extends JFrame {
 		contentPane.add(btnCargarPiezas);
 	}
 	
-		
+	/**
+	 * Metodo para cargar las herramientas	
+	 * @param tabla Tabla
+	 */
 	public void cargarTabla(JTable tabla) {
 		List<HerramientasTaller> herramientas = departamentoComprasController.cargarHerramientas();
 		String[] columnNames = {"Codigo", "Nombre", "Unidades", "Ubicacion"};
@@ -133,7 +148,12 @@ public class VentanaHerramientasTaller extends JFrame {
 	}
 		
 
-	
+	/**
+	 * Metodo para filtrar las herramientas por codigo, nombre o unidad
+	 * @param table Tabla
+	 * @param tipo Int para saber de que tipo de filtro se trata
+	 * @param filtro Filtro que se desea aplicar para filtrar la tabla
+	 */
 	public void cargarTablaFiltro(JTable table, int tipo, String filtro) {
 		String restriccion = filtro + "-" + tipo;
 		List<HerramientasTaller> herramientas = departamentoComprasController.filtrarHerramientaMecanico(restriccion);
