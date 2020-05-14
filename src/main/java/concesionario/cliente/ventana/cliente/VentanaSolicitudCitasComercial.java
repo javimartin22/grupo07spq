@@ -1,6 +1,5 @@
 package concesionario.cliente.ventana.cliente;
 
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -18,11 +17,13 @@ import concesionario.datos.CitaComercial;
 
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 
+/**
+ *Ventana SolicituCitaComercial (Ventana para la solicitud de Citas con un Comercial).
+ */
 public class VentanaSolicitudCitasComercial extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private ClienteController clienteController;
@@ -32,6 +33,11 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 	private JDateChooser dateChooser;
 	private JComboBox comboBox;
 
+	/**
+	 * Constructo de la clase VentanaSolicitudCitasComercial
+	 * @param clienteController (Objeto ClienteController).
+	 * @param nickname (Nickname del Cliente).
+	 */
 	public VentanaSolicitudCitasComercial(ClienteController clienteController, String nickname) {
 		this.clienteController = clienteController;
 		ventanaSolicitudCitasComercial(nickname);
@@ -39,6 +45,7 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param nickname (Nicname del Cliente).
 	 */
 	public void ventanaSolicitudCitasComercial(String nickname) {
 		setTitle("Solicitud Cita Comercial");
@@ -51,7 +58,7 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
-		List<String> horas = crearHoras();
+		List<String> horas = clienteController.crearHorasConcesionario();
 		
 		JLabel lblNewLabel = new JLabel("Incribase para solicitar una cita con un Comercial:");
 		lblNewLabel.setForeground(Color.RED);
@@ -159,38 +166,31 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 		
 		
 	}
-	
-	public List<String> crearHoras(){
-		List<String> horas = new ArrayList<String>();
-		for (int i = 0; i <= 2; i++) {
-			int a = 10 + i;
-			horas.add(a+":00");
-			horas.add(a+":15");
-			horas.add(a+":30");
-			horas.add(a+":45");
-		} 
-		for (int i = 0; i <= 3; i++) {
-			int a = 16 + i;
-			horas.add(a+":00");
-			horas.add(a+":15");
-			horas.add(a+":30");
-			horas.add(a+":45");
-		}
-		return horas;
-	}
-	
+	/**
+	 * Metodo para la comprobacion de los datos.
+	 * @return Boolean (True si estan correctos / False si estan incorrectos).
+	 */
 	public boolean comprobarDatos() {
 		if (!textField.getText().isEmpty() && !textField_1.getText().isEmpty() && textField_1.getText().length() == 9) {
 			return true;
 		}
 		return false;
 	}
-	
+	/**
+	 * Metodo para la comprobacion de la Fecha seleccionada.
+	 * @param fecha (Fecha seleccionada)
+	 * @param hora (Hora Seleccionada)
+	 * @param comercial (Comercial Seleccionado)
+	 * @return Boolean (True si estan correctos / False si estan incorrectos).
+	 */
 	public boolean comprobarFecha(String fecha, String hora, String comercial) {
 		String restriccion = fecha + ";" + hora + ";" + comercial;
 		return clienteController.comprobarCitaComercial(restriccion);
 	}
-	
+	/**
+	 * Metodo para registrar una nueva Cita.
+	 * @param citaComercial (Objeto CitaComercial).
+	 */
 	public void registrarCitaComercial(CitaComercial citaComercial) {
 		if (clienteController.registroCitaComercial(citaComercial)) {
 			JOptionPane.showMessageDialog(contentPane, "Registrada");
