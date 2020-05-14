@@ -21,26 +21,39 @@ import concesionario.datos.Venta;
 import javax.swing.JLayeredPane;
 import java.awt.Font;
 
+/**
+ * Clase para registrar las ventas
+ */
 public class VentanaRegistrarVentas extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldMarca;
 	private JTextField textFieldModelo;
-	private ComercialController comercialController;
 	private JTextField textField;
 	private JTextField textField_1;
 	final Logger logger = LoggerFactory.getLogger(VentanaRegistrarVentas.class);
 	static int iteration = 0;
 
+	/**
+	 * Controlador para la clase VentanaRegistrarVentas
+	 */
+	private ComercialController comercialController;
+	
+	/**
+	 * Controlador para la clase  ComercialController
+	 * @param comercialController (Controlador de la ventana VentanaRegistrarVentas)
+	 * @param nickname (Nickname del comercial)
+	 */
 	public VentanaRegistrarVentas(ComercialController comercialController, String nickname) {
 		this.comercialController = comercialController;
 		iniciarVentanaAgregarVentas(nickname);
 	}
 
+	/**
+	 * Create the frame
+	 * @param nickname (Nickname del Comercial)
+	 */
 	public void iniciarVentanaAgregarVentas(String nickname) {
 		setResizable(false);
 		setTitle("Registro Ventas");
@@ -133,7 +146,10 @@ public class VentanaRegistrarVentas extends JFrame {
 		textField_1.setColumns(10);
 	}
 
-
+	/**
+	 * Metodo para comprobar los datos
+	 * @return boolean Si los campos estan vacios, devuelve un False, si no devuelve un True
+	 */
 	public boolean comprobarDatos() {
 		boolean datos = false;
 		if (!textField_1.getText().isEmpty() && !textFieldMarca.getText().isEmpty() && !textFieldModelo.getText().isEmpty() && !textField.getText().isEmpty()) {
@@ -142,6 +158,10 @@ public class VentanaRegistrarVentas extends JFrame {
 		return datos;
 	}
 
+	/**
+	 * Metodo para registrar los datos
+	 * @param venta Objeto de tipo Venta que se desea registrar
+	 */
 	public void registrarDatos(Venta venta) {
 		if (comercialController.registrarVenta(venta)) {
 			logger.info("Venta registrada correctamente.");
