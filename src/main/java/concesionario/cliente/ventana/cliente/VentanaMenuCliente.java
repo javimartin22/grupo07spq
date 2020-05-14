@@ -20,26 +20,30 @@ import concesionario.cliente.controller.ClienteController;
 import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
 import concesionario.datos.Cliente;
-
+/**
+ *VentanaMenuCliente (Ventana menu principal del Cliente)
+ */
 public class VentanaMenuCliente extends JFrame{
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JButton buttonSalir;
 	final Logger logger = LoggerFactory.getLogger(VentanaMenuCliente.class);
 	static int iteration = 0;
 	private ClienteController clienteController;
 	
-	
+	/**
+	 * Constructor de la VentanaMenuCliente 
+	 * @param nickname (Nickname del Cliente)
+	 * @param loginController (Objeto LoginController)
+	 */
 	public VentanaMenuCliente(String nickname, ClienteController loginController) {
 		this.clienteController = loginController;
 		initVentanaMenuCliente(nickname);
 	}
-	
 
-	
+	/**
+	 * Creacion de la Frame
+	 * @param nickname (Nickname del Cliente).
+	 */
 	private void initVentanaMenuCliente(String nickname) {
 		this.setTitle("Menu del cliente");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -146,6 +150,10 @@ public class VentanaMenuCliente extends JFrame{
 		mnSeleccion.add(mntmContrasenya);
 	}
 	
+	/**
+	 * Metodo para la modificacion el Nickname del Cliente
+	 * @param client (Objeto Cliente)
+	 */
 	private void cambiarNickname(Cliente client) {
 		String nickname = JOptionPane.showInputDialog("Introduzca el nuevo nickname: ");
 		if (clienteController.cambiarNicknameCliente(client, nickname)) {
@@ -156,7 +164,10 @@ public class VentanaMenuCliente extends JFrame{
 			logger.error("Fallo en el registro del nuevo nickname.");
 		}
 	}
-
+	/**
+	 * Metodo para la modificacion de la Contrasenia
+	 * @param client (Objeto Cliente)
+	 */
 	private void cambiarContrasenia(Cliente client) {
 		String contrasenia = JOptionPane.showInputDialog("Introduzca el nuevo contrasenia: ");
 		if (clienteController.cambiarContraseniaCliente(client, contrasenia)) {
