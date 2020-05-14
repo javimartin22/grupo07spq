@@ -10,7 +10,6 @@ import concesionario.datos.CitaTaller;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
@@ -97,7 +96,7 @@ public class VentanaSolicitudCitaTaller extends JFrame {
 		dateChooser.setBounds(172, 127, 142, 20);
 		contentPane.add(dateChooser);
 		
-		List<String> horas = crearHoras();
+		List<String> horas = clienteController.crearHorasTaller();
 		comboBox = new JComboBox();
 		comboBox.setBounds(172, 161, 79, 20);
 		for (String hora : horas) {
@@ -155,38 +154,31 @@ public class VentanaSolicitudCitaTaller extends JFrame {
 		btnNewButton_1.setBounds(237, 288, 116, 23);
 		contentPane.add(btnNewButton_1);
 	}
-	
-	public List<String> crearHoras(){
-		List<String> horas = new ArrayList<String>();
-		for (int i = 0; i <= 2; i++) {
-			int a = 10 + i;
-			horas.add(a+":00");
-			horas.add(a+":15");
-			horas.add(a+":30");
-			horas.add(a+":45");
-		} 
-		for (int i = 0; i <= 4; i++) {
-			int a = 15 + i;
-			horas.add(a+":00");
-			horas.add(a+":15");
-			horas.add(a+":30");
-			horas.add(a+":45");
-		}
-		return horas;
-	}
-	
+	/**
+	 * Metodo para la comprobacion de los datos.
+	 * @return Boolean (True si estan correctos / False si estan incorrectos).
+	 */
 	public boolean comprobarDatos() {
 		if (!textField.getText().isEmpty() && !textField_1.getText().isEmpty() && textField_1.getText().length() == 9 && !textField_2.getText().isEmpty()) {
 			return true;
 		}
 		return false;
 	}
-	
+	/**
+	 * Metodo para la comprobacion de la Fecha seleccionada.
+	 * @param fecha (Fecha seleccionada)
+	 * @param hora (Hora Seleccionada)
+	 * @param mecanico (Mecanico Seleccionado)
+	 * @return Boolean (True si estan correctos / False si estan incorrectos).
+	 */
 	public boolean comprobarFecha(String fecha, String hora, String mecanico) {
 		String restriccion = fecha + ";" + hora + ";" + mecanico;
 		return clienteController.comprobarCitaTaller(restriccion);
 	}
-	
+	/**
+	 * Metodo para el registro de una nueva Cita en Taller.
+	 * @param citaTaller (Objeto CitaTaller).
+	 */
 	public void registrarCitaTaller(CitaTaller citaTaller) {
 		if (clienteController.registroCitaTaller(citaTaller)) {
 			JOptionPane.showMessageDialog(contentPane, "Registrada");
