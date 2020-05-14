@@ -23,11 +23,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+/**
+ * VentanaVisualizarTarifas (Ventana para la visualizacion de las Tarifas).
+ */
 public class VentanaVisualizarTarifas extends JFrame {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private ClienteController clienteController;
@@ -44,7 +43,8 @@ public class VentanaVisualizarTarifas extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Creacion del Frame de la Ventana.
+	 * @param nickname (Nickname del Cliente).
 	 */
 	public void ventanaVisualizarTarifas(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -221,6 +221,11 @@ public class VentanaVisualizarTarifas extends JFrame {
 				
 	}
 	//Cargar las tarifas desde la BD
+	
+	/**
+	 * Metodo para cargar la tabla con todas las Tarifas.
+	 * @param table (Tabla de la Ventana)
+	 */
 	public void cargarTabla(JTable table) {
 		List<Tarifa> tarifas = clienteController.cargarTablaTarifas();
 		String[] columnNames = {"Id", "Nombre", "Precio Aproximado", "Mano de obra(h)"};
@@ -240,7 +245,11 @@ public class VentanaVisualizarTarifas extends JFrame {
 			System.out.println("Llegan  mal las tarifas");
 		}
 	}
-	
+	/**
+	 * Metodo para la comprobacion de si el numero cumple los requisitos.
+	 * @param strNum (Numero en String)
+	 * @return Boolean (True si es correcto / False si es incorrecto)
+	 */
 	public static boolean isNumeric(String strNum) {
 	    if (strNum == null) {
 	        return false;
