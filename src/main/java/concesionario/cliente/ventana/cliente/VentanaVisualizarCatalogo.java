@@ -24,11 +24,10 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.awt.Font;
 
+/**
+ *VentanaVisualizarCatalogo (Ventana para la visualizacion del catalogo)
+ */
 public class VentanaVisualizarCatalogo extends JFrame {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private ClienteController clienteController;
@@ -36,6 +35,11 @@ public class VentanaVisualizarCatalogo extends JFrame {
 	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarCatalogo.class);
 	static int iteration = 0;
 
+	/**
+	 * Constructor de la VentanaVisualizarCatalogo.
+	 * @param clienteController (Objeto ClienteController).
+	 * @param nickname (Nickname del Cliente).
+	 */
 	public VentanaVisualizarCatalogo(ClienteController clienteController, String nickname) {
 		setTitle("Catalogo");
 		setResizable(false);
@@ -44,7 +48,8 @@ public class VentanaVisualizarCatalogo extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Creacion del Frame de la VentanaVisualizarCatalogo.
+	 * @param nickname (Nickname del Cliente).
 	 */
 	public void ventanaVisualizarCatalogo(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -147,10 +152,12 @@ public class VentanaVisualizarCatalogo extends JFrame {
 		});
 		btnNewButton_2.setBounds(515, 268, 121, 23);
 		contentPane.add(btnNewButton_2);
-		
-		
 	}
 	
+	/**
+	 * Metodo para mostrar la tabla del Catalogo Completo.
+	 * @param table (Tabla de la ventana).
+	 */
 	public void cargarTabla(JTable table) {
 		List<CocheConcesionario> coches = clienteController.cargarTablaCochesConcesionario();
 		String[] columnNames = {"Marca", "Modelo", "CV", "Precio", "Unidades"};
@@ -171,9 +178,11 @@ public class VentanaVisualizarCatalogo extends JFrame {
 			logger.error("No llegan correctamente los vehiculos.");
 		}
 	}
-	
-	
-	
+	/**
+	 * Metodo para la visualizacion de la informacion de un vehiculo
+	 * @param modelo (Modelo del Vehiculo)
+	 * @param nickname (Nickname del Cliente)
+	 */
 	public void verInfo(String modelo, String nickname) {
 		if (clienteController.seleccionarCocheConcesionario(modelo) != null) {
 			VentanaInformacionCocheConcesionario vicc = new VentanaInformacionCocheConcesionario(clienteController, nickname, clienteController.seleccionarCocheConcesionario(modelo));
@@ -183,7 +192,12 @@ public class VentanaVisualizarCatalogo extends JFrame {
 			logger.error("No llega correctamente el vehiculo.");
 		}
 	}
-	
+	/**
+	 * Metodo para mostrar la tabla del Catalogo Completo teniendo en cuenta unos criterios.
+	 * @param table (Tabla de la ventana)
+	 * @param tipo (Tipo Filtrado)
+	 * @param restriccion (Filtro para la busqueda)
+	 */
 	public void cargarTablaFiltros(JTable table, int tipo, String restriccion) {
 		String filtro = restriccion + "-" + tipo;
 		List<CocheConcesionario> coches = clienteController.filtrarCocheConcesionario(filtro);
