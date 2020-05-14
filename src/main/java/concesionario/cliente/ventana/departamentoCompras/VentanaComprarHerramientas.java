@@ -1,8 +1,5 @@
 package concesionario.cliente.ventana.departamentoCompras;
 
-
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -20,17 +17,33 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JSpinner;
 
+/**
+ * Clase para comprar las herramientas
+ */
 public class VentanaComprarHerramientas extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;	
+	
+	/**
+	 * Controlador para la clase DepartamentoComprasComercial
+	 */
 	private DepartmentoComprasController departamentoComprasController;
 
+	/**
+	 * Constructor para la clase VentanaComprarHerramientas
+	 * @param departmentoComprasController (Controlador de la ventana VentanaComprarHerramientas)
+	 * @param nickname (Nickname del usuario de departamento de compras)
+	 */
 	public VentanaComprarHerramientas(DepartmentoComprasController departmentoComprasController, String nickname) {
 		setResizable(false);
 		this.departamentoComprasController = departmentoComprasController;
 		iniciarVentanaComprarHerramientas(nickname);
 	}
 
+	/**
+	 * Create the frame
+	 * @param nickname (Nickname del usuario de departamento de compras)
+	 */
 	public void iniciarVentanaComprarHerramientas(String nickname) {
 		setTitle("Comprar herramientas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -153,6 +166,11 @@ public class VentanaComprarHerramientas extends JFrame {
 		
 }
 	
+	/**
+	 * Metodo para calcular el tiempo para el de departamento del compras
+	 * @param nombre (Nombre del de departamento de compras)
+	 * @return tiempo (Tiempo de uso calculado)
+	 */
 	public int calcularTiempo (String nombre) {
 		int tiempo = 0;
 		List<Herramientas> lista = departamentoComprasController.cargarListaHerramientas();
@@ -164,14 +182,26 @@ public class VentanaComprarHerramientas extends JFrame {
 		return tiempo;
 	}
 	
+	/**
+	 * Metodo para obtener la lista de proveedores de herramientas
+	 * @return List<ProveedorHerramientas> Lista de objetos de tipo ProveedorHerramientas
+	 */
 	public List<ProveedorHerramientas> cargarListaProveedoresHerramientas() {
 		return departamentoComprasController.cargarListaProveedoresHerramientas();
 	}
 	
+	/**
+	 * Metodo para obtener las herramientas
+	 * @return List<Herramientas> Lista de objetos de tipo Herramientas
+	 */
 	public List<Herramientas> cargarListaHerramientas(){
 		return departamentoComprasController.cargarListaHerramientas();
 	}
 	
+	/**
+	 * Metodo para crear nuevo proveedor
+	 * @return ArrayList<String> Lista de tipo Strings, los nombre de los proveedores
+	 */
 	public ArrayList<String> crearProveedores() {
 		List<ProveedorHerramientas> proveedores = cargarListaProveedoresHerramientas();
 		ArrayList<String> nombres = new ArrayList<String>();
@@ -181,6 +211,11 @@ public class VentanaComprarHerramientas extends JFrame {
 		return nombres;
 	}
 	
+	/**
+	 * Metodo para crear la sherramientas de los proveedores
+	 * @param nombre Nombre del porveedor que se desee crear las herramientas
+	 * @return lista ArrayList<String>  que contrine herramientas
+	 */
 	public ArrayList<String> crearHerramientasProveedores(String nombre){
 		List<ProveedorHerramientas> proveedores = departamentoComprasController.cargarListaProveedoresHerramientas();
 		List<Herramientas> herramientas = departamentoComprasController.cargarListaHerramientas();
@@ -199,6 +234,11 @@ public class VentanaComprarHerramientas extends JFrame {
 		return lista;
 	}
 	
+	/**
+	 * Metodo para obtener un proveedor de herramientas
+	 * @param nombre Nombre del proveedor que se quiere obtener los datos
+	 * @return ProveedorHerramientas  Devuelve un objeto de tipo ProveedorHerramientas
+	 */
 	public ProveedorHerramientas obtenerProveedor(String nombre) {
 		List<ProveedorHerramientas> proveedores = cargarListaProveedoresHerramientas();
 		for (ProveedorHerramientas prov : proveedores) {
@@ -209,6 +249,11 @@ public class VentanaComprarHerramientas extends JFrame {
 		return null;
 	}
 	
+	/**
+	 * Metodo para obtener las herramientas de los proveedores
+	 * @param nombre Nombre del proveedor que se quiere obtener sus herraminetas
+	 * @return Herramientas Devuelve un objeto de tipo Herramientas
+	 */
 	public Herramientas obtenerHerramientaProveedor(String nombre) {
 		List<Herramientas> herramientas = cargarListaHerramientas();
 		for (Herramientas herramienta : herramientas) {
@@ -219,6 +264,12 @@ public class VentanaComprarHerramientas extends JFrame {
 		return null;
 	}
 	
+	/**
+	 * Metodo para realiar una compra de herramientas
+	 * @param herramientaProv Nombre de la Herramienta que se quiere obtener
+	 * @param unidades Unidades de herramientas que se desee comprar
+	 * @param nickname Nickname del departamento de compras que quiere realiar la compra
+	 */
 	public void realizarCompra(Herramientas herramientaProv, int unidades, String nickname) {
 				VentanaRegistroHerramientas vrp = new VentanaRegistroHerramientas(departamentoComprasController,herramientaProv, unidades, nickname);
 				vrp.setVisible(true);
