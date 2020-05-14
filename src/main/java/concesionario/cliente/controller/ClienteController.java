@@ -309,4 +309,24 @@ public class ClienteController {
 		}
 		return horas;
 	}
+	/**
+	 * Metodo para renombrar el Sexo de los Clientes.
+	 * @param s (Sexo del Cliente)
+	 * @return sexo (Sexo en texto)
+	 */
+	public String comprobarSexo(int s){
+		String sexo = "";
+		switch (s) {
+		case 0:
+			sexo = "Hombre";
+			break;
+		case 1: 
+			sexo = "Mujer";
+			break;
+		case 2: 
+			sexo = "Otro";
+			break;
+		}
+		return sexo;
+	}
 }
