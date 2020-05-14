@@ -15,17 +15,31 @@ import concesionario.datos.Proveedor;
 import concesionario.datos.ProveedorHerramientas;
 import concesionario.datos.SolicitudCompra;
 
+/**
+ * Controller DepartmentoComprasController (Controller para las clases de Departamento Compras)
+ */
 public class DepartmentoComprasController {
 	private ClienteApp cliente;
 
+	/**
+	 * Contructor de la clase DepartmentoComprasController
+	 * @param cliente ClienteApp
+	 */
 	public DepartmentoComprasController(ClienteApp clienteApp) {
 		this.cliente = clienteApp;
 	}
-	
+	/**
+	 * Metodo para inicializar el ClienteApp
+	 * @return cliente ClienteApp
+	 */
 	public ClienteApp getClienteApp() {
 		return this.cliente;
 	}
-	
+	/**
+	 * Metodo para registrar una Pieza
+	 * @param pieza (Pieza que se va a registrar)
+	 * @return boolean Devuelve true si el proceso fue exitoso, falso si no fue posible
+	 */
 	public boolean registroPieza(Pieza pieza) {
 		Response response = cliente.registroPieza(pieza); 
 		if (response.getStatus() == Status.OK.getStatusCode()) {
@@ -34,7 +48,11 @@ public class DepartmentoComprasController {
 			return false;
 		}
 	}
-	
+	/**
+	 * Metodo para registrar una Herramienta
+	 * @param herramienta (Herramienta que se va a registrar)
+	 * @return boolean Devuelve true si el proceso fue exitoso, falso si no fue posible
+	 */
 	public boolean registroHerramienta(HerramientasTaller herramienta) {
 		Response response = cliente.registroHerramienta(herramienta); 
 		if (response.getStatus() == Status.OK.getStatusCode()) {
@@ -43,20 +61,32 @@ public class DepartmentoComprasController {
 			return false;
 		}
 	}
-	
+	/**
+	 * Metodo para obtener todas las piezas que se encuentran en la BD.
+	 * @return List (Lista de Piezas)
+	 */
 	public List<Pieza> cargarPiezas(){
 		return cliente.cargarTablaPiezas();
 	}
-	
+	/**
+	 * Metodo para obtener todas las Herramientas que se encuentran en la BD.
+	 * @return List (Lista de Herramientas)
+	 */
 	public List<HerramientasTaller> cargarHerramientas(){
 		return cliente.cargarTablaHerramientasTaller();
 	}
-	
+	/**
+	 * Metodo para obtener todas las Solicitudes que se encuentran en la BD.
+	 * @return List (Lista de Solicitudes)
+	 */
 	public List<SolicitudCompra> cargarSolicitud(){
 		return cliente.cargarTablaSolicitudCompra();
 	}
-	
-	
+	/**
+	 * Metodo para la obtencion de una Pieza Utilizada.
+	 * @param codigo (Codigo de la pieza que se desea obtener)
+	 * @return pieza (Pieza seleccionada si existe / Null si no existe)
+	 */
 	public Pieza seleccionarPiezaUtilizada(String codigo) {
 		Response response = cliente.piezaUtilizadaSelect(codigo);
 		if (response.getStatus() == Status.OK.getStatusCode()) {
@@ -65,13 +95,18 @@ public class DepartmentoComprasController {
 			return null;
 		} 
 	}
-	
-	
-	
+	/**
+	 * Metodo para obtener todas las Piezas Utilizadas que se encuentran en la BD.
+	 * @return List (Lista de PiezasUtilizadas)
+	 */
 	public List<Pieza> cargarPiezasUtilizadas(){
 		return cliente.cargarTablaPiezasUtilizadas();
 	}
-	
+	/**
+	 * Metodo para la obtencion de PiezasUtilizadas con un Filtro.
+	 * @param filtro (Filtro para realizar el filtrado de PiezasUtilizadas)
+	 * @return List (Lista de Piezas)
+	 */
 	public List<Pieza> filtrarPiezaUtilizadas(String filtro) {
 		Response response = cliente.filtrarPiezaUtilizadas(filtro);
 		if(response.getStatus() == Status.OK.getStatusCode()) {
@@ -81,7 +116,11 @@ public class DepartmentoComprasController {
 			return null;
 		}
 	}
-	
+	/**
+	 * Metodo para la obtencion de HerramientasTaller con un Filtro.
+	 * @param filtro (Filtro para realizar el filtrado de HerramientasTaller)
+	 * @return List (Lista de HerramientasTaller)
+	 */
 	public List<HerramientasTaller> filtrarHerramientaMecanico(String filtro) {
 		Response response = cliente.filtrarHerramientaMecanico(filtro);
 		if(response.getStatus() == Status.OK.getStatusCode()) {
@@ -91,27 +130,42 @@ public class DepartmentoComprasController {
 			return null;
 		}
 	}
-	
+	/**
+	 * Metodo para obtener todos los Proveedores que se encuentran en la BD.
+	 * @return List (Lista de Proveedores)
+	 */
 	public List<Proveedor> cargarListaProveedores(){
 		return cliente.cargarListaProveedores();
 	}
 	
-	
+	/**
+	 * Metodo para obtener todos los Proveedores de Herramientas que se encuentran en la BD.
+	 * @return List (Lista de ProveedoresHerramientas)
+	 */
 	public List<ProveedorHerramientas> cargarListaProveedoresHerramientas(){
 		return cliente.cargarListaProveedoresHerramientas();
 	}
 	
-	
+	/**
+	 * Metodo para obtener todas las Piezas Proveedores que se encuentran en la BD.
+	 * @return List (Lista de PiezasProveedores)
+	 */
 	public List<PiezaProveedores> cargarListaPiezasProveedores(){
 		return cliente.cargarListaPiezasProveedores();
 	}
 	
-	
+	/**
+	 * Metodo para obtener todas las Herramientas que se encuentran en la BD.
+	 * @return List (Lista de Herramientas)
+	 */
 	public List<Herramientas> cargarListaHerramientas(){
 		return cliente.cargarListaHerramientas();
 	}
-	
-
+	/**
+	 * Metodo para la elimincacion de una Solicitud.
+	 * @param cod (Codigo de la Solicitud)
+	 * @return boolean (Devuelve true en caso afirmativo / false en negativo)
+	 */
 	public boolean deleteSolicitud(String cod) {
 		Response response = cliente.SolicitudCompraDelete(cod); 
 		if (response.getStatus() == Status.OK.getStatusCode()) {
@@ -120,8 +174,11 @@ public class DepartmentoComprasController {
 			return false;
 		}
 	}
-	
-	
+/**
+ * Metodo para renombrar la ubicacion de una Pieza.	
+ * @param ubicacion (Int que indica el valor del JComboBox)
+ * @return ub (Ubicacion en texto)
+ */
 	public String parseUbicacion(int ubicacion) {
 		String ub = "";
 		switch (ubicacion) {
@@ -146,14 +203,20 @@ public class DepartmentoComprasController {
 		}
 		return ub;
 	}
-	
-	
-	
+	/**
+	 * Metodo para el calcular el Codigo de la siguiente Pieza.
+	 * @param piezas (Lista de Piezas proveniente de la BD)
+	 * @return codigo (Codigo Alphanumerico)
+	 */
 	public String carlcularCodigo(List<Pieza> piezas) {
 		int numero = piezas.size() + 1;
 		return "PI-" + numero;
 	}
-	
+	/**
+	 * Metodo para el calcular el Codigo de la siguiente Herramienta.
+	 * @param herramientas (Lista de Herramientas proveniente de la BD)
+	 * @return codigo (Codigo Alphanumerico)
+	 */
 	public String calcularCodigoHerramienta(List<HerramientasTaller> herramientas) {
 		int numero = herramientas.size() + 1;
 		return "H" + numero;
