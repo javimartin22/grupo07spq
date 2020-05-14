@@ -20,12 +20,10 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+/**
+ * VentanaRegistroClientes (Ventana para el registro de nuevos Clientes).
+ */
 public class VentanasRegistroClientes extends JFrame {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
@@ -49,11 +47,22 @@ public class VentanasRegistroClientes extends JFrame {
 	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
 	static int iteration = 0;
 	
+	/**
+	 * Constructor de la VentanaRegistroCliente.
+	 * @param nickname (Nickname del Cliente)
+	 * @param contra (Contrasenia del Cliente)
+	 * @param clienteController (Objeto ClienteController)
+	 */
 	public VentanasRegistroClientes(String nickname,String contra, ClienteController clienteController) {
 		this.clienteController = clienteController;
 		initVentanaRegistroCliente(nickname, contra);
 	}
 	
+	/**
+	 * Creacion del Frame
+	 * @param nickname (Nickname del Cliente)
+	 * @param contra (Contrasenia del Cliente)
+	 */
 	private void initVentanaRegistroCliente(String nickname, String contra) {
 		setTitle("Registro Clientes");
 		setResizable(false);
@@ -165,7 +174,7 @@ public class VentanasRegistroClientes extends JFrame {
 				nombre = textField_1.getText();
 				apellido = textField_2.getText();
 				s = comboBox.getSelectedIndex();
-				String sexo = comprobarSexo(s);
+				String sexo = clienteController.comprobarSexo(s);
 				email = textField_3.getText();
 				dir = textField_4.getText();
 				c = textField_5.getText();
@@ -179,21 +188,10 @@ public class VentanasRegistroClientes extends JFrame {
 		btnRegistrar.setBounds(228, 341, 117, 29);
 		contentPane.add(btnRegistrar);
 	}
-	
-	public String comprobarSexo(int s){
-		String sexo = "";
-		switch (s) {
-		case 0:
-			sexo = "Hombre";
-			break;
-		case 1: 
-			sexo = "Mujer";
-		case 3: 
-			sexo = "Otro";
-		}
-		return sexo;
-	}
-	
+	/**
+	 * Metodo para la comprobacion de los datos.
+	 * @return Boolean (True en caso de que esten correctos / False en caso de que no esten correctos).
+	 */
 	public boolean comprobarCampos() {
 		boolean bool = false; 
 		dni = textField.getText();
@@ -231,6 +229,11 @@ public class VentanasRegistroClientes extends JFrame {
 		return bool;
 	}
 	
+	/**
+	 * Metodo para comprobar que el telefono cumple los requisitos
+	 * @param numTelefono (Numero Telefono Cliente)
+	 * @return
+	 */
 	public boolean comprobarTelefono (String numTelefono) {
 		try {
 			Integer.parseInt(numTelefono);
@@ -239,7 +242,10 @@ public class VentanasRegistroClientes extends JFrame {
 			return false;
 		}
 	}
-	
+	/**
+	 * Metodo para registrar un CLiente
+	 * @param client (Objeto Cliente)
+	 */
 	public void registrar(Cliente client) {
 		if (clienteController.registroCliente(client)) {
 			logger.info("Cliente registrado correctamente.");
