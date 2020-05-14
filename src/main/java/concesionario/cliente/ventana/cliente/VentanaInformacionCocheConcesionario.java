@@ -12,16 +12,20 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+/**
+ *VentanaInformacionCocheConcesionario (Ventana para la visualizacion de la informacion de los Coches del Consecionario).
+ */
 public class VentanaInformacionCocheConcesionario extends JFrame {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -543914344118437679L;
 	private JPanel contentPane;
 	private ClienteController clienteController;
 	
+	/**
+	 * Contructor de la VentanaInformacionCocheConcesionario.
+	 * @param clienteController (Objeto ClienteController).
+	 * @param nickname (Nickname del Cliente).
+	 * @param coche (Coche seleccionado).
+	 */
 	public VentanaInformacionCocheConcesionario(ClienteController clienteController, String nickname, CocheConcesionario coche) {
 		setResizable(false);
 		setTitle("Informacion del Vehiculo");
@@ -31,6 +35,8 @@ public class VentanaInformacionCocheConcesionario extends JFrame {
 	
 	/**
 	 * Create the frame.
+	 * @param nickname (Nickname del Cliente).
+	 * @param coche (Coche seleccionado).
 	 */
 	public void ventanaInformacionCocheConcesionario(String nickname, CocheConcesionario coche) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
