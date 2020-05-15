@@ -1280,6 +1280,13 @@ public class BD {
 			return rs;
 		}
 		
+		/**	  
+ 		 * Metodo para seleccionar un Coche del Concesionario mediante la Matricula.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param tipo (Tipo de Filtrado)
+ 		 * @param restriccion (Restriccion para el Filtrado)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
 		public static ResultSet cochesMatriculadosFiltroSelect(Statement st, int tipo, String restriccion) {
 			String sentSQL = "";
 			ResultSet rs = null;
@@ -1307,6 +1314,11 @@ public class BD {
 		
 	//Tabla TALLER: 
 		//Todos:
+		/**	  
+ 		 * Metodo para seleccionar los Coches del Taller.
+ 		 * @param st (Statement para la conexion)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
 		public static ResultSet cochesTallerSelect(Statement st) {
 			String sentSQL = "";
 			ResultSet rs = null;
@@ -1321,6 +1333,12 @@ public class BD {
 		}
 		
 		//Busqueda mediante MECANICO:
+		/**	  
+ 		 * Metodo para seleccionar los Coches del Taller mediante el Mecanico.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param mecanico (Nickname del Mecanico)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
 		public static ResultSet cochesTallerMecanicoSelect(Statement st, String mecanico) {
 			String sentSQL = "";
 			ResultSet rs = null;
@@ -1334,6 +1352,13 @@ public class BD {
 			return rs;
 		}
 		
+		/**	  
+ 		 * Metodo para seleccionar los Coche del Taller mediante un filtrado.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param tipo (Tipo de Filtrado)
+ 		 * @param restriccion (Restriccion para el Filtrado)
+ 		 * @return cocheTaller (Objeto CocheTaller)
+ 		 */
 		public static ResultSet cochesTallerFiltroSelect(Statement st, int tipo, String restriccion) {
 			String sentSQL = "";
 			ResultSet rs = null;
@@ -1360,7 +1385,13 @@ public class BD {
 			}
 			return rs;
 		}
-		
+	
+		/**	  
+ 		 * Metodo para seleccionar un Coche del Taller mediante la Matricula.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param matricula (Matricula del Vehiculo)
+ 		 * @return cocheTaller (Objeto CocheTaller)
+ 		 */
 		public static CocheTaller cocheTalleSelect(Statement st, String matricula) {
 			String sentSQL = "";
 			CocheTaller cocheTaller = null;
@@ -1385,31 +1416,42 @@ public class BD {
 			return cocheTaller;
 		}
 		
-		//Tabla Ventas:
- 		//Busqueda mediante Matricula:
- 				public static Venta ventaSelect(Statement st, String matricula) {
- 					String sentSQL = "";
- 					Venta venta = null;
- 					try {
- 						sentSQL = "select * from " + TABLA_VENTAS + " where matricula= '" + matricula + "' ";
- 						ResultSet rs = st.executeQuery(sentSQL);
- 						if (rs.next()) {
- 							String fecha = rs.getString("fecha");
- 							String nicknameComercial = rs.getString("nombreVendedor");
- 							String marca = rs.getString("marca");
- 							String modelo = rs.getString("modelo");
- 							String nombreComprador = rs.getString("nombreComprador");
- 							String matricul = rs.getString("matricula");
- 							venta = new Venta(fecha, modelo, marca, matricul, nicknameComercial, nombreComprador);
- 						}
- 						st.close();
- 					} catch (Exception e) {
- 						lastError = e;
- 						e.printStackTrace();
- 					}
- 					return venta;
- 				}
- 				
+//Tabla Ventas:
+ 	//Busqueda mediante Matricula:
+	/**
+	 * Metodo para seleccionar una Venta
+	 * @param st (Statement para la conexion)
+	 * @param matricula (Matricula del Vehiculo)
+	 * @return venta (Objeto Venta)
+	 */
+	public static Venta ventaSelect(Statement st, String matricula) {
+		String sentSQL = "";
+		Venta venta = null;
+		try {
+			sentSQL = "select * from " + TABLA_VENTAS + " where matricula= '" + matricula + "' ";
+			ResultSet rs = st.executeQuery(sentSQL);
+			if (rs.next()) {
+				String fecha = rs.getString("fecha");
+				String nicknameComercial = rs.getString("nombreVendedor");
+				String marca = rs.getString("marca");
+				String modelo = rs.getString("modelo");
+				String nombreComprador = rs.getString("nombreComprador");
+				String matricul = rs.getString("matricula");
+				venta = new Venta(fecha, modelo, marca, matricul, nicknameComercial, nombreComprador);
+			}
+			st.close();
+		} catch (Exception e) {
+			lastError = e;
+			e.printStackTrace();
+		}
+		return venta;
+	}
+ 		
+ 		/**	  
+ 		 * Metodo para seleccionar las Ventas.
+ 		 * @param st (Statement para la conexion)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
  		public static ResultSet ventasTodasSelect(Statement st) {
  			String sentSQL = "";
  			ResultSet rs = null;
@@ -1423,6 +1465,12 @@ public class BD {
  			return rs;
  		}	
  		
+ 		/**	  
+ 		 * Metodo para seleccionar las Ventas filtradas por la Marca.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param marca (Marca del Vehiculo)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
  		public static ResultSet ventasMarcaSelect(Statement st, String marca) {
  			String sentSQL = "";
  			ResultSet rs = null;
@@ -1436,6 +1484,12 @@ public class BD {
  			return rs;
  		}
  		
+ 		/**	  
+ 		 * Metodo para seleccionar las Ventas filtradas por el Modelo del Vehiculo.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param modelo (Modelo del Vehiculo)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
  		public static ResultSet ventasModeloSelect(Statement st, String modelo) {
  			String sentSQL = "";
  			ResultSet rs = null;
@@ -1449,6 +1503,12 @@ public class BD {
  			return rs;
  		}
  		
+ 		/**	  
+ 		 * Metodo para seleccionar las Ventas de un Comercial.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param comercial (Nombre del Comercial Seleccionado)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
  		public static ResultSet ventasComercialSelect(Statement st, String comercial) {
  			String sentSQL = "";
  			ResultSet rs = null;
@@ -1463,6 +1523,12 @@ public class BD {
  		}
  		
  		//Tabla PRESUPUESTO:
+ 		/**	  
+ 		 * Metodo para seleccionar un Presupuesto filtrado por el DNI del Cliente.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param dni (DNI del Cliente)
+ 		 * @return presupuesto (Objeto Presupuesto)
+ 		 */
  		public static Presupuesto presupuestoDNIClienteSelect(Statement st, String dni) {
  			String sentSQL = "";
  			Presupuesto presupuesto = null;
@@ -1490,6 +1556,12 @@ public class BD {
  			return presupuesto;
 		}
  		
+ 		/**	  
+ 		 * Metodo para seleccionar un Presupuesto filtrado por el Codigo.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param cod (Codigo Identificativo Seleccionado)
+ 		 * @return presupuesto (Objeto Presupuesto)
+ 		 */
  		public static Presupuesto presupuestoCodigoSelect(Statement st, String cod) {
  			String sentSQL = "";
  			Presupuesto presupuesto = null;
@@ -1517,6 +1589,11 @@ public class BD {
  			return presupuesto;
 		}
  		
+ 		/**	  
+ 		 * Metodo para seleccionar los Presupuesto .
+ 		 * @param st (Statement para la conexion)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
  		public static ResultSet presupuestosTodosSelect(Statement st) {
  			String sentSQL = "";
  			ResultSet rs = null;
@@ -1530,6 +1607,12 @@ public class BD {
  			return rs;
  		}	
  		
+ 		/**	  
+ 		 * Metodo para seleccionar los Presupuesto filtrado por el Codigo.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param codigo (Codigo Identificativo Seleccionado)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
  		public static ResultSet presupuestosFiltroCodigoSelect(Statement st, String codigo) {
  			String sentSQL = "";
  			ResultSet rs = null;
@@ -1543,6 +1626,12 @@ public class BD {
  			return rs;
  		}	
  		
+ 		/**	  
+ 		 * Metodo para seleccionar los Presupuesto filtrado por el Cliente.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param cliente (Cliente Seleccionado)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
  		public static ResultSet presupuestosFiltroClienteSelect(Statement st, String cliente) {
  			String sentSQL = "";
  			ResultSet rs = null;
@@ -1556,6 +1645,12 @@ public class BD {
  			return rs;
  		}	
  		
+ 		/**	  
+ 		 * Metodo para seleccionar los Presupuesto filtrado por el Problema.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param problema (Problema Seleccionado)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
  		public static ResultSet presupuestosFiltroProblemaSelect(Statement st, String problema) {
  			String sentSQL = "";
  			ResultSet rs = null;
@@ -1570,6 +1665,12 @@ public class BD {
  		}	
  		
  		//Tabla TARIFAS:
+ 		/**	  
+ 		 * Metodo para seleccionar las Tarifas filtrado por un Maximo de Precio.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param precio (Precio Seleccionado)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
  		public static ResultSet tarifaPrecioSelect(Statement st, int precio) {
  			String sentSQL = "";
  			ResultSet rs = null;
@@ -1583,6 +1684,12 @@ public class BD {
  			return rs;
 		}
  		
+ 		/**	  
+ 		 * Metodo para seleccionar las Tarifas filtrado por un Minimo de Precio.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param precio (Precio Seleccionado)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
  		public static ResultSet tarifaPrecioMinSelect(Statement st, int precio) {
  			String sentSQL = "";
  			ResultSet rs = null;
@@ -1596,6 +1703,12 @@ public class BD {
  			return rs;
 		}
  		
+ 		/**	  
+ 		 * Metodo para seleccionar las Tarifas filtrado por un Maximo de Horas.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param horas (Horas Seleccionadas)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
  		public static ResultSet tarifaHorasMaxSelect(Statement st, int horas) {
  			String sentSQL = "";
  			ResultSet rs = null;
@@ -1609,6 +1722,12 @@ public class BD {
  			return rs;
 		}
  		
+ 		/**	  
+ 		 * Metodo para seleccionar las Tarifas filtrado por un Minimo de Horas.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param horas (Horas Seleccionadas)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
  		public static ResultSet tarifaHorasMinSelect(Statement st, int horas) {
  			String sentSQL = "";
  			ResultSet rs = null;
@@ -1622,6 +1741,12 @@ public class BD {
  			return rs;
 		}
  		
+ 		/**	  
+ 		 * Metodo para seleccionar una Tarifa filtrando por el Codigo.
+ 		 * @param st (Statement para la conexion)
+ 		 * @param id_tarifa (Codigo Identificativo de la Tarifa)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
  		public static Tarifa tarifaIdSelect(Statement st, String id_tarifa) {
  			String sentSQL = "";
  			Tarifa tarifa = null;
@@ -1643,7 +1768,11 @@ public class BD {
  			return tarifa;
 		}
  		
- 		
+ 		/**	  
+ 		 * Metodo para seleccionar todas las Tarifas.
+ 		 * @param st (Statement para la conexion)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
  		public static ResultSet tarifasTodosSelect(Statement st) {
  			String sentSQL = "";
  			ResultSet rs = null;
@@ -1658,6 +1787,11 @@ public class BD {
  		}	
  		
  		//tabla fidelidad
+ 		/**	  
+ 		 * Metodo para seleccionar la fidelidad de los clientes.
+ 		 * @param st (Statement para la conexion)
+ 		 * @return rs (Objeto ResultSet)
+ 		 */
  		public static ResultSet fidelidadSelect(Statement st){
  			String sentSQL = "";
  			ResultSet rs = null;
@@ -1671,6 +1805,14 @@ public class BD {
  			return rs;
  		}
  		
+ 	/**	  
+ 	 * Metodo para seleccionar una Cita del Concesionario.
+ 	 * @param st (Statement para la conexion)
+ 	 * @param comercial (Nickname del Comercial)
+ 	 * @param fecha (Fecha Seleccionada)
+ 	 * @param hora (Hora Seleccionada)
+ 	 * @return rs (Objeto ResultSet)
+ 	 */
  	public static CitaComercial citaComercialSelect(Statement st, String fecha, String hora, String comercial) {
  		String sentSQL = "";
  		CitaComercial citaComercial = null;
@@ -1693,6 +1835,14 @@ public class BD {
  		return citaComercial;
 	}
  	
+ 	/**	  
+	 * Metodo para seleccionar una Cita del Taller.
+	 * @param st (Statement para la conexion)
+	 * @param mecanico (Nickname del Mecanico)
+	 * @param fecha (Fecha Seleccionada)
+	 * @param hora (Hora Seleccionada)
+	 * @return rs (Objeto ResultSet)
+	 */
  	public static CitaTaller citaTallerSelect(Statement st, String fecha, String hora, String mecanico) {
  		String sentSQL = "";
  		CitaTaller citaTaller = null;
@@ -1716,6 +1866,12 @@ public class BD {
  		return citaTaller;
 	}
  	
+ 	/**	  
+	 * Metodo para seleccionar las Citas de un Comercial.
+	 * @param st (Statement para la conexion)
+	 * @param nickname (Nickname del Comercial)
+	 * @return rs (Objeto ResultSet)
+	 */
  	public static ResultSet citasDelComercialSelect(Statement st, String nickname) {
  		String sentSQL2 = "";
  		String sentSQL = "";
@@ -1744,6 +1900,13 @@ public class BD {
  		return rsFinal;
  	}
  	
+ 	/**	  
+	 * Metodo para seleccionar las Citas de un Comercial por Fecha.
+	 * @param st (Statement para la conexion)
+	 * @param nickname (Nickname del Comercial)
+	 * @param fecha (Fecha Seleccionada)
+	 * @return rs (Objeto ResultSet)
+	 */
  	public static ResultSet filtrarCitasPorFecha(Statement st, String nickname, String fecha) {
  		String sentSQL = "";
  		String sentSQL2 = "";
@@ -1772,6 +1935,12 @@ public class BD {
  		return rsFinal;
  	}
  	
+ 	/**	  
+	 * Metodo para seleccionar las Citas de un Mecanico.
+	 * @param st (Statement para la conexion)
+	 * @param nickname (Nickname del Mecanico)
+	 * @return rs (Objeto ResultSet)
+	 */
  	public static ResultSet citasDelMecanicoSelect(Statement st, String nickname) {
  		String sentSQL2 = "";
  		String sentSQL = "";
@@ -1800,6 +1969,13 @@ public class BD {
  		return rsFinal;
  	}
  	
+ 	/**	  
+	 * Metodo para seleccionar las Citas de un Mecanico por Fecha.
+	 * @param st (Statement para la conexion)
+	 * @param nickname (Nickname del Mecanico)
+	 * @param fecha (Fecha Seleccionada)
+	 * @return rs (Objeto ResultSet)
+	 */
  	public static ResultSet filtrarCitasMecanicoPorFecha(Statement st, String nickname, String fecha) {
  		String sentSQL = "";
  		String sentSQL2 = "";
@@ -1828,6 +2004,12 @@ public class BD {
  		return rsFinal;
  	}
  	
+ 	/**	  
+	 * Metodo para seleccionar las horas de un Empleado mediante un filtro.
+	 * @param st (Statement para la conexion)
+	 * @param tipo (Tipo de Filtrado)
+	 * @return rs (Objeto ResultSet)
+	 */
  	public static ResultSet empleadosHorasFiltroSelect(Statement st, int tipo) {
 		String sentSQL = "";
 		ResultSet rs = null;
@@ -1849,6 +2031,12 @@ public class BD {
 		return rs;
 	}
  	
+ 	/**	  
+	 * Metodo para seleccionar las Horas Temporales de un Empleado.
+	 * @param st (Statement para la conexion)
+	 * @param nickname (Nickname del Empleado)
+	 * @return horasEmpleados (Objeto HorasEmpleados)
+	 */
  	public static HorasEmpleados horaEmpleadoTemporalSelect(Statement st, String nickname) {
 			String sentSQL = "";
 			HorasEmpleados horasEmpleados = null;
@@ -1869,6 +2057,12 @@ public class BD {
 			return horasEmpleados;
 	}
  	
+ 	/**	  
+	 * Metodo para seleccionar las horas de un Empleado.
+	 * @param st (Statement para la conexion)
+	 * @param nickname (Nickname del Empleado)
+	 * @return horasEmpleados (Objeto HorasEmpleados)
+	 */
  	public static HorasEmpleados horaEmpleadoSelect(Statement st, String nickname) {
 		String sentSQL = "";
 		HorasEmpleados horasEmpleados = null;
@@ -1889,23 +2083,16 @@ public class BD {
 		return horasEmpleados;
 }
  	
- // Tabla USUARIOS:
- 	public static boolean mecanicoUpdate(Statement st, String nickname, int horas) {
- 		String sentSQL = "";
- 		try {
- 			sentSQL = "update "+ TABLA_MECANICO + "set horas = " + horas + " where nickname= '" + secu(nickname) + "'";
- 			int val = st.executeUpdate(sentSQL);
- 			return (val == 1);
- 		} catch (SQLException e) {
- 			lastError = e;
- 			e.printStackTrace();
- 			return false;
- 		}
- 	}
 
 //METODOS DELETE:
 
 	// Tabla USUARIOS:
+ 	/**	  
+	 * Metodo para eliminar un Usuario.
+	 * @param st (Statement para la conexion)
+	 * @param nickname (Nickname del Usuario)
+	 * @return boolean (Respuesta afirvativa si todo esta bien)
+	 */
 	public static boolean usuariosDelete(Statement st, String nickname) {
 		String sentSQL = "";
 		try {
@@ -1920,6 +2107,12 @@ public class BD {
 	}
 	
 	//Tabla CLIENTE:
+	/**	  
+	 * Metodo para eliminar un Cliente.
+	 * @param st (Statement para la conexion)
+	 * @param dni (Nickname del Cliente)
+	 * @return boolean (Respuesta afirvativa si todo esta bien)
+	 */
 	public static boolean clientesDelete(Statement st, String dni) {
 		String sentSQL = "";
 		try {
@@ -1933,6 +2126,12 @@ public class BD {
 		}
 	}
 	
+	/**	  
+	 * Metodo para eliminar ls Horas Temporales de un Empleado.
+	 * @param st (Statement para la conexion)
+	 * @param nickname (Nickname del Comercial)
+	 * @return boolean (Respuesta afirvativa si todo esta bien)
+	 */
 	public static boolean horasEmpleadoDelete(Statement st, String nickname) {
 		String sentSQL = "";
 		try {
@@ -1946,6 +2145,12 @@ public class BD {
 		}
 	}
 	
+	/**	  
+	 * Metodo para eliminar las Horas de un Empleado.
+	 * @param st (Statement para la conexion)
+	 * @param nickname (Nickname del Empleado)
+	 * @return boolean (Respuesta afirvativa si todo esta bien)
+	 */
 	public static boolean horasEmpleadoTemporarlDelete(Statement st, String nickname) {
 		String sentSQL = "";
 		try {
@@ -1960,6 +2165,12 @@ public class BD {
 	}
 	
 	//Tabla EMPLEADO:
+	/**	  
+	 * Metodo para eliminar un Empleado.
+	 * @param st (Statement para la conexion)
+	 * @param nickname (Nickname del Empleado)
+	 * @return boolean (Respuesta afirvativa si todo esta bien)
+	 */
 	public static boolean empleadosDelete(Statement st, String nickname) {
 		String sentSQL = "";
 		try {
@@ -1974,6 +2185,12 @@ public class BD {
 	}
 	
 	//Tabla MECANICO:
+	/**	  
+	 * Metodo para eliminar un Mecanico.
+	 * @param st (Statement para la conexion)
+	 * @param nickname (Nickname del Mecanico)
+	 * @return boolean (Respuesta afirvativa si todo esta bien)
+	 */
 	public static boolean mecanicosDelete(Statement st, String nickname) {
 		String sentSQL = "";
 		try {
@@ -1989,6 +2206,12 @@ public class BD {
 	}
 	
 	//Tabla COMERCIAL:
+	/**	  
+	 * Metodo para eliminar un Comercial.
+	 * @param st (Statement para la conexion)
+	 * @param nickname (Nickname del Comercial)
+	 * @return boolean (Respuesta afirvativa si todo esta bien)
+	 */
 	public static boolean comercialesDelete(Statement st, String nickname) {
 		String sentSQL = "";
 		try {
@@ -2003,6 +2226,12 @@ public class BD {
 	}
 	
 	//Tabla COMERCIAL:
+	/**	  
+	 * Metodo para eliminar un Empleado del Departamento de Compras.
+	 * @param st (Statement para la conexion)
+	 * @param nickname (Nickname del Empleado del Departamento de Compras)
+	 * @return boolean (Respuesta afirvativa si todo esta bien)
+	 */
 	public static boolean departamentoComprasDelete(Statement st, String nickname) {
 		String sentSQL = "";
 		try {
@@ -2017,6 +2246,12 @@ public class BD {
 	}
 	
 	// Tabla PIEZA:
+	/**	  
+	 * Metodo para eliminar una Pieza
+	 * @param st (Statement para la conexion)
+	 * @param codigo (Codigo Identificativo de la Pieza)
+	 * @return boolean (Respuesta afirvativa si todo esta bien)
+	 */
 		public static boolean piezaDelete(Statement st, String codigo) {
 			String sentSQL = "";
 			try {
@@ -2031,6 +2266,12 @@ public class BD {
 		}
 	
 		// Tabla PIEZA:
+		/**	  
+		 * Metodo para eliminar una Pieza Utilizada
+		 * @param st (Statement para la conexion)
+		 * @param codigo (Codigo Identificativo de la Pieza Utilizada)
+		 * @return boolean (Respuesta afirvativa si todo esta bien)
+		 */
 		public static boolean piezaUtilizadaDelete(Statement st, String codigo) {
 			String sentSQL = "";
 			try {
@@ -2046,6 +2287,12 @@ public class BD {
 				
 		
 	//Tabla COCHE:
+		/**	  
+		 * Metodo para eliminar un Coche Concesionario
+		 * @param st (Statement para la conexion)
+		 * @param modelo (Modelo del CocheConcesionario)
+		 * @return boolean (Respuesta afirvativa si todo esta bien)
+		 */
 	public static boolean cochesDelete(Statement st, String modelo) {
 		String sentSQL = "";
 		try {
@@ -2060,6 +2307,12 @@ public class BD {
 	}
 	
 	//Tabla TALLER:
+	/**	  
+	 * Metodo para eliminar un Coche del Taller
+	 * @param st (Statement para la conexion)
+	 * @param matricula (Matricula del Coche del Taller)
+	 * @return boolean (Respuesta afirvativa si todo esta bien)
+	 */
 		public static boolean cocheTallerDelete(Statement st, String matricula) {
 			String sentSQL = "";
 			try {
@@ -2074,6 +2327,12 @@ public class BD {
 		}
 	
 	//Tabla VENTAS:
+	/**	  
+	 * Metodo para eliminar una Venta
+	 * @param st (Statement para la conexion)
+	 * @param codigoVenta (Codigo Identificativo de la Venta)
+	 * @return boolean (Respuesta afirvativa si todo esta bien)
+	 */
 	public static boolean ventasDelete(Statement st, String codigoVenta) {
 		String sentSQL = "";
 		try {
@@ -2087,7 +2346,12 @@ public class BD {
 		}	
 	}
 	
-
+	/**
+	 * Metodo para eliminar una Compra
+	 * @param st (Statement para la conexion)
+	 * @param cod (Codigo Identificativo de la Compra)
+	 * @return boolean (Respuesta afirvativa si todo esta bien)
+	 */
 	public static boolean solicitudCompraDelete(Statement st, String cod) {
 		String sentSQL = "";
 		try {
@@ -2101,6 +2365,12 @@ public class BD {
 		}	
 	}
 	
+	/**
+	 * Metodo para eliminar una Tarifa
+	 * @param st (Statement para la conexion)
+	 * @param idTarifa (Codigo Identificativo de la Tarifa)
+	 * @return boolean (Respuesta afirvativa si todo esta bien)
+	 */
 	//TABLA TARIFA:
 	public static boolean tarifasDelete(Statement st, String idTarifa) {
 		String sentSQL = "";
@@ -2116,6 +2386,13 @@ public class BD {
 	}
 	
 	//TABLA CITA COMERCIAL
+	/**
+	 * Metodo para eliminar las Citas antiguas de un Comercial
+	 * @param st (Statement para la conexion)
+	 * @param nickname (Nickname del Comercial)
+	 * @param fecha (Fecha limite)
+	 * @return boolean (Respuesta afirvativa si todo esta bien)
+	 */
 	public static boolean citasComercialDelete(Statement st, String nickname, String fecha) {
 		String setSQL = "";
 		String preSentSQL = "";
@@ -2146,6 +2423,13 @@ public class BD {
 	}
 
 	//TABLA CITA COMERCIAL
+	/**
+	 * Metodo para eliminar las Citas antiguas de un Mecanico
+	 * @param st (Statement para la conexion)
+	 * @param nickname (Nickname del Mecanico)
+	 * @param fecha (Fecha limite)
+	 * @return boolean (Respuesta afirvativa si todo esta bien)
+	 */
 	public static boolean citasMecanicoDelete(Statement st, String nickname, String fecha) {
 		String setSQL = "";
 		String preSentSQL = "";
@@ -2179,7 +2463,11 @@ public class BD {
 	/////////////////////////////////////////////////////////////////////
 	// Metodos privados //
 	/////////////////////////////////////////////////////////////////////
-
+	/**
+	 * Metodo para devolver el string "securizado" para volcarlo en SQL.
+	 * @param string (Objeto String)
+	 * @return string (Objeto String "securizado")
+	 */
 	// Devuelve el string "securizado" para volcarlo en SQL
 	// (Implementacion 1) Sustituye ' por '' y quita saltos de l�nea
 	// (Implementacion 2) Mantiene solo los caracteres seguros en espa�ol
