@@ -22,10 +22,20 @@ import org.jfree.ui.ApplicationFrame;
 
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.EmpleadoHoras;
-
+/**
+* Clase para el visualizar el grafico de las horas de trabajo por cada empleado
+*/
 public class VentanaGraficosHoras extends ApplicationFrame {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructor de la clase VentanaGraficosHoras.
+	 * @param applicationTitle (Titulo del estudio)
+	 * @param chartTitle (Titulo del grafico)
+	 * @param empleados (Lista de todos los empleados)
+	 * @param gerenteController (Controlador de la ventana para la clase Gerente)
+	 * @param nickname (Nickname del gerente)
+	 */
 public VentanaGraficosHoras( String applicationTitle , String chartTitle, List<EmpleadoHoras> empleados, GerenteController gerenteController, String nickname) {
       super( applicationTitle );
       this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -56,7 +66,11 @@ public VentanaGraficosHoras( String applicationTitle , String chartTitle, List<E
 	    panel.add(buttonVeryEditTarifas);
 	    this.add(panel, BorderLayout.SOUTH);
    }
-   
+
+/**
+ * Creacion del Dataset a partir de ArrayList de empleados
+ * @param empleados (Todas los empleados)
+ */
    private CategoryDataset createDataset(List<EmpleadoHoras> empleados ) {
       final String categoria = "Ventas Realizadas";
       

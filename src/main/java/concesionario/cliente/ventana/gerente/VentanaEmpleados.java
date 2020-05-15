@@ -19,6 +19,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
+/**
+* Ventana para la visualizacion de todos los empleados de la BD
+*/
 public class VentanaEmpleados extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -27,11 +30,20 @@ public class VentanaEmpleados extends JFrame {
 	final Logger logger = LoggerFactory.getLogger(VentanaEmpleados.class);
 	static int iteration = 0;
 	
+	/**
+	 * Constructor de la clase VentanaEmpleados
+	 * @param gerenteController (Controlador de la ventana para la clase Gerente)
+	 * @param nickname (Nickname del gerente)
+	 */
 	public VentanaEmpleados(GerenteController gerenteController, String nickname){
 		this.gerenteController = gerenteController;
 		iniciarVentanaEmpleados(nickname);
 	}
 	
+	/**
+	 * Inicializador del JFrame de la ventana VentanaEmpleados
+	 * @param nickname (Nickname del gerente)
+	 */
 	public void  iniciarVentanaEmpleados(String nickname) {
 		setAutoRequestFocus(false);
 		setBounds(100, 100, 1010, 376);
@@ -109,7 +121,10 @@ public class VentanaEmpleados extends JFrame {
 	}
 	
 
-		
+	/**
+	 * Metodo para mostrar la tabla de los Empleados completa.
+	 * @param table (Tabla de la ventana).
+	 */	
 	public void cargarTabla(JTable table) {
 		List<Empleado> empleados = gerenteController.cargarTablaEmpleado();
 		
@@ -133,7 +148,12 @@ public class VentanaEmpleados extends JFrame {
 			logger.error("No hay ningun empleado.");
 		}
 	}
-		
+	
+	/**
+	 * Metodo para registrar un empleado
+	 * @param tipo (Tipo de empleado).
+	 * @param nickname (Nickname del empleado).
+	 */
 	private void registrar(int tipo, String nickname) {
 		switch (tipo) {
 		case 0:
@@ -154,6 +174,12 @@ public class VentanaEmpleados extends JFrame {
 		}
 	}
 	
+	/**
+	 * Metodo para visualizar la informacion al detalle de un empleado 
+	 * @param tipo (Tipo de empleado).
+	 * @param nickname (Nickname del empleado).
+	 * @param nombre (Nombre del empleado).
+	 */
 	public void verInfo(String tipo, String nickname, String nombre) {
 		switch (tipo) {
 		case "Mecanico":

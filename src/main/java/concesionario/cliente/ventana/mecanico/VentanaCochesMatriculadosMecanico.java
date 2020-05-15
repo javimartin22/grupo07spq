@@ -22,17 +22,22 @@ import org.slf4j.LoggerFactory;
 import java.awt.Font;
 import java.awt.Color;
 
+/**
+ * Interfaz grafica VentanaCochesMatriculadoMecanico (Permite visualizar los coches matriculados en una tabla y aplicar filtros a los resultados)
+ */
 public class VentanaCochesMatriculadosMecanico extends JFrame {
-		
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private MecanicoController mecanicoController;
 	final Logger logger = LoggerFactory.getLogger(VentanaCochesMatriculadosMecanico.class);
 	static int iteration = 0;
 	
+	/**
+	 * Constructor de la VentanaPiezasMecanico
+	 * @param loginController (Controlador de las ventanas para la clase Mecanico)
+	 * @param nickname (Nickname del mecanico)
+	 */
 	public VentanaCochesMatriculadosMecanico(MecanicoController loginController, String nickname) {
 		setResizable(false);
 		this.mecanicoController = loginController;
@@ -79,7 +84,10 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem_2);
 		iniciarVentanaCochesMatriculadosMecanico(nickname);
 	}
-	
+	/**
+	 * Inicializador del JFrame de la VentanaCochesMatriculadoMecanico
+	 * @param nickname (Nickname del mecanico)
+	 */
 	private void iniciarVentanaCochesMatriculadosMecanico(String nickname){
 		
 		setAutoRequestFocus(false);
@@ -89,7 +97,9 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		
-		
+		/*
+		 * Boton que permite regresar a VentanaMenuMecanico
+		 */
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -108,8 +118,9 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-
-		//boton para ver las propiedades del vehiculo seleccionado (no se bien como sacar todas las propiedades)
+		/*
+		 * Boton que carga los coches matriculados en la tabla
+		 */
 		JButton btnVer = new JButton("Ver");
 		btnVer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -120,7 +131,10 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 		getContentPane().add(btnVer);
 		
 	}
-	
+	/**
+	 * Carga los datos de la BD y los introduce en una JTable
+	 * @param table Tabla de CocheMatriculado
+	 */
 	public void cargarTabla(JTable table) {
 		List<CocheMatriculado> cochesMatric = mecanicoController.cargarCochesMatriculados();
 		
@@ -148,7 +162,12 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 			logger.error("No llega correctamente el CocheMatriculado.");
 		}
 	}
-	
+	/**
+	 * Aplica los filtros de busqueda y los introduce en la tabla.
+	 * @param table Tabla de CocheMatriculado
+	 * @param tipo  Identificacion del tipo de filtro
+	 * @param restriccion Busqueda del usuario u otros filtros
+	 */	
 	public void cargarTablaFiltro(JTable table, int tipo, String restriccion) {
 		String filtro = restriccion + "-" + tipo;
 		List<CocheMatriculado> cochesMatric = mecanicoController.filtrarCocheMatriculado(filtro);
