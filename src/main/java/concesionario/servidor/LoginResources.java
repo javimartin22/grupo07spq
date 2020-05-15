@@ -2114,6 +2114,11 @@ public class LoginResources {
 		return mecanicos;
 	}
 	
+	/**
+	 * Metodo para seleccionar una cita con los comerciales de la BD
+	 * @param restriccion (Objeto tipo String)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("selectCitaComercial")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -2157,7 +2162,11 @@ public class LoginResources {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
-	
+	/**
+	 * Metodo para seleccionar nuevas Citas de Taller con los Mecanicos
+	 * @param restriccion (Objeto tipo String)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("selectCitaTaller")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -2201,7 +2210,11 @@ public class LoginResources {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
-	
+	/**
+	 * Metodo para cargar las Citas con un comercial
+	 * @param filtro (Objeto tipo String)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("loadTablaCitaComercial")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -2232,7 +2245,11 @@ public class LoginResources {
 			return Response.status(Response.Status.OK).entity(citas).build();
 		}
 	}
-	
+	/**
+	 * Metodo para filtrar las Citas de un comercial
+	 * @param filtro (Objeto tipo String)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("filtrarTablaCitaComercial")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -2267,7 +2284,11 @@ public class LoginResources {
 			return Response.status(Response.Status.OK).entity(citas).build();
 		}
 	}
-	
+	/**
+	 * Metodo para cargar las Citas de Taller con los Mecanicos
+	 * @param filtro (Objeto tipo String)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("loadTablaCitaMecanico")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -2299,7 +2320,11 @@ public class LoginResources {
 			return Response.status(Response.Status.OK).entity(citas).build();
 		}
 	}
-	
+	/**
+	 * Metodo para filtrar las Citas de Taller con los Mecanicos
+	 * @param filtro (Objeto tipo String)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("filtrarTablaCitaMecanico")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -2411,7 +2436,11 @@ public class LoginResources {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
-	
+	/**
+	 * Metodo para eliminar una cita con un comercial
+	 * @param nickFecha (Nickname;fecha de la cita)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("deleteCitasComercial")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -2435,7 +2464,11 @@ public class LoginResources {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
-	
+	/**
+	 * Metodo para eliminar las Citas de Taller con los Mecanicos
+	 * @param nickFecha (Nickname;fecha de la cita)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("deleteCitasMecanico")
 	@Consumes(MediaType.APPLICATION_JSON)
