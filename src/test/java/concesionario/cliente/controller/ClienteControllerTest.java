@@ -19,8 +19,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import concesionario.cliente.ClienteApp;
+import concesionario.datos.CitaComercial;
+import concesionario.datos.CitaTaller;
 import concesionario.datos.Cliente;
 import concesionario.datos.CocheConcesionario;
+import concesionario.datos.Comercial;
+import concesionario.datos.Mecanico;
 import concesionario.datos.Tarifa;
 
 
@@ -113,6 +117,34 @@ public class ClienteControllerTest {
 		
 		for (int i = 0; i < coches.size(); i++) {
 			assertTrue(cochesConcesionario.get(i).getMarca().equals(coches.get(i).getMarca()));
+		}
+	}
+	
+	@Test
+	public void testCargarTablaComercial() {
+		Comercial comercial = new Comercial("user", "pass", "12345667V", "Kevin", "Ibañez", "Masculino", "em@gmail.com", "City", 48008, "Abando", "1231","1444", 1200, "665665665", 0, 2, 300, 10 );
+		List<Comercial> comerciales = new ArrayList<Comercial>();
+		comerciales.add(comercial);
+		
+		Mockito.when(clienteApp.cargarTablaComercial()).thenAnswer(x ->comerciales);
+		List<String> comercialesSeleccionados= clienteController.cargarTablaComercial();
+		
+		for (int i = 0; i < comerciales.size(); i++) {
+			assertTrue(comercialesSeleccionados.get(i).equals(comerciales.get(i).getNombre()));
+		}
+	}
+	
+	@Test
+	public void testCargarTablaMecanico() {
+		Mecanico mecanico = new Mecanico("user", "pass", 1, "12345667V", "Kevin", "Ibañez", "Masculino", "em@gmail.com", "City", 48008, "Abando", "1231","1444", 1200, "665665665", 10);
+		List<Mecanico> mecanicos = new ArrayList<Mecanico>();
+		mecanicos.add(mecanico);
+		
+		Mockito.when(clienteApp.cargarTablaMecanico()).thenAnswer(x ->mecanicos);
+		List<String> mecanicosSeleccionados= clienteController.cargarTablaMecanicos();
+		
+		for (int i = 0; i < mecanicos.size(); i++) {
+			assertTrue(mecanicosSeleccionados.get(i).equals(mecanicos.get(i).getNombre()));
 		}
 	}
 		
@@ -283,4 +315,87 @@ public class ClienteControllerTest {
 			
 			assertTrue(clienteController.cambiarNicknameCliente(c, "Pablito") == false);
 		}
+		
+	@Test 
+	public void testComprobarSexo() {
+		assertEquals("Hombre", clienteController.comprobarSexo(0));
+		assertEquals("Mujer", clienteController.comprobarSexo(1));
+		assertEquals("Otro", clienteController.comprobarSexo(2));
+	}
+	
+	@Test 
+	public void testCrearHorasConcesionario() {
+		List<String> horas = clienteController.crearHorasConcesionario();
+		assertTrue(horas.size() > 0);
+	}
+	
+	@Test 
+	public void testCrearHorasTaller() {
+		List<String> horas = clienteController.crearHorasTaller();
+		assertTrue(horas.size() > 0);
+	}
+	
+	@Test 
+	public void testComprobarCitaComercial() {
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(clienteApp.seleccionarCitaComercial(any(String.class))).thenReturn(response);
+		
+		assertTrue(clienteController.comprobarCitaComercial("Restriccion") == false);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		when(clienteApp.seleccionarCitaComercial(any(String.class))).thenReturn(response1);
+		
+		assertTrue(clienteController.comprobarCitaComercial("Restriccion") == true);
+	}
+	
+	@Test 
+	public void testComprobarCitaTaller() {
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(clienteApp.seleccionarCitaTaller(any(String.class))).thenReturn(response);
+		
+		assertTrue(clienteController.comprobarCitaTaller("Restriccion") == false);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		when(clienteApp.seleccionarCitaTaller(any(String.class))).thenReturn(response1);
+		
+		assertTrue(clienteController.comprobarCitaTaller("Restriccion") == true);
+	}
+	
+	@Test
+	public void testRegistroCitaComercial() {
+		CitaComercial citaComercial = new CitaComercial("Mikel", "12332112A", "10/10/20", "10:30", "Unai");
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(clienteApp.registroCitaComercial(any(CitaComercial.class))).thenReturn(response);
+		
+		assertTrue(clienteController.registroCitaComercial(citaComercial) == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		when(clienteApp.registroCitaComercial(any(CitaComercial.class))).thenReturn(response1);
+		
+		assertTrue(clienteController.registroCitaComercial(citaComercial) == false);
+	}
+	
+	@Test
+	public void testRegistroCitaTaller() {
+		CitaTaller cita = new CitaTaller("Jorge", "12345678Ñ", "22-05-2020", "11:00", "Unai", "Aceite");
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(clienteApp.registroCitaTaller(any(CitaTaller.class))).thenReturn(response);
+		
+		assertTrue(clienteController.registroCitaTaller(cita) == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		when(clienteApp.registroCitaTaller(any(CitaTaller.class))).thenReturn(response1);
+		
+		assertTrue(clienteController.registroCitaTaller(cita) == false);
+	}
 }
