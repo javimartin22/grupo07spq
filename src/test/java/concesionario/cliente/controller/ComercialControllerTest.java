@@ -25,6 +25,9 @@ import concesionario.cliente.ClienteApp;
 import concesionario.datos.CitaComercial;
 import concesionario.datos.Cliente;
 import concesionario.datos.CocheConcesionario;
+import concesionario.datos.Comercial;
+import concesionario.datos.HorasEmpleados;
+import concesionario.datos.Presupuesto;
 import concesionario.datos.Venta;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
@@ -283,5 +286,164 @@ public class ComercialControllerTest {
 		String fecha2 = "1/10/2020";
 		assertTrue(comercialController.validarFecha(fecha));
 		assertFalse(comercialController.validarFecha(fecha2));
+	}
+	
+	@Test 
+	public void testDeleteComercial() {
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		
+		when(clienteApp.comercialDelete(any(String.class))).thenReturn(response);
+		
+		assertTrue(comercialController.deleteComercial("nickname") == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		
+		when(clienteApp.comercialDelete(any(String.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.deleteComercial("nickname") == false);
+	}
+	
+	@Test 
+	public void testDeleteHorasEmpleados() {
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		
+		when(clienteApp.horasEmpleadosDelete(any(String.class))).thenReturn(response);
+		
+		assertTrue(comercialController.deleteHorasEmpleados("nickname") == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		
+		when(clienteApp.horasEmpleadosDelete(any(String.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.deleteHorasEmpleados("nickname") == false);
+	}
+	
+	@Test 
+	public void testDeleteHorasEmpleadosTemporal() {
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		
+		when(clienteApp.horasEmpleadosTemporalDelete(any(String.class))).thenReturn(response);
+		
+		assertTrue(comercialController.deleteHorasEmpleadosTemporal("nickname") == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		
+		when(clienteApp.horasEmpleadosTemporalDelete(any(String.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.deleteHorasEmpleadosTemporal("nickname") == false);
+	}
+	
+	@Test
+	public void testSeleccionarHorasComercial() {
+		HorasEmpleados p =  new HorasEmpleados(10, 10, "Jorge");
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		Mockito.when(response.readEntity(Mockito.any(Class.class))).thenReturn(p);
+		when(clienteApp.seleccionarHorsEmpleado(any(String.class))).thenReturn(response);
+		
+		assertTrue(comercialController.seleccionarHorasComercial(("Jorge")).getNickname().equals(p.getNickname()));
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(Class.class))).thenReturn(null);
+		when(clienteApp.seleccionarHorsEmpleado(any(String.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.seleccionarHorasComercial("PE-1") == null);
+	}
+	
+	@Test
+	public void testSeleccionarHorasComercialTemporal() {
+		HorasEmpleados p =  new HorasEmpleados(10, 10, "Jorge");
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		Mockito.when(response.readEntity(Mockito.any(Class.class))).thenReturn(p);
+		when(clienteApp.seleccionarHorsEmpleadoTemporal(any(String.class))).thenReturn(response);
+		
+		assertTrue(comercialController.seleccionarHorasComercialTemporal(("Jorge")).getNickname().equals(p.getNickname()));
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(Class.class))).thenReturn(null);
+		when(clienteApp.seleccionarHorsEmpleadoTemporal(any(String.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.seleccionarHorasComercialTemporal("PE-1") == null);
+	}
+	
+	@Test
+	public void testSeleccionarComercial() {
+		Comercial comercial = new Comercial("user", "pass", "12345667V", "Kevin", "Ibañez", "Masculino", "em@gmail.com", "City", 48008, "Abando", "1231","1444", 1200, "665665665", 0, 2, 300, 10 );
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		Mockito.when(response.readEntity(Mockito.any(Class.class))).thenReturn(comercial);
+		when(clienteApp.comercialSelect(any(String.class))).thenReturn(response);
+		
+		assertTrue(comercialController.seleccionarComercial(("Jorge")).getNickname().equals(comercial.getNickname()));
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(Class.class))).thenReturn(null);
+		when(clienteApp.comercialSelect(any(String.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.seleccionarComercial("PE-1") == null);
+	}
+	
+	@Test
+	public void testRegistroComercial() {
+		Comercial comercial = new Comercial("nickname", "contrasenia", "12345678A", "Jorge", "Gonzalez", "Hombre", "jorge@gmail.com", "Bilbao", 48007, "direccion", "nSS", "numeroCuenta", 1500, "numeroTelefono", 1, 1, 1, 1);
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(clienteApp.registroComercial(any(Comercial.class))).thenReturn(response);
+		
+		assertTrue(comercialController.registroComercial(comercial) == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		when(clienteApp.registroComercial(any(Comercial.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.registroComercial(comercial) == false);
+	}
+	
+	@Test
+	public void testRegistrarHorasComercial() {
+		HorasEmpleados horas =  new HorasEmpleados(10, 10, "Jorge");
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(clienteApp.registroHorasEmpleado(any(String.class))).thenReturn(response);
+		
+		assertTrue(comercialController.registrarHorasComercial("") == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		when(clienteApp.registroHorasEmpleado(any(String.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.registrarHorasComercial("") == false);
+	}
+	
+	@Test
+	public void testRegistrarHorasComercialTemporal() {
+		HorasEmpleados horas =  new HorasEmpleados(10, 10, "Jorge");
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(clienteApp.registroHorasEmpleadoTemporal(any(String.class))).thenReturn(response);
+		
+		assertTrue(comercialController.registrarHorasComercialTemporal("") == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		when(clienteApp.registroHorasEmpleadoTemporal(any(String.class))).thenReturn(response1);
+		
+		assertTrue(comercialController.registrarHorasComercialTemporal("") == false);
 	}
 }
