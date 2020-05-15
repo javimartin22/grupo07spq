@@ -27,6 +27,8 @@ import concesionario.datos.CocheMatriculado;
 import concesionario.datos.CocheTaller;
 import concesionario.datos.Herramientas;
 import concesionario.datos.HerramientasTaller;
+import concesionario.datos.HorasEmpleados;
+import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
 import concesionario.datos.SolicitudCompra;
@@ -581,11 +583,169 @@ public class MecanicoControllerTest {
 		solicitud.add(new SolicitudCompra("S1","Barrita","Herramientas",3));
 		solicitud.add(new SolicitudCompra("S2","Amortiguador","Piezas",3));
 	
-		
 		String solicitudSelect = mecanicoController.calcularCodigoSolicitud(solicitud);
 		assertTrue(solicitudSelect.equals("S3"));
-		
 	}
 	
+	@Test
+	public void testSeleccionarHorasMecanico() {
+		HorasEmpleados p =  new HorasEmpleados(10, 10, "Jorge");
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		Mockito.when(response.readEntity(Mockito.any(Class.class))).thenReturn(p);
+		when(cliente.seleccionarHorsEmpleado(any(String.class))).thenReturn(response);
+		
+		assertTrue(mecanicoController.seleccionarHorasMecanico(("Jorge")).getNickname().equals(p.getNickname()));
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(Class.class))).thenReturn(null);
+		when(cliente.seleccionarHorsEmpleado(any(String.class))).thenReturn(response1);
+		
+		assertTrue(mecanicoController.seleccionarHorasMecanico("PE-1") == null);
+	}
+	
+	@Test
+	public void testSeleccionarHorasMecanicoTemporal() {
+		HorasEmpleados p =  new HorasEmpleados(10, 10, "Jorge");
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		Mockito.when(response.readEntity(Mockito.any(Class.class))).thenReturn(p);
+		when(cliente.seleccionarHorsEmpleadoTemporal(any(String.class))).thenReturn(response);
+		
+		assertTrue(mecanicoController.seleccionarHorasMecanicoTemporal(("Jorge")).getNickname().equals(p.getNickname()));
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(Class.class))).thenReturn(null);
+		when(cliente.seleccionarHorsEmpleadoTemporal(any(String.class))).thenReturn(response1);
+		
+		assertTrue(mecanicoController.seleccionarHorasMecanicoTemporal("PE-1") == null);
+	}
+	
+	@Test 
+	public void testDeleteHorasEmpleados() {
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		
+		when(cliente.horasEmpleadosDelete(any(String.class))).thenReturn(response);
+		
+		assertTrue(mecanicoController.deleteHorasEmpleados("nickname") == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		
+		when(cliente.horasEmpleadosDelete(any(String.class))).thenReturn(response1);
+		
+		assertTrue(mecanicoController.deleteHorasEmpleados("nickname") == false);
+	}
+	
+	@Test 
+	public void testDeleteHorasEmpleadosTemporal() {
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		
+		when(cliente.horasEmpleadosTemporalDelete(any(String.class))).thenReturn(response);
+		
+		assertTrue(mecanicoController.deleteHorasEmpleadosTemporal("nickname") == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		
+		when(cliente.horasEmpleadosTemporalDelete(any(String.class))).thenReturn(response1);
+		
+		assertTrue(mecanicoController.deleteHorasEmpleadosTemporal("nickname") == false);
+	}
+	
+	@Test
+	public void testRegistrarHorasMecanico() {
+		HorasEmpleados horas =  new HorasEmpleados(10, 10, "Jorge");
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(cliente.registroHorasEmpleado(any(String.class))).thenReturn(response);
+		
+		assertTrue(mecanicoController.registrarHorasMecanico("") == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		when(cliente.registroHorasEmpleado(any(String.class))).thenReturn(response1);
+		
+		assertTrue(mecanicoController.registrarHorasMecanico("") == false);
+	}
+	
+	@Test
+	public void testRegistrarHorasMecanicoTemporal() {
+		HorasEmpleados horas =  new HorasEmpleados(10, 10, "Jorge");
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(cliente.registroHorasEmpleadoTemporal(any(String.class))).thenReturn(response);
+		
+		assertTrue(mecanicoController.registrarHorasMecanicoTemporal("") == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		when(cliente.registroHorasEmpleadoTemporal(any(String.class))).thenReturn(response1);
+		
+		assertTrue(mecanicoController.registrarHorasMecanicoTemporal("") == false);
+	}
+	
+	@Test
+	public void testRegistroMecanico() {
+		Mecanico mecanico = new Mecanico("nickname", "contrasenia", 0, "12345678A", "Jorge", "Gonzalez", "Hombre", "jorge@gmail.com", "Bilbao", 48007, "direccion", "nSS", "numeroCuenta", 1500, "numeroTelefono", 1);
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(cliente.registroMecanico(any(Mecanico.class))).thenReturn(response);
+		
+		assertTrue(mecanicoController.registroMecanico(mecanico) == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		when(cliente.registroMecanico(any(Mecanico.class))).thenReturn(response1);
+		
+		assertTrue(mecanicoController.registroMecanico(mecanico) == false);
+	}
+	
+	@Test
+	public void testDeleteMecanico() {
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		
+		when(cliente.mecanicoDelete(any(String.class))).thenReturn(response);
+		
+		assertTrue(mecanicoController.deleteMecanico("nickname") == true);
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		
+		when(cliente.mecanicoDelete(any(String.class))).thenReturn(response1);
+		
+		assertTrue(mecanicoController.deleteMecanico("nickname") == false);
+	}
+	
+	@Test
+	public void testSeleccionarMecanico() {
+		Mecanico mecanico = new Mecanico("nickname", "contrasenia", 0, "12345678A", "Jorge", "Gonzalez", "Hombre", "jorge@gmail.com", "Bilbao", 48007, "direccion", "nSS", "numeroCuenta", 1500, "numeroTelefono", 1);
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		Mockito.when(response.readEntity(Mockito.any(Class.class))).thenReturn(mecanico);
+		when(cliente.mecanicoSelect(any(String.class))).thenReturn(response);
+		
+		Mecanico mecanicoSeleccionado = mecanicoController.seleccionarMecanico("nickname");
+		assertTrue(mecanicoSeleccionado.getNickname().equals("nickname"));
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(Class.class))).thenReturn(null);
+		when(cliente.mecanicoSelect(any(String.class))).thenReturn(response1);
+		
+		assertTrue(mecanicoController.seleccionarMecanico("nickname") == null);
+	}
 }
 	
