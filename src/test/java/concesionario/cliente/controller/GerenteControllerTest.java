@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
 import org.junit.Before;
@@ -21,8 +22,12 @@ import concesionario.cliente.ClienteApp;
 import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
+import concesionario.datos.EmpleadoHoras;
+import concesionario.datos.Herramientas;
+import concesionario.datos.HorasEmpleados;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Tarifa;
+import concesionario.datos.Venta;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class GerenteControllerTest {
@@ -48,6 +53,20 @@ public class GerenteControllerTest {
 		
 		for (int i = 0; i < empleados.size(); i++) {
 			assertTrue(empleadosSeleccionados.get(i).getDNI().equals(empleados.get(i).getDNI()));
+		}
+	}
+	
+	@Test
+	public void testCargarTablaVenta() {
+		Venta venta = new Venta("22-01-2020", "Leon", "Seat", "9600JPT", "Jorgico", "Pablo");
+		List<Venta> ventas = new ArrayList<Venta>();
+		ventas.add(venta);
+
+		Mockito.when(clienteApp.cargarTablaVenta()).thenAnswer(x ->ventas);
+		List<Venta> ventasSeleccionados = gerenteController.cargarTablaVenta();
+		
+		for (int i = 0; i < ventas.size(); i++) {
+			assertTrue(ventasSeleccionados.get(i).getMatricula().equals(ventas.get(i).getMatricula()));
 		}
 	}
 	
@@ -276,5 +295,31 @@ public class GerenteControllerTest {
 		assertEquals("Hombre", gerenteController.comprobarSexo(0));
 		assertEquals("Mujer", gerenteController.comprobarSexo(1));
 		assertEquals("Otro", gerenteController.comprobarSexo(2));
+	}
+	
+	@Test
+	public void testCargarEmpleadoHoras() {
+		List<EmpleadoHoras> empleados = new ArrayList<EmpleadoHoras>();
+		EmpleadoHoras e1 = new EmpleadoHoras("Jorgico", "Jorge", "12345678A", 10);
+		empleados.add(e1);
+		
+		
+		Response response = Mockito.mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		Mockito.when(response.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->empleados);
+		when(clienteApp.cargarEmpleadoHoras(any(Integer.class))).thenReturn(response);
+		
+		List<EmpleadoHoras> empleadosHoras = gerenteController.cargarEmpleadoHoras(0);
+		
+		for(int i=0; i<empleados.size(); i++) {
+			assertTrue(empleadosHoras.get(i).getNickname().equals(empleados.get(i).getNickname()));
+		}
+		
+		Response response1 = Mockito.mock(Response.class);
+		Mockito.when(response1.getStatus()).thenReturn(404);
+		Mockito.when(response1.readEntity(Mockito.any(GenericType.class))).thenAnswer(x ->null);
+		when(clienteApp.cargarEmpleadoHoras(any(Integer.class))).thenReturn(response1);
+		
+		assertTrue(gerenteController.cargarEmpleadoHoras(0) == null);
 	}
 }
