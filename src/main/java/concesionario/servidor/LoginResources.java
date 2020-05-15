@@ -19,9 +19,10 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-
-
 @Path("loginp")
+/**
+ *Clase LoginResources (Servidor de la Aplicacion).
+ */
 public class LoginResources {
 	
 	private Connection con;
@@ -452,6 +453,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para la obtencion de un Cliente.
+	 * @param nickname (Nickname del Cliente)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("selectClient")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -469,6 +475,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para la obtencion de la Hora Temporal de un Empleado.
+	 * @param nickname (Nickname del Empleado)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("selectHorasEmpleadosTemporal")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -486,6 +497,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para la obtencion de las Horas de un Empleado.
+	 * @param nickname (Nickname del Empleado)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("selectHorasEmpleados")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -503,6 +519,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para la obtencion de un Coche del Taller.
+	 * @param matricula (Matricula del Coche)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("selectCocheTaller")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -520,6 +541,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para la obtencion de un Coche del Concesionario.
+	 * @param modelo (Modelo del Coche)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("selectCocheConcesionario")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -537,6 +563,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para la obtecion de un Mecanico
+	 * @param nickname (Nickname del Mecanico)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("selectMecanico")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -555,6 +586,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para la obtecion de un Comercial
+	 * @param nickname (Nickname del Comercial)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("selectComercial")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -573,6 +609,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para la obtecion de un Empleado del Departamento de Compras
+	 * @param nickname (Nickname del Empledado del Departamento de Compras)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("selectDepartamentoCompras")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -591,6 +632,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para la obtecion de una Pieza
+	 * @param codigo (Codigo Identificativo de la Pieza)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("selectPiezaUtilizada")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1181,6 +1227,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para la obtecion de un Presupuesto
+	 * @param codigo (Codigo Identificativo del Presupuesto)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("selectPresupuesto")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -2147,27 +2198,6 @@ public class LoginResources {
 		HorasEmpleados nuevo = BD.horaEmpleadoTemporalSelect(st, nickname);
 		
 		if (nuevo == null) {
-			return Response.status(Response.Status.OK).build();
-		} else {
-			return Response.status(Response.Status.NOT_FOUND).build();
-		}
-	}
-	
-	@POST
-	@Path("updateMecanico")
-	@Consumes(MediaType.APPLICATION_JSON)
-	//@Produces("application/json")
-	public Response updateMecanico(String string) {
-		con = BD.initBD("Taller");
-		st = BD.usarCrearTablasBD(con);
-		
-		String[] strings = string.split("-");
-		String nickname = strings[0];
-		int horas = Integer.parseInt(strings[1]);
-		
-		boolean b = BD.mecanicoUpdate(st, nickname, horas);
-		
-		if (b == false) {
 			return Response.status(Response.Status.OK).build();
 		} else {
 			return Response.status(Response.Status.NOT_FOUND).build();

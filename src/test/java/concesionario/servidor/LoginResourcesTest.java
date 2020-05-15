@@ -1580,24 +1580,6 @@ public class LoginResourcesTest {
 	}
 	
 	@Test
-	public void testUpdateMecanico() {
-		try {
-			PowerMockito.mockStatic(BD.class);
-			when(BD.mecanicoUpdate(st, "Nick", 3)).thenReturn(true);
-			Response resultado =  loginResources.updateMecanico("Nick-3");
-			assertEquals(404, resultado.getStatus());
-		    
-			PowerMockito.mockStatic(BD.class);
-			when(BD.mecanicoUpdate(st, "Nick", 3)).thenReturn(false);
-			Response resultado1 =  loginResources.updateMecanico("Nick-3");
-			assertEquals(200, resultado1.getStatus());
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Test
 	public void testFiltrarPresupuestoProbema() {
 		try {
 			//Opcion 1 sin mock, al ser resultset (NO FUNCIONA/ HAY QUE CREAR UN RESULTSET)
