@@ -1,7 +1,4 @@
-
-
 package concesionario.cliente;
-
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -10,24 +7,18 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.constraints.AssertTrue;
-import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-
-import concesionario.cliente.controller.ClienteController;
 import concesionario.datos.CitaComercial;
 import concesionario.datos.CitaTaller;
 import concesionario.datos.Cliente;
@@ -500,6 +491,20 @@ public class ClienteAppTest {
 	}
 	
 	@Test
+	public void testCargarTablaComercial() {
+		Comercial comercial = new Comercial("user", "pass", "12345667V", "Kevin", "Ibañez", "Masculino", "em@gmail.com", "City", 48008, "Abando", "1231","1444", 1200, "665665665", 0, 2, 300, 10 );
+		List<Comercial> comerciales = new ArrayList<Comercial>();
+		comerciales.add(comercial);
+		
+		when(webtarget.path(eq("loadComercialTable")).request(anyString()).get(any(GenericType.class))).thenAnswer(x ->comerciales);
+		List<Comercial> piezasSelect = clienteApp.cargarTablaComercial();
+		
+		for (int i = 0; i < comerciales.size(); i++) {
+			assertTrue(piezasSelect.get(i).getDNI().equals(comerciales.get(i).getDNI()));
+		}
+	}
+	
+	@Test
 	public void testCargarTablaHerramientasTaller() {
 		HerramientasTaller h1 = new HerramientasTaller("H1", "herr1", 0, "tipo1");
 		HerramientasTaller h2 = new HerramientasTaller("H2", "herr2", 0, "tipo2");
@@ -530,7 +535,6 @@ public class ClienteAppTest {
 			assertTrue(solSelect.get(i).getCodigo().equals(solicitudes.get(i).getCodigo()));
 		}
 	}
-	
 	
 	@Test
 	public void testPiezaUtilizadaSelect() {
@@ -849,6 +853,7 @@ public class ClienteAppTest {
 		Response result = clienteApp.filtrarHerramientaMecanico(filtro);
 		assertEquals(200, result.getStatus());	
 	}
+	
 	@Test
 	public void testFiltrarPiezaMecanico() {
 		Response response = mock(Response.class);
@@ -858,6 +863,18 @@ public class ClienteAppTest {
 		String filtro = "Filtro";
 		
 		Response result = clienteApp.filtrarPiezaMecanico(filtro);
+		assertEquals(200, result.getStatus());	
+	}
+	
+	@Test
+	public void testCargarEmpleadoHoras() {
+		Response response = mock(Response.class);
+		Mockito.when(response.getStatus()).thenReturn(200);
+		when(webtarget.path(eq("cargarEmpleadoHoras")).request(anyString()).post(any(Entity.class))).thenReturn(response);
+		
+		int filtro = 0;
+		
+		Response result = clienteApp.cargarEmpleadoHoras(filtro);
 		assertEquals(200, result.getStatus());	
 	}
 	
