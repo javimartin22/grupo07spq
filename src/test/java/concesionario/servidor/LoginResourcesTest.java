@@ -799,6 +799,7 @@ public class LoginResourcesTest {
 			when(BD.filtrarCitasMecanicoPorFecha(st, "Pablo", "22-05-2020")).thenReturn(rs_null);
 			Response r = loginResources.deleteCitasMecanico(nickfecha);
 			assertEquals(200, r.getStatus());
+			
 		    
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -856,6 +857,8 @@ public class LoginResourcesTest {
 			when(BD.mecanicosDelete(st, mecanico.getDNI())).thenReturn(b);
 			Response r= loginResources.deleteMecanico(mecanico.getDNI());
 			assertEquals(200, r.getStatus()); // AQUI AL REVES PORQUE HAGO DELETE
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -870,6 +873,12 @@ public class LoginResourcesTest {
 			when(BD.solicitudCompraDelete(st, solicitud.getCodigo())).thenReturn(b);
 			Response r= loginResources.deleteSolicitudCompra(solicitud.getCodigo());
 			assertEquals(200, r.getStatus()); 
+			
+			boolean f = false;
+			when(BD.solicitudCompraDelete(st, solicitud.getCodigo())).thenReturn(f);
+			Response r1= loginResources.deleteSolicitudCompra(solicitud.getCodigo());
+			assertEquals(404, r1.getStatus()); 
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -884,6 +893,12 @@ public class LoginResourcesTest {
 			when(BD.tarifasDelete(st, mecanico.getIdTarifa())).thenReturn(b);
 			Response r= loginResources.deleteTarifa(mecanico.getIdTarifa());
 			assertEquals(200, r.getStatus()); // AQUI AL REVES PORQUE HAGO DELETE
+			
+
+			boolean f = false;
+			when(BD.tarifasDelete(st,mecanico.getIdTarifa())).thenReturn(f);
+			Response r1= loginResources.deleteTarifa(mecanico.getIdTarifa());
+			assertEquals(404, r1.getStatus()); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -899,6 +914,11 @@ public class LoginResourcesTest {
 			when(BD.cocheTallerDelete(st, coches.getMatricula())).thenReturn(b);
 			Response r= loginResources.deleteCocheTaller(coches.getMatricula());
 			assertEquals(200, r.getStatus()); // AQUI AL REVES PORQUE HAGO DELETE
+			
+			boolean f = false;
+			when(BD.cocheTallerDelete(st, coches.getMatricula())).thenReturn(f);
+			Response r1= loginResources.deleteCocheTaller(coches.getMatricula());
+			assertEquals(404, r1.getStatus()); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -975,6 +995,7 @@ public class LoginResourcesTest {
 			when(BD.empleadosHorasFiltroSelect(st, 0)).thenReturn(res);
 			Response resp1= loginResources.cargarEmpleadoHoras(0);
 		    assertEquals(404, resp1.getStatus());
+		    		    
 			
 		} catch (Exception e) {
 			e.printStackTrace();
