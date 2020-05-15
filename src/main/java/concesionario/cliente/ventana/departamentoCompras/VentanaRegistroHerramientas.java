@@ -20,7 +20,9 @@ import concesionario.datos.Herramientas;
 import concesionario.datos.HerramientasTaller;
 
 
-
+/**
+ * VentanaRegistroHerramientas (Ventana para Registrar Herramientas en la BD).
+ */
 public class VentanaRegistroHerramientas extends JFrame {
 
 
@@ -31,11 +33,24 @@ public class VentanaRegistroHerramientas extends JFrame {
 	final Logger logger = LoggerFactory.getLogger(VentanaRegistroHerramientas.class);
 	static int iteration = 0;
 
+	/**
+	 * Constructor de la VentanaRegistroHerramientas
+	 * @param departamentoComprasController (Controlador de las Ventanas de Departamento de Compras)
+	 * @param herramienta (Objeto tipo Herramienta)
+	 * @param cantidad (Unidades)
+	 * @param nickname (Nickname del departamento de compras)
+	 */
 	public VentanaRegistroHerramientas(DepartmentoComprasController departamentoComprasController, Herramientas herramienta, int cantidad, String nickname){
 		this.departmentoComprasController = departamentoComprasController;
 		iniciarVentanaRegistoHerramientas(herramienta, cantidad, nickname);
 	}
 	
+	/**
+	 * Inicializador del JFrame de la VentanaRegistroHerramientas
+	 * @param herramienta (Objeto de tipo Herramienta)
+	 * @param cantidad (Unidades)
+	 * @param nickname (Nickname del departamento de compras)
+	 */
 	public void iniciarVentanaRegistoHerramientas(Herramientas herramienta, int cantidad, String nickname) {
 		setResizable(false);
 		setTitle("Registro de Nuevas Herramientas");
@@ -114,7 +129,10 @@ public class VentanaRegistroHerramientas extends JFrame {
 		contentPane.add(lblNewLabel_2_1);
 	}
 	
-
+	/**
+	 * Metodo para registrar una herramienta en la BD
+	 * @param herramienta (Objeto de tipo HerramientasTaller)
+	 */
 		private void registrarBD(HerramientasTaller herramienta) {
 			if (departmentoComprasController.registroHerramienta(herramienta)) {
 				logger.info("Herramienta añadida correctamente.");
@@ -123,6 +141,10 @@ public class VentanaRegistroHerramientas extends JFrame {
 			}
 		}
 	
+		/**
+		 * Metodo para obtener el codigo de las herramientas
+		 * @return String Codigo de las herramientas
+		 */
 	public String obtenerCodigo() {
 		List<HerramientasTaller> herramientas = departmentoComprasController.cargarHerramientas();
 		return departmentoComprasController.calcularCodigoHerramienta(herramientas);

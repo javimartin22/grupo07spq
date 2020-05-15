@@ -21,6 +21,9 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
+/**
+ * VentanaRegistoPiezas (Ventana para Registrar Piezas en la BD).
+ */
 public class VentanaRegistoPiezas extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -30,11 +33,24 @@ public class VentanaRegistoPiezas extends JFrame {
 	final Logger logger = LoggerFactory.getLogger(VentanaRegistoPiezas.class);
 	static int iteration = 0;
 	
+	/**
+	 * Constructor de la VentanaRegistoPiezas.
+	 * @param departamentoComprasController (Controlador de las Ventanas de Departamento de Compras)
+	 * @param piezaProveedor (Objeto tipo PiezaProveedores)
+	 * @param cantidad (Numero de piezas)
+	 * @param nickname (Nickname del departamento de compras)
+	 */
 	public VentanaRegistoPiezas(DepartmentoComprasController departamentoComprasController, PiezaProveedores piezaProveedor, int cantidad, String nickname){
 		this.departmentoComprasController = departamentoComprasController;
 		iniciarVentanaRegistoPiezas(piezaProveedor, cantidad, nickname);
 	}
-	
+
+	/**
+	 * Inicializador del JFrame de la VentanaRegistoPiezas
+	 * @param piezaProveedor (Objeto de tipo PiezaProveedores)
+	 * @param cantidad (Numero de piezas)
+	 * @param nombreMecanico (Nombre del Mecanico)
+	 */
 	public void iniciarVentanaRegistoPiezas(PiezaProveedores piezaProveedor, int cantidad, String nombreMecanico) {
 		setResizable(false);
 		setTitle("Registro de Nuevas Piezas");
@@ -114,6 +130,10 @@ public class VentanaRegistoPiezas extends JFrame {
 	}
 	
 	//Conectar con el servidor para poder hacer el registro en la BD:
+	/**
+	 * Metodo para registrar una pieza en la BD
+	 * @param pieza (Objeto de tipo Pieza)
+	 */
 	private void registrarBD(Pieza pieza) {
 		if (departmentoComprasController.registroPieza(pieza)) {
 			logger.info("Pieza añadida correctamente.");
@@ -122,6 +142,10 @@ public class VentanaRegistoPiezas extends JFrame {
 		}
 	}
 	
+	/**
+	 * Metodo para obtener el codigo de las piezas
+	 * @return String Codigo de las piezas
+	 */
 	public String obtenerCodigo() {
 		List<Pieza> piezas = departmentoComprasController.cargarPiezas();
 		return departmentoComprasController.carlcularCodigo(piezas);

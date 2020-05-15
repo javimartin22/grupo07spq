@@ -1,8 +1,6 @@
 package concesionario.cliente.ventana.departamentoCompras;
 
-/**
- * Clase para comprar las piezas
- */
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,6 +21,9 @@ import concesionario.datos.Proveedor;
 import java.awt.Color;
 import java.awt.Font;
 
+/**
+ * Clase para comprar las piezas
+ */
 public class VentanaComprarPiezas extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;	
@@ -44,8 +45,8 @@ public class VentanaComprarPiezas extends JFrame {
 	}
 
 	/**
-	 * Create the frame
-	 * @param nickname (Nickname del usuario de departamento de compras)
+	 * Inicializador del JFrame de la ventanaComprarPiezas
+	 * @param nickname (Nickname del Departamento de Compras)
 	 */
 	public void iniciarVentanaComprarPiezas(String nickname) {
 		setTitle("Comprar piezas");

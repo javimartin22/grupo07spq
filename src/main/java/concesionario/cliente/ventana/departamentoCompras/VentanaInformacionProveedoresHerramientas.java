@@ -12,18 +12,32 @@ import concesionario.datos.ProveedorHerramientas;
 
 import java.awt.Font;
 
+/**
+ * VentanaInformacionProveedoresHerramientas (Ventana para la visualizacion de la informacion de los Proveedores de Herramientas).
+ */
 public class VentanaInformacionProveedoresHerramientas extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private DepartmentoComprasController departamentoComprasController;
 	
+	/**
+	 * Constructor de la VentanaInformacionProveedoresHerramientas.
+	 * @param departmentoComprasController (Controlador de las Ventanas de Departamento Compras)
+	 * @param proveedor (Objeto de tipo ProveedorHerramientas)
+	 * @param nickname (Nickname del DepartamentoCompras)
+	 */
 	public VentanaInformacionProveedoresHerramientas(DepartmentoComprasController departmentoComprasController,ProveedorHerramientas proveedor, String nickname) {
 		setResizable(false);
 		this.departamentoComprasController = departmentoComprasController;
 		iniciarVentanaInformacionProveedoresHerramientas(proveedor,nickname);
 	}
 
+	/**
+	 * Inicializador del JFrame de la ventanaInformacionProveedoresHerramientas
+	 * @param proveedor (Objeto tipo ProveedorHerramientas)
+	 * @param nickname (Nickname del DepartamentoCompras)
+	 */
 	public void  iniciarVentanaInformacionProveedoresHerramientas(ProveedorHerramientas proveedor, String nickname) {
 		setTitle("Informacion proveedores");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

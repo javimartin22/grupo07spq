@@ -16,12 +16,20 @@ import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 
+/**
+ * VentanaMenuDepartamentoCompras (Ventana de Menu de opciones para el Departamento de Compras).
+ */
 public class VentanaMenuDepartamentoCompras extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private DepartmentoComprasController departmentoComprasController;
 	
+	/**
+	 * Constructor de la VentanaMenuDepartamentoCompras
+	 * @param departamentoComprasController (Controlador de las ventanas para la clase DepartamentoCompras)
+	 * @param nickname (Nickname del departamento de compras)
+	 */
 	public VentanaMenuDepartamentoCompras(DepartmentoComprasController departamentoComprasController, String nickname) {
 		setResizable(false);
 		setTitle("Menu departamento compras");
@@ -29,7 +37,10 @@ public class VentanaMenuDepartamentoCompras extends JFrame {
 		iniciarVentanaMenuDepartamentoCompras(nickname);
 	}
 
-	
+	/**
+	 * Inicializador del JFrame de la VentanaMenuDepartamentoCompras
+	 * @param nickname (Nickname del departamento de compras)
+	 */
 	public void iniciarVentanaMenuDepartamentoCompras(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 472, 288);

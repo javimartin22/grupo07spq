@@ -19,6 +19,9 @@ import org.slf4j.LoggerFactory;
 import concesionario.cliente.controller.DepartmentoComprasController;
 import concesionario.datos.SolicitudCompra;
 
+/**
+ * VentanaVisualizarSolicitud (Ventana para visualizar las Solicitudes de Compra).
+ */
 public class VentanaVisualizarSolicitudCompra extends JFrame {
 
 	
@@ -31,6 +34,11 @@ public class VentanaVisualizarSolicitudCompra extends JFrame {
 	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarSolicitudCompra.class);
 	static int iteration = 0;
 
+	/**
+	 * Constructor de la VentanaVisualizarSolicitudCompra
+	 * @param departmentoComprasController (Controlador de las Ventanas de Departamento de Compras)
+	 * @param nickname (Nickname del departamento de compras)
+	 */
 	public VentanaVisualizarSolicitudCompra(DepartmentoComprasController departmentoComprasController, String nickname) {
 		setTitle("Solicitudes de compra");
 		setResizable(false);
@@ -38,7 +46,10 @@ public class VentanaVisualizarSolicitudCompra extends JFrame {
 		iniciarVentanaHerramientasTaller(nickname);
 	}
 
-	
+	/**
+	 * Inicializador del JFrame de la VentanaVisualizarSolicitudCompra
+	 * @param nickname (Nickname del departamento de compras)
+	 */
 	public void  iniciarVentanaHerramientasTaller(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 712, 361);
@@ -99,7 +110,10 @@ public class VentanaVisualizarSolicitudCompra extends JFrame {
 		contentPane.add(btnEliminar);
 	}
 	
-		
+	/**
+	 * Metodo para mostrar la tabla completa de las Solicitudes de Compra
+	 * @param tabla (Tabla de la ventana).
+	 */	
 	public void cargarTabla(JTable tabla) {
 		List<SolicitudCompra> solicitud = departamentoComprasController.cargarSolicitud();
 		String[] columnNames = {"Codigo", "Nombre", "Tipo", "Unidades"};
@@ -122,7 +136,10 @@ public class VentanaVisualizarSolicitudCompra extends JFrame {
 	}
 		
 
-
+	/**
+	 * Metodo para eliminar una Solicitud de Compra de la BD
+	 * @param sol (Identificador de la solicitud de compra).
+	 */
 	public void eliminarSolicitud(String sol) {
 		if (departamentoComprasController.deleteSolicitud(sol)) {
 			JOptionPane.showMessageDialog(contentPane, "Solicitud eliminada");

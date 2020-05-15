@@ -23,7 +23,9 @@ import javax.swing.JMenu;
 import java.awt.Font;
 import javax.swing.JMenuItem;
 
-
+/**
+ * VentanaPiezasUtilizadas (Ventana para la visualizacion de las piezas que han sido utilizadas).
+ */
 public class VentanaPiezasUtilizadas extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -33,13 +35,21 @@ public class VentanaPiezasUtilizadas extends JFrame {
 	final Logger logger = LoggerFactory.getLogger(VentanaPiezasUtilizadas.class);
 	static int iteration = 0;
 
+	/**
+	 * Constructor de la VentanaPiezasUtilizadas.
+	 * @param departmentoComprasController (Controlador de las Ventanas de Departamento de Compras)
+	 * @param nickname (Nickname del departamento de compras)
+	 */
 	public VentanaPiezasUtilizadas(DepartmentoComprasController departmentoComprasController, String nickname) {
 		setResizable(false);
 		this.departamentoComprasController = departmentoComprasController;
 		iniciarVentanaPiezasUtilizadas(nickname);
 	}
 
-	
+	/**
+	 * Inicializador del JFrame de la VentanaPiezasUtilizadas
+	 * @param nickname (Nickname del departamento de compras)
+	 */
 	public void  iniciarVentanaPiezasUtilizadas(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 712, 361);
@@ -139,7 +149,10 @@ public class VentanaPiezasUtilizadas extends JFrame {
 		contentPane.add(btnNewButton_1);
 	}
 	
-		
+	/**
+	 * Metodo para mostrar la tabla de todas las Piezas.
+	 * @param tabla (Tabla de la ventana).
+	 */		
 	public void cargarTabla(JTable tabla) {
 		List<Pieza> piezas = departamentoComprasController.cargarPiezas();
 		String[] columnNames = {"Codigo", "Nombre", "Unidades", "Ubicacion"};
@@ -162,11 +175,19 @@ public class VentanaPiezasUtilizadas extends JFrame {
 		}
 	}
 		
+	/**
+	 * Metodo para anadir unidades a una Pieza
+	 * @param pieza (Objeto tipo Pieza).
+	 */	
 	private void anyadirUnidades(Pieza pieza) {
 		String u = JOptionPane.showInputDialog("¿Cuantas unidades desea suministrar?");
 		int unidades = Integer.parseInt(u);
 	}
 		
+	/**
+	 * Metodo para mostrar la tabla de las Piezas que han sido utilizadas.
+	 * @param table (Tabla de la ventana).
+	 */	
 	public void cargarTablaUtilizadas(JTable table) {
 		List<Pieza> piezas = departamentoComprasController.cargarPiezasUtilizadas();
 		String[] columnNames = {"Codigo", "Nombre", "Unidades", "Ubicacion"};
@@ -189,6 +210,12 @@ public class VentanaPiezasUtilizadas extends JFrame {
 		}
 	}
 	
+	/**
+	 * Metodo para mostrar la tabla de las Piezas Utilizadas a partir de un filtro
+	 * @param table (Tabla de la ventana).
+	 * @param tipo (Tipo de pieza)
+	 * @param restriccion (Filtro de busqueda: codigo, nombre, unidades, ubicacion)
+	 */	
 	public void cargarTablaFiltro(JTable table, int tipo, String restriccion) {
 		
 		

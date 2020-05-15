@@ -17,6 +17,9 @@ import concesionario.cliente.controller.LoginController;
 import concesionario.cliente.ventana.VentanaLogin;
 import java.awt.Color;
 
+/**
+ * VentanaMenuAdmin (Ventana de Menu de opciones para el Gerente).
+ */
 public class VentanaMenuAdmin extends JFrame {
 
 	private GerenteController gerenteController;

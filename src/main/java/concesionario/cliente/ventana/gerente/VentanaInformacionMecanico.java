@@ -58,7 +58,11 @@ public class VentanaInformacionMecanico extends JFrame {
 	this.gerenteController = gerenteController;
 	iniciarVentanaInformacionMecanico(nickname, mecanic);
 	}
-	
+	/**
+	 * Inicializador del JFrame de la VentanaInformacionMecanico
+	 * @param nickname (Nickname del Mecanico)
+	 * @param mecanic (Objeto tipo Mecanico)
+	 */
 	public void iniciarVentanaInformacionMecanico(String nickname, Mecanico mecanic) {
 		setTitle("Informacion Mecanico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
