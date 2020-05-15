@@ -115,7 +115,7 @@ package concesionario.datos;
  	}
  	/**
  	 * Metodo para la modificacion del Nombre del Comprador.
- 	 * @param nombreComercial (Nombre del Comprador)
+ 	 * @param nombreComprador (Nombre del Comprador)
  	 */ 
  	public void setNombreComprador(String nombreComprador) {
  		this.nombreComprador = nombreComprador;

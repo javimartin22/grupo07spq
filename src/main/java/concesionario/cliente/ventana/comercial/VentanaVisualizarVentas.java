@@ -40,7 +40,7 @@ public class VentanaVisualizarVentas extends JFrame {
 	
 	/**
 	 *Constructor de la clase VentanaVisualizarCitas.
-	 * @param comercialcontroller (Controlador de la ventana VentanaVisualizarCitas)
+	 * @param comercialController (Controlador de la ventana VentanaVisualizarCitas)
 	 * @param nickname (nombre de usuario)
 	 */
 	public VentanaVisualizarVentas(ComercialController comercialController, String nickname) {

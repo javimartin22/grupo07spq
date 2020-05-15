@@ -54,6 +54,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para registrar un nuevo cliente en la aplicacion
+	 * @param client (Objeto tipo Cliente)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("insertClient")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -92,6 +97,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para registrar un nuevo coche al Catalogo del Concesionario
+	 * @param auto (Objeto tipo CocheConcesionario)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("insertCocheConcesionario")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -110,7 +120,11 @@ public class LoginResources {
 		}
 	}
 	
-
+	/**
+	 * Metodo para registrar un nuevo coche al Taller
+	 * @param cocheTaller (Objeto tipo CocheConcesionario)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("insertCocheTaller")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -127,6 +141,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para registrar las horas de un empleado
+	 * @param horasEmpleado (String de formato empleado-hh-mm)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("insertHorasEmpleado")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -147,6 +166,12 @@ public class LoginResources {
 		}
 	}
 	
+
+	/**
+	 * Metodo para registrar las horas de un empleado temporal
+	 * @param horasEmpleado (String de formato empleado-hh-mm)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("insertHorasEmpleadoTemporal")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -167,7 +192,11 @@ public class LoginResources {
 		}
 	}
 	
-	
+	/**
+	 * Metodo para registrar una nueva venta en la BD
+	 * @param venta (Objeto del tipo Venta)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
  	@Path("insertVenta")
  	@Consumes(MediaType.APPLICATION_JSON)
@@ -185,6 +214,12 @@ public class LoginResources {
  		}
  	}
 	
+
+	/**
+	 * Metodo para registrar un Mecanico a la plantilla de empleados
+	 * @param mecanic (Objeto tipo Mecanico)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("insertMecanic")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -222,6 +257,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para registrar un nuevo Comercial a la plantilla de empleados
+	 * @param comercial (Objeto tipo Comercial)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("insertComercial")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -263,6 +303,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para registrar un nuevo DepartamentoCompras a la plantilla de empleados
+	 * @param departamentoCompras (Objeto tipo DepartamentoCompras)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("insertDepartamentoCompras")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -302,6 +347,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para registrar una nueva tarifa en la BD
+	 * @param tarifa (Objeto del tipo Tarifa)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("insertTarifa")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -326,7 +376,11 @@ public class LoginResources {
 	}
 	
 	
-	
+	/**
+	 * Metodo para eliminar un cliente de la BD
+	 * @param client (Objeto Cliente a eliminar)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("deleteClient")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -346,6 +400,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para eliminar un coche del taller
+	 * @param matricula (Matricula del coche)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("deleteCocheTaller")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -361,6 +420,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para eliminar una solicitud de compra
+	 * @param sol (Identificador de la solicitud)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("deleteSolicitudCompra")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -377,6 +441,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para eliminar una tarifa de la BD
+	 * @param idTarifa (Identificador unico de la tarifa)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("deleteTarifa")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -393,6 +462,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para eliminar un mecanico de la BD
+	 * @param nickname (Nickname del Mecanico)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("deleteMecanico")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -413,6 +487,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para eliminar un comercial de la BD
+	 * @param nickname (Nickname del comercial)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("deleteComercial")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -433,6 +512,12 @@ public class LoginResources {
 		}
 	}
 	
+	
+	/**
+	 * Metodo para eliminar a un departamento de compras
+	 * @param nickname (Nickname del DepartamentoCompras)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("deleteDepartamentoCompras")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -655,7 +740,12 @@ public class LoginResources {
 		}
 	}
 	
-	
+
+	/**
+	 * Metodo para registrar una pieza nueva en la BD
+	 * @param pieza (Objeto del tipo Pieza)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("insertPiezas")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -680,6 +770,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para insertar nuevas herramientas en la BD 
+	 * @param herramienta (Objeto tipo Herramienta)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("insertHerramientas")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -753,6 +848,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para registrar una pieza utilizada
+	 * @param pieza (Objeto del tipo Pieza)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("insertPiezaUtilizada")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -776,6 +876,12 @@ public class LoginResources {
 		}
 	}
 	
+	
+	/**
+	 * Metodo para eliminar una pieza utilizada
+	 * @param codigo (Codigo de la Pieza)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("deletePiezaUtilizada")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1053,6 +1159,10 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para obtener el statement con la conexion a la BD
+	 * @return st (Objeto tipo Statement)
+	 */
 	public Statement getSt() {
 		return st;
 	}
@@ -1277,7 +1387,11 @@ public class LoginResources {
 		}
 	}
 	
-
+	/**
+	 * Metodo para filtrar las Tarifas del taller con un precio maximo
+	 * @param precio (Precio maximo de tarifa)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("precioTarifa")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1312,6 +1426,11 @@ public class LoginResources {
 	
 	}
 	
+	/**
+	 * Metodo para filtrar las Tarifas del taller con un precio minimo
+	 * @param precio (Precio minimo de tarifa)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("precioMinTarifa")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1342,6 +1461,11 @@ public class LoginResources {
 	
 	}
 	
+	/**
+	 * Metodo para filtrar las Tarifas con un maximo de horas de mano de obra
+	 * @param horas (Numero maximo de horas de mano de obra)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("horasMaxTarifa")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1372,6 +1496,11 @@ public class LoginResources {
 	
 	}
 	
+	/**
+	 * Metodo para filtrar las Tarifas con un minimo de horas de mano de obra
+	 * @param horas (Numero minimo de horas de mano de obra)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("horasMinTarifa")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1402,6 +1531,11 @@ public class LoginResources {
 	
 	}
 	
+	/**
+	 * Metodo para filtrar las Ventas de Coches por Marca 
+	 * @param marca (Nombre de la marca)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("loadTablaMarcaVentas")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1434,7 +1568,12 @@ public class LoginResources {
 			return Response.status(Response.Status.OK).entity(ventas).build();
 		}
 	}
-
+	
+	/**
+	 * Metodo para filtrar las Ventas de Coches por Modelo
+	 * @param modelo (Nombre del modelo)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("loadTablaModeloVentas")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1467,6 +1606,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para filtrar los las Ventas por Comercial
+	 * @param comercial (Nickname del comercial)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("loadTablaComercialVentas")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1499,6 +1643,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para filtrar los Presupuestos a partir de su codigo
+	 * @param codigo (Codigo del Presupuesto)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("loadTablaPresupuestoCodigo")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1536,6 +1685,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para filtrar los Presupuestos a partir del nombre del cliente
+	 * @param cliente (Nickname del cliente)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("loadTablaPresupuestoCliente")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1573,6 +1727,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para filtrar los Presupuestos a partir del problema o averia
+	 * @param problema (Problema o averia de la reparacion del Presupuesto)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("loadTablaPresupuestoProblema")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1610,6 +1769,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para filtrar los CocheConcesionario a traves de un filtro
+	 * @param filtro (Filtro de busqueda: modelo, marca...)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("loadTablaCocheConcesionarioFiltro")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1647,6 +1811,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para filtrar los CocheMatriculado a traves de un filtro
+	 * @param filtro (Filtro de busqueda: modelo, marca...)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("loadTablaCocheMatriculadoFiltro")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1686,6 +1855,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para filtrar los Coches del Taller a traves de un filtro
+	 * @param filtro (Filtro de busqueda: matricula, marca...)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("loadTablaCocheTallerFiltro")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1723,7 +1897,11 @@ public class LoginResources {
 		}
 	}
 	
-	
+	/**
+	 * Metodo para filtrar las Herramientas a traves de un filtro
+	 * @param filtro (Filtro de busqueda: codigo, nombre...)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("loadTablaHerramientaMecanicoFiltro")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1758,6 +1936,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para filtrar las Piezas de los Mecanicos
+	 * @param filtro (Filtro de busqueda: codigo, nombre...)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("loadTablaPiezaMecanicoFiltro")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1792,6 +1975,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para filtrar las Piezas que han sido utilizadas
+	 * @param filtro (Filtro de busqueda: codigo, nombre, unidades...)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("loadTablaPiezaUtilizadasFiltro")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1948,6 +2136,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para registrar nuevas citas con los comerciales
+	 * @param citaComercial (Objeto tipo CitaComercial)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("insertCitaComercial")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -1987,6 +2180,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para registrar nuevas Citas de Taller con los Mecanicos
+	 * @param citaTaller (Objeto tipo CitaTaller)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("insertCitaTaller")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -2168,6 +2366,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para eliminar un registro de las horas de los empleados
+	 * @param nickname (Nickname del empleado)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("deleteHorasEmpleados")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -2186,6 +2389,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para eliminar un registro de las horas de los empleados temporal
+	 * @param nickname (Nickname del empleado)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("deleteHorasEmpleadosTemporal")
 	@Consumes(MediaType.APPLICATION_JSON)
