@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 /**
- * VentanaRegistroMecanico (Ventana para la visualizacion de la informacion del Mecanico).
+ * VentanaInformacionMecanico (Ventana para la visualizacion de la informacion del Mecanico).
  */
 public class VentanaInformacionMecanico extends JFrame {
 
@@ -49,7 +49,7 @@ public class VentanaInformacionMecanico extends JFrame {
 	private JLabel lblNewLabel_13;
 	
 	/**
-	 * Controller de la VentanaInformacionMecanico.
+	 * Constructor de la VentanaInformacionMecanico.
 	 * @param gerenteController (Controlador de las Ventanas de Gerente)
 	 * @param nickname (Nickname del Gerente)
 	 * @param mecanic (Objetco Mecanico)

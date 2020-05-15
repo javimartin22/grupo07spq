@@ -25,6 +25,9 @@ import javax.swing.JMenuItem;
 import java.awt.Font;
 import java.awt.Color;
 
+/**
+ *VentanaVisualizarCatalogo (Ventana para la visualizacion de los coches que se encuentran en el taller)
+ */
 public class VentanaVisualizarCochesTaller extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -34,6 +37,11 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarCochesTaller.class);
 	static int iteration = 0;
 	
+	/**
+	 * Constructor de la VentanaVisualizarCochesTaller
+	 * @param mecanicoController (Objeto MecanicoController).
+	 * @param nickname (Nickname del Mecanico).
+	 */
 	public VentanaVisualizarCochesTaller(MecanicoController mecanicoController, String nickname){
 		setTitle("Coches Taller");
 		setResizable(false);
@@ -41,6 +49,10 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 		iniciarVentanaVisualizarCochesTaller(nickname);
 	}
 	
+	/**
+	 * Creacion del Frame de la VentanaVisualizarCochesTaller.
+	 * @param nickname (Nickname del Mecanico).
+	 */
 	public void iniciarVentanaVisualizarCochesTaller(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 807, 410);
@@ -169,6 +181,10 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 		
 	}
 	
+	/**
+	 * Metodo para mostrar la tabla de los coches del taller.
+	 * @param table (Tabla de la ventana).
+	 */
 	public void cargarTabla(JTable table) {
 		List<CocheTaller> coches = mecanicoController.cargarTablaCocheTaller();
 		
@@ -194,7 +210,10 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 			logger.error("No llegan correctamente los CocheTaller");
 		}
 	}
-	
+	/**
+	 * Metodo para eliminar de la BD un coche que sale del taller.
+	 * @param matricula (Matricula del coche)
+	 */
 	public void eliminarCocheTaller(String matricula) {
 		if (mecanicoController.deleteCocheTaller(matricula)) {
 			JOptionPane.showMessageDialog(contentPane, "El coche ha salido del taller.");
@@ -205,7 +224,10 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 	}
 	
 	
-	
+	/**
+	 * Metodo para cambiar el estado de revision de un vehiculo en el taller.
+	 * @param matricula (Matricula del coche)
+	 */
 	public void cambiarEstado(String matricula) {
 		CocheTaller coche = mecanicoController.seleccionarCocheTaller(matricula);
 		if (coche != null) {
@@ -219,7 +241,12 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 			logger.error("El coche seleccionado no existe.");
 		}
 	}
-	
+	/**
+	 * Metodo para mostrar la tabla de los Coches del Taller teniendo en cuenta unos criterios.
+	 * @param table (Tabla de la ventana)
+	 * @param tipo (Tipo Filtrado)
+	 * @param restriccion (Filtro para la busqueda)
+	 */
 	public void cargarTablaFiltro(JTable table, int tipo, String restriccion) {
 		
 		String filtro = restriccion + "-" + tipo; 

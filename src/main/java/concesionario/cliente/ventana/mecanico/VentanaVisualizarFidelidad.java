@@ -16,28 +16,32 @@ import org.slf4j.LoggerFactory;
 import concesionario.cliente.controller.MecanicoController;
 import concesionario.datos.ClienteFidelidad;
 
+/**
+ *VentanaVisualizarFidelidad (Ventana para la visualizacion de la fidelidad de los clientes)
+ */
 public class VentanaVisualizarFidelidad extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private MecanicoController mecanicoController;
 	private JTable table1;
 	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarFidelidad.class);
 	static int iteration = 0;
 
+	/**
+	 * Constructor de la VentanaVisualizarFidelidad.
+	 * @param mecanicoController (Objeto MecanicoController).
+	 * @param nickname (Nickname del Mecanico).
+	 */
 	public VentanaVisualizarFidelidad(MecanicoController mecanicoController, String nickname) {
 		this.mecanicoController = mecanicoController;
 		iniciarVentanaVisualizarFidelidad(nickname);
 	}
 
+	
 	/**
-	 * Create the frame
-	 * 
-	 * @return
-	 */
-
+	 * Creacion del Frame de la VentanaVisualizarFidelidad.
+	 * @param nickname (Nickname del Mecanico).
+	 */	
 	public void iniciarVentanaVisualizarFidelidad(String nickname) {
 		setResizable(false);
 		setTitle("Fidelidad de los clientes:");
@@ -74,6 +78,10 @@ public class VentanaVisualizarFidelidad extends JFrame {
 		getContentPane().add(btnVolve);
 	}
 
+	/**
+	 * Metodo para mostrar la tabla de la Fidelidad completa.
+	 * @param table (Tabla de la ventana).
+	 */
 	private void cargarTabla(JTable table) {
 		List<ClienteFidelidad> cliente = mecanicoController.cargarClienteFidelidad();
 		String[] columnNames = { "DNI", "Veces en el taller" };

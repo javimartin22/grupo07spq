@@ -28,7 +28,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-
+/**
+ *VentanaVisualizarPresupuestos (Ventana para la visualizacion de los Presupuestos)
+ */
 public class VentanaVisualizarPresupuestos extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -38,11 +40,20 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarPresupuestos.class);
 	static int iteration = 0;
 	
+	/**
+	 * Constructor de la VentanaVisualizarPresupuestos.
+	 * @param controller (Objeto MecanicoController).
+	 * @param nickname (Nickname del Mecanico).
+	 */
 	public VentanaVisualizarPresupuestos(MecanicoController controller, String nickname) {
 		this.mecanicoController = controller;
 		ventanaVisualizarPresupuestos(nickname);
 	}
 	
+	/**
+	 * Creacion del Frame de la VentanaVisualizarPresupuestos.
+	 * @param nickname (Nickname del Mecanico).
+	 */
 	public void ventanaVisualizarPresupuestos(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 833, 402);
@@ -154,7 +165,10 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 		btnNewButton_5.setBounds(651, 305, 145, 23);
 		contentPane.add(btnNewButton_5);
 	}
-	
+	/**
+	 * Metodo para mostrar la tabla de los Presupuestos completa.
+	 * @param table (Tabla de la ventana).
+	 */
 	public void cargarTabla(JTable table) {
 		List<Presupuesto> presupuestos = mecanicoController.cargarTablaPresupuesto();
 		String[] columnNames = {"Fecha", "Codigo", "DNI Cliente", "Nom Mecanico", "Marca Coche", "Modelo Coche"};
@@ -179,6 +193,11 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 		}
 	}
 	
+	/**
+	 * Metodo para la visualizacion de la informacion de un presupuesto
+	 * @param codigo (Identificador unico del presupuesto)
+	 * @param nickname (Nickname del Mecanico)
+	 */
 	public void verPresupuesto(String codigo, String nickname) {
 		if (mecanicoController.seleccionarPresupuesto(codigo) != null) {
 			VentanaInformacionPresupuesto vip = new VentanaInformacionPresupuesto(mecanicoController, nickname, mecanicoController.seleccionarPresupuesto(codigo));
@@ -188,7 +207,10 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 			logger.error("No llega correctamente el presupuesto.");
 		}
 	}
-	
+	/**
+	 * Metodo para la generacion de un PDF a partir de un presupuesto.
+	 * @param presupuesto (Presupuesto a partir del cual se hara el documento)
+	 */
 	public void generarDoc(Presupuesto presupuesto) throws IOException {
 		double precioConIVA = presupuesto.getPrecio() + (presupuesto.getPrecio() * 0.21);
 		String fecha = mecanicoController.parseFechaPresupuesto();
@@ -333,7 +355,12 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 	}
 	
 	
-	
+	/**
+	 * Metodo para mostrar la tabla de los Presupuestos completa teniendo en cuenta unos criterios.
+	 * @param table (Tabla de la ventana)
+	 * @param tipo (Tipo Filtrado)
+	 * @param restriccion (Filtro para la busqueda)
+	 */
 	public void cargarTablaResctricciones(JTable table, int tipo, String restriccion) {
 		List<Presupuesto> presupuestos = new ArrayList<Presupuesto>();
 		switch (tipo) {

@@ -13,18 +13,29 @@ import concesionario.datos.Comercial;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
+/**
+ * VentanaInformacionComercial (Ventana para la visualizacion de la informacion del Comercial).
+ */
 public class VentanaInformacionComercial extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private GerenteController gerenteController;
 	
-	
+	/**
+	 * Constructor de la VentanaInformacionComercial.
+	 * @param gerenteController (Controlador de las Ventanas de Gerente)
+	 * @param nickname (Nickname del Gerente)
+	 * @param comercial (Objeto Comercial)
+	 */
 	public VentanaInformacionComercial(GerenteController gerenteController, Comercial comercial, String nickname) {
 		this.gerenteController = gerenteController;
 		initVentanaInformacionComercial(comercial, nickname);
 	}
+	
 	/**
-	 * Create the frame.
+	 * Inicializador del JFrame de la ventana VentanaInformacionComercial
+	 * @param comercial (Objeto Comercial)
+	 * @param nickname (Nickname del gerente)
 	 */
 	private void initVentanaInformacionComercial(Comercial comercial, String nickname) {
 		setTitle("Informacion Comercial");
