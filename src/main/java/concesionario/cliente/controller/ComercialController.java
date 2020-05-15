@@ -299,7 +299,7 @@ public class ComercialController {
 	/**
 	 * Metodo para obtener las horas de los comerciales
 	 * @param nickname Nickname del comercial que se desee  obtener sus horas
-	 * @return boolean Devuelve true si el proceso fue exitoso, falso si no fue posible
+	 * @return HorasEmpleado Devuelve las horas del Empleado
 	 */
 	public HorasEmpleados seleccionarHorasComercial(String nickname) {
 		Response response = cliente.seleccionarHorsEmpleado(nickname);
