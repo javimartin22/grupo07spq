@@ -4,9 +4,9 @@
 27 abr. 2020 - 20:37:45,679 (AWT-EventQueue-0) ERROR [concesionario.cliente.ventana.gerente.VentanaEmpleados] - No hay ningun empleado.
 27 abr. 2020 - 20:38:23,432 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.gerente.VentanaRegistroDepartamentoCompras] - Empleado Departamento Compras registrado.
 27 abr. 2020 - 20:38:45,965 (AWT-EventQueue-0) ERROR [concesionario.cliente.ventana.departamentoCompras.VentanaPiezasUtilizadas] - No hay piezas utilizadas.
-27 abr. 2020 - 20:39:24,601 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.departamentoCompras.VentanaRegistoPiezas] - Pieza añadida correctamente.
+27 abr. 2020 - 20:39:24,601 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.departamentoCompras.VentanaRegistoPiezas] - Pieza aï¿½adida correctamente.
 27 abr. 2020 - 21:16:19,708 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.gerente.VentanaRegistroDepartamentoCompras] - Empleado Departamento Compras registrado.
-28 abr. 2020 - 00:56:32,759 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.departamentoCompras.VentanaRegistoPiezas] - Pieza añadida correctamente.
+28 abr. 2020 - 00:56:32,759 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.departamentoCompras.VentanaRegistoPiezas] - Pieza aï¿½adida correctamente.
 28 abr. 2020 - 15:56:57,142 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
 28 abr. 2020 - 15:56:58,697 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
 28 abr. 2020 - 15:57:01,515 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
@@ -147,8 +147,6 @@
 11 may. 2020 - 18:22:06,902 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
 11 may. 2020 - 18:22:10,371 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
 11 may. 2020 - 18:22:57,588 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
-11 may. 2020 - 18:23:00,721 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
-11 may. 2020 - 18:25:17,724 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
 11 may. 2020 - 18:25:21,053 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
 11 may. 2020 - 18:28:22,970 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
 11 may. 2020 - 18:28:27,802 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
@@ -157,10 +155,9 @@
 11 may. 2020 - 18:34:26,781 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
 11 may. 2020 - 18:34:29,258 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
 12 may. 2020 - 01:22:45,789 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
-12 may. 2020 - 01:22:49,996 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
-12 may. 2020 - 01:33:52,156 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.departamentoCompras.VentanaRegistroHerramientas] - Herramienta añadida correctamente.
-12 may. 2020 - 01:33:55,136 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.departamentoCompras.VentanaRegistroHerramientas] - Herramienta añadida correctamente.
-12 may. 2020 - 01:36:53,310 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.mecanico.VentanaSolicitudCompra] - Solicitud añadida correctamente.
+12 may. 2020 - 01:33:52,156 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.departamentoCompras.VentanaRegistroHerramientas] - Herramienta aï¿½adida correctamente.
+12 may. 2020 - 01:33:55,136 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.departamentoCompras.VentanaRegistroHerramientas] - Herramienta aï¿½adida correctamente.
+12 may. 2020 - 01:36:53,310 (AWT-EventQueue-0) INFO  [concesionario.cliente.ventana.mecanico.VentanaSolicitudCompra] - Solicitud aï¿½adida correctamente.
 12 may. 2020 - 02:00:59,420 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
 12 may. 2020 - 02:01:02,563 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
 12 may. 2020 - 02:03:00,398 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
@@ -172,7 +169,6 @@
 12 may. 2020 - 02:23:30,989 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
 12 may. 2020 - 02:23:34,575 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
 15 may. 2020 - 12:26:25,587 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
-15 may. 2020 - 12:26:26,752 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
 15 may. 2020 - 12:41:01,330 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
 15 may. 2020 - 12:41:02,459 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
 15 may. 2020 - 12:42:08,741 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
@@ -223,3 +219,81 @@
 15 may. 2020 - 14:13:00,369 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
 15 may. 2020 - 14:15:47,037 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
 15 may. 2020 - 14:15:48,263 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:05:01,448 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:05:02,656 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:05:32,678 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:05:33,793 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:10:25,929 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:10:27,047 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:11:03,001 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:11:04,129 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:11:51,644 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:11:52,717 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:14:04,053 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:14:05,082 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:19:26,552 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:19:27,636 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:20:52,978 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:20:54,146 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:21:40,879 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:21:42,051 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:22:11,374 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:22:12,508 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:27:42,683 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:27:43,825 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:28:40,004 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:28:41,086 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:42:09,313 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:42:10,374 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:47:14,426 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:47:15,546 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:48:18,205 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:48:19,381 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:51:33,983 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:51:35,048 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 17:56:36,122 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 17:56:37,235 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 18:03:52,044 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 18:03:53,402 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 18:08:22,718 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 18:08:23,800 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 19:12:21,136 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 19:12:22,240 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 19:13:50,017 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 19:13:51,168 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 19:14:37,686 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 19:14:39,013 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 19:16:34,104 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 19:16:35,812 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 19:19:18,208 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 19:19:19,806 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 19:20:56,279 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 19:20:58,479 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 19:21:35,595 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 19:21:37,109 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 19:24:25,115 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 19:24:26,592 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 19:25:13,700 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 19:25:15,274 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 19:44:44,827 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 19:44:45,974 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 19:45:21,312 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 19:45:22,589 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+15 may. 2020 - 19:45:54,746 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+15 may. 2020 - 19:45:55,989 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+16 may. 2020 - 11:39:18,757 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+16 may. 2020 - 11:39:19,848 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+16 may. 2020 - 11:43:47,993 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+16 may. 2020 - 11:43:49,278 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+16 may. 2020 - 11:45:37,558 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+16 may. 2020 - 11:45:38,909 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+16 may. 2020 - 11:47:31,932 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+16 may. 2020 - 11:47:33,187 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+16 may. 2020 - 14:00:43,738 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+16 may. 2020 - 14:00:45,186 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+16 may. 2020 - 14:03:34,098 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+16 may. 2020 - 14:03:35,108 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+16 may. 2020 - 14:05:15,991 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+16 may. 2020 - 14:05:17,014 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp
+16 may. 2020 - 19:38:53,301 (main) INFO  [rendimiento.RendimientoTest] - Entering setUp
+16 may. 2020 - 19:38:54,551 (main) INFO  [rendimiento.RendimientoTest] - Exiting setUp

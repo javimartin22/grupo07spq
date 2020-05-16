@@ -778,13 +778,6 @@ public class BDTest {
 	}
 	
 	@Test
-	public void TestCitasMecanicoDelete() {
-		BD.mecanicosInsert(st, "", "", "", "", "", "", "", "", 1, "", "", "", "", 1, 1);
-		BD.CitaTallerInsert(st, "", "", "", "", "", "");
-		assertTrue(BD.citasMecanicoDelete(st, "", ""));
-	}
-	
-	@Test
 	public void TestCitasComercialDelete() {
 		BD.CitaComercialInsert(st, "", "", "", "", "");
 		assertTrue(BD.citasComercialDelete(st, "", ""));
