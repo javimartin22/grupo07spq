@@ -1,6 +1,5 @@
 package concesionario.servidor.BaseDatos;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -13,6 +12,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import concesionario.datos.CitaComercial;
+import concesionario.datos.CitaTaller;
 import concesionario.datos.Cliente;
 import concesionario.datos.CocheConcesionario;
 import concesionario.datos.CocheTaller;
@@ -20,10 +21,12 @@ import concesionario.datos.Comercial;
 import concesionario.datos.DepartamentoCompras;
 import concesionario.datos.Empleado;
 import concesionario.datos.HerramientasTaller;
+import concesionario.datos.HorasEmpleados;
 import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
 import concesionario.datos.Proveedor;
+import concesionario.datos.SolicitudCompra;
 import concesionario.datos.Tarifa;
 import concesionario.datos.Usuario;
 import concesionario.datos.Venta;
@@ -189,8 +192,8 @@ public class BDTest {
 	@Test
 	public void testEmpleadoSelect() {
 		Empleado empleado = new Empleado("", "", 1, "", "", "", "", "", "", 1, "", "", "", 1, "", 1);
-		BD.empleadosInsert(st, "", "", "", "", "", "", "", "", 1, "", "", "", "", 1, 1);
-		Empleado emp = BD.empleadoSelect(st, "");
+		BD.empleadosInsert(st, "", "nick", "", "", "", "", "", "", 1, "", "", "", "", 1, 1);
+		Empleado emp = BD.empleadoSelect(st, "nick");
 		assertEquals(empleado.getDNI(), emp.getDNI());
 	}
 	
@@ -619,5 +622,93 @@ public class BDTest {
 	public void testTarifasDelete() {
 		BD.TarifaInsert(st, "", "", 0, 0);
 		assertTrue(BD.tarifasDelete(st, ""));
+	}
+	
+	@Test
+	public void testCitasTallerInsert() {
+		assertTrue(BD.CitaTallerInsert(st, "Nombre1", "1", "2", "3", "4", "5"));
+//		assertFalse(BD.CitaTallerInsert(st, "Nombre1", "1", "2", "3", "4", "5"));
+	}
+	
+	@Test
+	public void testCitasTallerSelect() {
+		BD.CitaTallerInsert(st, "Nombre1", "1", "2", "3", "4", "5");
+		CitaTaller cita = BD.citaTallerSelect(st, "2", "3", "4");
+		assertTrue(cita != null);
+	}
+	
+	@Test
+	public void testCitasComercialInsert() {
+		assertTrue(BD.CitaComercialInsert(st, "Nombre1", "1", "2", "3", "4"));
+//		assertFalse(BD.CitaComercialInsert(st, "Nombre1", "1", "2", "3", "4"));
+	}
+	
+	@Test
+	public void testCitasConcesionarioSelect() {
+		BD.CitaComercialInsert(st, "Nombre1", "1", "2", "3", "4");
+		CitaComercial cita = BD.citaComercialSelect(st, "2", "3", "4");
+		assertTrue(cita != null);
+	}
+	
+	@Test
+	public void testMecanicosTodasSelect() {
+		BD.mecanicosInsert(st, "", "", "", "", "", "", "", "", 1, "", "", "", "", 1, 1);
+		ResultSet rst = BD.mecanicosTodasSelect(st);
+		assertTrue(rst != null);
+	}
+	
+	@Test
+	public void testComercialesTodasSelect() {
+		BD.comercialesInsert(st, "", "", "", "", "", "", "", "", 1, "", "", "", "", 1, 1, 1, 1);
+		ResultSet rst = BD.comercialesTodasSelect(st);
+		assertTrue(rst != null);
+	}
+	
+	@Test
+	public void testSolicitudTodasSelect() {
+		BD.solicitudInsert(st, "", "", "", 1);
+		ResultSet rst = BD.solicitudTodasSelect(st);
+		assertTrue(rst != null);
+	}
+	
+	@Test
+	public void testEmpleadosHorasFiltroSelect() {
+		BD.HorasEmpleadoInsert(st, "tip", 1, 1);
+		ResultSet rst = BD.empleadosHorasFiltroSelect(st, 1);
+		assertTrue(rst != null);
+	}
+	
+	@Test
+	public void testHoraEmpleadoSelect() {
+		BD.HorasEmpleadoInsert(st, "tip", 1, 1);
+		HorasEmpleados rst = BD.horaEmpleadoSelect(st, "tip");
+		assertTrue(rst != null);
+	}
+	
+	@Test
+	public void testSolicitudSelect() {
+		BD.solicitudInsert(st, "", "", "", 1);
+		SolicitudCompra rst = BD.solicitudSelect(st, "");
+		assertTrue(rst != null);
+	}
+	
+	@Test
+	public void testCitasDelMecanicoSelect() {
+		BD.CitaTallerInsert(st, "", "", "", "", "", "");
+		CitaTaller rst = BD.citaTallerSelect(st, "", "", "");
+		assertTrue(rst != null);
+	}
+	
+	@Test
+	public void testCitasDelComercialSelect() {
+		BD.CitaComercialInsert(st, "", "", "", "", "");
+		CitaComercial rst = BD.citaComercialSelect(st, "", "", "");
+		assertTrue(rst != null);
+	}
+	
+	@Test
+	public void testVentasDelete() {
+		BD.cochesVendidodsInsert(st, "","", "", "", "", "");
+		assertTrue(BD.ventasDelete(st, ""));
 	}
 }
