@@ -1218,7 +1218,7 @@ public class BD {
 				 * @param st (Statement para la conexion)
 				 * @param nickname (Nickaname del mecanico)
 				 * @return mecanico (Objeto de tipo Mecanico)
-				 */
+				 */ 
 				public static Mecanico mecanicoSelect(Statement st, String nickname) {
 					String sentSQL = "";
 					Mecanico mecanico = null;
