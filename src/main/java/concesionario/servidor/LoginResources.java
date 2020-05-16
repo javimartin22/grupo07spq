@@ -29,7 +29,11 @@ public class LoginResources {
 	private Statement st;
 	
 	
-	//Por ahora solo funciona este metodo
+	/**
+	 * Metodo para registrar un añadir un usuario en la aplicacion
+	 * @param concat (Objeto tipo Usuario)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("inicio")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -899,7 +903,10 @@ public class LoginResources {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
-	
+	/**
+	 * Metodo para cargar una coche del concesionario
+	 * @return coches_result (Lista tipo CocheConcesionario)
+	 */
 	@GET
 	@Path("loadCocheConcesionarioTable")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -928,7 +935,10 @@ public class LoginResources {
 			return coches_result;
 		}
 	}
-	
+	/**
+	 * Metodo para cargar las solicitudes de compra de un mecanico
+	 * @return sol_result (Lista tipo SolicitudCompra)
+	 */
 	@GET
 	@Path("loadSolicitudTable")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -956,7 +966,10 @@ public class LoginResources {
 			return sol_result;
 		}
 	}
-	
+	/**
+	 * Metodo para cargar las piezas
+	 * @return pieza_result (Lista tipo Pieza)
+	 */
 	@GET
 	@Path("loadPiezaTable")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -986,7 +999,10 @@ public class LoginResources {
 	}
 	
 	 
-
+	/**
+	 * Metodo para cargar las herramientas de un taller
+	 * @return herramienta_result (Lista tipo HerramientasTaller)
+	 */
 	@GET
 	@Path("loadHerramientaTable")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -1014,7 +1030,10 @@ public class LoginResources {
 			return herramienta_result;
 		}
 	}
-	
+	/**
+	 * Metodo para cargar las piezas de los proveedores
+	 * @return pieza_result (Lista tipo PiezaProveedores)
+	 */
 	@GET
 	@Path("loadPiezasProveedoresList")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -1044,6 +1063,10 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para cargar las herramientas
+	 * @return herramienta_result (Lista tipo Herramientas)
+	 */
 	@GET
 	@Path("loadHerramientasList")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -1072,7 +1095,10 @@ public class LoginResources {
 			return herramienta_result;
 		}
 	}
-	
+	/**
+	 * Metodo para cargar los proveedores de piezas
+	 * @return pieza_result (Lista tipo Proveedor)
+	 */
 	@GET
 	@Path("loadProveedores")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -1100,7 +1126,10 @@ public class LoginResources {
 			return pieza_result;
 		}
 	}
-	
+	/**
+	 * Metodo para cargar los proveedores de herramientas
+	 * @return pieza_result (Lista tipo ProveedorHerramientas)
+	 */
 	@GET
 	@Path("loadProveedoresHerramientaList")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -1128,7 +1157,10 @@ public class LoginResources {
 			return pieza_result;
 		}
 	}
-	
+	/**
+	 * Metodo para cargar los coches de un taller
+	 * @return coches_result (Lista tipo CocheTaller)
+	 */
 	@GET
 	@Path("loadCocheTallerTable")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -1170,7 +1202,10 @@ public class LoginResources {
 	public void setSt(Statement st) {
 		this.st = st;
 	}
-
+	/**
+	 * Metodo para cargar las piezas que han sido utilizadas 
+	 * @return pieza_result (Lista tipo Pieza)
+	 */
 	@GET
 	@Path("loadPiezaUtilizadasTable")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -1198,7 +1233,10 @@ public class LoginResources {
 			return pieza_result;
 		}
 	}
-	
+	/**
+	 * Metodo para cargar las ventas realizadas
+	 * @return venta_result (Lista tipo Venta)
+	 */
 	@GET
 	@Path("loadVentaTable")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -1228,7 +1266,10 @@ public class LoginResources {
 	}
 	
 	
-	
+	/**
+	 * Metodo para cargar un coche matriculado
+	 * @return cochesMatric_result (Lista tipo CocheMatriculado)
+	 */
 	@GET
 	@Path("loadCochesMatricTable")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -1263,7 +1304,10 @@ public class LoginResources {
 			return cochesMatric_result;
 		}
 	}
-	
+	/**
+	 * Metodo para cargar los empleados
+	 * @return empleados_result (Lista tipo Empleado)
+	 */
 	@GET
 	@Path("loadEmpleadosTable")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -1302,7 +1346,10 @@ public class LoginResources {
 			return empleados_result;
 		}
 	}
-	
+	/**
+	 * Metodo para cargar los presupuestos
+	 * @return presupuestos_result (Lista tipo Presupuesto)
+	 */
 	@GET
 	@Path("loadPresupuestosTable")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -1359,7 +1406,10 @@ public class LoginResources {
 			return Response.status(Response.Status.OK).entity(nuevo).build();
 		}
 	}
-	
+	/**
+	 * Metodo para cargar las tarifas del taller
+	 * @return tarifas_result (Lista tipo Tarifa)
+	 */
 	@GET
 	@Path("loadTarifasTable")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -2013,7 +2063,10 @@ public class LoginResources {
 			return Response.status(Response.Status.OK).entity(piezas).build();
 		}
 	}
-	
+	/**
+	 * Metodo para cargar la fidelidad de los distintos clientes
+	 * @return clientes (Lista tipo ClienteFidelidad)
+	 */
 	@GET
 	@Path("loadClientesFidelidadTable")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -2037,7 +2090,10 @@ public class LoginResources {
 		}
 		return clientes;
 	}
-	
+	/**
+	 * Metodo para cargar los comerciales
+	 * @return comerciales (Lista tipo Comercial)
+	 */
 	@GET
 	@Path("loadComercialTable")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -2076,7 +2132,10 @@ public class LoginResources {
 		}
 		return comerciales;
 	}
-	
+	/**
+	 * Metodo para cargar los mecanicos
+	 * @return mecanicos (Lista tipo Mecanico)
+	 */
 	@GET
 	@Path("loadMecanicoTable")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -2361,6 +2420,11 @@ public class LoginResources {
 		}
 	}
 	
+	/**
+	 * Metodo para cargar las horas trabajadas de un empleado
+	 * @param filtro (Objeto tipo int)
+	 * @return response (Objeto tipo Response)
+	 */
 	@POST
 	@Path("cargarEmpleadoHoras")
 	@Consumes(MediaType.APPLICATION_JSON)
