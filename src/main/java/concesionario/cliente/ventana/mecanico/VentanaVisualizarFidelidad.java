@@ -45,13 +45,13 @@ public class VentanaVisualizarFidelidad extends JFrame {
 	public void iniciarVentanaVisualizarFidelidad(String nickname) {
 		setResizable(false);
 		setTitle("Fidelidad de los clientes:");
-		setBounds(100, 100, 992, 400);
+		setBounds(100, 100, 1001, 382);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 18, 980, 274);
+		scrollPane.setBounds(22, 18, 949, 274);
 		getContentPane().add(scrollPane);
 
 		table1 = new JTable();
@@ -63,7 +63,7 @@ public class VentanaVisualizarFidelidad extends JFrame {
 				cargarTabla(table1);
 			}
 		});
-		btnNewButton.setBounds(565, 303, 117, 29);
+		btnNewButton.setBounds(854, 303, 117, 29);
 		getContentPane().add(btnNewButton);
 
 		JButton btnVolve = new JButton("Volver");
@@ -74,7 +74,7 @@ public class VentanaVisualizarFidelidad extends JFrame {
 				dispose();
 			}
 		});
-		btnVolve.setBounds(294, 304, 117, 29);
+		btnVolve.setBounds(727, 303, 117, 29);
 		getContentPane().add(btnVolve);
 	}
 

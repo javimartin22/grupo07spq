@@ -3,6 +3,10 @@ package concesionario.cliente.ventana.cliente;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -32,6 +36,8 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 	private JTextField textField_1;
 	private JDateChooser dateChooser;
 	private JComboBox comboBox;
+	final Logger logger = LoggerFactory.getLogger(VentanaSolicitudCitasComercial.class);
+	static int iteration = 0;
 
 	/**
 	 * Constructo de la clase VentanaSolicitudCitasComercial
@@ -147,12 +153,15 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 						if (comprobarFecha(fecha, hora, comercial)){
 							CitaComercial cita = new CitaComercial(textField.getText(), textField_1.getText(), fecha, hora, comercial);
 							registrarCitaComercial(cita);
+							
 						} else {
 							JOptionPane.showMessageDialog(contentPane, "La hora seleccionada no se encuentra disponible.");
+							logger.error("Error en el intento de registro de la cita.");
 						}
 					}
 				} else {
 					JOptionPane.showMessageDialog(contentPane, "Debe rellenar todos los campos.");
+					logger.error("Todos los campos deben estar correctamente rellenados.");
 				}
 			}
 		});
@@ -193,7 +202,7 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 	 */
 	public void registrarCitaComercial(CitaComercial citaComercial) {
 		if (clienteController.registroCitaComercial(citaComercial)) {
-			JOptionPane.showMessageDialog(contentPane, "Registrada");
+			logger.info("Cita registrada correctamente.");
 		}
 	}
 }

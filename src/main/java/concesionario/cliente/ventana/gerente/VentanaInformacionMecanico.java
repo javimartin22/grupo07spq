@@ -66,7 +66,7 @@ public class VentanaInformacionMecanico extends JFrame {
 	public void iniciarVentanaInformacionMecanico(String nickname, Mecanico mecanic) {
 		setTitle("Informacion Mecanico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 406, 572);
+		setBounds(100, 100, 406, 586);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

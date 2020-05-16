@@ -56,14 +56,14 @@ public class VentanaVisualizarCitasMecanico extends JFrame {
 	private void iniciarVentanaVisualizarCitasMecanico(String nickname) {
 		setResizable(false);
 		setTitle("Citas:");
-		setBounds(100, 100, 992, 400);
+		setBounds(100, 100, 1008, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		
 		//Scroll
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 18, 980, 274);
+		scrollPane.setBounds(21, 18, 954, 274);
 		getContentPane().add(scrollPane);
 		
 		//tabla
@@ -128,7 +128,7 @@ public class VentanaVisualizarCitasMecanico extends JFrame {
 			}
 		});
 		
-		btnNewButton.setBounds(557, 303, 117, 29);
+		btnNewButton.setBounds(858, 303, 117, 29);
 		getContentPane().add(btnNewButton);
 		
 		//boton para volver a la ventana VentanaMenuMecanico
@@ -141,7 +141,7 @@ public class VentanaVisualizarCitasMecanico extends JFrame {
 			}
 		});
 		
-		btnVolve.setBounds(339, 303, 117, 29);
+		btnVolve.setBounds(731, 303, 117, 29);
 		getContentPane().add(btnVolve);
 	}
 	

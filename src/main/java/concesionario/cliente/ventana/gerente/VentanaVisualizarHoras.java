@@ -105,7 +105,7 @@ public class VentanaVisualizarHoras extends JFrame {
 		
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(326, 321, 117, 20);
+		comboBox.setBounds(326, 319, 117, 20);
 		comboBox.addItem("Comercial");
 		comboBox.addItem("Mecnico");
 		contentPane.add(comboBox);
@@ -123,7 +123,7 @@ public class VentanaVisualizarHoras extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<EmpleadoHoras> empleados = gerenteController.cargarEmpleadoHoras(comboBox.getSelectedIndex());
-				VentanaGraficosHoras vgh = new VentanaGraficosHoras("","", empleados, gerenteController, nickname);
+				VentanaGraficosHoras vgh = new VentanaGraficosHoras("Horas Empleados","Horas Trabajadas", empleados, gerenteController, nickname);
 				vgh.setVisible(true);
 				dispose();
 			}

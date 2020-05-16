@@ -29,7 +29,7 @@ public class VentanaInformacionDepartamentoCompras extends JFrame {
 	private void initVentanaInformacionDepartamentoCompras(DepartamentoCompras departamentoCompras, String nickname) {
 		setTitle("Informacion Departamento Compras");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 434, 624);
+		setBounds(100, 100, 434, 638);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

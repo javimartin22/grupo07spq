@@ -120,7 +120,7 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 				}
 			}
 		});
-		btnNewButton.setBounds(552, 305, 89, 23);
+		btnNewButton.setBounds(563, 305, 89, 23);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_2 = new JButton("Regresar");
@@ -131,7 +131,7 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_2.setBounds(191, 305, 89, 23);
+		btnNewButton_2.setBounds(202, 305, 89, 23);
 		contentPane.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Cargar Tabla");
@@ -140,7 +140,7 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 				cargarTabla(table);
 			}
 		});
-		btnNewButton_3.setBounds(290, 305, 113, 23);
+		btnNewButton_3.setBounds(301, 305, 113, 23);
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("Registrar Nuevo");
@@ -151,7 +151,7 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_4.setBounds(413, 305, 129, 23);
+		btnNewButton_4.setBounds(424, 305, 129, 23);
 		contentPane.add(btnNewButton_4);
 		
 		JButton btnNewButton_5 = new JButton("Ver Presupuesto");
@@ -162,7 +162,7 @@ public class VentanaVisualizarPresupuestos extends JFrame {
 				verPresupuesto(codigo, nickname);
 			}
 		});
-		btnNewButton_5.setBounds(651, 305, 145, 23);
+		btnNewButton_5.setBounds(662, 305, 145, 23);
 		contentPane.add(btnNewButton_5);
 	}
 	/**

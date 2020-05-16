@@ -44,7 +44,7 @@ public class VentanasRegistroClientes extends JFrame {
 	private String numTelefono = "";
 	private String ciudad = "";
 	private ClienteController clienteController;
-	final Logger logger = LoggerFactory.getLogger(VentanaVisualizarTarifas.class);
+	final Logger logger = LoggerFactory.getLogger(VentanasRegistroClientes.class);
 	static int iteration = 0;
 	
 	/**

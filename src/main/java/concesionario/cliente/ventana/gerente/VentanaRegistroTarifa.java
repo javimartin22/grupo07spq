@@ -19,6 +19,8 @@ import org.slf4j.LoggerFactory;
 
 import concesionario.cliente.controller.GerenteController;
 import concesionario.datos.Tarifa;
+import java.awt.Font;
+import java.awt.Color;
 
 /**
 * Clase para el registro de tarifas
@@ -71,7 +73,9 @@ public class VentanaRegistroTarifa extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblInfo = new JLabel("Rellene los siguientes datos para registrar una nueva tarifa:");
-		lblInfo.setBounds(22, 20, 426, 16);
+		lblInfo.setForeground(Color.RED);
+		lblInfo.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblInfo.setBounds(22, 11, 426, 16);
 		contentPane.add(lblInfo);
 		
 		JLabel lblNombre = new JLabel("Nombre Tarifa: ");

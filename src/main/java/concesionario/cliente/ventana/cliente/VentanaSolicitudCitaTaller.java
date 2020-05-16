@@ -5,6 +5,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.ClienteController;
 import concesionario.datos.CitaTaller;
 
@@ -28,6 +31,8 @@ public class VentanaSolicitudCitaTaller extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JComboBox comboBox;
+	final Logger logger = LoggerFactory.getLogger(VentanaSolicitudCitaTaller.class);
+	static int iteration = 0;
 
 	public VentanaSolicitudCitaTaller(ClienteController clienteController, String nickname) {
 		setTitle("Solicitud Cita Taller");
@@ -144,10 +149,12 @@ public class VentanaSolicitudCitaTaller extends JFrame {
 							registrarCitaTaller(cita);
 						} else {
 							JOptionPane.showMessageDialog(contentPane, "La hora seleccionada no se encuentra disponible.");
+							logger.error("Error en el intento de registro de la cita.");
 						}
 					}
 				} else {
 					JOptionPane.showMessageDialog(contentPane, "Debe rellenar todos los campos.");
+					logger.error("Todos los campos deben estar correctamente rellenados.");
 				}
 			}
 		});
@@ -181,7 +188,7 @@ public class VentanaSolicitudCitaTaller extends JFrame {
 	 */
 	public void registrarCitaTaller(CitaTaller citaTaller) {
 		if (clienteController.registroCitaTaller(citaTaller)) {
-			JOptionPane.showMessageDialog(contentPane, "Registrada");
+			logger.info("Cita registrada correctamente.");
 		}
 	}
 }

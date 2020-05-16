@@ -2,15 +2,12 @@ package concesionario.cliente.ventana.gerente;
 
 
 import java.awt.BorderLayout;
-import java.awt.Font;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,20 +43,13 @@ public class VentanaGestionEstudioMercado extends JFrame {
 	public void inicioVentanaGestionEstudioMercado(String nickname) {
 		this.setTitle("Estudios de Mercado");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(434,282);
+		this.setSize(421,181);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
-		
-		//label de arriba a la derecha que solo pone el nombre del cliente
-			JLabel msgGestion = new JLabel("Estudios de Mercado");
-			msgGestion.setHorizontalAlignment(SwingConstants.RIGHT);
-			msgGestion.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			msgGestion.setBounds(178, 11, 250, 33);
-			panel.add(msgGestion);
 			
 			
 			JButton buttonRegistroEstudio = new JButton("Realizar nuevo estudio");
@@ -70,7 +60,7 @@ public class VentanaGestionEstudioMercado extends JFrame {
 					dispose();
 				} 
 			});
-			buttonRegistroEstudio.setBounds(129, 66, 164, 23);
+			buttonRegistroEstudio.setBounds(25, 43, 164, 33);
 			panel.add(buttonRegistroEstudio);
 			
 			JButton buttonVeryEditTarifas = new JButton("Ver y editar tarifas");
@@ -81,7 +71,7 @@ public class VentanaGestionEstudioMercado extends JFrame {
 					dispose();
 				}
 			});
-			buttonVeryEditTarifas.setBounds(129, 117, 153, 23);
+			buttonVeryEditTarifas.setBounds(219, 43, 164, 33);
 			panel.add(buttonVeryEditTarifas);
 			
 			//boton de volver que te lleva al menu de Admin
@@ -91,7 +81,7 @@ public class VentanaGestionEstudioMercado extends JFrame {
 					volver(nickname);
 				}
 			});
-			buttonVolver.setBounds(171, 172, 89, 23);
+			buttonVolver.setBounds(162, 98, 89, 23);
 			panel.add(buttonVolver);
 	}
 	

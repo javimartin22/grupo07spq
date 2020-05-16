@@ -113,7 +113,7 @@ public class VentanaHerramientasMecanico extends JFrame{
 				dispose();
 			}
 		});
-		btnRegresar.setBounds(45, 267, 117, 29);
+		btnRegresar.setBounds(72, 257, 117, 29);
 		contentPane.add(btnRegresar);
 		
 		/*
@@ -125,7 +125,7 @@ public class VentanaHerramientasMecanico extends JFrame{
 				cargarTabla(tabla);
 			}
 		});
-		btnCargarHerramientas.setBounds(184, 267, 180, 29);
+		btnCargarHerramientas.setBounds(199, 257, 180, 29);
 		contentPane.add(btnCargarHerramientas);
 		
 		/*
@@ -139,7 +139,7 @@ public class VentanaHerramientasMecanico extends JFrame{
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(376, 267, 143, 29);
+		btnNewButton.setBounds(389, 257, 143, 29);
 		contentPane.add(btnNewButton);
 		
 		

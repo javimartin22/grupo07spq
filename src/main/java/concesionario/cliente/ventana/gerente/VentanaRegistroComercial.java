@@ -63,7 +63,7 @@ public class VentanaRegistroComercial extends JFrame {
 		setResizable(false);
 		setTitle("Registro Comercial");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 538, 695);
+		setBounds(100, 100, 538, 714);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

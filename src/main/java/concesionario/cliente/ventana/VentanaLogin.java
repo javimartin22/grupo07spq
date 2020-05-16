@@ -16,6 +16,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import concesionario.cliente.controller.ClienteController;
 import concesionario.cliente.controller.ComercialController;
 import concesionario.cliente.controller.MecanicoController;
@@ -39,6 +42,8 @@ public class VentanaLogin extends JFrame {
 	private JTextField textNombreUsuario;
 	private JPasswordField textContrasenya;
 	private JButton buttonAceptar;
+	final Logger logger = LoggerFactory.getLogger(VentanaLogin.class);
+	static int iteration = 0;
 	
 	/**
 	 * Controlador para la clase Login.
@@ -205,6 +210,7 @@ public class VentanaLogin extends JFrame {
 			break;
 		case 5:
 			JOptionPane.showMessageDialog(this, "Datos incorrectos");
+			 logger.error("Datos incorrectos.");
 			break;
 		case 6: 	
 			int respuesta = JOptionPane.showConfirmDialog(this, "Usuario no registrado ¿Desea registrarse?");
