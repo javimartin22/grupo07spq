@@ -1538,7 +1538,7 @@ public class BD {
 			/**
 			 * Metodo para obtener las piezas utilizadas segun el filtro de la base de datos.
 			 * @param st (Statement para la conexion)
-			 * @param tipo (Tipo numerico para sabar se si trata de un filtro de tipo de unidades<, unidades> o de codigo)
+			 * @param tipo (Tipo numerico para sabar se si trata de un filtro de tipo de mas unidades que unidades, menos unidades que o de codigo)
 			 * @param restriccion (Restriccion a filtrar)
 			 * @return rs (Objeto de tipo ResultSet)
 			 */
@@ -1648,7 +1648,7 @@ public class BD {
 		 * Metodo para obtener los coches del concesionario segun el filtro de la base de datos.
 		 * @param st (Statement para la conexion)
 		 * @param restriccion (Resticcion a filtrar)
-		 * @param tipo (Tipo numerido para saber si se trata de un filtro de tipo marca, de color, de CV o de precio <)
+		 * @param tipo (Tipo numerido para saber si se trata de un filtro de tipo marca, de color, de CV o de precio menor que)
 		 * @return rs (Objeto de tipo ResultSet)
 		 */
 		public static ResultSet cochesConcesionarioFiltroSelect(Statement st, String restriccion, int tipo) {
