@@ -21,7 +21,9 @@ import concesionario.datos.Mecanico;
 import concesionario.datos.Pieza;
 import concesionario.datos.Presupuesto;
 import concesionario.datos.SolicitudCompra;
-
+/**
+ * Controller MecanicoController (Controller para las clases de Mecanico)
+ */
 public class MecanicoController {
 	
 	public ClienteApp cliente;

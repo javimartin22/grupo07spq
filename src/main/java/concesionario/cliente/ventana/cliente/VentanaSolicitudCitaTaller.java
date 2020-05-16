@@ -23,6 +23,9 @@ import javax.swing.JComboBox;
 import java.awt.Font;
 import java.awt.Color;
 
+/**
+ * VentanaSolicitudCitaTaller (Ventana para la solicitud de citas por los clientes en el taller).
+ */
 public class VentanaSolicitudCitaTaller extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private ClienteController clienteController;
@@ -34,6 +37,11 @@ public class VentanaSolicitudCitaTaller extends JFrame {
 	final Logger logger = LoggerFactory.getLogger(VentanaSolicitudCitaTaller.class);
 	static int iteration = 0;
 
+	/**
+	 * Construcotr de la VentanaSolicitudCitaTaller.
+	 * @param clienteController (Objeto ClienteController)
+	 * @param nickname (Nickname del Cliente)
+	 */
 	public VentanaSolicitudCitaTaller(ClienteController clienteController, String nickname) {
 		setTitle("Solicitud Cita Taller");
 		setResizable(false);
@@ -42,6 +50,10 @@ public class VentanaSolicitudCitaTaller extends JFrame {
 		ventanaSolicitudCitaTaller(nickname);
 	}
 	
+	/**
+	 * Create the frame.
+	 * @param nickname (Nickname del Cliente)
+	 */
 	public void ventanaSolicitudCitaTaller(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 435, 368);
