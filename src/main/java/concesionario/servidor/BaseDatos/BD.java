@@ -2787,21 +2787,21 @@ public class BD {
 	/**	  
 	 * Metodo para eliminar una Venta
 	 * @param st (Statement para la conexion)
-	 * @param codigoVenta (Codigo Identificativo de la Venta)
+	 * @param matricula (Matricula del Vehiculo de la Venta)
 	 * @return boolean (Respuesta afirvativa si todo esta bien)
 	 */
-	public static boolean ventasDelete(Statement st, String codigoVenta) {
-		String sentSQL = "";
-		try {
-			sentSQL = "delete from " + TABLA_VENTAS + " where codigoVenta= '" + secu(codigoVenta) + "'";
-			int val = st.executeUpdate(sentSQL);
-			return (val == 1);
-		} catch (SQLException e) {
-			lastError = e;
-			e.printStackTrace();
-			return false;
-		}	
-	}
+		public static boolean ventasDelete(Statement st, String matricula) {
+			String sentSQL = "";
+			try {
+				sentSQL = "delete from " + TABLA_VENTAS + " where matricula= '" + secu(matricula) + "'";
+				int val = st.executeUpdate(sentSQL);
+				return (val == 1);
+			} catch (SQLException e) {
+				lastError = e;
+				e.printStackTrace();
+				return false;
+			}	
+		}
 	
 	/**
 	 * Metodo para eliminar una Compra
