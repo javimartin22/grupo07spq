@@ -711,4 +711,82 @@ public class BDTest {
 		BD.cochesVendidodsInsert(st, "","", "", "", "", "");
 		assertTrue(BD.ventasDelete(st, ""));
 	}
+	
+	@Test
+	public void testSolicitudComprasDelete() {
+		BD.solicitudInsert(st, "", "", "", 1);
+		assertTrue(BD.solicitudCompraDelete(st, ""));
+	}
+	
+	@Test
+	public void testHorasEmpleadosTemporarlDelete() {
+		BD.HorasEmpleadoTemporalInsert(st, "", 1, 1);
+		assertTrue(BD.horasEmpleadoTemporarlDelete(st, ""));
+	}
+	
+	@Test
+	public void testHorasEmpleadosDelete() {
+		BD.HorasEmpleadoInsert(st, "", 1, 1);
+		assertTrue(BD.horasEmpleadoDelete(st, ""));
+	}
+	
+	@Test
+	public void TestHorasEmpleadoTemporalInsert() {
+		boolean bool = BD.HorasEmpleadoTemporalInsert(st, "", 1, 1);
+		assertTrue(bool);
+		boolean bool1 = BD.HorasEmpleadoTemporalInsert(st, "", 1, 1);
+		assertFalse(bool1);
+	}
+	
+	@Test
+	public void TestHoraEmpleadoTemporalSelect() {
+		BD.HorasEmpleadoTemporalInsert(st, "", 1, 1);
+		HorasEmpleados horasemp = BD.horaEmpleadoTemporalSelect(st, "");
+		assertTrue(horasemp != null);
+	}
+	
+	@Test
+	public void TestCitasDelMecanicoSelect() {
+		BD.mecanicosInsert(st, "", "", "", "", "", "", "", "", 1, "", "", "", "", 1, 1);
+		BD.CitaTallerInsert(st, "", "", "", "", "", "");
+		ResultSet rs = BD.citasDelMecanicoSelect(st, "");
+		assertTrue(rs != null);
+	}
+	
+	@Test
+	public void TestCitasDelComercialSelect() {
+		BD.comercialesInsert(st, "", "", "", "", "", "", "", "", 1, "", "", "", "", 1, 1, 1, 1);
+		BD.CitaComercialInsert(st, "", "", "", "", "");
+		ResultSet rs = BD.citasDelComercialSelect(st, "");
+		assertTrue(rs != null);
+	}
+	
+	@Test
+	public void TestFiltrarCitasMecanicoPorFecha() {
+		BD.mecanicosInsert(st, "", "", "", "", "", "", "", "", 1, "", "", "", "", 1, 1);
+		BD.CitaTallerInsert(st, "", "", "", "", "", "");				
+		ResultSet rs = BD.filtrarCitasMecanicoPorFecha(st, "", "");
+		assertTrue(rs != null);
+	}
+	
+	@Test
+	public void TestFiltrarCitasPorFecha() {
+		BD.comercialesInsert(st, "", "", "", "", "", "", "", "", 1, "", "", "", "", 1, 1, 1, 1);
+		BD.CitaComercialInsert(st, "", "", "", "", "");
+		ResultSet rs = BD.filtrarCitasPorFecha(st, "", "");
+		assertTrue(rs != null);
+	}
+	
+	@Test
+	public void TestCitasMecanicoDelete() {
+		BD.mecanicosInsert(st, "", "", "", "", "", "", "", "", 1, "", "", "", "", 1, 1);
+		BD.CitaTallerInsert(st, "", "", "", "", "", "");
+		assertTrue(BD.citasMecanicoDelete(st, "", ""));
+	}
+	
+	@Test
+	public void TestCitasComercialDelete() {
+		BD.CitaComercialInsert(st, "", "", "", "", "");
+		assertTrue(BD.citasComercialDelete(st, "", ""));
+	}
 }
