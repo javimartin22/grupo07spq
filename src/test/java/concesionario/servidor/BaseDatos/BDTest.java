@@ -776,10 +776,4 @@ public class BDTest {
 		ResultSet rs = BD.filtrarCitasPorFecha(st, "", "");
 		assertTrue(rs != null);
 	}
-	
-	@Test
-	public void TestCitasComercialDelete() {
-		BD.CitaComercialInsert(st, "", "", "", "", "");
-		assertTrue(BD.citasComercialDelete(st, "", ""));
-	}
 }
