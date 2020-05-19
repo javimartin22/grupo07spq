@@ -100,12 +100,14 @@ En caso de que el usuario no se encuentre registrado en la Base de Datos se disp
 * [PDFBox](https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox/2.0.1) - Creación de Documentos PDF.
 * [PDFBox Tutorial](https://www.tutorialspoint.com/pdfbox/index.htm) - Tutorial de PDFBox.
 * [JFreeChart](https://mvnrepository.com/artifact/org.jfree/jfreechart/1.0.18) - Generación de Graficos en Java.
+* [JCalendar](https://mvnrepository.com/artifact/com.toedter/jcalendar/1.4) - Seleccionador de Fechas gráficamente.
 * [JFreeChart Tutorial](https://www.tutorialspoint.com/jfreechart/index.htm) - Tutorial de JFreeCbart.
 * [Mockito](https://mvnrepository.com/artifact/org.mockito/mockito-core/2.18.0) - Mockito for Test Unitarios.
 * [PowerMock](https://mvnrepository.com/artifact/org.powermock/powermock-module-junit4/2.0.2) - PowerMock para testear métodos. estáticos.
 * [Contiperf](https://mvnrepository.com/artifact/org.databene/contiperf/2.3.4) - Contiperf para Test Rendimiento.
 * [Jacoco](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin/0.8.3) - Jacoco para Generar informe de cobertura.
 * [Logger](https://mvnrepository.com/artifact/log4j/log4j/1.2.17) - Logger para realizar documentos Logs.
+* [JavaDoc](https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin/3.2.0) - Plugin para la generación de Javadocs.
 
 
 ## Autores ✒️
