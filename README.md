@@ -29,6 +29,15 @@ Esta aplicació utiliza una Base de Datos SQLite la cual no es necesario crear n
 
 _A continuación se detallan los pasos necesarios para poder ejecutar el proyecto_
 
+_En caso de que se realice por primera vez la ejecucion del proyecto, se debe realizar los siguientes pasos:_
+
+```
+Hay que acceder desde la linea de comandos hasta el fichero raiz del proyecto (concesionario) en git.
+Ejecutar el siguiente comando:
+-mvn install
+```
+
+
 _Poner en marcha el servidor_
 
 ```
