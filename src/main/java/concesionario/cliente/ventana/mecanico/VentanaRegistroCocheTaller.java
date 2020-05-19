@@ -37,6 +37,7 @@ public class VentanaRegistroCocheTaller extends JFrame {
 	 * @param nickname (Nickname del mecanico)
 	 */
 	public VentanaRegistroCocheTaller (MecanicoController mecanicoController, String nickname) {
+		setTitle("Registro Coche Taller");
 		setResizable(false);
 		this.mecanicoController = mecanicoController;
 		iniciarVentanaRegistrarCocheTaller(nickname);

@@ -43,7 +43,9 @@ public class VentanaRegistroPresupuesto extends JFrame {
 	 * @param precio Coste del presupuesto
 	 */
 	public VentanaRegistroPresupuesto(MecanicoController mecanicoController, String nickname, int precio) {
+		setTitle("Registro Presupuesto");
 		setResizable(false);
+		
 		this.mecanicoController = mecanicoController;
 		ventanaPresupuesto(nickname, precio);
 	}
@@ -60,6 +62,7 @@ public class VentanaRegistroPresupuesto extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		/*
 		 * Boton que permite regresar a la clase VentanaVisualizarPresupuestos
 		 */

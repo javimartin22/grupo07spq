@@ -97,9 +97,9 @@ public class VentanaCochesConcesionario extends JFrame {
 	public void iniciarVentanaCochesConcesionario(String nickname){
 		
 		setAutoRequestFocus(false);
-		setBounds(100, 100, 992, 390);
+		setBounds(100, 100, 1004, 406);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Catalogo Comercial");
+		setTitle("Catalogo Coches Concesionario Comercial");
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		

@@ -51,6 +51,7 @@ public class VentanaEmpleados extends JFrame {
 		setLocationRelativeTo(null);
 		setTitle("Gestión de empleados");
 		getContentPane().setLayout(null);
+		setResizable(false);
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {

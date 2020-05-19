@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +50,7 @@ public class VentanaEstudioComerciales extends ApplicationFrame {
       super( applicationTitle );
       this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       setBounds(100, 100, 510, 278);
+      setLocationRelativeTo(null);
       
       JFreeChart barChart = ChartFactory.createBarChart(
          chartTitle,           
@@ -116,7 +116,6 @@ public class VentanaEstudioComerciales extends ApplicationFrame {
       for(Venta v: ventas) {
     	  esta = false;
     	  String comercial = v.getNicknameComercial();
-    	  System.out.println(comercial);
     	  comerciales.add(comercial);
       }
       //cuantos de cada directamente?
@@ -129,9 +128,6 @@ public class VentanaEstudioComerciales extends ApplicationFrame {
           else
               countMap.put(item, 1);
       }
-      
-      System.out.println(Arrays.asList(countMap));
-      
       
       final DefaultCategoryDataset dataset = 
       new DefaultCategoryDataset( );  

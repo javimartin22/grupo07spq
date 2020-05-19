@@ -37,6 +37,7 @@ public class VentanaVeryEditarTarifas extends JFrame {
 	 * @param nickname (Nickname del Gerente)
 	 */
 	public VentanaVeryEditarTarifas(GerenteController gerenteController, String nickname) {
+		setTitle("Visualizar Tarifas");
 		setResizable(false);
 		this.gerenteController = gerenteController;
 		inicializarVeryEditarTarifas(nickname);
@@ -48,6 +49,7 @@ public class VentanaVeryEditarTarifas extends JFrame {
 	public void inicializarVeryEditarTarifas(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 673, 339);
+		setLocationRelativeTo(null);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -108,8 +110,8 @@ public class VentanaVeryEditarTarifas extends JFrame {
 		JButton btnNewButton_1 = new JButton("Regresar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaMenuAdmin ventanaMenuAdmin = new VentanaMenuAdmin(gerenteController, nickname);
-				ventanaMenuAdmin.setVisible(true);
+				VentanaGestionTarifas vgt = new VentanaGestionTarifas(gerenteController, nickname);
+				vgt.setVisible(true);
 				dispose();
 			}
 		});

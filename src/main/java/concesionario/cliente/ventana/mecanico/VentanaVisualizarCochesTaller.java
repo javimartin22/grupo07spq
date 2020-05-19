@@ -43,7 +43,7 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 	 * @param nickname (Nickname del Mecanico).
 	 */
 	public VentanaVisualizarCochesTaller(MecanicoController mecanicoController, String nickname){
-		setTitle("Coches Taller");
+		setTitle("Visualizar Coches Taller");
 		setResizable(false);
 		this.mecanicoController = mecanicoController;
 		iniciarVentanaVisualizarCochesTaller(nickname);
@@ -55,7 +55,7 @@ public class VentanaVisualizarCochesTaller extends JFrame {
 	 */
 	public void iniciarVentanaVisualizarCochesTaller(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 807, 410);
+		setBounds(100, 100, 807, 434);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();

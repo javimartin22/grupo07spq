@@ -42,7 +42,6 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 		setResizable(false);
 		this.mecanicoController = loginController;
 		
-		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -91,9 +90,9 @@ public class VentanaCochesMatriculadosMecanico extends JFrame {
 	private void iniciarVentanaCochesMatriculadosMecanico(String nickname){
 		
 		setAutoRequestFocus(false);
-		setBounds(100, 100, 1020, 406);
+		setBounds(100, 100, 1020, 422);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Coches Matriculados");
+		setTitle("Historial de los Vehiculos");
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		

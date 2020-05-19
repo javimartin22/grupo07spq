@@ -110,7 +110,6 @@ public class LoginResources {
 	@Path("insertCocheConcesionario")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response registrarCocheConcesionario(CocheConcesionario auto) {
-		System.out.println(auto.getModelo());
 		con =BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
@@ -1118,7 +1117,6 @@ public class LoginResources {
 				String nombre = rs.getString("nombre");
 				String pais = rs.getString("pais");
 				String tipo = rs.getString("tipo");
-				System.out.println(codigo + " " + nombre + pais + tipo);
 				
 				Proveedor proveedor = new Proveedor(codigo, nombre, pais, tipo);	
 				pieza_result.add(proveedor);
@@ -1149,7 +1147,6 @@ public class LoginResources {
 				String nombre = rs.getString("nombre");
 				String pais = rs.getString("pais");
 				String tipo = rs.getString("tipo");
-				System.out.println(codigo + " " + nombre + pais + tipo);
 				
 				ProveedorHerramientas proveedor = new ProveedorHerramientas(codigo, nombre, pais, tipo);	
 				pieza_result.add(proveedor);
@@ -1281,7 +1278,6 @@ public class LoginResources {
 		List<CocheMatriculado> cochesMatric_result = new ArrayList<CocheMatriculado>();
 		
 		if (rs == null) {
-			System.out.println("No hay coches bd");
 			return cochesMatric_result;
 		} else {
 			
@@ -1319,7 +1315,6 @@ public class LoginResources {
 		List<Empleado> empleados_result = new ArrayList<Empleado>();
 		
 		if (rs == null) {
-			System.out.println("No hay empleados bd");
 			return empleados_result;
 		} else {
 			while(rs.next()) {
@@ -1361,7 +1356,6 @@ public class LoginResources {
 		List<Presupuesto> presupuestos_result = new ArrayList<Presupuesto>();
 		
 		if (rs == null) {
-			System.out.println("No hay empleados bd");
 			return presupuestos_result;
 		} else {
 			while(rs.next()) {
@@ -1421,7 +1415,6 @@ public class LoginResources {
 		List<Tarifa> tarifas_result = new ArrayList<Tarifa>();
 		
 		if (rs == null) {
-			System.out.println("No hay empleados bd");
 			return tarifas_result;
 		} else {
 			while(rs.next()) {
@@ -1464,9 +1457,6 @@ public class LoginResources {
 
 					Tarifa tarifa = new Tarifa(idTarifa, nomTarifa, precioAprox, horas_manodeobra);
 					tarifas.add(tarifa);
-				}
-				for(Tarifa t :tarifas) {
-					System.out.println(t.getPrecioAprox());
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -1591,7 +1581,6 @@ public class LoginResources {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces("application/json")
 	public Response filtrarVentaMarca(String marca) {
-		System.out.println(marca);
 		con = BD.initBD("Taller");
 		st = BD.usarCrearTablasBD(con);
 		
@@ -2078,7 +2067,6 @@ public class LoginResources {
 		List<ClienteFidelidad> clientes = new ArrayList<ClienteFidelidad>();
 		
 		if (rs == null) {
-			System.out.println("No hay empleados bd");
 		} else {
 			while(rs.next()) {
 				//Obtener atributos rs
@@ -2105,7 +2093,6 @@ public class LoginResources {
 		List<Comercial> comerciales = new ArrayList<Comercial>();
 		
 		if (rs == null) {
-			System.out.println("No hay empleados bd");
 		} else {
 			while(rs.next()) {
 				//Obtener atributos rs
@@ -2147,7 +2134,6 @@ public class LoginResources {
 		List<Mecanico> mecanicos = new ArrayList<Mecanico>();
 		
 		if (rs == null) {
-			System.out.println("No hay empleados bd");
 		} else {
 			while(rs.next()) {
 				//Obtener atributos rs

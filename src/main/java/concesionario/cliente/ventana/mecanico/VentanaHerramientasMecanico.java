@@ -37,7 +37,7 @@ public class VentanaHerramientasMecanico extends JFrame{
 	public VentanaHerramientasMecanico(MecanicoController VentanaHerramientasMecanico, String nickname) {
 		setResizable(false);
 		setTitle("Herramientas Taller");
-		this.mecanicoController = mecanicoController;
+		this.mecanicoController = VentanaHerramientasMecanico;
 		iniciarVentanaHerramientas(nickname);
 	}
 	
@@ -47,7 +47,7 @@ public class VentanaHerramientasMecanico extends JFrame{
 	 */
 	public void iniciarVentanaHerramientas(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(170, 100, 560, 353);
+		setBounds(170, 100, 560, 362);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -150,7 +150,6 @@ public class VentanaHerramientasMecanico extends JFrame{
 	 * @param table Tabla de HerramientasMecanico
 	 */
 		public void cargarTabla(JTable table) {
-			
 			List<HerramientasTaller> herramientas = mecanicoController.cargarHerramientasTaller();
 			String[] columnNames = {"Codigo", "Nombre", "Unidades", "Ubicacion"};
 			
@@ -198,12 +197,9 @@ public class VentanaHerramientasMecanico extends JFrame{
 						o[3] = h.getUbicacion();
 						model.addRow(o);
 					}
-
 				}
-				
-				
-
 			}
+			
 			if (tipo == 1) {
 				for (HerramientasTaller h : herramientas) {
 					if (h.getNombre().equals(filtro)) {
@@ -214,16 +210,11 @@ public class VentanaHerramientasMecanico extends JFrame{
 						o[3] = h.getUbicacion();
 						model.addRow(o);
 					}
-
 				}
-				
-				
-
 			}
 			
 			if(tipo==2) {
 				int filtroInt = Integer.parseInt(filtro);
-
 				for (HerramientasTaller h : herramientas) {
 					if (h.getUnidades()==filtroInt) {
 						Object[] o = new Object[7];
@@ -236,11 +227,8 @@ public class VentanaHerramientasMecanico extends JFrame{
 					else {
 						JOptionPane.showInputDialog("Introduzca el numero de unidades que desea:");
 					}
-
 				}
-				
 			}
-		
 		} 
 	}
 }

@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import concesionario.cliente.controller.ComercialController;
-import concesionario.cliente.ventana.cliente.VentanaVisualizarTarifas;
 import concesionario.datos.CitaComercial;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -53,15 +52,15 @@ public class VentanaVisualizarCitas extends JFrame {
 	 */
 	public void iniciarVentanaVisualizarCitas(String nickname) {
 		setResizable(false);
-		setTitle("Fidelidad de los clientes:");
-		setBounds(100, 100, 992, 400);
+		setTitle("Citas Concesionario");
+		setBounds(100, 100, 992, 408);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		
 		//scroller
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 18, 980, 274);
+		scrollPane.setBounds(20, 18, 945, 274);
 		getContentPane().add(scrollPane);
 		
 		//tabla
@@ -126,7 +125,7 @@ public class VentanaVisualizarCitas extends JFrame {
 			}
 		});
 		
-		btnNewButton.setBounds(557, 303, 117, 29);
+		btnNewButton.setBounds(848, 303, 117, 29);
 		getContentPane().add(btnNewButton);
 		
 		//boton para volver a la ventana VentanaMenuComercial
@@ -139,7 +138,7 @@ public class VentanaVisualizarCitas extends JFrame {
 			}
 		});
 		
-		btnVolve.setBounds(339, 303, 117, 29);
+		btnVolve.setBounds(708, 303, 117, 29);
 		getContentPane().add(btnVolve);
 	}
 	

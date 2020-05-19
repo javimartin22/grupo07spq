@@ -40,6 +40,7 @@ public class VentanaEstudioMercado extends ApplicationFrame {
       super( title ); 
       this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       setBounds(100, 100, 510, 278);
+      setLocationRelativeTo(null);
       
       JButton buttonVeryEditTarifas = new JButton("Volver");
 		buttonVeryEditTarifas.addActionListener(new ActionListener() {

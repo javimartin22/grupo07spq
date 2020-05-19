@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import concesionario.cliente.controller.ComercialController;
-import concesionario.cliente.ventana.cliente.VentanaVisualizarTarifas;
 import concesionario.datos.CocheConcesionario;
 
 import javax.swing.JButton;
@@ -69,8 +68,8 @@ public class VentanaRegistrarCocheConcesionario extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaCochesConcesionario vcc = new VentanaCochesConcesionario(comercialController, nickname);
-				vcc.setVisible(true);
+				VentanaMenuComercial vmc = new VentanaMenuComercial(comercialController, nickname);
+				vmc.setVisible(true);
 				dispose();
 			}
 		});

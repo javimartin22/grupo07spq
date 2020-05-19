@@ -33,6 +33,8 @@ public class VentanaInformacionPresupuesto extends JFrame {
 	 * @param presupuesto (Objeto presupuesto)
 	 */
 	public VentanaInformacionPresupuesto(MecanicoController mecanicoController, String nickname, Presupuesto presupuesto) {
+		setTitle("Informacion Presupuesto");
+		
 		setResizable(false);
 		this.mecanicoController = mecanicoController;
 		ventanaInformacionPresupuesto(nickname, presupuesto);
@@ -50,6 +52,7 @@ public class VentanaInformacionPresupuesto extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		/*
 		 * Label informacion presupuesto

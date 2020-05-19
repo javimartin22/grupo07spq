@@ -41,6 +41,7 @@ public class VentanaPiezasUtilizadas extends JFrame {
 	 * @param nickname (Nickname del departamento de compras)
 	 */
 	public VentanaPiezasUtilizadas(DepartmentoComprasController departmentoComprasController, String nickname) {
+		setTitle("Disposicion de Piezas");
 		setResizable(false);
 		this.departamentoComprasController = departmentoComprasController;
 		iniciarVentanaPiezasUtilizadas(nickname);
@@ -52,7 +53,7 @@ public class VentanaPiezasUtilizadas extends JFrame {
 	 */
 	public void  iniciarVentanaPiezasUtilizadas(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 712, 361);
+		setBounds(100, 100, 722, 371);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -111,7 +112,7 @@ public class VentanaPiezasUtilizadas extends JFrame {
 				dispose();
 			}
 		});
-		btnRegresar.setBounds(151, 267, 117, 29);
+		btnRegresar.setBounds(294, 267, 117, 29);
 		contentPane.add(btnRegresar);
 		
 		JButton btnCargarPiezas = new JButton("Cargar Todas");
@@ -120,24 +121,8 @@ public class VentanaPiezasUtilizadas extends JFrame {
 				cargarTabla(tabla);
 			}
 		});
-		btnCargarPiezas.setBounds(278, 267, 117, 29);
+		btnCargarPiezas.setBounds(421, 267, 117, 29);
 		contentPane.add(btnCargarPiezas);
-		
-		JButton btnNewButton = new JButton("Añadir Unidades");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String codigo = (String) tabla.getModel().getValueAt(tabla.getSelectedRow(), 0);
-				if (departamentoComprasController.seleccionarPiezaUtilizada(codigo) != null) {
-					anyadirUnidades(departamentoComprasController.seleccionarPiezaUtilizada(codigo));
-					logger.info("Unidades añdidas correctamente.");
-				} else {
-					logger.error("Fallo a la hora de añadir nuevas unidades.");
-					JOptionPane.showMessageDialog(contentPane, "La pieza seleccionada no existe.");;
-				} 
-			}
-		});
-		btnNewButton.setBounds(558, 267, 133, 29);
-		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Cargar Utilizadas");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -145,7 +130,7 @@ public class VentanaPiezasUtilizadas extends JFrame {
 				cargarTablaUtilizadas(tabla);
 			}
 		});
-		btnNewButton_1.setBounds(405, 266, 143, 29);
+		btnNewButton_1.setBounds(548, 266, 143, 29);
 		contentPane.add(btnNewButton_1);
 	}
 	
@@ -173,15 +158,6 @@ public class VentanaPiezasUtilizadas extends JFrame {
 		} else {
 			logger.error("No hay piezas.");
 		}
-	}
-		
-	/**
-	 * Metodo para anadir unidades a una Pieza
-	 * @param pieza (Objeto tipo Pieza).
-	 */	
-	private void anyadirUnidades(Pieza pieza) {
-		String u = JOptionPane.showInputDialog("¿Cuantas unidades desea suministrar?");
-		int unidades = Integer.parseInt(u);
 	}
 		
 	/**

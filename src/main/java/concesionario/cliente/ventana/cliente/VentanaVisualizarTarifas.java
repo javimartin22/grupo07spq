@@ -36,8 +36,8 @@ public class VentanaVisualizarTarifas extends JFrame {
 	static int iteration = 0;
 
 	public VentanaVisualizarTarifas(ClienteController clienteController, String nickname) {
-		setTitle("Catalogo de Tarifas");
 		setResizable(false);
+		setTitle("Visualizacion de Tarifas");
 		this.clienteController = clienteController;
 		ventanaVisualizarTarifas(nickname);
 	}
@@ -48,9 +48,9 @@ public class VentanaVisualizarTarifas extends JFrame {
 	 */
 	public void ventanaVisualizarTarifas(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
 		setBounds(100, 100, 706, 365);
-		
+		setLocationRelativeTo(null);
+
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		

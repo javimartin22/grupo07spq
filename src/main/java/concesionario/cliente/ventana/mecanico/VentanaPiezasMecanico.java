@@ -38,6 +38,7 @@ public class VentanaPiezasMecanico extends JFrame {
 	 * @param nickname (Nickname del mecanico)
 	 */
 	public VentanaPiezasMecanico(MecanicoController mecanicoController, String nickname) {
+		setTitle("Visualizacion de Piezas");
 		setResizable(false);
 		this.mecanicoController = mecanicoController;
 		iniciarVentanaPiezas(nickname);
@@ -49,7 +50,7 @@ public class VentanaPiezasMecanico extends JFrame {
 	 */
 	public void iniciarVentanaPiezas(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(170, 100, 560, 353);
+		setBounds(170, 100, 560, 374);
 		setLocationRelativeTo(null);
 		
 		/*

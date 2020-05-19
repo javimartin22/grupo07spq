@@ -75,33 +75,33 @@ public class VentanaRegistroTarifa extends JFrame {
 		JLabel lblInfo = new JLabel("Rellene los siguientes datos para registrar una nueva tarifa:");
 		lblInfo.setForeground(Color.RED);
 		lblInfo.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblInfo.setBounds(22, 11, 426, 16);
+		lblInfo.setBounds(10, 11, 426, 16);
 		contentPane.add(lblInfo);
 		
 		JLabel lblNombre = new JLabel("Nombre Tarifa: ");
-		lblNombre.setBounds(53, 52, 150, 16);
+		lblNombre.setBounds(22, 52, 181, 16);
 		contentPane.add(lblNombre);
 		
 		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(231, 47, 228, 26);
+		textFieldNombre.setBounds(251, 47, 228, 26);
 		contentPane.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
 		JLabel lblPrecioAprox = new JLabel("Estimacion Precio: ");
-		lblPrecioAprox.setBounds(53, 95, 150, 16);
+		lblPrecioAprox.setBounds(22, 95, 181, 16);
 		contentPane.add(lblPrecioAprox);
 		
 		textFieldPrecioAprox = new JTextField();
-		textFieldPrecioAprox.setBounds(231, 90, 228, 26);
+		textFieldPrecioAprox.setBounds(251, 90, 228, 26);
 		contentPane.add(textFieldPrecioAprox);
 		textFieldPrecioAprox.setColumns(10);
 		
-		JLabel lblHorasManoObra = new JLabel("Estimacion en horas Mano de Obra: ");
-		lblHorasManoObra.setBounds(53, 141, 150, 16);
+		JLabel lblHorasManoObra = new JLabel("Estimacion de Horas de Trabajo: ");
+		lblHorasManoObra.setBounds(22, 141, 199, 16);
 		contentPane.add(lblHorasManoObra);
 		
 		textFieldHorasManoObra = new JTextField();
-		textFieldHorasManoObra.setBounds(231, 136, 228, 26);
+		textFieldHorasManoObra.setBounds(251, 136, 228, 26);
 		contentPane.add(textFieldHorasManoObra);
 		textFieldHorasManoObra.setColumns(10);
 		

@@ -32,7 +32,7 @@ public class VentanaMenuDepartamentoCompras extends JFrame {
 	 */
 	public VentanaMenuDepartamentoCompras(DepartmentoComprasController departamentoComprasController, String nickname) {
 		setResizable(false);
-		setTitle("Menu departamento compras");
+		setTitle("Menu Departamento Compras");
 		this.departmentoComprasController = departamentoComprasController;
 		iniciarVentanaMenuDepartamentoCompras(nickname);
 	}

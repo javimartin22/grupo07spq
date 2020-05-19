@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +47,7 @@ public class VentanaEstudioMes extends ApplicationFrame {
       super( applicationTitle );
       this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       setBounds(100, 100, 510, 278);
+      this.setLocationRelativeTo(null);
       
       JFreeChart barChart = ChartFactory.createBarChart(
          chartTitle,           
@@ -109,7 +109,6 @@ public class VentanaEstudioMes extends ApplicationFrame {
     	  String fecha = v.getFecha();
     	  String[] parts = fecha.split("-");
     	  String mes = parts[2];
-    	  System.out.println(mes);
     	  meses.add(Integer.parseInt(mes));
       }
       //cuantos de cada directamente?
@@ -122,9 +121,6 @@ public class VentanaEstudioMes extends ApplicationFrame {
           else
               countMap.put(item, 1);
       }
-      
-      System.out.println(Arrays.asList(countMap));
-      
       
       final DefaultCategoryDataset dataset = 
       new DefaultCategoryDataset( );  

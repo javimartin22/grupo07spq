@@ -55,18 +55,18 @@ public class VentanaRegistroHerramientas extends JFrame {
 		setResizable(false);
 		setTitle("Registro de Nuevas Herramientas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 488, 281);
-		setLocationRelativeTo(null);
+		setBounds(100, 100, 525, 281);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		String ubicaciones [] = {"Alamacen 1 - Estanteria 1", "Almacen 1 - Estanteria 2", "Almacen 1 - Estanteria 3", "Almacen 2 - Estanteria 1", "Almacen 2 - Estanteria 2", "Almacen 2 - Estanteria 3"};
 		
 		JLabel lblNewLabel = new JLabel("Indique donde se almacenara la herramienta:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel.setForeground(Color.BLACK);
+		lblNewLabel.setForeground(Color.RED);
 		lblNewLabel.setBounds(22, 20, 426, 16);
 		contentPane.add(lblNewLabel);
 		
@@ -82,11 +82,11 @@ public class VentanaRegistroHerramientas extends JFrame {
 		
 		JLabel lblUbicacionDeLa = new JLabel("Ubicacion de la Herramienta:");
 		lblUbicacionDeLa.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblUbicacionDeLa.setBounds(53, 166, 150, 16);
+		lblUbicacionDeLa.setBounds(53, 166, 202, 16);
 		contentPane.add(lblUbicacionDeLa);
 		
 		comboBox = new JComboBox(ubicaciones);
-		comboBox.setBounds(233, 161, 228, 27);
+		comboBox.setBounds(265, 161, 228, 27);
 		contentPane.add(comboBox);
 		
 		JButton btnRegistrar = new JButton("Registrar");
@@ -112,11 +112,11 @@ public class VentanaRegistroHerramientas extends JFrame {
 		contentPane.add(btnCancelar);
 		
 		JLabel lblNewLabel_2 = new JLabel(herramienta.getNombre());
-		lblNewLabel_2.setBounds(231, 84, 217, 14);
+		lblNewLabel_2.setBounds(265, 85, 217, 14);
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel(cantidad + "");
-		lblNewLabel_3.setBounds(232, 123, 46, 14);
+		lblNewLabel_3.setBounds(266, 124, 46, 14);
 		contentPane.add(lblNewLabel_3);
 		
 		JLabel lblCodigoIdentificativo = new JLabel("Codigo Identificativo:");
@@ -125,7 +125,7 @@ public class VentanaRegistroHerramientas extends JFrame {
 		contentPane.add(lblCodigoIdentificativo);
 		
 		JLabel lblNewLabel_2_1 = new JLabel(obtenerCodigo());
-		lblNewLabel_2_1.setBounds(231, 47, 217, 14);
+		lblNewLabel_2_1.setBounds(265, 48, 217, 14);
 		contentPane.add(lblNewLabel_2_1);
 	}
 	

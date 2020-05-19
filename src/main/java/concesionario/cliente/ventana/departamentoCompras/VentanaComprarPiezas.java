@@ -49,7 +49,7 @@ public class VentanaComprarPiezas extends JFrame {
 	 * @param nickname (Nickname del Departamento de Compras)
 	 */
 	public void iniciarVentanaComprarPiezas(String nickname) {
-		setTitle("Comprar piezas");
+		setTitle("Comprar Piezas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 540, 367);
 		
@@ -57,8 +57,11 @@ public class VentanaComprarPiezas extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblNewLabel = new JLabel("Rellene los siguientes datos para realizar un pedido: ");
+		lblNewLabel.setForeground(Color.DARK_GRAY);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel.setBounds(22, 20, 426, 16);
 		contentPane.add(lblNewLabel);
 		
@@ -70,7 +73,7 @@ public class VentanaComprarPiezas extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(396, 266, 117, 29);
+		btnCancelar.setBounds(29, 266, 117, 29);
 		contentPane.add(btnCancelar);
 		
 		JLabel lblProveedor = new JLabel("Proveedor:");
@@ -119,7 +122,7 @@ public class VentanaComprarPiezas extends JFrame {
 		});
 
 		JButton btnInfo = new JButton("Ver informacion");
-		btnInfo.setBounds(23, 266, 135, 29);
+		btnInfo.setBounds(378, 266, 135, 29);
 		contentPane.add(btnInfo);
 		btnInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -129,7 +132,7 @@ public class VentanaComprarPiezas extends JFrame {
 				dispose();
 			}
 		});
-		btnVerPiezas.setBounds(396, 62, 117, 29);
+		btnVerPiezas.setBounds(378, 62, 135, 29);
 		contentPane.add(btnVerPiezas);
 		
 		JButton btnComprar = new JButton("Comprar");
@@ -163,7 +166,7 @@ public class VentanaComprarPiezas extends JFrame {
 				}
 			}
 		});
-		btnVerPrecio.setBounds(396, 213, 117, 29);
+		btnVerPrecio.setBounds(384, 213, 117, 29);
 		contentPane.add(btnVerPrecio);
 }
 	

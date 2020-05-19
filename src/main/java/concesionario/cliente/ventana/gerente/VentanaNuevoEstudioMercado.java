@@ -59,7 +59,7 @@ public class VentanaNuevoEstudioMercado extends JFrame {
 	 */
 	public void iniciarVentanaNuevoEstudioMercado(String nickname) {
 		setResizable(false);
-		setTitle("Estudio Mercado");
+		setTitle("Estudios Mercado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 454, 259);
 		setLocationRelativeTo(null);

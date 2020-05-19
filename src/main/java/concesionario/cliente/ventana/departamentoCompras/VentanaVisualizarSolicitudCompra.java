@@ -52,7 +52,7 @@ public class VentanaVisualizarSolicitudCompra extends JFrame {
 	 */
 	public void  iniciarVentanaHerramientasTaller(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 712, 361);
+		setBounds(100, 100, 726, 361);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -74,7 +74,7 @@ public class VentanaVisualizarSolicitudCompra extends JFrame {
 				dispose();
 			}
 		});
-		btnRegresar.setBounds(187, 267, 117, 29);
+		btnRegresar.setBounds(320, 278, 117, 29);
 		contentPane.add(btnRegresar);
 		
 		JButton btnCargarPiezas = new JButton("Cargar Todas");
@@ -83,7 +83,7 @@ public class VentanaVisualizarSolicitudCompra extends JFrame {
 				cargarTabla(tabla);
 			}
 		});
-		btnCargarPiezas.setBounds(316, 267, 117, 29);
+		btnCargarPiezas.setBounds(447, 278, 117, 29);
 		contentPane.add(btnCargarPiezas);
 		
 		JButton btnEliminar = new JButton("Eliminar");
@@ -106,7 +106,7 @@ public class VentanaVisualizarSolicitudCompra extends JFrame {
 			
 			}
 		});
-		btnEliminar.setBounds(447, 267, 117, 29);
+		btnEliminar.setBounds(574, 278, 117, 29);
 		contentPane.add(btnEliminar);
 	}
 	

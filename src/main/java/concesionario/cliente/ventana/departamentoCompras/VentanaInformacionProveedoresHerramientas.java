@@ -39,7 +39,7 @@ public class VentanaInformacionProveedoresHerramientas extends JFrame {
 	 * @param nickname (Nickname del DepartamentoCompras)
 	 */
 	public void  iniciarVentanaInformacionProveedoresHerramientas(ProveedorHerramientas proveedor, String nickname) {
-		setTitle("Informacion proveedores");
+		setTitle("Informacion Proveedores Herramientas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 388, 243);
 		contentPane = new JPanel();

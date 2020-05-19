@@ -152,7 +152,7 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 						String comercial = comboBox_1.getSelectedItem().toString();
 						if (comprobarFecha(fecha, hora, comercial)){
 							CitaComercial cita = new CitaComercial(textField.getText(), textField_1.getText(), fecha, hora, comercial);
-							registrarCitaComercial(cita);
+							registrarCitaComercial(cita, nickname);
 							
 						} else {
 							JOptionPane.showMessageDialog(contentPane, "La hora seleccionada no se encuentra disponible.");
@@ -200,9 +200,14 @@ public class VentanaSolicitudCitasComercial extends JFrame {
 	 * Metodo para registrar una nueva Cita.
 	 * @param citaComercial (Objeto CitaComercial).
 	 */
-	public void registrarCitaComercial(CitaComercial citaComercial) {
+	public void registrarCitaComercial(CitaComercial citaComercial, String nickname) {
 		if (clienteController.registroCitaComercial(citaComercial)) {
 			logger.info("Cita registrada correctamente.");
+			VentanaMenuCliente vmc = new VentanaMenuCliente(nickname, clienteController);
+			vmc.setVisible(true);
+			dispose();
+		} else {
+			logger.error("No se ha registrado correctamente.");
 		}
 	}
 }

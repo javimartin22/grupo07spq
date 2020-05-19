@@ -50,17 +50,19 @@ public class VentanaSolicitudCompra extends JFrame {
 	 * @param nickname (Nickname del mecanico)
 	 */
 	public void iniciarVentanaSolicitudCompra(String nickname) {
-		setTitle("Solicitar compra");
+		setTitle("Solicitud Compra Herramienta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 540, 272);
-		
+		setBounds(100, 100, 561, 288);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Rellene los siguientes datos para solicitar una compra: ");
-		lblNewLabel.setBounds(22, 20, 426, 16);
+		lblNewLabel.setForeground(Color.RED);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel.setBounds(10, 21, 426, 16);
 		contentPane.add(lblNewLabel);
 		
 		/*

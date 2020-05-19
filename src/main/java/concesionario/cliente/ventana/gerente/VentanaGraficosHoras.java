@@ -40,11 +40,12 @@ public VentanaGraficosHoras( String applicationTitle , String chartTitle, List<E
       super( applicationTitle );
       this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       setBounds(100, 100, 510, 304);
+      setLocationRelativeTo(null);
       
       JFreeChart barChart = ChartFactory.createBarChart(
          chartTitle,           
          "",            
-         "Num de Ventas",            
+         "Numero de Horas",            
          createDataset(empleados),          
          PlotOrientation.VERTICAL,           
          true, true, false);
@@ -72,7 +73,7 @@ public VentanaGraficosHoras( String applicationTitle , String chartTitle, List<E
  * @param empleados (Todas los empleados)
  */
    private CategoryDataset createDataset(List<EmpleadoHoras> empleados ) {
-      final String categoria = "Ventas Realizadas";
+      final String categoria = "Horas Trabajadas";
       
       HashMap<String, Integer> empleadosHoras = new HashMap<String, Integer>();
       for (EmpleadoHoras empleado : empleados) {

@@ -158,7 +158,7 @@ public class VentanaSolicitudCitaTaller extends JFrame {
 						String mecanico = comboBox_1.getSelectedItem().toString();
 						if (comprobarFecha(fecha, hora, mecanico)){
 							CitaTaller cita = new CitaTaller(textField.getText(), textField_1.getText(), fecha, hora, mecanico, textField_2.getText());
-							registrarCitaTaller(cita);
+							registrarCitaTaller(cita, nickname);
 						} else {
 							JOptionPane.showMessageDialog(contentPane, "La hora seleccionada no se encuentra disponible.");
 							logger.error("Error en el intento de registro de la cita.");
@@ -198,9 +198,14 @@ public class VentanaSolicitudCitaTaller extends JFrame {
 	 * Metodo para el registro de una nueva Cita en Taller.
 	 * @param citaTaller (Objeto CitaTaller).
 	 */
-	public void registrarCitaTaller(CitaTaller citaTaller) {
+	public void registrarCitaTaller(CitaTaller citaTaller, String nickname) {
 		if (clienteController.registroCitaTaller(citaTaller)) {
 			logger.info("Cita registrada correctamente.");
+			VentanaMenuCliente vmc = new VentanaMenuCliente(nickname, clienteController);
+			vmc.setVisible(true);
+			dispose();
+		} else {
+			logger.error("No se ha registrado correctamente.");
 		}
 	}
 }

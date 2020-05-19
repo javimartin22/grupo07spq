@@ -53,7 +53,7 @@ public class VentanaVisualizarCatalogo extends JFrame {
 	 */
 	public void ventanaVisualizarCatalogo(String nickname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 665, 361);
+		setBounds(100, 100, 682, 361);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();

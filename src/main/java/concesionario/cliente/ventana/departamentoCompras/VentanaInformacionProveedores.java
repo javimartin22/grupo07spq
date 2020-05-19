@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import concesionario.cliente.controller.DepartmentoComprasController;
 import concesionario.datos.Proveedor;
 import java.awt.Font;
+import java.awt.Color;
 
 /**
  * VentanaInformacionProveedores (Ventana para la visualizacion de la informacion de los Proveedores).
@@ -38,9 +39,9 @@ public class VentanaInformacionProveedores extends JFrame {
 	 * @param nickname (Nickname del DepartamentoCompras)
 	 */
 	public void  iniciarVentanaInformacionProveedores(Proveedor proveedor, String nickname) {
-		setTitle("Informacion proveedores");
+		setTitle("Informacion Proveedores Piezas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 424, 211);
+		setBounds(100, 100, 424, 242);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -48,30 +49,30 @@ public class VentanaInformacionProveedores extends JFrame {
 		
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		lblNombre.setBounds(6, 32, 61, 16);
+		lblNombre.setFont(new Font("Dialog", Font.BOLD, 11));
+		lblNombre.setBounds(24, 44, 61, 16);
 		contentPane.add(lblNombre);
 		
 		JLabel lblnomProv = new JLabel(proveedor.getNombre());
-		lblnomProv.setBounds(169, 32, 85, 16);
+		lblnomProv.setBounds(201, 45, 156, 16);
 		contentPane.add(lblnomProv);
 		
 		JLabel lblPais = new JLabel("Pais:");
-		lblPais.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		lblPais.setBounds(6, 71, 61, 16);
+		lblPais.setFont(new Font("Dialog", Font.BOLD, 11));
+		lblPais.setBounds(24, 83, 61, 16);
 		contentPane.add(lblPais);
 		
 		JLabel lblpaisProv = new JLabel(proveedor.getPais());
-		lblpaisProv.setBounds(169, 71, 156, 16);
+		lblpaisProv.setBounds(201, 84, 156, 16);
 		contentPane.add(lblpaisProv);
 		
 		JLabel lblTiposDePieza = new JLabel("Tipos de piezas:");
-		lblTiposDePieza.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		lblTiposDePieza.setBounds(6, 115, 135, 16);
+		lblTiposDePieza.setFont(new Font("Dialog", Font.BOLD, 11));
+		lblTiposDePieza.setBounds(24, 127, 135, 16);
 		contentPane.add(lblTiposDePieza);
 		
 		JLabel lbltiposProv = new JLabel(proveedor.getTipoPiezas());
-		lbltiposProv.setBounds(169, 115, 276, 16);
+		lbltiposProv.setBounds(201, 128, 187, 16);
 		contentPane.add(lbltiposProv);
 		
 		JButton btnSalir = new JButton("Salir");
@@ -83,7 +84,13 @@ public class VentanaInformacionProveedores extends JFrame {
 			}
 		});
 		
-		btnSalir.setBounds(147, 154, 117, 29);
+		btnSalir.setBounds(152, 173, 117, 29);
 		contentPane.add(btnSalir);
+		
+		JLabel lblNewLabel = new JLabel("Informacion de los Proveedores de Piezas:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel.setForeground(Color.RED);
+		lblNewLabel.setBounds(10, 7, 378, 14);
+		contentPane.add(lblNewLabel);
 	}
 }

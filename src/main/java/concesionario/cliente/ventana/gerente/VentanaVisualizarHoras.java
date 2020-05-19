@@ -41,6 +41,7 @@ public class VentanaVisualizarHoras extends JFrame {
 	 * @param nickname (Nickname del Gerente)
 	 */
 	public VentanaVisualizarHoras(GerenteController gerenteController, String nickname) {
+		setTitle("Visualizacion de Horas");
 		this.gerenteController = gerenteController;
 		ventanaVisualizarHoras(nickname);
 	}

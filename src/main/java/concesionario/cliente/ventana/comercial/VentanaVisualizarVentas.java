@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import concesionario.cliente.controller.ComercialController;
-import concesionario.cliente.ventana.cliente.VentanaVisualizarTarifas;
 import concesionario.datos.Venta;
 
 import javax.swing.JMenuBar;
@@ -70,11 +69,11 @@ public class VentanaVisualizarVentas extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(867, 303, 117, 29);
+		btnVolver.setBounds(850, 303, 117, 29);
 		getContentPane().add(btnVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 18, 980, 274);
+		scrollPane.setBounds(21, 18, 946, 274);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -86,7 +85,7 @@ public class VentanaVisualizarVentas extends JFrame {
 				resetearTabla(table);
 			}
 		});
-		btnNewButton.setBounds(740, 303, 117, 29);
+		btnNewButton.setBounds(723, 303, 117, 29);
 		getContentPane().add(btnNewButton);
 		
 		JButton btnVolve = new JButton("Volver");
@@ -97,7 +96,7 @@ public class VentanaVisualizarVentas extends JFrame {
 				dispose();
 			}
 		});
-		btnVolve.setBounds(613, 303, 117, 29);
+		btnVolve.setBounds(596, 303, 117, 29);
 		getContentPane().add(btnVolve);
 		
 		JMenuBar menuBar_1 = new JMenuBar();
