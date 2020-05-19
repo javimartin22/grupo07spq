@@ -1,6 +1,6 @@
 # Concesionario-Taller
 
-[![Build Status](https://travis-ci.org/javimartin22/grupo07spq.svg?branch=master)](https://travis-ci.org/javimartin22/grupo07spq)
+
 
 Proyecto cliente-servidor que simula la gestión de un concesionario e implementa funcionalidad tanto para los clientes como para los distintos tipos de empleados.
 
